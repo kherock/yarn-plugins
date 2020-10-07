@@ -23,6 +23,54 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:."
       },
       {
+        "name": "@example/lorem-ipsum",
+        "reference": "workspace:examples/lorem-ipsum"
+      },
+      {
+        "name": "@example/phrase-in-hac",
+        "reference": "workspace:examples/phrases/in-hac"
+      },
+      {
+        "name": "@example/phrase-lorem-ipsum",
+        "reference": "workspace:examples/phrases/lorem-ipsum"
+      },
+      {
+        "name": "@example/phrase-nullam-risus",
+        "reference": "workspace:examples/phrases/nullam-risus"
+      },
+      {
+        "name": "@example/adipiscing",
+        "reference": "workspace:examples/words/adipiscing"
+      },
+      {
+        "name": "@example/amet",
+        "reference": "workspace:examples/words/amet"
+      },
+      {
+        "name": "@example/consectetur",
+        "reference": "workspace:examples/words/consectetur"
+      },
+      {
+        "name": "@example/dolor",
+        "reference": "workspace:examples/words/dolor"
+      },
+      {
+        "name": "@example/elit",
+        "reference": "workspace:examples/words/elit"
+      },
+      {
+        "name": "@example/ipsum",
+        "reference": "workspace:examples/words/ipsum"
+      },
+      {
+        "name": "@example/lorem",
+        "reference": "workspace:examples/words/lorem"
+      },
+      {
+        "name": "@example/sit",
+        "reference": "workspace:examples/words/sit"
+      },
+      {
         "name": "@kherock/yarn-plugin-workspaces-export",
         "reference": "workspace:packages/plugin-workspaces-export"
       }
@@ -30,6 +78,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
+      ["@example/adipiscing", ["workspace:examples/words/adipiscing"]],
+      ["@example/amet", ["workspace:examples/words/amet"]],
+      ["@example/consectetur", ["workspace:examples/words/consectetur"]],
+      ["@example/dolor", ["workspace:examples/words/dolor"]],
+      ["@example/elit", ["workspace:examples/words/elit"]],
+      ["@example/ipsum", ["workspace:examples/words/ipsum"]],
+      ["@example/lorem", ["workspace:examples/words/lorem"]],
+      ["@example/lorem-ipsum", ["workspace:examples/lorem-ipsum"]],
+      ["@example/phrase-in-hac", ["workspace:examples/phrases/in-hac"]],
+      ["@example/phrase-lorem-ipsum", ["workspace:examples/phrases/lorem-ipsum"]],
+      ["@example/phrase-nullam-risus", ["workspace:examples/phrases/nullam-risus"]],
+      ["@example/sit", ["workspace:examples/words/sit"]],
       ["@kherock/yarn-plugin-workspaces-export", ["workspace:packages/plugin-workspaces-export"]],
       ["@kherock/yarn-plugins", ["workspace:."]]
     ],
@@ -540,6 +600,154 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@example/adipiscing", [
+        ["workspace:examples/words/adipiscing", {
+          "packageLocation": "./examples/words/adipiscing/",
+          "packageDependencies": [
+            ["@example/adipiscing", "workspace:examples/words/adipiscing"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/amet", [
+        ["workspace:examples/words/amet", {
+          "packageLocation": "./examples/words/amet/",
+          "packageDependencies": [
+            ["@example/amet", "workspace:examples/words/amet"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/consectetur", [
+        ["workspace:examples/words/consectetur", {
+          "packageLocation": "./examples/words/consectetur/",
+          "packageDependencies": [
+            ["@example/consectetur", "workspace:examples/words/consectetur"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/dolor", [
+        ["workspace:examples/words/dolor", {
+          "packageLocation": "./examples/words/dolor/",
+          "packageDependencies": [
+            ["@example/dolor", "workspace:examples/words/dolor"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/elit", [
+        ["workspace:examples/words/elit", {
+          "packageLocation": "./examples/words/elit/",
+          "packageDependencies": [
+            ["@example/elit", "workspace:examples/words/elit"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/ipsum", [
+        ["workspace:examples/words/ipsum", {
+          "packageLocation": "./examples/words/ipsum/",
+          "packageDependencies": [
+            ["@example/ipsum", "workspace:examples/words/ipsum"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/lorem", [
+        ["workspace:examples/words/lorem", {
+          "packageLocation": "./examples/words/lorem/",
+          "packageDependencies": [
+            ["@example/lorem", "workspace:examples/words/lorem"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/lorem-ipsum", [
+        ["workspace:examples/lorem-ipsum", {
+          "packageLocation": "./examples/lorem-ipsum/",
+          "packageDependencies": [
+            ["@example/lorem-ipsum", "workspace:examples/lorem-ipsum"],
+            ["@example/phrase-lorem-ipsum", "workspace:examples/phrases/lorem-ipsum"],
+            ["@types/node", "npm:14.11.2"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/phrase-in-hac", [
+        ["workspace:examples/phrases/in-hac", {
+          "packageLocation": "./examples/phrases/in-hac/",
+          "packageDependencies": [
+            ["@example/phrase-in-hac", "workspace:examples/phrases/in-hac"],
+            ["@example/consectetur", "workspace:examples/words/consectetur"],
+            ["@example/elit", "workspace:examples/words/elit"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/phrase-lorem-ipsum", [
+        ["workspace:examples/phrases/lorem-ipsum", {
+          "packageLocation": "./examples/phrases/lorem-ipsum/",
+          "packageDependencies": [
+            ["@example/phrase-lorem-ipsum", "workspace:examples/phrases/lorem-ipsum"],
+            ["@example/adipiscing", "workspace:examples/words/adipiscing"],
+            ["@example/amet", "workspace:examples/words/amet"],
+            ["@example/consectetur", "workspace:examples/words/consectetur"],
+            ["@example/dolor", "workspace:examples/words/dolor"],
+            ["@example/elit", "workspace:examples/words/elit"],
+            ["@example/ipsum", "workspace:examples/words/ipsum"],
+            ["@example/lorem", "workspace:examples/words/lorem"],
+            ["@example/phrase-in-hac", "workspace:examples/phrases/in-hac"],
+            ["@example/phrase-nullam-risus", "workspace:examples/phrases/nullam-risus"],
+            ["@example/sit", "workspace:examples/words/sit"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/phrase-nullam-risus", [
+        ["workspace:examples/phrases/nullam-risus", {
+          "packageLocation": "./examples/phrases/nullam-risus/",
+          "packageDependencies": [
+            ["@example/phrase-nullam-risus", "workspace:examples/phrases/nullam-risus"],
+            ["@example/adipiscing", "workspace:examples/words/adipiscing"],
+            ["@example/dolor", "workspace:examples/words/dolor"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["@example/sit", [
+        ["workspace:examples/words/sit", {
+          "packageLocation": "./examples/words/sit/",
+          "packageDependencies": [
+            ["@example/sit", "workspace:examples/words/sit"],
+            ["tslib", "npm:2.0.1"],
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@istanbuljs/load-nyc-config", [
         ["npm:1.1.0", {
           "packageLocation": "./.yarn/cache/@istanbuljs-load-nyc-config-npm-1.1.0-42d17c9cb1-f7f3b1c922.zip/node_modules/@istanbuljs/load-nyc-config/",
@@ -782,6 +990,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/plugin-workspaces-export/",
           "packageDependencies": [
             ["@kherock/yarn-plugin-workspaces-export", "workspace:packages/plugin-workspaces-export"],
+            ["@types/tar-stream", "npm:2.1.0"],
             ["@yarnpkg/builder", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#npm:2.1.2"],
             ["@yarnpkg/cli", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#npm:2.3.3"],
             ["@yarnpkg/core", "npm:2.3.1"],
@@ -790,6 +999,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pack", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#npm:2.2.2"],
             ["@yarnpkg/plugin-pnp", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#npm:2.3.1"],
             ["clipanion", "npm:2.6.2"],
+            ["tar-stream", "npm:2.1.4"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5bf698"]
           ],
@@ -1154,6 +1364,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-stack-utils-npm-2.0.0-8ded8461bc-662312302e.zip/node_modules/@types/stack-utils/",
           "packageDependencies": [
             ["@types/stack-utils", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/tar-stream", [
+        ["npm:2.1.0", {
+          "packageLocation": "./.yarn/cache/@types-tar-stream-npm-2.1.0-d1e5133091-8cb13723e1.zip/node_modules/@types/tar-stream/",
+          "packageDependencies": [
+            ["@types/tar-stream", "npm:2.1.0"],
+            ["@types/node", "npm:14.11.2"]
           ],
           "linkType": "HARD",
         }]
@@ -1657,7 +1877,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pretty-bytes", "npm:5.1.0"],
             ["semver", "npm:7.3.2"],
             ["stream-to-promise", "npm:2.2.0"],
-            ["tar-stream", "npm:2.0.1"],
+            ["tar-stream", "npm:2.1.4"],
             ["treeify", "npm:1.1.0"],
             ["tslib", "npm:1.13.0"],
             ["tunnel", "npm:0.0.6"]
@@ -2025,7 +2245,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/fslib", "npm:2.3.0"],
             ["clipanion", "npm:2.6.2"],
             ["micromatch", "npm:4.0.2"],
-            ["tar-stream", "npm:2.0.1"],
+            ["tar-stream", "npm:2.1.4"],
             ["tslib", "npm:1.13.0"]
           ],
           "packagePeers": [
@@ -2771,6 +2991,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["base64-js", [
+        ["npm:1.3.1", {
+          "packageLocation": "./.yarn/cache/base64-js-npm-1.3.1-8625be908e-8a0cc69d7c.zip/node_modules/base64-js/",
+          "packageDependencies": [
+            ["base64-js", "npm:1.3.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["bcrypt-pbkdf", [
         ["npm:1.0.2", {
           "packageLocation": "./.yarn/cache/bcrypt-pbkdf-npm-1.0.2-80db8b16ed-3f57eb99bb.zip/node_modules/bcrypt-pbkdf/",
@@ -2800,11 +3029,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["bl", [
-        ["npm:3.0.0", {
-          "packageLocation": "./.yarn/cache/bl-npm-3.0.0-51c177509b-9222f6b9cb.zip/node_modules/bl/",
+        ["npm:4.0.3", {
+          "packageLocation": "./.yarn/cache/bl-npm-4.0.3-4670d76538-1f33c5a3da.zip/node_modules/bl/",
           "packageDependencies": [
-            ["bl", "npm:3.0.0"],
-            ["readable-stream", "npm:3.2.0"]
+            ["bl", "npm:4.0.3"],
+            ["buffer", "npm:5.6.0"],
+            ["inherits", "npm:2.0.4"],
+            ["readable-stream", "npm:3.6.0"]
           ],
           "linkType": "HARD",
         }]
@@ -2875,6 +3106,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["bser", "npm:2.0.0"],
             ["node-int64", "npm:0.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["buffer", [
+        ["npm:5.6.0", {
+          "packageLocation": "./.yarn/cache/buffer-npm-5.6.0-e1494693bf-e18fdf099c.zip/node_modules/buffer/",
+          "packageDependencies": [
+            ["buffer", "npm:5.6.0"],
+            ["base64-js", "npm:1.3.1"],
+            ["ieee754", "npm:1.1.13"]
           ],
           "linkType": "HARD",
         }]
@@ -4626,7 +4868,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["glob", "npm:7.1.6"],
             ["fs.realpath", "npm:1.0.0"],
             ["inflight", "npm:1.0.6"],
-            ["inherits", "npm:2.0.3"],
+            ["inherits", "npm:2.0.4"],
             ["minimatch", "npm:3.0.4"],
             ["once", "npm:1.4.0"],
             ["path-is-absolute", "npm:1.0.1"]
@@ -4916,6 +5158,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["ieee754", [
+        ["npm:1.1.13", {
+          "packageLocation": "./.yarn/cache/ieee754-npm-1.1.13-a57522ba12-9ef12932e8.zip/node_modules/ieee754/",
+          "packageDependencies": [
+            ["ieee754", "npm:1.1.13"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["ignore", [
         ["npm:4.0.6", {
           "packageLocation": "./.yarn/cache/ignore-npm-4.0.6-66c0d6543e-8f7b7f7c26.zip/node_modules/ignore/",
@@ -4993,10 +5244,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["inherits", [
-        ["npm:2.0.3", {
-          "packageLocation": "./.yarn/cache/inherits-npm-2.0.3-401e64b080-9488f9433e.zip/node_modules/inherits/",
+        ["npm:2.0.4", {
+          "packageLocation": "./.yarn/cache/inherits-npm-2.0.4-c66b3957a0-98426da247.zip/node_modules/inherits/",
           "packageDependencies": [
-            ["inherits", "npm:2.0.3"]
+            ["inherits", "npm:2.0.4"]
           ],
           "linkType": "HARD",
         }]
@@ -7550,7 +7801,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["readable-stream", "npm:2.3.7"],
             ["core-util-is", "npm:1.0.2"],
-            ["inherits", "npm:2.0.3"],
+            ["inherits", "npm:2.0.4"],
             ["isarray", "npm:1.0.0"],
             ["process-nextick-args", "npm:2.0.0"],
             ["safe-buffer", "npm:5.1.2"],
@@ -7559,11 +7810,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:3.2.0", {
-          "packageLocation": "./.yarn/cache/readable-stream-npm-3.2.0-1fb3a5a0b1-15d018a55e.zip/node_modules/readable-stream/",
+        ["npm:3.6.0", {
+          "packageLocation": "./.yarn/cache/readable-stream-npm-3.6.0-23a4a5eb56-f178b1daa8.zip/node_modules/readable-stream/",
           "packageDependencies": [
-            ["readable-stream", "npm:3.2.0"],
-            ["inherits", "npm:2.0.3"],
+            ["readable-stream", "npm:3.6.0"],
+            ["inherits", "npm:2.0.4"],
             ["string_decoder", "npm:1.2.0"],
             ["util-deprecate", "npm:1.0.2"]
           ],
@@ -8619,15 +8870,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["tar-stream", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/tar-stream-npm-2.0.1-c970ce894b-963b861f61.zip/node_modules/tar-stream/",
+        ["npm:2.1.4", {
+          "packageLocation": "./.yarn/cache/tar-stream-npm-2.1.4-5f7040c9c5-d0414b07c2.zip/node_modules/tar-stream/",
           "packageDependencies": [
-            ["tar-stream", "npm:2.0.1"],
-            ["bl", "npm:3.0.0"],
+            ["tar-stream", "npm:2.1.4"],
+            ["bl", "npm:4.0.3"],
             ["end-of-stream", "npm:1.4.1"],
             ["fs-constants", "npm:1.0.0"],
-            ["inherits", "npm:2.0.3"],
-            ["readable-stream", "npm:3.2.0"]
+            ["inherits", "npm:2.0.4"],
+            ["readable-stream", "npm:3.6.0"]
           ],
           "linkType": "HARD",
         }]

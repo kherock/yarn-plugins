@@ -23,11 +23,11 @@ import {
   ppath,
   xfs,
 } from "@yarnpkg/fslib";
-import {getLibzipPromise}                      from '@yarnpkg/libzip';
-import {packUtils}                             from "@yarnpkg/plugin-pack";
-import {Command, Usage}                        from "clipanion";
+import {getLibzipPromise}                                             from '@yarnpkg/libzip';
+import {packUtils}                                                    from "@yarnpkg/plugin-pack";
+import {Command, Usage}                                               from "clipanion";
 
-import {genPackTgz, makeFetcher, makeResolver} from '../exportUtils';
+import {genPackTgz, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
 
 // eslint-disable-next-line arca/no-default-export
 export default class WorkspacesExportCommand extends BaseCommand {
@@ -189,12 +189,28 @@ export default class WorkspacesExportCommand extends BaseCommand {
           });
           await baseFs.removePromise(DEFAULT_LOCK_FILENAME);
           await baseFs.removePromise(tmpConfiguration.get(`bstatePath`));
+          // if (nodeLinker === `node-modules`)
+          //   // node-modules linker doesn't need its cache folder
+          //   await baseFs.removePromise(tmpConfiguration.get(`cacheFolder`));
 
-          const libzip = await getLibzipPromise();
-          const zipFs = new ZipFS(target, {create: true, libzip});
+          if (target.endsWith(`.zip`)) {
+            report.reportJson({output: target, format: `zip`});
+            const libzip = await getLibzipPromise();
+            const zipFs = new ZipFS(target, {create: true, libzip});
 
-          await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
-          await zipFs.saveAndClose();
+            await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
+            await zipFs.saveAndClose();
+          } else {
+            const gzip = await makeGzipFromDirectory(tmpDir);
+            const write = xfs.createWriteStream(target);
+
+            gzip.pipe(write);
+
+            await new Promise(resolve => {
+              write.on(`finish`, resolve);
+            });
+            report.reportJson({output: target, format: `gzip`});
+          }
 
           report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(configuration, target, `magenta`)}`);
           report.reportJson({output: target});

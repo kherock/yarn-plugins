@@ -402,6 +402,130 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@example/adipiscing@workspace:*, @example/adipiscing@workspace:examples/words/adipiscing":
+  version: 0.0.0-use.local
+  resolution: "@example/adipiscing@workspace:examples/words/adipiscing"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/amet@workspace:*, @example/amet@workspace:examples/words/amet":
+  version: 0.0.0-use.local
+  resolution: "@example/amet@workspace:examples/words/amet"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/consectetur@workspace:*, @example/consectetur@workspace:examples/words/consectetur":
+  version: 0.0.0-use.local
+  resolution: "@example/consectetur@workspace:examples/words/consectetur"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/dolor@workspace:*, @example/dolor@workspace:examples/words/dolor":
+  version: 0.0.0-use.local
+  resolution: "@example/dolor@workspace:examples/words/dolor"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/elit@workspace:*, @example/elit@workspace:examples/words/elit":
+  version: 0.0.0-use.local
+  resolution: "@example/elit@workspace:examples/words/elit"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/ipsum@workspace:*, @example/ipsum@workspace:examples/words/ipsum":
+  version: 0.0.0-use.local
+  resolution: "@example/ipsum@workspace:examples/words/ipsum"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/lorem-ipsum@workspace:examples/lorem-ipsum":
+  version: 0.0.0-use.local
+  resolution: "@example/lorem-ipsum@workspace:examples/lorem-ipsum"
+  dependencies:
+    "@example/phrase-lorem-ipsum": "workspace:*"
+    "@types/node": ^14.11.2
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/lorem@workspace:*, @example/lorem@workspace:examples/words/lorem":
+  version: 0.0.0-use.local
+  resolution: "@example/lorem@workspace:examples/words/lorem"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/phrase-in-hac@workspace:*, @example/phrase-in-hac@workspace:examples/phrases/in-hac":
+  version: 0.0.0-use.local
+  resolution: "@example/phrase-in-hac@workspace:examples/phrases/in-hac"
+  dependencies:
+    "@example/consectetur": "workspace:*"
+    "@example/elit": "workspace:*"
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/phrase-lorem-ipsum@workspace:*, @example/phrase-lorem-ipsum@workspace:examples/phrases/lorem-ipsum":
+  version: 0.0.0-use.local
+  resolution: "@example/phrase-lorem-ipsum@workspace:examples/phrases/lorem-ipsum"
+  dependencies:
+    "@example/adipiscing": "workspace:*"
+    "@example/amet": "workspace:*"
+    "@example/consectetur": "workspace:*"
+    "@example/dolor": "workspace:*"
+    "@example/elit": "workspace:*"
+    "@example/ipsum": "workspace:*"
+    "@example/lorem": "workspace:*"
+    "@example/phrase-in-hac": "workspace:*"
+    "@example/phrase-nullam-risus": "workspace:*"
+    "@example/sit": "workspace:*"
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/phrase-nullam-risus@workspace:*, @example/phrase-nullam-risus@workspace:examples/phrases/nullam-risus":
+  version: 0.0.0-use.local
+  resolution: "@example/phrase-nullam-risus@workspace:examples/phrases/nullam-risus"
+  dependencies:
+    "@example/adipiscing": "workspace:*"
+    "@example/dolor": "workspace:*"
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
+"@example/sit@workspace:*, @example/sit@workspace:examples/words/sit":
+  version: 0.0.0-use.local
+  resolution: "@example/sit@workspace:examples/words/sit"
+  dependencies:
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -633,6 +757,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kherock/yarn-plugin-workspaces-export@workspace:packages/plugin-workspaces-export"
   dependencies:
+    "@types/tar-stream": ^2.1.0
     "@yarnpkg/builder": ^2.1.2
     "@yarnpkg/cli": ^2.3.1
     "@yarnpkg/core": ^2.3.1
@@ -641,6 +766,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^2.2.1
     "@yarnpkg/plugin-pnp": ^2.3.1
     clipanion: ^2.6.2
+    tar-stream: ^2.1.4
     tslib: ^2.0.1
     typescript: ~4.0.3
   languageName: unknown
@@ -960,6 +1086,15 @@ __metadata:
   version: 2.0.0
   resolution: "@types/stack-utils@npm:2.0.0"
   checksum: 662312302e07685c99a1c45c6753eb997b31d2af66e646c5937f62d593a63a111289503d0b06a8d1e6f3922b67fc2ed94889d84653a08861a7fee67b81ce5b92
+  languageName: node
+  linkType: hard
+
+"@types/tar-stream@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@types/tar-stream@npm:2.1.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 8cb13723e123cf35cfb15abae7118ae5a91d37e6deafb8ae5b9c02566d3862e1fa3f582060550630e87d724014d51e394f517cb9b5805b70c6f6a9e80a3b6754
   languageName: node
   linkType: hard
 
@@ -2201,6 +2336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base64-js@npm:^1.0.2":
+  version: 1.3.1
+  resolution: "base64-js@npm:1.3.1"
+  checksum: 8a0cc69d7c7c0ab75c164d3e2eccc3dd65fbaba17bcf440aab54636afd31255287ac3cd16a111e98d741c4a6e0b5631774b0c32818355089e645df3ae96a49bb
+  languageName: node
+  linkType: hard
+
 "base@npm:^0.11.1":
   version: 0.11.2
   resolution: "base@npm:0.11.2"
@@ -2239,12 +2381,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bl@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "bl@npm:3.0.0"
+"bl@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "bl@npm:4.0.3"
   dependencies:
-    readable-stream: ^3.0.1
-  checksum: 9222f6b9cb5860ef77a25a1249752d71682a455cc5a7f43cc93194b7b1090d2bbdf3fc9e3f336f6f78cf4c391b5f807a58d8bbc8b01a40dd049532f811aae9af
+    buffer: ^5.5.0
+    inherits: ^2.0.4
+    readable-stream: ^3.4.0
+  checksum: 1f33c5a3da08a87260a7f11acadf088ef331ebb4b86db1160ec332be9326afdf9f73dca1fd5cc431dba7cc9d5574b508192f9fd7c37a9a11c9e4a50025917690
   languageName: node
   linkType: hard
 
@@ -2319,6 +2463,16 @@ __metadata:
   version: 1.1.1
   resolution: "buffer-from@npm:1.1.1"
   checksum: 540ceb79c4f5bfcadaabbc18324fa84c50dc52905084be7c03596a339cf5a88513bee6831ce9b36ddd046fab09257a7c80686e129d0559a0cfd141da196ad956
+  languageName: node
+  linkType: hard
+
+"buffer@npm:^5.5.0":
+  version: 5.6.0
+  resolution: "buffer@npm:5.6.0"
+  dependencies:
+    base64-js: ^1.0.2
+    ieee754: ^1.1.4
+  checksum: e18fdf099c25cae354d673c7deee0391978bde5a47b785cf81e118c75853f0f36838b0a5ea5ee7adf8c02eedb9664292608efdcac9945f4f4f514d14054656f7
   languageName: node
   linkType: hard
 
@@ -4121,6 +4275,13 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"ieee754@npm:^1.1.4":
+  version: 1.1.13
+  resolution: "ieee754@npm:1.1.13"
+  checksum: 9ef12932e8aeae1c614f314783b3770fac5daae7ae92ebffcda97da58efd77c0289181093666f6048e02c566ceeec4d0edf3b04b57ce8e0b57e9b3814a870469
+  languageName: node
+  linkType: hard
+
 "ignore@npm:^4.0.6":
   version: 4.0.6
   resolution: "ignore@npm:4.0.6"
@@ -4188,10 +4349,10 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"inherits@npm:2, inherits@npm:^2.0.3, inherits@npm:~2.0.3":
-  version: 2.0.3
-  resolution: "inherits@npm:2.0.3"
-  checksum: 9488f9433effbc24474f6baee8014e5337c7f99305ecb4204fa5864ae7655c24225780d87fc65ed8d3d374715a18c5dc8c69fe3bf9745cde2e7acd0ac068a07b
+"inherits@npm:2, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.3":
+  version: 2.0.4
+  resolution: "inherits@npm:2.0.4"
+  checksum: 98426da247ddfc3dcd7d7daedd90c3ca32d5b08deca08949726f12d49232aef94772a07b36cf4ff833e105ae2ef931777f6de4a6dd8245a216b9299ad4a50bea
   languageName: node
   linkType: hard
 
@@ -6507,14 +6668,14 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.0.1, readable-stream@npm:^3.1.1":
-  version: 3.2.0
-  resolution: "readable-stream@npm:3.2.0"
+"readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0":
+  version: 3.6.0
+  resolution: "readable-stream@npm:3.6.0"
   dependencies:
     inherits: ^2.0.3
     string_decoder: ^1.1.1
     util-deprecate: ^1.0.1
-  checksum: 15d018a55e3bfaa234395c41bf99636c165961489b537aec47d3387d0ee779030447ec0955b5ccbc17b1792e26f366df4d65562aab548c8029fc5115e80f931f
+  checksum: f178b1daa80d9e58ebba71dbb08486430aa6f0dea3a22a1b7401f3f6983077d0bc0edea43099db06b8d006c9ad48d6383e8fb72c05d5b187670aeaf1b9b44f00
   languageName: node
   linkType: hard
 
@@ -7455,16 +7616,16 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"tar-stream@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "tar-stream@npm:2.0.1"
+"tar-stream@npm:^2.0.1, tar-stream@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "tar-stream@npm:2.1.4"
   dependencies:
-    bl: ^3.0.0
+    bl: ^4.0.3
     end-of-stream: ^1.4.1
     fs-constants: ^1.0.0
     inherits: ^2.0.3
     readable-stream: ^3.1.1
-  checksum: 963b861f6170321f411e17908728dadb2a499bd446c1c50e686e022a6915fe1b1ca797c2dbafd6a178a53ec95ca2b3c4ecb4f18dcb2d1eab9524af945c510c25
+  checksum: d0414b07c267d6734bc2c7b689ae13de0216668c8202b883109b5d54e02811f6536bab80c9329f758d098207e1c24375443a89c3bf70199bd3ba5c4692cac193
   languageName: node
   linkType: hard
 
