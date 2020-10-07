@@ -3,8 +3,10 @@
   "private": true,
   "license": "BSD-2-Clause",
   "workspaces": [
+    "examples/**",
     "packages/*"
   ],
+  "files": [],
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@types/jest": "^26.0.14",

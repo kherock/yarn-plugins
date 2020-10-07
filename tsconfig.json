@@ -17,6 +17,7 @@
     "skipLibCheck": true
   },
   "exclude": [
+    "examples/**/lib",
     "packages/*/lib"
   ]
 }

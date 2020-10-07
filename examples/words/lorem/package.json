@@ -1,0 +1,24 @@
+{
+  "name": "@example/lorem",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "build": "tsc --build",
+    "prepack": "yarn build",
+    "postpack": "yarn build --clean"
+  },
+  "files": [
+    "lib/"
+  ],
+  "dependencies": {
+    "tslib": "^2.0.1"
+  },
+  "devDependencies": {
+    "typescript": "~4.0.3"
+  },
+  "engines": {
+    "node": ">=10.19.0"
+  }
+}
