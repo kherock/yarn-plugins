@@ -151,6 +151,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           tmpConfiguration.values.set(`enableMirror`, true);
           tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
+          tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
 
           switch (nodeLinker) {
             case `pnp`:
@@ -163,6 +164,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
               tmpConfiguration.values.set(`cacheFolder`, await xfs.mktempPromise());
               break;
           }
+
+          await tmpConfiguration.refreshPackageExtensions();
 
           const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, tmpDir);
 
@@ -179,6 +182,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             workspace.manifest.devDependencies.clear();
           else
             tmpWorkspace.manifest.devDependencies = workspace.manifest.devDependencies;
+          tmpWorkspace.manifest.resolutions = project.topLevelWorkspace.manifest.resolutions;
 
           await tmpProject.install({
             cache,
@@ -189,9 +193,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
           });
           await baseFs.removePromise(DEFAULT_LOCK_FILENAME);
           await baseFs.removePromise(tmpConfiguration.get(`bstatePath`));
-          // if (nodeLinker === `node-modules`)
-          //   // node-modules linker doesn't need its cache folder
-          //   await baseFs.removePromise(tmpConfiguration.get(`cacheFolder`));
 
           if (target.endsWith(`.zip`)) {
             report.reportJson({output: target, format: `zip`});
