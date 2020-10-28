@@ -43,15 +43,26 @@ gen_enforced_dependency(WorkspaceCwd, 'tslib', 'range', 'dependencies') :-
   % Only proceed if the workspace doesn't already depend on tslib
     \+ workspace_has_dependency(WorkspaceCwd, 'tslib', _, _).
 
-% This rule will enforce that all packages must have a "BSD-2-Clause" license field
-gen_enforced_field(WorkspaceCwd, 'license', 'BSD-2-Clause').
+% This rule will enforce that all packages must have a license field
+gen_enforced_field(WorkspaceCwd, 'license', 'BSD-2-Clause') :-
+  % Private packages aren't covered
+  \+ workspace_field_test(WorkspaceCwd, 'private', 'true').
 
 % This rule will enforce that all packages must have a engines.node field of >=10.19.0
 gen_enforced_field(WorkspaceCwd, 'engines.node', '>=10.19.0').
 
 % Required to make the package work with the GitHub Package Registry
-gen_enforced_field(WorkspaceCwd, 'repository.type', 'git').
-gen_enforced_field(WorkspaceCwd, 'repository.url', 'ssh://git@github.com/kherock/yarn-plugins.git').
+gen_enforced_field(WorkspaceCwd, 'repository.type', 'git') :-
+  % Exclude example packages
+    \+ atom_concat('examples/', _, WorkspaceCwd).
+gen_enforced_field(WorkspaceCwd, 'repository.url', 'ssh://git@github.com/kherock/yarn-plugins.git') :-
+  % Exclude example packages
+    \+ atom_concat('examples/', _, WorkspaceCwd).
+gen_enforced_field(WorkspaceCwd, 'repository.directory', WorkspaceCwd) :-
+  % Exclude example packages
+    \+ atom_concat('examples/', _, WorkspaceCwd),
+  % Exclude root
+    WorkspaceCwd \= '.'.
 
 % This rule will require that the plugins that aren't embed in the CLI list a specific script that'll
 % be called as part of our release process (to rebuild them in the context of our repository)

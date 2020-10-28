@@ -753,6 +753,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kherock/yarn-plugin-dotenv@workspace:packages/plugin-dotenv":
+  version: 0.0.0-use.local
+  resolution: "@kherock/yarn-plugin-dotenv@workspace:packages/plugin-dotenv"
+  dependencies:
+    "@types/dotenv-flow": ^3.1.0
+    "@types/tar-stream": ^2.1.0
+    "@yarnpkg/builder": ^2.1.2
+    "@yarnpkg/cli": ^2.3.1
+    "@yarnpkg/core": ^2.3.1
+    "@yarnpkg/fslib": ^2.2.2
+    "@yarnpkg/libzip": ^2.2.1
+    "@yarnpkg/plugin-pack": ^2.2.1
+    "@yarnpkg/plugin-pnp": ^2.3.1
+    clipanion: ^2.6.2
+    dotenv-flow: ^3.2.0
+    tar-stream: ^2.1.4
+    tslib: ^2.0.1
+    typescript: ~4.0.3
+  languageName: unknown
+  linkType: soft
+
 "@kherock/yarn-plugin-workspaces-export@workspace:packages/plugin-workspaces-export":
   version: 0.0.0-use.local
   resolution: "@kherock/yarn-plugin-workspaces-export@workspace:packages/plugin-workspaces-export"
@@ -922,6 +943,13 @@ __metadata:
   version: 1.1.1
   resolution: "@types/color-name@npm:1.1.1"
   checksum: 8311db94a9c4ecd247763b81e783ee49d87678b4ce6a7ee502e2bd5cea242b7357804a04855db009f713174bc654cc0c01c7303d40d757e5d710f5ac0368500f
+  languageName: node
+  linkType: hard
+
+"@types/dotenv-flow@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@types/dotenv-flow@npm:3.1.0"
+  checksum: c553d7d5ec8806e5783990ea4dbf3bf49e6d7ad7cacd8f510c14982687ba6b31d47961baabf7c4ef04094f033aad51bfea1a19a1c179a49c2c243b2f0664fd6b
   languageName: node
   linkType: hard
 
@@ -3103,6 +3131,22 @@ __metadata:
   dependencies:
     webidl-conversions: ^5.0.0
   checksum: bde9f50cb568a29b0c24ab50500ff23e9a2160394f04ae5fd9db91c4303a4f892fd9a42b07a0d52cdae11d8a348b4e907dd4343176c6f5a74f8be6ffde60bd95
+  languageName: node
+  linkType: hard
+
+"dotenv-flow@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "dotenv-flow@npm:3.2.0"
+  dependencies:
+    dotenv: ^8.0.0
+  checksum: 7dd1cdacd33b1f560f8b183a6b174fbc8fbcdaa8f8bf02fdc252e9874fbb59ea06cdd89b92eee8727a0c9c3c0a3c6359729bbd959ba0a25c94fcbb13bc557c2f
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^8.0.0":
+  version: 8.2.0
+  resolution: "dotenv@npm:8.2.0"
+  checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
   languageName: node
   linkType: hard
 
