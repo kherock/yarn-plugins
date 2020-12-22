@@ -1,15 +1,15 @@
-import {MultiFetcher}                                                       from '@yarnpkg/core/lib/MultiFetcher';
-import {MultiResolver}                                                      from '@yarnpkg/core/lib/MultiResolver';
-import {ProtocolResolver}                                                   from '@yarnpkg/core/lib/ProtocolResolver';
-import {VirtualResolver}                                                    from '@yarnpkg/core/lib/VirtualResolver';
-import {Project, VirtualFetcher, Workspace, tgzUtils}                       from '@yarnpkg/core';
-import {FakeFS, Filename, JailFS, PortablePath, ppath, xfs, ZipCompression} from '@yarnpkg/fslib';
-import {packUtils}                                                          from '@yarnpkg/plugin-pack';
-import tar                                                                  from 'tar-stream';
-import {createGzip}                                                         from 'zlib';
+import {MultiFetcher}                                              from '@yarnpkg/core/lib/MultiFetcher';
+import {MultiResolver}                                             from '@yarnpkg/core/lib/MultiResolver';
+import {ProtocolResolver}                                          from '@yarnpkg/core/lib/ProtocolResolver';
+import {VirtualResolver}                                           from '@yarnpkg/core/lib/VirtualResolver';
+import {Project, tgzUtils, VirtualFetcher, Workspace}              from '@yarnpkg/core';
+import {CwdFS, Filename, PortablePath, ppath, xfs, ZipCompression} from '@yarnpkg/fslib';
+import {packUtils}                                                 from '@yarnpkg/plugin-pack';
+import tar                                                         from 'tar-stream';
+import {createGzip}                                                from 'zlib';
 
-import {WorkspacePackFetcher}                                               from './WorkspacePackFetcher';
-import {WorkspacePackResolver}                                              from './WorkspacePackResolver';
+import {WorkspacePackFetcher}                                      from './WorkspacePackFetcher';
+import {WorkspacePackResolver}                                     from './WorkspacePackResolver';
 
 /**
  * Make a MultiFetcher that resolves workspaces using WorkspacePackFetcher
@@ -87,39 +87,17 @@ export const genPackZip = async (workspace: Workspace, opts: {
   });
 };
 
-async function walk(cwdFs: FakeFS<PortablePath>) {
-  const list: Array<PortablePath> = [];
-
-  const cwdList: Array<PortablePath> = [PortablePath.root];
-
-  while (cwdList.length > 0) {
-    const cwd = cwdList.pop()!;
-    const stat = await cwdFs.lstatPromise(cwd);
-
-    if (stat.isDirectory()) {
-      const entries = await cwdFs.readdirPromise(cwd);
-
-      for (const entry of entries) {
-        cwdList.push(ppath.resolve(cwd, entry));
-      }
-    } else {
-      list.push(ppath.relative(PortablePath.root, cwd));
-    }
-  }
-
-  return list.sort();
-}
-
 export const makeGzipFromDirectory = async (directory: PortablePath) => {
-  const cwdFs = new JailFS(directory);
-  const files = await walk(cwdFs);
+  const cwdFs = new CwdFS(directory);
+  const files: Array<PortablePath> = [];
+  for await (const p of cwdFs.genTraversePromise(directory, {stableSort: true})) files.push(p);
   const pack = tar.pack();
 
   process.nextTick(async () => {
     for (const fileRequest of files) {
-      const file = ppath.normalize(fileRequest);
+      const file = ppath.relative(directory, fileRequest);
 
-      const stat = await cwdFs.lstatPromise(file);
+      const stat = await cwdFs.lstatPromise(fileRequest);
       const opts = {name: file, mtime: new Date(315532800000), mode: stat.mode};
 
       let resolveFn: Function;
