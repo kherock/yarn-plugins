@@ -27,6 +27,7 @@ import {getLibzipPromise}                                             from '@yar
 import {packUtils}                                                    from "@yarnpkg/plugin-pack";
 import {Command, Usage}                                               from "clipanion";
 
+import {ExportCache}                                                  from '../ExportCache';
 import {genPackTgz, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
 
 // eslint-disable-next-line arca/no-default-export
@@ -117,10 +118,11 @@ export default class WorkspacesExportCommand extends BaseCommand {
       }
     }
 
+    const cache = await Cache.find(configuration, {immutable: true});
     if (requiredWorkspaces.size) {
       if (this.installIfNeeded) {
         await project.install({
-          cache: await Cache.find(configuration),
+          cache,
           report: new ThrowReport(),
         });
       } else {
@@ -148,7 +150,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           tmpConfiguration.values.set(`bstatePath`, ppath.join(tmpDir, `build-state.yml` as Filename));
           tmpConfiguration.values.set(`enableNetwork`, false);
-          tmpConfiguration.values.set(`enableMirror`, true);
+          tmpConfiguration.values.set(`enableMirror`, false);
           tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
           tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
@@ -172,9 +174,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
           if (!tmpWorkspace)
             throw new WorkspaceRequiredError(tmpProject.cwd, tmpDir);
 
-          // TODO: customize cache instance to use current project as mirror
-          const cache = await Cache.find(tmpConfiguration);
-
           // restore original `workspace:` references stripped by plugin-pack
           tmpWorkspace.manifest.dependencies = workspace.manifest.dependencies;
           tmpWorkspace.manifest.peerDependencies = workspace.manifest.peerDependencies;
@@ -185,7 +184,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           tmpWorkspace.manifest.resolutions = project.topLevelWorkspace.manifest.resolutions;
 
           await tmpProject.install({
-            cache,
+            cache: await ExportCache.find(tmpConfiguration, cache),
             fetcher: makeFetcher(project),
             resolver: makeResolver(project),
             report,

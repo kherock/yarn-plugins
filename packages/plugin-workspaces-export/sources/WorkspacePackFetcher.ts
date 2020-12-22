@@ -7,9 +7,11 @@ import {
   WorkspaceResolver,
   structUtils,
   Project,
+  FetchResult,
 } from '@yarnpkg/core';
+import {PortablePath} from '@yarnpkg/fslib';
 
-import {genPackZip} from './exportUtils';
+import {genPackZip}   from './exportUtils';
 
 /**
  * Fetcher that packs workspaces as cacheable packages
@@ -29,17 +31,16 @@ export class WorkspacePackFetcher extends WorkspaceFetcher implements Fetcher {
 
     const expectedChecksum = opts.checksums.get(locator.locatorHash) || null;
 
-    const [packageFs, releaseFs, checksum] = await opts.cache.fetchPackageFromCache(locator, expectedChecksum, {
+    const [packageFs, releaseFs] = await opts.cache.fetchPackageFromCache(locator, expectedChecksum, {
       loader: () => this.packWorkspace(locator),
-      skipIntegrityCheck: opts.skipIntegrityCheck,
     });
 
     return {
       packageFs,
       releaseFs,
-      prefixPath: structUtils.getIdentVendorPath(locator),
-      checksum,
-    } as any;
+      localPath: this.getLocalPath(locator, opts),
+      prefixPath: PortablePath.dot,
+    } as FetchResult as any;
   }
 
   private async packWorkspace(locator: Locator) {
@@ -47,7 +48,6 @@ export class WorkspacePackFetcher extends WorkspaceFetcher implements Fetcher {
 
     return await genPackZip(workspace, {
       compressionLevel: this.originalProject.configuration.get(`compressionLevel`),
-      prefixPath: structUtils.getIdentVendorPath(locator),
       stripComponents: 1,
     });
   }
