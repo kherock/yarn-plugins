@@ -23,12 +23,12 @@ import {
   ppath,
   xfs,
 } from "@yarnpkg/fslib";
-import {getLibzipPromise}                                             from '@yarnpkg/libzip';
-import {packUtils}                                                    from "@yarnpkg/plugin-pack";
-import {Command, Usage}                                               from "clipanion";
+import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
+import {packUtils}                                                                   from "@yarnpkg/plugin-pack";
+import {Command, Usage}                                                              from "clipanion";
 
-import {ExportCache}                                                  from '../ExportCache';
-import {genPackTgz, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
+import {ExportCache}                                                                 from '../ExportCache';
+import {genPackTgz, makeExportDir, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
 
 // eslint-disable-next-line arca/no-default-export
 export default class WorkspacesExportCommand extends BaseCommand {
@@ -40,6 +40,9 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
   @Command.Boolean(`--production`, {description: `Only install regular dependencies by omitting dev dependencies`})
   production: boolean = false;
+
+  @Command.Boolean(`--no-cache`, {description: `Do not cache archive contents in the configured \`exportCacheFolder\``})
+  noCache: boolean = false;
 
   @Command.Boolean(`--install-if-needed`, {description: `Run a preliminary \`yarn install\` if a package contains build scripts`})
   installIfNeeded: boolean = false;
@@ -137,30 +140,32 @@ export default class WorkspacesExportCommand extends BaseCommand {
     }, async report => {
       const cb = [...requiredWorkspaces].reduce(
         (cb, workspace) => async () => await packUtils.prepareForPack(workspace, {report}, cb),
-        async () => await xfs.mktempPromise(async tmpDir => {
-          report.reportJson({base: workspace.cwd, tmpDir});
-          const baseFs = new CwdFS(tmpDir);
+        async () => {
+          const exportDir = this.noCache ? await xfs.mktempPromise() : await makeExportDir(workspace);
+          report.reportJson({base: workspace.cwd, exportDir});
+          const baseFs = new CwdFS(exportDir);
 
           const tgz = await genPackTgz(workspace);
           await tgzUtils.extractArchiveTo(tgz, baseFs, {stripComponents: 1});
           const lockfilePath = ppath.join(project.cwd, configuration.get(`lockfileFilename`));
           await baseFs.copyPromise(DEFAULT_LOCK_FILENAME, lockfilePath);
 
-          const tmpConfiguration = Configuration.create(tmpDir, tmpDir, configuration.plugins);
+          const tmpConfiguration = Configuration.create(exportDir, exportDir, configuration.plugins);
 
-          tmpConfiguration.values.set(`bstatePath`, ppath.join(tmpDir, `build-state.yml` as Filename));
+          tmpConfiguration.values.set(`bstatePath`, ppath.join(exportDir, `build-state.yml` as Filename));
           tmpConfiguration.values.set(`enableNetwork`, false);
           tmpConfiguration.values.set(`enableMirror`, false);
           tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
           tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
 
+          // remove references to Yarn in the target archive, PnP's runtime does not depend on Yarn
+          tmpConfiguration.values.set(`cacheFolder`, ppath.join(exportDir, `.pnp/packages` as PortablePath));
+          tmpConfiguration.values.set(`pnpUnpluggedFolder`, ppath.join(exportDir, `.pnp/unplugged` as PortablePath));
+          tmpConfiguration.values.set(`virtualFolder`, ppath.join(exportDir, `.pnp/$$virtual` as PortablePath));
+
           switch (nodeLinker) {
             case `pnp`:
-              // remove references to Yarn in the target archive, PnP's runtime does not depend on Yarn
-              tmpConfiguration.values.set(`cacheFolder`, ppath.join(tmpDir, `.pnp/packages` as PortablePath));
-              tmpConfiguration.values.set(`pnpUnpluggedFolder`, ppath.join(tmpDir, `.pnp/unplugged` as PortablePath));
-              tmpConfiguration.values.set(`virtualFolder`, ppath.join(tmpDir, `.pnp/$$virtual` as PortablePath));
               break;
             case `node-modules`:
               tmpConfiguration.values.set(`cacheFolder`, await xfs.mktempPromise());
@@ -169,10 +174,10 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           await tmpConfiguration.refreshPackageExtensions();
 
-          const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, tmpDir);
+          const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, exportDir);
 
           if (!tmpWorkspace)
-            throw new WorkspaceRequiredError(tmpProject.cwd, tmpDir);
+            throw new WorkspaceRequiredError(tmpProject.cwd, exportDir);
 
           // restore original `workspace:` references stripped by plugin-pack
           tmpWorkspace.manifest.dependencies = workspace.manifest.dependencies;
@@ -201,7 +206,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
             await zipFs.saveAndClose();
           } else {
-            const gzip = await makeGzipFromDirectory(tmpDir);
+            const gzip = await makeGzipFromDirectory(exportDir);
             const write = xfs.createWriteStream(target);
 
             gzip.pipe(write);
@@ -214,7 +219,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(configuration, target, `magenta`)}`);
           report.reportJson({output: target});
-        })
+        }
       );
       await cb();
     });

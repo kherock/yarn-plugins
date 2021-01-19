@@ -2,7 +2,7 @@ import {MultiFetcher}                                              from '@yarnpk
 import {MultiResolver}                                             from '@yarnpkg/core/lib/MultiResolver';
 import {ProtocolResolver}                                          from '@yarnpkg/core/lib/ProtocolResolver';
 import {VirtualResolver}                                           from '@yarnpkg/core/lib/VirtualResolver';
-import {Project, tgzUtils, VirtualFetcher, Workspace}              from '@yarnpkg/core';
+import {Project, structUtils, tgzUtils, VirtualFetcher, Workspace} from '@yarnpkg/core';
 import {CwdFS, Filename, PortablePath, ppath, xfs, ZipCompression} from '@yarnpkg/fslib';
 import {packUtils}                                                 from '@yarnpkg/plugin-pack';
 import tar                                                         from 'tar-stream';
@@ -50,6 +50,13 @@ export const makeResolver = (project: Project) => {
 
     ...pluginResolvers,
   ]);
+};
+
+export const makeExportDir = async ({locator, project}: Workspace) => {
+  const exportCacheFolder = project.configuration.get(`exportCacheFolder`);
+  const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(locator) as PortablePath);
+  await xfs.mkdirPromise(exportDir, {recursive: true});
+  return exportDir;
 };
 
 export const genPackTgz = async (workspace: Workspace) => {
