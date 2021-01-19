@@ -8,7 +8,7 @@
 
 ## Yarn plugins
 
-- [plugin-dotenv](packages/plugin-dotenv) adds support adds support for loading
+- [plugin-dotenv](packages/plugin-dotenv) adds support for loading
 environment variables from .env files at the project root
 - [plugin-workspaces-export](packages/plugin-workspaces-export) adds support for
 exporting workspaces into a deployable archive with a PnP runtime
