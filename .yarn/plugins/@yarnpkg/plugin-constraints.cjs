@@ -1,22 +1,8559 @@
 /* eslint-disable */
+//prettier-ignore
 module.exports = {
 name: "@yarnpkg/plugin-constraints",
 factory: function (require) {
-var plugin;plugin=(()=>{var e={1023:(e,r,t)=>{"use strict";t.r(r),t.d(r,{default:()=>z});var n=t(966);
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
+var plugin = (() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[Object.keys(cb)[0]])((mod = {exports: {}}).exports, mod), mod.exports;
+  };
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, {get: all[name], enumerable: true});
+  };
+  var __reExport = (target, module, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
+      for (let key2 of __getOwnPropNames(module))
+        if (!__hasOwnProp.call(target, key2) && key2 !== "default")
+          __defProp(target, key2, {get: () => module[key2], enumerable: !(desc = __getOwnPropDesc(module, key2)) || desc.enumerable});
+    }
+    return target;
+  };
+  var __toModule = (module) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {get: () => module.default, enumerable: true} : {value: module, enumerable: true})), module);
+  };
 
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/tau-prolog-npm-0.2.66-b5d2420a05-6a61b37925.zip/node_modules/tau-prolog/modules/lists.js
+  var require_lists = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/tau-prolog-npm-0.2.66-b5d2420a05-6a61b37925.zip/node_modules/tau-prolog/modules/lists.js"(exports, module) {
+      var pl3;
+      (function(pl4) {
+        var predicates = function() {
+          return {
+            "append/2": [
+              new pl4.type.Rule(new pl4.type.Term("append", [new pl4.type.Var("X"), new pl4.type.Var("L")]), new pl4.type.Term("foldl", [new pl4.type.Term("append", []), new pl4.type.Var("X"), new pl4.type.Term("[]", []), new pl4.type.Var("L")]))
+            ],
+            "append/3": [
+              new pl4.type.Rule(new pl4.type.Term("append", [new pl4.type.Term("[]", []), new pl4.type.Var("X"), new pl4.type.Var("X")]), null),
+              new pl4.type.Rule(new pl4.type.Term("append", [new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("T")]), new pl4.type.Var("X"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("S")])]), new pl4.type.Term("append", [new pl4.type.Var("T"), new pl4.type.Var("X"), new pl4.type.Var("S")]))
+            ],
+            "member/2": [
+              new pl4.type.Rule(new pl4.type.Term("member", [new pl4.type.Var("X"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("_")])]), null),
+              new pl4.type.Rule(new pl4.type.Term("member", [new pl4.type.Var("X"), new pl4.type.Term(".", [new pl4.type.Var("_"), new pl4.type.Var("Xs")])]), new pl4.type.Term("member", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]))
+            ],
+            "permutation/2": [
+              new pl4.type.Rule(new pl4.type.Term("permutation", [new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("permutation", [new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("T")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("permutation", [new pl4.type.Var("T"), new pl4.type.Var("P")]), new pl4.type.Term(",", [new pl4.type.Term("append", [new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("P")]), new pl4.type.Term("append", [new pl4.type.Var("X"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("Y")]), new pl4.type.Var("S")])])]))
+            ],
+            "maplist/2": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("X")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("Xs")])]))
+            ],
+            "maplist/3": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs")])]))
+            ],
+            "maplist/4": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")]), new pl4.type.Term(".", [new pl4.type.Var("C"), new pl4.type.Var("Cs")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B"), new pl4.type.Var("C")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs"), new pl4.type.Var("Cs")])]))
+            ],
+            "maplist/5": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")]), new pl4.type.Term(".", [new pl4.type.Var("C"), new pl4.type.Var("Cs")]), new pl4.type.Term(".", [new pl4.type.Var("D"), new pl4.type.Var("Ds")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B"), new pl4.type.Var("C"), new pl4.type.Var("D")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs"), new pl4.type.Var("Cs"), new pl4.type.Var("Ds")])]))
+            ],
+            "maplist/6": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")]), new pl4.type.Term(".", [new pl4.type.Var("C"), new pl4.type.Var("Cs")]), new pl4.type.Term(".", [new pl4.type.Var("D"), new pl4.type.Var("Ds")]), new pl4.type.Term(".", [new pl4.type.Var("E"), new pl4.type.Var("Es")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B"), new pl4.type.Var("C"), new pl4.type.Var("D"), new pl4.type.Var("E")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs"), new pl4.type.Var("Cs"), new pl4.type.Var("Ds"), new pl4.type.Var("Es")])]))
+            ],
+            "maplist/7": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")]), new pl4.type.Term(".", [new pl4.type.Var("C"), new pl4.type.Var("Cs")]), new pl4.type.Term(".", [new pl4.type.Var("D"), new pl4.type.Var("Ds")]), new pl4.type.Term(".", [new pl4.type.Var("E"), new pl4.type.Var("Es")]), new pl4.type.Term(".", [new pl4.type.Var("F"), new pl4.type.Var("Fs")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B"), new pl4.type.Var("C"), new pl4.type.Var("D"), new pl4.type.Var("E"), new pl4.type.Var("F")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs"), new pl4.type.Var("Cs"), new pl4.type.Var("Ds"), new pl4.type.Var("Es"), new pl4.type.Var("Fs")])]))
+            ],
+            "maplist/8": [
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("A"), new pl4.type.Var("As")]), new pl4.type.Term(".", [new pl4.type.Var("B"), new pl4.type.Var("Bs")]), new pl4.type.Term(".", [new pl4.type.Var("C"), new pl4.type.Var("Cs")]), new pl4.type.Term(".", [new pl4.type.Var("D"), new pl4.type.Var("Ds")]), new pl4.type.Term(".", [new pl4.type.Var("E"), new pl4.type.Var("Es")]), new pl4.type.Term(".", [new pl4.type.Var("F"), new pl4.type.Var("Fs")]), new pl4.type.Term(".", [new pl4.type.Var("G"), new pl4.type.Var("Gs")])]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P"), new pl4.type.Var("A"), new pl4.type.Var("B"), new pl4.type.Var("C"), new pl4.type.Var("D"), new pl4.type.Var("E"), new pl4.type.Var("F"), new pl4.type.Var("G")]), new pl4.type.Term("maplist", [new pl4.type.Var("P"), new pl4.type.Var("As"), new pl4.type.Var("Bs"), new pl4.type.Var("Cs"), new pl4.type.Var("Ds"), new pl4.type.Var("Es"), new pl4.type.Var("Fs"), new pl4.type.Var("Gs")])]))
+            ],
+            "include/3": [
+              new pl4.type.Rule(new pl4.type.Term("include", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("include", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("T")]), new pl4.type.Var("L")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("P"), new pl4.type.Var("A")]), new pl4.type.Term(",", [new pl4.type.Term("append", [new pl4.type.Var("A"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Term("[]", [])]), new pl4.type.Var("B")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("F"), new pl4.type.Var("B")]), new pl4.type.Term(",", [new pl4.type.Term(";", [new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("F")]), new pl4.type.Term(",", [new pl4.type.Term("=", [new pl4.type.Var("L"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("S")])]), new pl4.type.Term("!", [])])]), new pl4.type.Term("=", [new pl4.type.Var("L"), new pl4.type.Var("S")])]), new pl4.type.Term("include", [new pl4.type.Var("P"), new pl4.type.Var("T"), new pl4.type.Var("S")])])])])]))
+            ],
+            "exclude/3": [
+              new pl4.type.Rule(new pl4.type.Term("exclude", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Term("[]", [])]), null),
+              new pl4.type.Rule(new pl4.type.Term("exclude", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("T")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("exclude", [new pl4.type.Var("P"), new pl4.type.Var("T"), new pl4.type.Var("E")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("P"), new pl4.type.Var("L")]), new pl4.type.Term(",", [new pl4.type.Term("append", [new pl4.type.Var("L"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Term("[]", [])]), new pl4.type.Var("Q")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("R"), new pl4.type.Var("Q")]), new pl4.type.Term(";", [new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("R")]), new pl4.type.Term(",", [new pl4.type.Term("!", []), new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Var("E")])])]), new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("E")])])])])])])]))
+            ],
+            "foldl/4": [
+              new pl4.type.Rule(new pl4.type.Term("foldl", [new pl4.type.Var("_"), new pl4.type.Term("[]", []), new pl4.type.Var("I"), new pl4.type.Var("I")]), null),
+              new pl4.type.Rule(new pl4.type.Term("foldl", [new pl4.type.Var("P"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Var("T")]), new pl4.type.Var("I"), new pl4.type.Var("R")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("P"), new pl4.type.Var("L")]), new pl4.type.Term(",", [new pl4.type.Term("append", [new pl4.type.Var("L"), new pl4.type.Term(".", [new pl4.type.Var("I"), new pl4.type.Term(".", [new pl4.type.Var("H"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Term("[]", [])])])]), new pl4.type.Var("L2")]), new pl4.type.Term(",", [new pl4.type.Term("=..", [new pl4.type.Var("P2"), new pl4.type.Var("L2")]), new pl4.type.Term(",", [new pl4.type.Term("call", [new pl4.type.Var("P2")]), new pl4.type.Term("foldl", [new pl4.type.Var("P"), new pl4.type.Var("T"), new pl4.type.Var("X"), new pl4.type.Var("R")])])])])]))
+            ],
+            "select/3": [
+              new pl4.type.Rule(new pl4.type.Term("select", [new pl4.type.Var("E"), new pl4.type.Term(".", [new pl4.type.Var("E"), new pl4.type.Var("Xs")]), new pl4.type.Var("Xs")]), null),
+              new pl4.type.Rule(new pl4.type.Term("select", [new pl4.type.Var("E"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Ys")])]), new pl4.type.Term("select", [new pl4.type.Var("E"), new pl4.type.Var("Xs"), new pl4.type.Var("Ys")]))
+            ],
+            "sum_list/2": [
+              new pl4.type.Rule(new pl4.type.Term("sum_list", [new pl4.type.Term("[]", []), new pl4.type.Num(0, false)]), null),
+              new pl4.type.Rule(new pl4.type.Term("sum_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("sum_list", [new pl4.type.Var("Xs"), new pl4.type.Var("Y")]), new pl4.type.Term("is", [new pl4.type.Var("S"), new pl4.type.Term("+", [new pl4.type.Var("X"), new pl4.type.Var("Y")])])]))
+            ],
+            "max_list/2": [
+              new pl4.type.Rule(new pl4.type.Term("max_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Term("[]", [])]), new pl4.type.Var("X")]), null),
+              new pl4.type.Rule(new pl4.type.Term("max_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("max_list", [new pl4.type.Var("Xs"), new pl4.type.Var("Y")]), new pl4.type.Term(";", [new pl4.type.Term(",", [new pl4.type.Term(">=", [new pl4.type.Var("X"), new pl4.type.Var("Y")]), new pl4.type.Term(",", [new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Var("X")]), new pl4.type.Term("!", [])])]), new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Var("Y")])])]))
+            ],
+            "min_list/2": [
+              new pl4.type.Rule(new pl4.type.Term("min_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Term("[]", [])]), new pl4.type.Var("X")]), null),
+              new pl4.type.Rule(new pl4.type.Term("min_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("min_list", [new pl4.type.Var("Xs"), new pl4.type.Var("Y")]), new pl4.type.Term(";", [new pl4.type.Term(",", [new pl4.type.Term("=<", [new pl4.type.Var("X"), new pl4.type.Var("Y")]), new pl4.type.Term(",", [new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Var("X")]), new pl4.type.Term("!", [])])]), new pl4.type.Term("=", [new pl4.type.Var("S"), new pl4.type.Var("Y")])])]))
+            ],
+            "prod_list/2": [
+              new pl4.type.Rule(new pl4.type.Term("prod_list", [new pl4.type.Term("[]", []), new pl4.type.Num(1, false)]), null),
+              new pl4.type.Rule(new pl4.type.Term("prod_list", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("S")]), new pl4.type.Term(",", [new pl4.type.Term("prod_list", [new pl4.type.Var("Xs"), new pl4.type.Var("Y")]), new pl4.type.Term("is", [new pl4.type.Var("S"), new pl4.type.Term("*", [new pl4.type.Var("X"), new pl4.type.Var("Y")])])]))
+            ],
+            "last/2": [
+              new pl4.type.Rule(new pl4.type.Term("last", [new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Term("[]", [])]), new pl4.type.Var("X")]), null),
+              new pl4.type.Rule(new pl4.type.Term("last", [new pl4.type.Term(".", [new pl4.type.Var("_"), new pl4.type.Var("Xs")]), new pl4.type.Var("X")]), new pl4.type.Term("last", [new pl4.type.Var("Xs"), new pl4.type.Var("X")]))
+            ],
+            "prefix/2": [
+              new pl4.type.Rule(new pl4.type.Term("prefix", [new pl4.type.Var("Part"), new pl4.type.Var("Whole")]), new pl4.type.Term("append", [new pl4.type.Var("Part"), new pl4.type.Var("_"), new pl4.type.Var("Whole")]))
+            ],
+            "nth0/3": [
+              new pl4.type.Rule(new pl4.type.Term("nth0", [new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z")]), new pl4.type.Term(";", [new pl4.type.Term("->", [new pl4.type.Term("var", [new pl4.type.Var("X")]), new pl4.type.Term("nth", [new pl4.type.Num(0, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("_")])]), new pl4.type.Term(",", [new pl4.type.Term(">=", [new pl4.type.Var("X"), new pl4.type.Num(0, false)]), new pl4.type.Term(",", [new pl4.type.Term("nth", [new pl4.type.Num(0, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("_")]), new pl4.type.Term("!", [])])])]))
+            ],
+            "nth1/3": [
+              new pl4.type.Rule(new pl4.type.Term("nth1", [new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z")]), new pl4.type.Term(";", [new pl4.type.Term("->", [new pl4.type.Term("var", [new pl4.type.Var("X")]), new pl4.type.Term("nth", [new pl4.type.Num(1, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("_")])]), new pl4.type.Term(",", [new pl4.type.Term(">", [new pl4.type.Var("X"), new pl4.type.Num(0, false)]), new pl4.type.Term(",", [new pl4.type.Term("nth", [new pl4.type.Num(1, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("_")]), new pl4.type.Term("!", [])])])]))
+            ],
+            "nth0/4": [
+              new pl4.type.Rule(new pl4.type.Term("nth0", [new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")]), new pl4.type.Term(";", [new pl4.type.Term("->", [new pl4.type.Term("var", [new pl4.type.Var("X")]), new pl4.type.Term("nth", [new pl4.type.Num(0, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")])]), new pl4.type.Term(",", [new pl4.type.Term(">=", [new pl4.type.Var("X"), new pl4.type.Num(0, false)]), new pl4.type.Term(",", [new pl4.type.Term("nth", [new pl4.type.Num(0, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")]), new pl4.type.Term("!", [])])])]))
+            ],
+            "nth1/4": [
+              new pl4.type.Rule(new pl4.type.Term("nth1", [new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")]), new pl4.type.Term(";", [new pl4.type.Term("->", [new pl4.type.Term("var", [new pl4.type.Var("X")]), new pl4.type.Term("nth", [new pl4.type.Num(1, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")])]), new pl4.type.Term(",", [new pl4.type.Term(">", [new pl4.type.Var("X"), new pl4.type.Num(0, false)]), new pl4.type.Term(",", [new pl4.type.Term("nth", [new pl4.type.Num(1, false), new pl4.type.Var("X"), new pl4.type.Var("Y"), new pl4.type.Var("Z"), new pl4.type.Var("W")]), new pl4.type.Term("!", [])])])]))
+            ],
+            "nth/5": [
+              new pl4.type.Rule(new pl4.type.Term("nth", [new pl4.type.Var("N"), new pl4.type.Var("N"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("X"), new pl4.type.Var("Xs")]), null),
+              new pl4.type.Rule(new pl4.type.Term("nth", [new pl4.type.Var("N"), new pl4.type.Var("O"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Xs")]), new pl4.type.Var("Y"), new pl4.type.Term(".", [new pl4.type.Var("X"), new pl4.type.Var("Ys")])]), new pl4.type.Term(",", [new pl4.type.Term("is", [new pl4.type.Var("M"), new pl4.type.Term("+", [new pl4.type.Var("N"), new pl4.type.Num(1, false)])]), new pl4.type.Term("nth", [new pl4.type.Var("M"), new pl4.type.Var("O"), new pl4.type.Var("Xs"), new pl4.type.Var("Y"), new pl4.type.Var("Ys")])]))
+            ],
+            "length/2": function(thread, point, atom) {
+              var list = atom.args[0], length = atom.args[1];
+              if (!pl4.type.is_variable(length) && !pl4.type.is_integer(length)) {
+                thread.throw_error(pl4.error.type("integer", length, atom.indicator));
+              } else if (pl4.type.is_integer(length) && length.value < 0) {
+                thread.throw_error(pl4.error.domain("not_less_than_zero", length, atom.indicator));
+              } else {
+                var newgoal = new pl4.type.Term("length", [list, new pl4.type.Num(0, false), length]);
+                if (pl4.type.is_integer(length))
+                  newgoal = new pl4.type.Term(",", [newgoal, new pl4.type.Term("!", [])]);
+                thread.prepend([new pl4.type.State(point.goal.replace(newgoal), point.substitution, point)]);
+              }
+            },
+            "length/3": [
+              new pl4.type.Rule(new pl4.type.Term("length", [new pl4.type.Term("[]", []), new pl4.type.Var("N"), new pl4.type.Var("N")]), null),
+              new pl4.type.Rule(new pl4.type.Term("length", [new pl4.type.Term(".", [new pl4.type.Var("_"), new pl4.type.Var("X")]), new pl4.type.Var("A"), new pl4.type.Var("N")]), new pl4.type.Term(",", [new pl4.type.Term("succ", [new pl4.type.Var("A"), new pl4.type.Var("B")]), new pl4.type.Term("length", [new pl4.type.Var("X"), new pl4.type.Var("B"), new pl4.type.Var("N")])]))
+            ],
+            "replicate/3": function(thread, point, atom) {
+              var elem = atom.args[0], times = atom.args[1], list = atom.args[2];
+              if (pl4.type.is_variable(times)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_integer(times)) {
+                thread.throw_error(pl4.error.type("integer", times, atom.indicator));
+              } else if (times.value < 0) {
+                thread.throw_error(pl4.error.domain("not_less_than_zero", times, atom.indicator));
+              } else if (!pl4.type.is_variable(list) && !pl4.type.is_list(list)) {
+                thread.throw_error(pl4.error.type("list", list, atom.indicator));
+              } else {
+                var replicate = new pl4.type.Term("[]");
+                for (var i = 0; i < times.value; i++) {
+                  replicate = new pl4.type.Term(".", [elem, replicate]);
+                }
+                thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [replicate, list])), point.substitution, point)]);
+              }
+            },
+            "sort/2": function(thread, point, atom) {
+              var list = atom.args[0], expected = atom.args[1];
+              if (pl4.type.is_variable(list)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_variable(expected) && !pl4.type.is_fully_list(expected)) {
+                thread.throw_error(pl4.error.type("list", expected, atom.indicator));
+              } else {
+                var arr = [];
+                var pointer = list;
+                while (pointer.indicator === "./2") {
+                  arr.push(pointer.args[0]);
+                  pointer = pointer.args[1];
+                }
+                if (pl4.type.is_variable(pointer)) {
+                  thread.throw_error(pl4.error.instantiation(atom.indicator));
+                } else if (!pl4.type.is_empty_list(pointer)) {
+                  thread.throw_error(pl4.error.type("list", list, atom.indicator));
+                } else {
+                  var sorted_arr = arr.sort(pl4.compare);
+                  for (var i = sorted_arr.length - 1; i > 0; i--) {
+                    if (sorted_arr[i].equals(sorted_arr[i - 1]))
+                      sorted_arr.splice(i, 1);
+                  }
+                  var sorted_list = new pl4.type.Term("[]");
+                  for (var i = sorted_arr.length - 1; i >= 0; i--) {
+                    sorted_list = new pl4.type.Term(".", [sorted_arr[i], sorted_list]);
+                  }
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [sorted_list, expected])), point.substitution, point)]);
+                }
+              }
+            },
+            "msort/2": function(thread, point, atom) {
+              var list = atom.args[0], expected = atom.args[1];
+              if (pl4.type.is_variable(list)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_variable(expected) && !pl4.type.is_fully_list(expected)) {
+                thread.throw_error(pl4.error.type("list", expected, atom.indicator));
+              } else {
+                var arr = [];
+                var pointer = list;
+                while (pointer.indicator === "./2") {
+                  arr.push(pointer.args[0]);
+                  pointer = pointer.args[1];
+                }
+                if (pl4.type.is_variable(pointer)) {
+                  thread.throw_error(pl4.error.instantiation(atom.indicator));
+                } else if (!pl4.type.is_empty_list(pointer)) {
+                  thread.throw_error(pl4.error.type("list", list, atom.indicator));
+                } else {
+                  var sorted_arr = arr.sort(pl4.compare);
+                  var sorted_list = new pl4.type.Term("[]");
+                  for (var i = sorted_arr.length - 1; i >= 0; i--) {
+                    sorted_list = new pl4.type.Term(".", [sorted_arr[i], sorted_list]);
+                  }
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [sorted_list, expected])), point.substitution, point)]);
+                }
+              }
+            },
+            "keysort/2": function(thread, point, atom) {
+              var list = atom.args[0], expected = atom.args[1];
+              if (pl4.type.is_variable(list)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_variable(expected) && !pl4.type.is_fully_list(expected)) {
+                thread.throw_error(pl4.error.type("list", expected, atom.indicator));
+              } else {
+                var arr = [];
+                var elem;
+                var pointer = list;
+                while (pointer.indicator === "./2") {
+                  elem = pointer.args[0];
+                  if (pl4.type.is_variable(elem)) {
+                    thread.throw_error(pl4.error.instantiation(atom.indicator));
+                    return;
+                  } else if (!pl4.type.is_term(elem) || elem.indicator !== "-/2") {
+                    thread.throw_error(pl4.error.type("pair", elem, atom.indicator));
+                    return;
+                  }
+                  elem.args[0].pair = elem.args[1];
+                  arr.push(elem.args[0]);
+                  pointer = pointer.args[1];
+                }
+                if (pl4.type.is_variable(pointer)) {
+                  thread.throw_error(pl4.error.instantiation(atom.indicator));
+                } else if (!pl4.type.is_empty_list(pointer)) {
+                  thread.throw_error(pl4.error.type("list", list, atom.indicator));
+                } else {
+                  var sorted_arr = arr.sort(pl4.compare);
+                  var sorted_list = new pl4.type.Term("[]");
+                  for (var i = sorted_arr.length - 1; i >= 0; i--) {
+                    sorted_list = new pl4.type.Term(".", [new pl4.type.Term("-", [sorted_arr[i], sorted_arr[i].pair]), sorted_list]);
+                    delete sorted_arr[i].pair;
+                  }
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [sorted_list, expected])), point.substitution, point)]);
+                }
+              }
+            },
+            "take/3": function(thread, point, atom) {
+              var number = atom.args[0], list = atom.args[1], take = atom.args[2];
+              if (pl4.type.is_variable(list) || pl4.type.is_variable(number)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_list(list)) {
+                thread.throw_error(pl4.error.type("list", list, atom.indicator));
+              } else if (!pl4.type.is_integer(number)) {
+                thread.throw_error(pl4.error.type("integer", number, atom.indicator));
+              } else if (!pl4.type.is_variable(take) && !pl4.type.is_list(take)) {
+                thread.throw_error(pl4.error.type("list", take, atom.indicator));
+              } else {
+                var i = number.value;
+                var arr = [];
+                var pointer = list;
+                while (i > 0 && pointer.indicator === "./2") {
+                  arr.push(pointer.args[0]);
+                  pointer = pointer.args[1];
+                  i--;
+                }
+                if (i === 0) {
+                  var new_list = new pl4.type.Term("[]");
+                  for (var i = arr.length - 1; i >= 0; i--) {
+                    new_list = new pl4.type.Term(".", [arr[i], new_list]);
+                  }
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [new_list, take])), point.substitution, point)]);
+                }
+              }
+            },
+            "drop/3": function(thread, point, atom) {
+              var number = atom.args[0], list = atom.args[1], drop = atom.args[2];
+              if (pl4.type.is_variable(list) || pl4.type.is_variable(number)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_list(list)) {
+                thread.throw_error(pl4.error.type("list", list, atom.indicator));
+              } else if (!pl4.type.is_integer(number)) {
+                thread.throw_error(pl4.error.type("integer", number, atom.indicator));
+              } else if (!pl4.type.is_variable(drop) && !pl4.type.is_list(drop)) {
+                thread.throw_error(pl4.error.type("list", drop, atom.indicator));
+              } else {
+                var i = number.value;
+                var arr = [];
+                var pointer = list;
+                while (i > 0 && pointer.indicator === "./2") {
+                  arr.push(pointer.args[0]);
+                  pointer = pointer.args[1];
+                  i--;
+                }
+                if (i === 0)
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [pointer, drop])), point.substitution, point)]);
+              }
+            },
+            "reverse/2": function(thread, point, atom) {
+              var list = atom.args[0], reversed = atom.args[1];
+              var ins_list = pl4.type.is_instantiated_list(list);
+              var ins_reversed = pl4.type.is_instantiated_list(reversed);
+              if (pl4.type.is_variable(list) && pl4.type.is_variable(reversed)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else if (!pl4.type.is_variable(list) && !pl4.type.is_fully_list(list)) {
+                thread.throw_error(pl4.error.type("list", list, atom.indicator));
+              } else if (!pl4.type.is_variable(reversed) && !pl4.type.is_fully_list(reversed)) {
+                thread.throw_error(pl4.error.type("list", reversed, atom.indicator));
+              } else if (!ins_list && !ins_reversed) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else {
+                var pointer = ins_list ? list : reversed;
+                var new_reversed = new pl4.type.Term("[]", []);
+                while (pointer.indicator === "./2") {
+                  new_reversed = new pl4.type.Term(".", [pointer.args[0], new_reversed]);
+                  pointer = pointer.args[1];
+                }
+                thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [new_reversed, ins_list ? reversed : list])), point.substitution, point)]);
+              }
+            },
+            "list_to_set/2": function(thread, point, atom) {
+              var list = atom.args[0], lset = atom.args[1];
+              if (pl4.type.is_variable(list)) {
+                thread.throw_error(pl4.error.instantiation(atom.indicator));
+              } else {
+                var pointer = list;
+                var elems = [];
+                while (pointer.indicator === "./2") {
+                  elems.push(pointer.args[0]);
+                  pointer = pointer.args[1];
+                }
+                if (pl4.type.is_variable(pointer)) {
+                  thread.throw_error(pl4.error.instantiation(atom.indicator));
+                } else if (!pl4.type.is_term(pointer) || pointer.indicator !== "[]/0") {
+                  thread.throw_error(pl4.error.type("list", list, atom.indicator));
+                } else {
+                  var arr = [], nub = new pl4.type.Term("[]", []);
+                  var match;
+                  for (var i = 0; i < elems.length; i++) {
+                    match = false;
+                    for (var j = 0; j < arr.length && !match; j++) {
+                      match = pl4.compare(elems[i], arr[j]) === 0;
+                    }
+                    if (!match)
+                      arr.push(elems[i]);
+                  }
+                  for (i = arr.length - 1; i >= 0; i--)
+                    nub = new pl4.type.Term(".", [arr[i], nub]);
+                  thread.prepend([new pl4.type.State(point.goal.replace(new pl4.type.Term("=", [lset, nub])), point.substitution, point)]);
+                }
+              }
+            }
+          };
+        };
+        var exports2 = ["append/2", "append/3", "member/2", "permutation/2", "maplist/2", "maplist/3", "maplist/4", "maplist/5", "maplist/6", "maplist/7", "maplist/8", "include/3", "exclude/3", "foldl/4", "sum_list/2", "max_list/2", "min_list/2", "prod_list/2", "last/2", "prefix/2", "nth0/3", "nth1/3", "nth0/4", "nth1/4", "length/2", "replicate/3", "select/3", "sort/2", "msort/2", "keysort/2", "take/3", "drop/3", "reverse/2", "list_to_set/2"];
+        if (typeof module !== "undefined") {
+          module.exports = function(p) {
+            pl4 = p;
+            new pl4.type.Module("lists", predicates(), exports2);
+          };
+        } else {
+          new pl4.type.Module("lists", predicates(), exports2);
+        }
+      })(pl3);
+    }
+  });
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */function i(e,r,t,n){var i,a=arguments.length,s=a<3?r:null===n?n=Object.getOwnPropertyDescriptor(r,t):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)s=Reflect.decorate(e,r,t,n);else for(var o=e.length-1;o>=0;o--)(i=e[o])&&(s=(a<3?i(s):a>3?i(r,t,s):i(r,t))||s);return a>3&&s&&Object.defineProperty(r,t,s),s}var a=t(2594),s=t(8042),o=t(4688),p=t(5047),l=t.n(p),u=t(3465),c=t.n(u),y=t(4674),_=t.n(y),f=t(2184),d=t.n(f);const{is_atom:w,is_variable:h,is_instantiated_list:g}=c().type;function m(e,r,t){e.prepend(t.map(e=>new(c().type.State)(r.goal.replace(e),r.substitution,r)))}const v=new WeakMap;function b(e){const r=v.get(e.session);if(null==r)throw new Error("Assertion failed: A project should have been registered for the active session");return r}const x=new(c().type.Module)("constraints",{"project_workspaces_by_descriptor/3":(e,r,t)=>{const[i,a,s]=t.args;if(!w(i)||!w(a))return void e.throwError(c().error.instantiation(t.indicator));const o=n.structUtils.parseIdent(i.id),p=n.structUtils.makeDescriptor(o,a.id),l=b(e).tryWorkspaceByDescriptor(p);h(s)&&null!==l&&m(e,r,[new(c().type.Term)("=",[s,new(c().type.Term)(String(l.relativeCwd))])]),w(s)&&null!==l&&l.relativeCwd===s.id&&e.success(r)},"workspace_field/3":(e,r,t)=>{const[n,i,a]=t.args;if(!w(n)||!w(i))return void e.throwError(c().error.instantiation(t.indicator));const s=b(e).tryWorkspaceByCwd(n.id);if(null==s)return;const o=_()(s.manifest.raw,i.id);void 0!==o&&m(e,r,[new(c().type.Term)("=",[a,new(c().type.Term)(String(o))])])},"workspace_field_test/3":(e,r,t)=>{const[n,i,a]=t.args;e.prepend([new(c().type.State)(r.goal.replace(new(c().type.Term)("workspace_field_test",[n,i,a,new(c().type.Term)("[]",[])])),r.substitution,r)])},"workspace_field_test/4":(e,r,t)=>{const[n,i,a,s]=t.args;if(!(w(n)&&w(i)&&w(a)&&g(s)))return void e.throwError(c().error.instantiation(t.indicator));const o=b(e).tryWorkspaceByCwd(n.id);if(null==o)return;const p=_()(o.manifest.raw,i.id);if(void 0===p)return;const l={$$:p};for(const[e,r]of s.toJavaScript().entries())l["$"+e]=r;d().runInNewContext(a.id,l)&&e.success(r)}},["project_workspaces_by_descriptor/3","workspace_field/3","workspace_field_test/3","workspace_field_test/4"]);var T;l()(c()),function(e){e.Dependencies="dependencies",e.DevDependencies="devDependencies",e.PeerDependencies="peerDependencies"}(T||(T={}));const V=[T.Dependencies,T.DevDependencies,T.PeerDependencies];function k(e){let r;try{r=function e(r){if(r instanceof c().type.Num)return r.value;if(r instanceof c().type.Term){if(0===r.args.length)return r.id;switch(r.indicator){case"throw/1":case"error/1":return e(r.args[0]);case"error/2":return Object.assign(e(r.args[0]),...e(r.args[1]));case"syntax_error/1":return new n.ReportError(n.MessageName.PROLOG_SYNTAX_ERROR,"Syntax error: "+e(r.args[0]));case"existence_error/2":return new n.ReportError(n.MessageName.PROLOG_EXISTENCE_ERROR,`Existence error: ${e(r.args[0])} ${e(r.args[1])} not found`);case"line/1":return{line:e(r.args[0])};case"column/1":return{column:e(r.args[0])};case"found/1":return{found:e(r.args[0])};case"./2":return[e(r.args[0])].concat(e(r.args[1]));case"//2":return`${e(r.args[0])}/${e(r.args[1])}`}}throw"couldn't pretty print because of unsupported node "+r}(e)}catch(r){throw"string"==typeof r?new n.ReportError(n.MessageName.PROLOG_UNKNOWN_ERROR,`Unknown error: ${e} (note: ${r})`):r}return void 0!==r.line&&void 0!==r.column&&(r.message+=` at line ${r.line}, column ${r.column}`),r}null==Symbol.asyncIterator&&(Symbol.asyncIterator=Symbol.for("Symbol.asyncIterator"));class S{constructor(e,r){this.session=c().create(),function(e,r){v.set(e,r),e.consult(`:- use_module(library(${x.id})).`)}(this.session,e),this.session.consult(":- use_module(library(lists))."),this.session.consult(r)}fetchNextAnswer(){return new Promise(e=>{this.session.answer(r=>{e(r)})})}async*makeQuery(e){const r=this.session.query(e);if(!0!==r)throw k(r);for(;;){const e=await this.fetchNextAnswer();if(!e)break;if("throw"===e.id)throw k(e);yield e}}}function O(e){return"null"===e.id?null:""+e.toJavaScript()}function E(e){if("null"===e.id)return null;{const r=e.toJavaScript();if("string"!=typeof r)return JSON.stringify(r);try{return JSON.stringify(JSON.parse(r))}catch(e){return JSON.stringify(r)}}}class P{constructor(e){this.source="",this.project=e;const r=e.configuration.get("constraintsPath");o.xfs.existsSync(r)&&(this.source=o.xfs.readFileSync(r,"utf8"))}static async find(e){return new P(e)}getProjectDatabase(){let e="";for(const r of V)e+=`dependency_type(${r}).\n`;for(const r of this.project.workspacesByCwd.values()){const t=r.relativeCwd;e+=`workspace(${C(t)}).\n`,e+=`workspace_ident(${C(t)}, ${C(n.structUtils.stringifyIdent(r.locator))}).\n`,e+=`workspace_version(${C(t)}, ${C(r.manifest.version)}).\n`;for(const i of V)for(const a of r.manifest[i].values())e+=`workspace_has_dependency(${C(t)}, ${C(n.structUtils.stringifyIdent(a))}, ${C(a.range)}, ${i}).\n`}return e+="workspace(_) :- false.\n",e+="workspace_ident(_, _) :- false.\n",e+="workspace_version(_, _) :- false.\n",e+="workspace_has_dependency(_, _, _, _) :- false.\n",e}getDeclarations(){let e="";return e+="gen_enforced_dependency(_, _, _, _) :- false.\n",e+="gen_enforced_field(_, _, _) :- false.\n","gen_enforced_dependency(_, _, _, _) :- false.\ngen_enforced_field(_, _, _) :- false.\n"}get fullSource(){return`${this.getProjectDatabase()}\n${this.source}\n${this.getDeclarations()}`}createSession(){return new S(this.project,this.fullSource)}async process(){const e=this.createSession();return{enforcedDependencies:await this.genEnforcedDependencies(e),enforcedFields:await this.genEnforcedFields(e)}}async genEnforcedDependencies(e){const r=[];for await(const t of e.makeQuery("workspace(WorkspaceCwd), dependency_type(DependencyType), gen_enforced_dependency(WorkspaceCwd, DependencyIdent, DependencyRange, DependencyType).")){const e=o.ppath.resolve(this.project.cwd,O(t.links.WorkspaceCwd)),i=O(t.links.DependencyIdent),a=O(t.links.DependencyRange),s=O(t.links.DependencyType);if(null===e||null===i)throw new Error("Invalid rule");const p=this.project.getWorkspaceByCwd(e),l=n.structUtils.parseIdent(i);r.push({workspace:p,dependencyIdent:l,dependencyRange:a,dependencyType:s})}return n.miscUtils.sortMap(r,[({dependencyRange:e})=>null!==e?"0":"1",({workspace:e})=>n.structUtils.stringifyIdent(e.locator),({dependencyIdent:e})=>n.structUtils.stringifyIdent(e)])}async genEnforcedFields(e){const r=[];for await(const t of e.makeQuery("workspace(WorkspaceCwd), gen_enforced_field(WorkspaceCwd, FieldPath, FieldValue).")){const e=o.ppath.resolve(this.project.cwd,O(t.links.WorkspaceCwd)),n=O(t.links.FieldPath),i=E(t.links.FieldValue);if(null===e||null===n)throw new Error("Invalid rule");const a=this.project.getWorkspaceByCwd(e);r.push({workspace:a,fieldPath:n,fieldValue:i})}return n.miscUtils.sortMap(r,[({workspace:e})=>n.structUtils.stringifyIdent(e.locator),({fieldPath:e})=>e])}async*query(e){const r=this.createSession();for await(const t of r.makeQuery(e)){const e={};for(const[r,n]of Object.entries(t.links))"_"!==r&&(e[r]=O(n));yield e}}}function C(e){return"string"==typeof e?`'${e}'`:"[]"}class I extends a.BaseCommand{constructor(){super(...arguments),this.json=!1}async execute(){const e=await n.Configuration.find(this.context.cwd,this.context.plugins),{project:r}=await n.Project.find(e,this.context.cwd),t=await P.find(r);let i=this.query;i.endsWith(".")||(i+=".");return(await n.StreamReport.start({configuration:e,json:this.json,stdout:this.context.stdout},async e=>{for await(const r of t.query(i)){const t=Array.from(Object.entries(r)),n=t.length,i=t.reduce((e,[r])=>Math.max(e,r.length),0);for(let r=0;r<n;r++){const[a,s]=t[r];e.reportInfo(null,`${R(r,n)}${a.padEnd(i," ")} = ${N(s)}`)}e.reportJson(r)}})).exitCode()}}function N(e){return"string"!=typeof e?""+e:e.match(/^[a-zA-Z][a-zA-Z0-9_]+$/)?e:`'${e}'`}function R(e,r){const t=0===e,n=e===r-1;return t&&n?"":t?"┌ ":n?"└ ":"│ "}I.usage=s.Command.Usage({category:"Constraints-related commands",description:"query the constraints fact database",details:"\n      This command will output all matches to the given prolog query.\n\n      If the `--json` flag is set the output will follow a JSON-stream output also known as NDJSON (https://github.com/ndjson/ndjson-spec).\n    ",examples:[["List all dependencies throughout the workspace","yarn constraints query 'workspace_has_dependency(_, DependencyName, _, _).'"]]}),i([s.Command.Boolean("--json")],I.prototype,"json",void 0),i([s.Command.String()],I.prototype,"query",void 0),i([s.Command.Path("constraints","query")],I.prototype,"execute",null);class A extends a.BaseCommand{constructor(){super(...arguments),this.verbose=!1}async execute(){const e=await n.Configuration.find(this.context.cwd,this.context.plugins),{project:r}=await n.Project.find(e,this.context.cwd),t=await P.find(r);this.context.stdout.write(this.verbose?t.fullSource:t.source)}}A.usage=s.Command.Usage({category:"Constraints-related commands",description:"print the source code for the constraints",details:"\n      This command will print the Prolog source code used by the constraints engine. Adding the `-v,--verbose` flag will print the *full* source code, including the fact database automatically compiled from your workspaces manifests.\n    ",examples:[["Prints the source code","yarn constraints source"],["Print the source code and the fact database","yarn constraints source -v"]]}),i([s.Command.Boolean("-v,--verbose")],A.prototype,"verbose",void 0),i([s.Command.Path("constraints","source")],A.prototype,"execute",null);var $=t(1534),M=t.n($),j=t(404),X=t.n(j);class D extends a.BaseCommand{constructor(){super(...arguments),this.fix=!1}async execute(){const e=await n.Configuration.find(this.context.cwd,this.context.plugins),{project:r}=await n.Project.find(e,this.context.cwd),t=await P.find(r),i=await n.StreamReport.start({configuration:e,stdout:this.context.stdout},async r=>{let n=new Set,i=[];for(let r=0,a=this.fix?10:1;r<a;++r){i=[];const r=new Set,a=await t.process();if(await B(r,i,a.enforcedDependencies,{fix:this.fix,configuration:e}),await q(r,i,a.enforcedFields,{fix:this.fix,configuration:e}),n=new Set([...n,...r]),0===r.size)break}await Promise.all([...n].map(async e=>{e.manifest.load(e.manifest.raw),await e.persistManifest()}));for(const[e,t]of i)r.reportError(e,t)});return i.hasErrors()?i.exitCode():0}}async function B(e,r,t,{configuration:i,fix:a}){const s=new Map,o=new Map;for(const{workspace:e,dependencyIdent:r,dependencyRange:n,dependencyType:i}of t){let t=o.get(e);void 0===t&&o.set(e,t=new Map);let a=t.get(r.identHash);void 0===a&&t.set(r.identHash,a=new Map);let p=a.get(i);void 0===p&&a.set(i,p=new Set),s.set(r.identHash,r),p.add(n)}for(const[t,p]of o)for(const[o,l]of p){const p=s.get(o);if(void 0===p)throw new Error("Assertion failed: The ident should have been registered");for(const[s,o]of l){const l=[...o];if(l.length>2)r.push([n.MessageName.CONSTRAINTS_AMBIGUITY,`${n.structUtils.prettyWorkspace(i,t)} must depend on ${n.structUtils.prettyIdent(i,p)} via conflicting ranges ${l.slice(0,-1).map(e=>n.structUtils.prettyRange(i,String(e))).join(", ")}, and ${n.structUtils.prettyRange(i,String(l[l.length-1]))} (in ${s})`]);else if(l.length>1)r.push([n.MessageName.CONSTRAINTS_AMBIGUITY,`${n.structUtils.prettyWorkspace(i,t)} must depend on ${n.structUtils.prettyIdent(i,p)} via conflicting ranges ${n.structUtils.prettyRange(i,String(l[0]))} and ${n.structUtils.prettyRange(i,String(l[1]))} (in ${s})`]);else{const o=t.manifest[s].get(p.identHash),[u]=l;null!==u?o?o.range!==u&&(a?(t.manifest[s].set(p.identHash,n.structUtils.makeDescriptor(p,u)),e.add(t)):r.push([n.MessageName.CONSTRAINTS_INCOMPATIBLE_DEPENDENCY,`${n.structUtils.prettyWorkspace(i,t)} must depend on ${n.structUtils.prettyIdent(i,p)} via ${n.structUtils.prettyRange(i,u)}, but uses ${n.structUtils.prettyRange(i,o.range)} instead (in ${s})`])):a?(t.manifest[s].set(p.identHash,n.structUtils.makeDescriptor(p,u)),e.add(t)):r.push([n.MessageName.CONSTRAINTS_MISSING_DEPENDENCY,`${n.structUtils.prettyWorkspace(i,t)} must depend on ${n.structUtils.prettyIdent(i,p)} (via ${n.structUtils.prettyRange(i,u)}), but doesn't (in ${s})`]):o&&(a?(t.manifest[s].delete(p.identHash),e.add(t)):r.push([n.MessageName.CONSTRAINTS_EXTRANEOUS_DEPENDENCY,`${n.structUtils.prettyWorkspace(i,t)} has an extraneous dependency on ${n.structUtils.prettyIdent(i,p)} (in ${s})`]))}}}}async function q(e,r,t,{configuration:i,fix:a}){const s=new Map;for(const{workspace:e,fieldPath:r,fieldValue:i}of t){const t=n.miscUtils.getMapWithDefault(s,e);n.miscUtils.getSetWithDefault(t,r).add(i)}for(const[t,o]of s)for(const[s,p]of o){const o=[...p];if(o.length>2)r.push([n.MessageName.CONSTRAINTS_AMBIGUITY,`${n.structUtils.prettyWorkspace(i,t)} must have a field ${i.format(s,"cyan")} set to conflicting values ${o.slice(0,-1).map(e=>i.format(String(e),"magenta")).join(", ")}, or ${i.format(String(o[o.length-1]),"magenta")}`]);else if(o.length>1)r.push([n.MessageName.CONSTRAINTS_AMBIGUITY,`${n.structUtils.prettyWorkspace(i,t)} must have a field ${i.format(s,"cyan")} set to conflicting values ${i.format(String(o[0]),"magenta")} or ${i.format(String(o[1]),"magenta")}`]);else{const p=_()(t.manifest.raw,s),[l]=o;null!==l?void 0===p?a?(await F(t,s,l),e.add(t)):r.push([n.MessageName.CONSTRAINTS_MISSING_FIELD,`${n.structUtils.prettyWorkspace(i,t)} must have a field ${i.format(s,"cyan")} set to ${i.format(String(l),"magenta")}, but doesn't`]):JSON.stringify(p)!==l&&(a?(await F(t,s,l),e.add(t)):r.push([n.MessageName.CONSTRAINTS_INCOMPATIBLE_FIELD,`${n.structUtils.prettyWorkspace(i,t)} must have a field ${i.format(s,"cyan")} set to ${i.format(String(l),"magenta")}, but is set to ${i.format(JSON.stringify(p),"magenta")} instead`])):null!=p&&(a?(await F(t,s,null),e.add(t)):r.push([n.MessageName.CONSTRAINTS_EXTRANEOUS_FIELD,`${n.structUtils.prettyWorkspace(i,t)} has an extraneous field ${i.format(s,"cyan")} set to ${i.format(String(l),"magenta")}`]))}}}async function F(e,r,t){null===t?X()(e.manifest.raw,r):M()(e.manifest.raw,r,JSON.parse(t))}D.usage=s.Command.Usage({category:"Constraints-related commands",description:"check that the project constraints are met",details:"\n      This command will run constraints on your project and emit errors for each one that is found but isn't met. If any error is emitted the process will exit with a non-zero exit code.\n\n      If the `--fix` flag is used, Yarn will attempt to automatically fix the issues the best it can, following a multi-pass process (with a maximum of 10 iterations). Some ambiguous patterns cannot be autofixed, in which case you'll have to manually specify the right resolution.\n\n      For more information as to how to write constraints, please consult our dedicated page on our website: https://yarnpkg.com/features/constraints.\n    ",examples:[["Check that all constraints are satisfied","yarn constraints"],["Autofix all unmet constraints","yarn constraints --fix"]]}),i([s.Command.Boolean("--fix")],D.prototype,"fix",void 0),i([s.Command.Path("constraints")],D.prototype,"execute",null);const z={configuration:{constraintsPath:{description:"The path of the constraints file.",type:n.SettingsType.ABSOLUTE_PATH,default:"./constraints.pro"}},commands:[I,A,D]}},2574:(e,r,t)=>{var n=t(1713),i=t(6688),a=t(5937),s=t(5017),o=t(9457);function p(e){var r=-1,t=null==e?0:e.length;for(this.clear();++r<t;){var n=e[r];this.set(n[0],n[1])}}p.prototype.clear=n,p.prototype.delete=i,p.prototype.get=a,p.prototype.has=s,p.prototype.set=o,e.exports=p},9197:(e,r,t)=>{var n=t(4620),i=t(3682),a=t(3112),s=t(640),o=t(9380);function p(e){var r=-1,t=null==e?0:e.length;for(this.clear();++r<t;){var n=e[r];this.set(n[0],n[1])}}p.prototype.clear=n,p.prototype.delete=i,p.prototype.get=a,p.prototype.has=s,p.prototype.set=o,e.exports=p},3603:(e,r,t)=>{var n=t(9513)(t(6169),"Map");e.exports=n},5009:(e,r,t)=>{var n=t(8209),i=t(9706),a=t(3786),s=t(7926),o=t(7345);function p(e){var r=-1,t=null==e?0:e.length;for(this.clear();++r<t;){var n=e[r];this.set(n[0],n[1])}}p.prototype.clear=n,p.prototype.delete=i,p.prototype.get=a,p.prototype.has=s,p.prototype.set=o,e.exports=p},9976:(e,r,t)=>{var n=t(6169).Symbol;e.exports=n},783:e=>{e.exports=function(e,r){for(var t=-1,n=null==e?0:e.length,i=Array(n);++t<n;)i[t]=r(e[t],t,e);return i}},5759:(e,r,t)=>{var n=t(1198),i=t(1074),a=Object.prototype.hasOwnProperty;e.exports=function(e,r,t){var s=e[r];a.call(e,r)&&i(s,t)&&(void 0!==t||r in e)||n(e,r,t)}},9836:(e,r,t)=>{var n=t(1074);e.exports=function(e,r){for(var t=e.length;t--;)if(n(e[t][0],r))return t;return-1}},1198:(e,r,t)=>{var n=t(65);e.exports=function(e,r,t){"__proto__"==r&&n?n(e,r,{configurable:!0,enumerable:!0,value:t,writable:!0}):e[r]=t}},4173:(e,r,t)=>{var n=t(6725),i=t(9874);e.exports=function(e,r){for(var t=0,a=(r=n(r,e)).length;null!=e&&t<a;)e=e[i(r[t++])];return t&&t==a?e:void 0}},2502:(e,r,t)=>{var n=t(9976),i=t(2854),a=t(7427),s=n?n.toStringTag:void 0;e.exports=function(e){return null==e?void 0===e?"[object Undefined]":"[object Null]":s&&s in Object(e)?i(e):a(e)}},1686:(e,r,t)=>{var n=t(2533),i=t(5061),a=t(6778),s=t(6384),o=/^\[object .+?Constructor\]$/,p=Function.prototype,l=Object.prototype,u=p.toString,c=l.hasOwnProperty,y=RegExp("^"+u.call(c).replace(/[\\^$.*+?()[\]{}|]/g,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$");e.exports=function(e){return!(!a(e)||i(e))&&(n(e)?y:o).test(s(e))}},624:(e,r,t)=>{var n=t(5759),i=t(6725),a=t(8041),s=t(6778),o=t(9874);e.exports=function(e,r,t,p){if(!s(e))return e;for(var l=-1,u=(r=i(r,e)).length,c=u-1,y=e;null!=y&&++l<u;){var _=o(r[l]),f=t;if(l!=c){var d=y[_];void 0===(f=p?p(d,_,y):void 0)&&(f=s(d)?d:a(r[l+1])?[]:{})}n(y,_,f),y=y[_]}return e}},7708:e=>{e.exports=function(e,r,t){var n=-1,i=e.length;r<0&&(r=-r>i?0:i+r),(t=t>i?i:t)<0&&(t+=i),i=r>t?0:t-r>>>0,r>>>=0;for(var a=Array(i);++n<i;)a[n]=e[n+r];return a}},35:(e,r,t)=>{var n=t(9976),i=t(783),a=t(2664),s=t(5558),o=n?n.prototype:void 0,p=o?o.toString:void 0;e.exports=function e(r){if("string"==typeof r)return r;if(a(r))return i(r,e)+"";if(s(r))return p?p.call(r):"";var t=r+"";return"0"==t&&1/r==-1/0?"-0":t}},1622:(e,r,t)=>{var n=t(6725),i=t(9845),a=t(7574),s=t(9874);e.exports=function(e,r){return r=n(r,e),null==(e=a(e,r))||delete e[s(i(r))]}},6725:(e,r,t)=>{var n=t(2664),i=t(474),a=t(8689),s=t(3580);e.exports=function(e,r){return n(e)?e:i(e,r)?[e]:a(s(e))}},4429:(e,r,t)=>{var n=t(6169)["__core-js_shared__"];e.exports=n},65:(e,r,t)=>{var n=t(9513),i=function(){try{var e=n(Object,"defineProperty");return e({},"",{}),e}catch(e){}}();e.exports=i},8399:e=>{var r="object"==typeof global&&global&&global.Object===Object&&global;e.exports=r},9253:(e,r,t)=>{var n=t(9448);e.exports=function(e,r){var t=e.__data__;return n(r)?t["string"==typeof r?"string":"hash"]:t.map}},9513:(e,r,t)=>{var n=t(1686),i=t(8054);e.exports=function(e,r){var t=i(e,r);return n(t)?t:void 0}},2854:(e,r,t)=>{var n=t(9976),i=Object.prototype,a=i.hasOwnProperty,s=i.toString,o=n?n.toStringTag:void 0;e.exports=function(e){var r=a.call(e,o),t=e[o];try{e[o]=void 0;var n=!0}catch(e){}var i=s.call(e);return n&&(r?e[o]=t:delete e[o]),i}},8054:e=>{e.exports=function(e,r){return null==e?void 0:e[r]}},1713:(e,r,t)=>{var n=t(2437);e.exports=function(){this.__data__=n?n(null):{},this.size=0}},6688:e=>{e.exports=function(e){var r=this.has(e)&&delete this.__data__[e];return this.size-=r?1:0,r}},5937:(e,r,t)=>{var n=t(2437),i=Object.prototype.hasOwnProperty;e.exports=function(e){var r=this.__data__;if(n){var t=r[e];return"__lodash_hash_undefined__"===t?void 0:t}return i.call(r,e)?r[e]:void 0}},5017:(e,r,t)=>{var n=t(2437),i=Object.prototype.hasOwnProperty;e.exports=function(e){var r=this.__data__;return n?void 0!==r[e]:i.call(r,e)}},9457:(e,r,t)=>{var n=t(2437);e.exports=function(e,r){var t=this.__data__;return this.size+=this.has(e)?0:1,t[e]=n&&void 0===r?"__lodash_hash_undefined__":r,this}},8041:e=>{var r=/^(?:0|[1-9]\d*)$/;e.exports=function(e,t){var n=typeof e;return!!(t=null==t?9007199254740991:t)&&("number"==n||"symbol"!=n&&r.test(e))&&e>-1&&e%1==0&&e<t}},474:(e,r,t)=>{var n=t(2664),i=t(5558),a=/\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,s=/^\w*$/;e.exports=function(e,r){if(n(e))return!1;var t=typeof e;return!("number"!=t&&"symbol"!=t&&"boolean"!=t&&null!=e&&!i(e))||(s.test(e)||!a.test(e)||null!=r&&e in Object(r))}},9448:e=>{e.exports=function(e){var r=typeof e;return"string"==r||"number"==r||"symbol"==r||"boolean"==r?"__proto__"!==e:null===e}},5061:(e,r,t)=>{var n,i=t(4429),a=(n=/[^.]+$/.exec(i&&i.keys&&i.keys.IE_PROTO||""))?"Symbol(src)_1."+n:"";e.exports=function(e){return!!a&&a in e}},4620:e=>{e.exports=function(){this.__data__=[],this.size=0}},3682:(e,r,t)=>{var n=t(9836),i=Array.prototype.splice;e.exports=function(e){var r=this.__data__,t=n(r,e);return!(t<0)&&(t==r.length-1?r.pop():i.call(r,t,1),--this.size,!0)}},3112:(e,r,t)=>{var n=t(9836);e.exports=function(e){var r=this.__data__,t=n(r,e);return t<0?void 0:r[t][1]}},640:(e,r,t)=>{var n=t(9836);e.exports=function(e){return n(this.__data__,e)>-1}},9380:(e,r,t)=>{var n=t(9836);e.exports=function(e,r){var t=this.__data__,i=n(t,e);return i<0?(++this.size,t.push([e,r])):t[i][1]=r,this}},8209:(e,r,t)=>{var n=t(2574),i=t(9197),a=t(3603);e.exports=function(){this.size=0,this.__data__={hash:new n,map:new(a||i),string:new n}}},9706:(e,r,t)=>{var n=t(9253);e.exports=function(e){var r=n(this,e).delete(e);return this.size-=r?1:0,r}},3786:(e,r,t)=>{var n=t(9253);e.exports=function(e){return n(this,e).get(e)}},7926:(e,r,t)=>{var n=t(9253);e.exports=function(e){return n(this,e).has(e)}},7345:(e,r,t)=>{var n=t(9253);e.exports=function(e,r){var t=n(this,e),i=t.size;return t.set(e,r),this.size+=t.size==i?0:1,this}},1948:(e,r,t)=>{var n=t(4499);e.exports=function(e){var r=n(e,(function(e){return 500===t.size&&t.clear(),e})),t=r.cache;return r}},2437:(e,r,t)=>{var n=t(9513)(Object,"create");e.exports=n},7427:e=>{var r=Object.prototype.toString;e.exports=function(e){return r.call(e)}},7574:(e,r,t)=>{var n=t(4173),i=t(7708);e.exports=function(e,r){return r.length<2?e:n(e,i(r,0,-1))}},6169:(e,r,t)=>{var n=t(8399),i="object"==typeof self&&self&&self.Object===Object&&self,a=n||i||Function("return this")();e.exports=a},8689:(e,r,t)=>{var n=t(1948),i=/[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,a=/\\(\\)?/g,s=n((function(e){var r=[];return 46===e.charCodeAt(0)&&r.push(""),e.replace(i,(function(e,t,n,i){r.push(n?i.replace(a,"$1"):t||e)})),r}));e.exports=s},9874:(e,r,t)=>{var n=t(5558);e.exports=function(e){if("string"==typeof e||n(e))return e;var r=e+"";return"0"==r&&1/e==-1/0?"-0":r}},6384:e=>{var r=Function.prototype.toString;e.exports=function(e){if(null!=e){try{return r.call(e)}catch(e){}try{return e+""}catch(e){}}return""}},1074:e=>{e.exports=function(e,r){return e===r||e!=e&&r!=r}},4674:(e,r,t)=>{var n=t(4173);e.exports=function(e,r,t){var i=null==e?void 0:n(e,r);return void 0===i?t:i}},2664:e=>{var r=Array.isArray;e.exports=r},2533:(e,r,t)=>{var n=t(2502),i=t(6778);e.exports=function(e){if(!i(e))return!1;var r=n(e);return"[object Function]"==r||"[object GeneratorFunction]"==r||"[object AsyncFunction]"==r||"[object Proxy]"==r}},6778:e=>{e.exports=function(e){var r=typeof e;return null!=e&&("object"==r||"function"==r)}},8496:e=>{e.exports=function(e){return null!=e&&"object"==typeof e}},5558:(e,r,t)=>{var n=t(2502),i=t(8496);e.exports=function(e){return"symbol"==typeof e||i(e)&&"[object Symbol]"==n(e)}},9845:e=>{e.exports=function(e){var r=null==e?0:e.length;return r?e[r-1]:void 0}},4499:(e,r,t)=>{var n=t(5009);function i(e,r){if("function"!=typeof e||null!=r&&"function"!=typeof r)throw new TypeError("Expected a function");var t=function(){var n=arguments,i=r?r.apply(this,n):n[0],a=t.cache;if(a.has(i))return a.get(i);var s=e.apply(this,n);return t.cache=a.set(i,s)||a,s};return t.cache=new(i.Cache||n),t}i.Cache=n,e.exports=i},1534:(e,r,t)=>{var n=t(624);e.exports=function(e,r,t){return null==e?e:n(e,r,t)}},3580:(e,r,t)=>{var n=t(35);e.exports=function(e){return null==e?"":n(e)}},404:(e,r,t)=>{var n=t(1622);e.exports=function(e,r){return null==e||n(e,r)}},6931:(e,r,t)=>{"use strict";var n,i,a,s,o,p,l="win32"===process.platform,u="The current environment doesn't support interactive reading from TTY.",c=t(5747),y=process.binding("tty_wrap").TTY,_=t(3129),f=t(5622),d={prompt:"> ",hideEchoBack:!1,mask:"*",limit:[],limitMessage:"Input another, please.$<( [)limit(])>",defaultInput:"",trueValue:[],falseValue:[],caseSensitive:!1,keepWhitespace:!1,encoding:"utf8",bufferSize:1024,print:void 0,history:!0,cd:!1,phContent:void 0,preCheck:void 0},w="none",h=!1,g=0,m="",v=[],b=!1,x=!1,T=!1;function V(e){return s.concat((r={display:"string",displayOnly:"boolean",keyIn:"boolean",hideEchoBack:"boolean",mask:"string",limit:"string",caseSensitive:"boolean"},t=[],Object.keys(r).forEach((function(n){"boolean"===r[n]?e[n]&&t.push("--"+n):"string"===r[n]&&e[n]&&t.push("--"+n,e[n].replace(/[^\w\u0080-\uFFFF]/g,(function(e){return"#"+e.charCodeAt(0)+";"})))})),t));var r,t}function k(e){var r,n,i={},p={env:process.env,encoding:e.encoding};if(a||(l?process.env.PSModulePath?(a="powershell.exe",s=["-ExecutionPolicy","Bypass","-File",__dirname+"\\read.ps1"]):(a="cscript.exe",s=["//nologo",__dirname+"\\read.cs.js"]):(a="/bin/sh",s=[__dirname+"/read.sh"])),l&&!process.env.PSModulePath&&(p.stdio=[process.stdin]),_.execFileSync){r=V(e),T&&T("execFileSync",r);try{i.input=_.execFileSync(a,r,p)}catch(e){n=e.stderr?(e.stderr+"").trim():"",i.error=new Error(u+(n?"\n"+n:"")),i.error.method="execFileSync",i.error.program=a,i.error.args=r,i.error.extMessage=n,i.error.exitCode=e.status,i.error.code=e.code,i.error.signal=e.signal}}else i=function(e,r){function n(e){var r,n,i="";for(o=o||t(2087).tmpdir();;){r=f.join(o,e+i);try{n=c.openSync(r,"wx")}catch(e){if("EEXIST"===e.code){i++;continue}throw e}c.closeSync(n);break}return r}var i,s,p,y,d,w,h,m,v={},b=n("readline-sync.stdout"),x=n("readline-sync.stderr"),k=n("readline-sync.exit"),S=n("readline-sync.done"),O=t(6417);(w=O.createHash("sha256")).update(""+process.pid+g+++Math.random()),m=w.digest("hex"),h=O.createDecipher("aes-256-cbc",m),i=V(e),l?(s=process.env.ComSpec||"cmd.exe",process.env.Q='"',p=["/V:ON","/S","/C","(%Q%"+s+"%Q% /V:ON /S /C %Q%%Q%"+a+"%Q%"+i.map((function(e){return" %Q%"+e+"%Q%"})).join("")+" & (echo !ERRORLEVEL!)>%Q%"+k+"%Q%%Q%) 2>%Q%"+x+"%Q% |%Q%"+process.execPath+"%Q% %Q%"+__dirname+"\\encrypt.js%Q% %Q%aes-256-cbc%Q% %Q%"+m+"%Q% >%Q%"+b+"%Q% & (echo 1)>%Q%"+S+"%Q%"]):(s="/bin/sh",p=["-c",'("'+a+'"'+i.map((function(e){return" '"+e.replace(/'/g,"'\\''")+"'"})).join("")+'; echo $?>"'+k+'") 2>"'+x+'" |"'+process.execPath+'" "'+__dirname+'/encrypt.js" "aes-256-cbc" "'+m+'" >"'+b+'"; echo 1 >"'+S+'"']),T&&T("_execFileSync",i);try{_.spawn(s,p,r)}catch(e){v.error=new Error(e.message),v.error.method="_execFileSync - spawn",v.error.program=s,v.error.args=p}for(;"1"!==c.readFileSync(S,{encoding:e.encoding}).trim(););return"0"===(y=c.readFileSync(k,{encoding:e.encoding}).trim())?v.input=h.update(c.readFileSync(b,{encoding:"binary"}),"hex",e.encoding)+h.final(e.encoding):(d=c.readFileSync(x,{encoding:e.encoding}).trim(),v.error=new Error(u+(d?"\n"+d:"")),v.error.method="_execFileSync",v.error.program=s,v.error.args=p,v.error.extMessage=d,v.error.exitCode=+y),c.unlinkSync(b),c.unlinkSync(x),c.unlinkSync(k),c.unlinkSync(S),v}(e,p);return i.error||(i.input=i.input.replace(/^\s*'|'\s*$/g,""),e.display=""),i}function S(e){var r="",t=e.display,a=!e.display&&e.keyIn&&e.hideEchoBack&&!e.mask;function s(){var r=k(e);if(r.error)throw r.error;return r.input}return x&&x(e),function(){var e,r,t;function a(){return e||(e=process.binding("fs"),r=process.binding("constants")),e}if("string"==typeof w)if(w=null,l){if((t=function(e){var r=process.version.replace(/^\D+/,"").split("."),t=0;return(r[0]=+r[0])&&(t+=1e4*r[0]),(r[1]=+r[1])&&(t+=100*r[1]),(r[2]=+r[2])&&(t+=r[2]),t}())>=20302&&t<40204||t>=5e4&&t<50100||t>=50600&&t<60200||!process.stdin.isTTY)try{w=a().open("CONIN$",r.O_RDWR,parseInt("0666",8)),i=new y(w,!0)}catch(e){}else process.stdin.pause(),w=process.stdin.fd,i=process.stdin._handle;if(process.stdout.isTTY)n=process.stdout.fd;else{try{n=c.openSync("\\\\.\\CON","w")}catch(e){}if("number"!=typeof n)try{n=a().open("CONOUT$",r.O_RDWR,parseInt("0666",8))}catch(e){}}}else{if(process.stdin.isTTY){process.stdin.pause();try{w=c.openSync("/dev/tty","r"),i=process.stdin._handle}catch(e){}}else try{w=c.openSync("/dev/tty","r"),i=new y(w,!1)}catch(e){}if(process.stdout.isTTY)n=process.stdout.fd;else try{n=c.openSync("/dev/tty","w")}catch(e){}}}(),function(){var t,o,l,u,y,_,f,d=!e.hideEchoBack&&!e.keyIn;function g(e){return e===h||0===i.setRawMode(e)&&(h=e,!0)}if(p="",!b&&i&&("number"==typeof n||!e.display&&d)){if(e.display&&(c.writeSync(n,e.display),e.display=""),!e.displayOnly)if(g(!d)){for(u=e.keyIn?1:e.bufferSize,l=Buffer.allocUnsafe&&Buffer.alloc?Buffer.alloc(u):new Buffer(u),e.keyIn&&e.limit&&(o=new RegExp("[^"+e.limit+"]","g"+(e.caseSensitive?"":"i")));;){y=0;try{y=c.readSync(w,l,0,u)}catch(e){if("EOF"!==e.code)return g(!1),void(r+=s())}if(y>0?(_=l.toString(e.encoding,0,y),p+=_):(_="\n",p+=String.fromCharCode(0)),_&&"string"==typeof(f=(_.match(/^(.*?)[\r\n]/)||[])[1])&&(_=f,t=!0),_&&(_=_.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g,"")),_&&o&&(_=_.replace(o,"")),_&&(d||(e.hideEchoBack?e.mask&&c.writeSync(n,new Array(_.length+1).join(e.mask)):c.writeSync(n,_)),r+=_),!e.keyIn&&t||e.keyIn&&r.length>=u)break}d||a||c.writeSync(n,"\n"),g(!1)}else r=s()}else r=s()}(),e.print&&!a&&e.print(t+(e.displayOnly?"":(e.hideEchoBack?new Array(r.length+1).join(e.mask):r)+"\n"),e.encoding),e.displayOnly?"":m=e.keepWhitespace||e.keyIn?r:r.trim()}function O(e,r){var t=[];return function e(n){null!=n&&(Array.isArray(n)?n.forEach(e):r&&!r(n)||t.push(n))}(e),t}function E(e){return e.replace(/[\x00-\x7f]/g,(function(e){return"\\x"+("00"+e.charCodeAt().toString(16)).substr(-2)}))}function P(){var e,r,t=Array.prototype.slice.call(arguments);return t.length&&"boolean"==typeof t[0]&&(r=t.shift())&&(e=Object.keys(d),t.unshift(d)),t.reduce((function(t,n){return null==n||(n.hasOwnProperty("noEchoBack")&&!n.hasOwnProperty("hideEchoBack")&&(n.hideEchoBack=n.noEchoBack,delete n.noEchoBack),n.hasOwnProperty("noTrim")&&!n.hasOwnProperty("keepWhitespace")&&(n.keepWhitespace=n.noTrim,delete n.noTrim),r||(e=Object.keys(n)),e.forEach((function(e){var r;if(n.hasOwnProperty(e))switch(r=n[e],e){case"mask":case"limitMessage":case"defaultInput":case"encoding":(r=null!=r?r+"":"")&&"limitMessage"!==e&&(r=r.replace(/[\r\n]/g,"")),t[e]=r;break;case"bufferSize":isNaN(r=parseInt(r,10))||"number"!=typeof r||(t[e]=r);break;case"displayOnly":case"keyIn":case"hideEchoBack":case"caseSensitive":case"keepWhitespace":case"history":case"cd":t[e]=!!r;break;case"limit":case"trueValue":case"falseValue":t[e]=O(r,(function(e){var r=typeof e;return"string"===r||"number"===r||"function"===r||e instanceof RegExp})).map((function(e){return"string"==typeof e?e.replace(/[\r\n]/g,""):e}));break;case"print":case"phContent":case"preCheck":t[e]="function"==typeof r?r:void 0;break;case"prompt":case"display":t[e]=null!=r?r:""}}))),t}),{})}function C(e,r,t){return r.some((function(r){var n=typeof r;return"string"===n?t?e===r:e.toLowerCase()===r.toLowerCase():"number"===n?parseFloat(e)===r:"function"===n?r(e):r instanceof RegExp&&r.test(e)}))}function I(e,r){var t=f.normalize(l?(process.env.HOMEDRIVE||"")+(process.env.HOMEPATH||""):process.env.HOME||"").replace(/[\/\\]+$/,"");return e=f.normalize(e),r?e.replace(/^~(?=\/|\\|$)/,t):e.replace(new RegExp("^"+E(t)+"(?=\\/|\\\\|$)",l?"i":""),"~")}function N(e,r){var t="(?:\\(([\\s\\S]*?)\\))?(\\w+|.-.)(?:\\(([\\s\\S]*?)\\))?",n=new RegExp("(\\$)?(\\$<"+t+">)","g"),i=new RegExp("(\\$)?(\\$\\{"+t+"\\})","g");function a(e,t,n,i,a,s){var o;return t||"string"!=typeof(o=r(a))?n:o?(i||"")+o+(s||""):""}return e.replace(n,a).replace(i,a)}function R(e,r,t){var n,i,a=[],s=-1,o=0,p="";function l(e,r){return r.length>3?(e.push(r[0]+"..."+r[r.length-1]),i=!0):r.length&&(e=e.concat(r)),e}return n=e.reduce((function(e,r){return e.concat((r+"").split(""))}),[]).reduce((function(e,n){var i,u;return r||(n=n.toLowerCase()),i=/^\d$/.test(n)?1:/^[A-Z]$/.test(n)?2:/^[a-z]$/.test(n)?3:0,t&&0===i?p+=n:(u=n.charCodeAt(0),i&&i===s&&u===o+1?a.push(n):(e=l(e,a),a=[n],s=i),o=u),e}),[]),n=l(n,a),p&&(n.push(p),i=!0),{values:n,suppressed:i}}function A(e,r){return e.join(e.length>2?", ":r?" / ":"/")}function $(e,r){var t,n,i,a={};if(r.phContent&&(t=r.phContent(e,r)),"string"!=typeof t)switch(e){case"hideEchoBack":case"mask":case"defaultInput":case"caseSensitive":case"keepWhitespace":case"encoding":case"bufferSize":case"history":case"cd":t=r.hasOwnProperty(e)?"boolean"==typeof r[e]?r[e]?"on":"off":r[e]+"":"";break;case"limit":case"trueValue":case"falseValue":n=r[r.hasOwnProperty(e+"Src")?e+"Src":e],t=A(n=r.keyIn?(a=R(n,r.caseSensitive)).values:n.filter((function(e){var r=typeof e;return"string"===r||"number"===r})),a.suppressed);break;case"limitCount":case"limitCountNotZero":t=(t=r[r.hasOwnProperty("limitSrc")?"limitSrc":"limit"].length)||"limitCountNotZero"!==e?t+"":"";break;case"lastInput":t=m;break;case"cwd":case"CWD":case"cwdHome":t=process.cwd(),"CWD"===e?t=f.basename(t):"cwdHome"===e&&(t=I(t));break;case"date":case"time":case"localeDate":case"localeTime":t=(new Date)["to"+e.replace(/^./,(function(e){return e.toUpperCase()}))+"String"]();break;default:"string"==typeof(i=(e.match(/^history_m(\d+)$/)||[])[1])&&(t=v[v.length-i]||"")}return t}function M(e){var r,t,n,i,a=/^(.)-(.)$/.exec(e),s="";if(!a)return null;for(i=(r=a[1].charCodeAt(0))<(t=a[2].charCodeAt(0))?1:-1,n=r;n!==t+i;n+=i)s+=String.fromCharCode(n);return s}function j(e){var r,t,n=new RegExp(/(\s*)(?:("|')(.*?)(?:\2|$)|(\S+))/g),i="",a=[];for(e=e.trim();r=n.exec(e);)t=r[3]||r[4]||"",r[1]&&(a.push(i),i=""),i+=t;return i&&a.push(i),a}function X(e,r){return!(!r.trueValue.length||!C(e,r.trueValue,r.caseSensitive))||(!r.falseValue.length||!C(e,r.falseValue,r.caseSensitive))&&e}function D(e){var r,t,n,i,a,s,o;function p(r){return $(r,e)}function l(r){e.display+=(/[^\r\n]$/.test(e.display)?"\n":"")+r}for(e.limitSrc=e.limit,e.displaySrc=e.display,e.limit="",e.display=N(e.display+"",p);;){if(r=S(e),t=!1,n="",e.defaultInput&&!r&&(r=e.defaultInput),e.history&&((i=/^\s*\!(?:\!|-1)(:p)?\s*$/.exec(r))?(a=v[0]||"",i[1]?t=!0:r=a,l(a+"\n"),t||(e.displayOnly=!0,S(e),e.displayOnly=!1)):r&&r!==v[v.length-1]&&(v=[r])),!t&&e.cd&&r)switch((s=j(r))[0].toLowerCase()){case"cd":if(s[1])try{process.chdir(I(s[1],!0))}catch(e){l(e+"")}t=!0;break;case"pwd":l(process.cwd()),t=!0}if(!t&&e.preCheck&&(r=(o=e.preCheck(r,e)).res,o.forceNext&&(t=!0)),!t){if(!e.limitSrc.length||C(r,e.limitSrc,e.caseSensitive))break;e.limitMessage&&(n=N(e.limitMessage,p))}l((n?n+"\n":"")+N(e.displaySrc+"",p))}return X(r,e)}function B(e,t,n){var i;return r.question(e,P({limitMessage:"Input valid number, please."},t,{limit:function(e){return i=n(e),!isNaN(i)&&"number"==typeof i},cd:!1})),i}function q(e,r){var t={},n={};return"object"==typeof e?(Object.keys(e).forEach((function(t){"function"==typeof e[t]&&(n[r.caseSensitive?t:t.toLowerCase()]=e[t])})),t.preCheck=function(e){var i;return t.args=j(e),i=t.args[0]||"",r.caseSensitive||(i=i.toLowerCase()),t.hRes="_"!==i&&n.hasOwnProperty(i)?n[i].apply(e,t.args.slice(1)):n.hasOwnProperty("_")?n._.apply(e,t.args):null,{res:e,forceNext:!1}},n.hasOwnProperty("_")||(t.limit=function(){var e=t.args[0]||"";return r.caseSensitive||(e=e.toLowerCase()),n.hasOwnProperty(e)})):t.preCheck=function(r){return t.args=j(r),t.hRes="function"!=typeof e||e.apply(r,t.args),{res:r,forceNext:!1}},t}function F(e,t,n){var i;return null==e&&(e="Are you sure? "),t&&!1===t.guide||!(e+="")||(e=e.replace(/\s*:?\s*$/,"")+" [y/n]: "),"boolean"==typeof(i=r.keyIn(e,P(t,{hideEchoBack:!1,limit:n,trueValue:"y",falseValue:"n",caseSensitive:!1})))?i:""}function z(e,t){var n;return t.length&&((n={})[e]=t[0]),r.setDefaultOptions(n)[e]}r._DBG_set_useExt=function(e){b=e},r._DBG_set_checkOptions=function(e){x=e},r._DBG_set_checkMethod=function(e){T=e},r._DBG_clearHistory=function(){m="",v=[]},r.setDefaultOptions=function(e){return d=P(!0,e),P(!0)},r.question=function(e,r){return D(P(P(!0,r),{display:e}))},r.prompt=function(e){var r=P(!0,e);return r.display=r.prompt,D(r)},r.keyIn=function(e,r){var t=P(P(!0,r),{display:e,keyIn:!0,keepWhitespace:!0});return t.limitSrc=t.limit.filter((function(e){var r=typeof e;return"string"===r||"number"===r})).map((function(e){return N(e+"",M)})),t.limit=E(t.limitSrc.join("")),["trueValue","falseValue"].forEach((function(e){t[e]=t[e].reduce((function(e,r){var t=typeof r;return"string"===t||"number"===t?e=e.concat((r+"").split("")):e.push(r),e}),[])})),t.display=N(t.display+"",(function(e){return $(e,t)})),X(S(t),t)},r.questionEMail=function(e,t){return null==e&&(e="Input e-mail address: "),r.question(e,P({hideEchoBack:!1,limit:/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,limitMessage:"Input valid e-mail address, please.",trueValue:null,falseValue:null},t,{keepWhitespace:!1,cd:!1}))},r.questionNewPassword=function(e,t){var n,i,a,s,o,p,l,u,c,y,_=P({hideEchoBack:!0,mask:"*",limitMessage:"It can include: $<charlist>\nAnd the length must be: $<length>",trueValue:null,falseValue:null,caseSensitive:!0},t,{history:!1,cd:!1,phContent:function(e){return"charlist"===e?n.text:"length"===e?i+"..."+a:null}});for(s=N((t=t||{}).charlist?t.charlist+"":"$<!-~>",M),(isNaN(i=parseInt(t.min,10))||"number"!=typeof i)&&(i=12),(isNaN(a=parseInt(t.max,10))||"number"!=typeof a)&&(a=24),l=new RegExp("^["+E(s)+"]{"+i+","+a+"}$"),(n=R([s],_.caseSensitive,!0)).text=A(n.values,n.suppressed),o=null!=t.confirmMessage?t.confirmMessage:"Reinput a same one to confirm it: ",p=null!=t.unmatchMessage?t.unmatchMessage:"It differs from first one. Hit only the Enter key if you want to retry from first one.",null==e&&(e="Input new password: "),u=_.limitMessage;!y;)_.limit=l,_.limitMessage=u,c=r.question(e,_),_.limit=[c,""],_.limitMessage=p,y=r.question(o,_);return c},r.questionInt=function(e,r){return B(e,r,(function(e){return parseInt(e,10)}))},r.questionFloat=function(e,r){return B(e,r,parseFloat)},r.questionPath=function(e,t){var n,i="",a=P({hideEchoBack:!1,limitMessage:"$<error(\n)>Input valid path, please.$<( Min:)min>$<( Max:)max>",history:!0,cd:!0},t,{keepWhitespace:!1,limit:function(e){var r,a,s;function o(e){e.split(/\/|\\/).reduce((function(e,r){var t=f.resolve(e+=r+f.sep);if(c.existsSync(t)){if(!c.statSync(t).isDirectory())throw new Error("Non directory already exists: "+t)}else c.mkdirSync(t);return e}),"")}e=I(e,!0),i="";try{if(r=c.existsSync(e),n=r?c.realpathSync(e):f.resolve(e),!t.hasOwnProperty("exists")&&!r||"boolean"==typeof t.exists&&t.exists!==r)return i=(r?"Already exists":"No such file or directory")+": "+n,!1;if(!r&&t.create&&(t.isDirectory?o(n):(o(f.dirname(n)),c.closeSync(c.openSync(n,"w"))),n=c.realpathSync(n)),r&&(t.min||t.max||t.isFile||t.isDirectory)){if(a=c.statSync(n),t.isFile&&!a.isFile())return i="Not file: "+n,!1;if(t.isDirectory&&!a.isDirectory())return i="Not directory: "+n,!1;if(t.min&&a.size<+t.min||t.max&&a.size>+t.max)return i="Size "+a.size+" is out of range: "+n,!1}if("function"==typeof t.validate&&!0!==(s=t.validate(n)))return"string"==typeof s&&(i=s),!1}catch(e){return i=e+"",!1}return!0},phContent:function(e){return"error"===e?i:"min"!==e&&"max"!==e?null:t.hasOwnProperty(e)?t[e]+"":""}});return t=t||{},null==e&&(e='Input path (you can "cd" and "pwd"): '),r.question(e,a),n},r.promptCL=function(e,t){var n=P({hideEchoBack:!1,limitMessage:"Requested command is not available.",caseSensitive:!1,history:!0},t),i=q(e,n);return n.limit=i.limit,n.preCheck=i.preCheck,r.prompt(n),i.args},r.promptLoop=function(e,t){for(var n=P({hideEchoBack:!1,trueValue:null,falseValue:null,caseSensitive:!1,history:!0},t);!e(r.prompt(n)););},r.promptCLLoop=function(e,t){var n=P({hideEchoBack:!1,limitMessage:"Requested command is not available.",caseSensitive:!1,history:!0},t),i=q(e,n);for(n.limit=i.limit,n.preCheck=i.preCheck;r.prompt(n),!i.hRes;);},r.promptSimShell=function(e){return r.prompt(P({hideEchoBack:!1,history:!0},e,{prompt:l?"$<cwd>>":(process.env.USER||"")+(process.env.HOSTNAME?"@"+process.env.HOSTNAME.replace(/\..*$/,""):"")+":$<cwdHome>$ "}))},r.keyInYN=function(e,r){return F(e,r)},r.keyInYNStrict=function(e,r){return F(e,r,"yn")},r.keyInPause=function(e,t){null==e&&(e="Continue..."),t&&!1===t.guide||!(e+="")||(e=e.replace(/\s+$/,"")+" (Hit any key)"),r.keyIn(e,P({limit:null},t,{hideEchoBack:!0,mask:""}))},r.keyInSelect=function(e,t,n){var i=P({hideEchoBack:!1},n,{trueValue:null,falseValue:null,caseSensitive:!1,phContent:function(r){return"itemsCount"===r?e.length+"":"firstItem"===r?(e[0]+"").trim():"lastItem"===r?(e[e.length-1]+"").trim():null}}),a="",s={},o=49,p="\n";if(!Array.isArray(e)||!e.length||e.length>35)throw"`items` must be Array (max length: 35).";return e.forEach((function(e,r){var t=String.fromCharCode(o);a+=t,s[t]=r,p+="["+t+"] "+(e+"").trim()+"\n",o=57===o?97:o+1})),n&&!1===n.cancel||(a+="0",s[0]=-1,p+="[0] "+(n&&null!=n.cancel&&"boolean"!=typeof n.cancel?(n.cancel+"").trim():"CANCEL")+"\n"),i.limit=a,p+="\n",null==t&&(t="Choose one from list: "),(t+="")&&(n&&!1===n.guide||(t=t.replace(/\s*:?\s*$/,"")+" [$<limit>]: "),p+=t),s[r.keyIn(p,i).toLowerCase()]},r.getRawInput=function(){return p},r.setPrint=function(){return z("print",arguments)},r.setPrompt=function(){return z("prompt",arguments)},r.setEncoding=function(){return z("encoding",arguments)},r.setMask=function(){return z("mask",arguments)},r.setBufferSize=function(){return z("bufferSize",arguments)}},3465:(e,r,t)=>{!function(){var r,n={major:0,minor:2,patch:66,status:"beta"};tau_file_system={files:{},open:function(e,r,t){var n=tau_file_system.files[e];if(!n){if("read"===t)return null;n={path:e,text:"",type:r,get:function(e,r){return r===this.text.length||r>this.text.length?"end_of_file":this.text.substring(r,r+e)},put:function(e,r){return"end_of_file"===r?(this.text+=e,!0):"past_end_of_file"===r?null:(this.text=this.text.substring(0,r)+e+this.text.substring(r+e.length),!0)},get_byte:function(e){if("end_of_stream"===e)return-1;var r=Math.floor(e/2);if(this.text.length<=r)return-1;var t=s(this.text[Math.floor(e/2)],0);return e%2==0?255&t:t/256>>>0},put_byte:function(e,r){var t="end_of_stream"===r?this.text.length:Math.floor(r/2);if(this.text.length<t)return null;var n=this.text.length===t?-1:s(this.text[Math.floor(r/2)],0);return n=r%2==0?(255&(n=n/256>>>0))<<8|255&e:(255&e)<<8|255&(n&=255),this.text.length===t?this.text+=o(n):this.text=this.text.substring(0,t)+o(n)+this.text.substring(t+1),!0},flush:function(){return!0},close:function(){return!!tau_file_system.files[this.path]||null}},tau_file_system.files[e]=n}return"write"===t&&(n.text=""),n}},tau_user_input={buffer:"",get:function(e,r){for(var t;tau_user_input.buffer.length<e;)(t=window.prompt())&&(tau_user_input.buffer+=t);return t=tau_user_input.buffer.substr(0,e),tau_user_input.buffer=tau_user_input.buffer.substr(e),t}},tau_user_output={put:function(e,r){return console.log(e),!0},flush:function(){return!0}},nodejs_file_system={open:function(e,r,n){var i=t(5747),a=i.openSync(e,n[0]);return"read"!==n||i.existsSync(e)?{get:function(e,r){var t=new Buffer(e);return i.readSync(a,t,0,e,r),t.toString()},put:function(e,r){var t=Buffer.from(e);if("end_of_file"===r)i.writeSync(a,t);else{if("past_end_of_file"===r)return null;i.writeSync(a,t,0,t.length,r)}return!0},get_byte:function(e){return null},put_byte:function(e,r){return null},flush:function(){return!0},close:function(){return i.closeSync(a),!0}}:null}},nodejs_user_input={buffer:"",get:function(e,r){for(var n,i=t(6931);nodejs_user_input.buffer.length<e;)nodejs_user_input.buffer+=i.question();return n=nodejs_user_input.buffer.substr(0,e),nodejs_user_input.buffer=nodejs_user_input.buffer.substr(e),n}},nodejs_user_output={put:function(e,r){return process.stdout.write(e),!0},flush:function(){return!0}},r=Array.prototype.indexOf?function(e,r){return e.indexOf(r)}:function(e,r){for(var t=e.length,n=0;n<t;n++)if(r===e[n])return n;return-1};var i,a,s,o,p=function(e,r){if(0!==e.length){for(var t=e[0],n=e.length,i=1;i<n;i++)t=r(t,e[i]);return t}};i=Array.prototype.map?function(e,r){return e.map(r)}:function(e,r){for(var t=[],n=e.length,i=0;i<n;i++)t.push(r(e[i]));return t},a=Array.prototype.filter?function(e,r){return e.filter(r)}:function(e,r){for(var t=[],n=e.length,i=0;i<n;i++)r(e[i])&&t.push(e[i]);return t},s=String.prototype.codePointAt?function(e,r){return e.codePointAt(r)}:function(e,r){return e.charCodeAt(r)},o=String.fromCodePoint?function(){return String.fromCodePoint.apply(null,arguments)}:function(){return String.fromCharCode.apply(null,arguments)};var l=/(\\a)|(\\b)|(\\f)|(\\n)|(\\r)|(\\t)|(\\v)|\\x([0-9a-fA-F]+)\\|\\([0-7]+)\\|(\\\\)|(\\')|('')|(\\")|(\\`)|(\\.)|(.)/g,u={"\\a":7,"\\b":8,"\\f":12,"\\n":10,"\\r":13,"\\t":9,"\\v":11};function c(e,r){var t="";if(e.length<2)return e;try{e=(e=e.replace(/\\([0-7]+)\\/g,(function(e,r){return o(parseInt(r,8))}))).replace(/\\x([0-9a-fA-F]+)\\/g,(function(e,r){return o(parseInt(r,16))}))}catch(e){return null}for(var n=0;n<e.length;n++){var i=e.charAt(n),a=e.charAt(n+1);if(i===r&&a===r)n++,t+=r;else if("\\"===i){if(-1===["a","b","f","n","r","t","v","'",'"',"\\","a","\b","\f","\n","\r","\t","\v"].indexOf(a))return null;switch(n+=1,a){case"a":t+="a";break;case"b":t+="\b";break;case"f":t+="\f";break;case"n":t+="\n";break;case"r":t+="\r";break;case"t":t+="\t";break;case"v":t+="\v";break;case"'":t+="'";break;case'"':t+='"';break;case"\\":t+="\\"}}else t+=i}return t}function y(e){var r,t,n,i=e.substr(2);switch(e.substr(0,2).toLowerCase()){case"0x":return parseInt(i,16);case"0b":return parseInt(i,2);case"0o":return parseInt(i,8);case"0'":return(r=i,t=[],n=!1,r.replace(l,(function(e,r,i,a,o,p,l,c,y,_,f,d,w,h,g,m,v){switch(!0){case void 0!==y:return t.push(parseInt(y,16)),"";case void 0!==_:return t.push(parseInt(_,8)),"";case void 0!==f:case void 0!==d:case void 0!==w:case void 0!==h:case void 0!==g:return t.push(s(e.substr(1),0)),"";case void 0!==v:return t.push(s(v,0)),"";case void 0!==m:n=!0;default:return t.push(u[e]),""}})),n?null:t)[0];default:return parseFloat(e)}}var _={whitespace:/^\s*(?:(?:%.*)|(?:\/\*(?:\n|\r|.)*?\*\/)|(?:\s+))\s*/,variable:/^(?:[A-Z_][a-zA-Z0-9_]*)/,atom:/^(\!|,|;|[a-z][0-9a-zA-Z_]*|[#\$\&\*\+\-\.\/\:\<\=\>\?\@\^\~\\]+|'(?:[^']*?(?:\\(?:x?\d+)?\\)*(?:'')*(?:\\')*)*')/,number:/^(?:0o[0-7]+|0x[0-9a-fA-F]+|0b[01]+|0'(?:''|\\[abfnrtv\\'"`]|\\x?\d+\\|[^\\])|\d+(?:\.\d+(?:[eE][+-]?\d+)?)?)/,string:/^(?:"([^"]|""|\\")*"|`([^`]|``|\\`)*`)/,l_brace:/^(?:\[)/,r_brace:/^(?:\])/,l_bracket:/^(?:\{)/,r_bracket:/^(?:\})/,bar:/^(?:\|)/,l_paren:/^(?:\()/,r_paren:/^(?:\))/};function f(e){this.thread=e,this.text="",this.tokens=[]}function d(e,r,t,n,i){if(!r[t])return{type:0,value:A.error.syntax(r[t-1],"expression expected",!0)};if("0"===n){switch((c=r[t]).name){case"number":return{type:1,len:t+1,value:new A.type.Num(c.value,c.float)};case"variable":return{type:1,len:t+1,value:new A.type.Var(c.value)};case"string":var a;switch(e.get_flag("double_quotes").id){case"atom":a=new k(c.value,[]);break;case"codes":a=new k("[]",[]);for(var o=c.value.length-1;o>=0;o--)a=new k(".",[new A.type.Num(s(c.value,o),!1),a]);break;case"chars":a=new k("[]",[]);for(o=c.value.length-1;o>=0;o--)a=new k(".",[new A.type.Term(c.value.charAt(o),[]),a])}return{type:1,len:t+1,value:a};case"l_paren":return 1!==(y=d(e,r,t+1,e.__get_max_priority(),!0)).type?y:r[y.len]&&"r_paren"===r[y.len].name?(y.len++,y):{type:0,derived:!0,value:A.error.syntax(r[y.len]?r[y.len]:r[y.len-1],") or operator expected",!r[y.len])};case"l_bracket":return 1!==(y=d(e,r,t+1,e.__get_max_priority(),!0)).type?y:r[y.len]&&"r_bracket"===r[y.len].name?(y.len++,y.value=new k("{}",[y.value]),y):{type:0,derived:!0,value:A.error.syntax(r[y.len]?r[y.len]:r[y.len-1],"} or operator expected",!r[y.len])}}var p=function(e,r,t,n){if(!r[t]||"atom"===r[t].name&&"."===r[t].raw&&!n&&(r[t].space||!r[t+1]||"l_paren"!==r[t+1].name))return{type:0,derived:!1,value:A.error.syntax(r[t-1],"unfounded token")};var i=r[t],a=[];if("atom"===r[t].name&&","!==r[t].raw){if(t++,r[t-1].space)return{type:1,len:t,value:new A.type.Term(i.value,a)};if(r[t]&&"l_paren"===r[t].name){if(r[t+1]&&"r_paren"===r[t+1].name)return{type:0,derived:!0,value:A.error.syntax(r[t+1],"argument expected")};var s=d(e,r,++t,"999",!0);if(0===s.type)return s.derived?s:{type:0,derived:!0,value:A.error.syntax(r[t]?r[t]:r[t-1],"argument expected",!r[t])};for(a.push(s.value),t=s.len;r[t]&&"atom"===r[t].name&&","===r[t].value;){if(0===(s=d(e,r,t+1,"999",!0)).type)return s.derived?s:{type:0,derived:!0,value:A.error.syntax(r[t+1]?r[t+1]:r[t],"argument expected",!r[t+1])};a.push(s.value),t=s.len}if(!r[t]||"r_paren"!==r[t].name)return{type:0,derived:!0,value:A.error.syntax(r[t]?r[t]:r[t-1],", or ) expected",!r[t])};t++}return{type:1,len:t,value:new A.type.Term(i.value,a)}}return{type:0,derived:!1,value:A.error.syntax(r[t],"term expected")}}(e,r,t,i);return 1===p.type||p.derived||(1===(p=function(e,r,t){if(!r[t])return{type:0,derived:!1,value:A.error.syntax(r[t-1],"[ expected")};if(r[t]&&"l_brace"===r[t].name){var n=d(e,r,++t,"999",!0),i=[n.value],a=void 0;if(0===n.type)return r[t]&&"r_brace"===r[t].name?{type:1,len:t+1,value:new A.type.Term("[]",[])}:{type:0,derived:!0,value:A.error.syntax(r[t],"] expected")};for(t=n.len;r[t]&&"atom"===r[t].name&&","===r[t].value;){if(0===(n=d(e,r,t+1,"999",!0)).type)return n.derived?n:{type:0,derived:!0,value:A.error.syntax(r[t+1]?r[t+1]:r[t],"argument expected",!r[t+1])};i.push(n.value),t=n.len}var s=!1;if(r[t]&&"bar"===r[t].name){if(s=!0,0===(n=d(e,r,t+1,"999",!0)).type)return n.derived?n:{type:0,derived:!0,value:A.error.syntax(r[t+1]?r[t+1]:r[t],"argument expected",!r[t+1])};a=n.value,t=n.len}return r[t]&&"r_brace"===r[t].name?{type:1,len:t+1,value:g(i,a)}:{type:0,derived:!0,value:A.error.syntax(r[t]?r[t]:r[t-1],s?"] expected":", or | or ] expected",!r[t])}}return{type:0,derived:!1,value:A.error.syntax(r[t],"list expected")}}(e,r,t)).type||p.derived)?p:{type:0,derived:!1,value:A.error.syntax(r[t],"unexpected token")}}e.__get_max_priority();var l=e.__get_next_priority(n),u=t;if("atom"===r[t].name&&r[t+1]&&(r[t].space||"l_paren"!==r[t+1].name)){var c=r[t++];if((w=e.__lookup_operator_classes(n,c.value))&&w.indexOf("fy")>-1){if(0!==(y=d(e,r,t,n,i)).type)return"-"===c.value&&!c.space&&A.type.is_number(y.value)?{value:new A.type.Num(-y.value.value,y.value.is_float),len:y.len,type:1}:{value:new A.type.Term(c.value,[y.value]),len:y.len,type:1};y}else if(w&&w.indexOf("fx")>-1){var y;if(0!==(y=d(e,r,t,l,i)).type)return{value:new A.type.Term(c.value,[y.value]),len:y.len,type:1};y}}if(1===(y=d(e,r,t=u,l,i)).type){c=r[t=y.len];if(r[t]&&("atom"===r[t].name&&e.__lookup_operator_classes(n,c.value)||"bar"===r[t].name&&e.__lookup_operator_classes(n,"|"))){var _=l,f=n;if((w=e.__lookup_operator_classes(n,c.value)).indexOf("xf")>-1)return{value:new A.type.Term(c.value,[y.value]),len:++y.len,type:1};if(w.indexOf("xfx")>-1)return 1===(h=d(e,r,t+1,_,i)).type?{value:new A.type.Term(c.value,[y.value,h.value]),len:h.len,type:1}:(h.derived=!0,h);if(w.indexOf("xfy")>-1)return 1===(h=d(e,r,t+1,f,i)).type?{value:new A.type.Term(c.value,[y.value,h.value]),len:h.len,type:1}:(h.derived=!0,h);if(0!==y.type)for(;;){var w;if(!(c=r[t=y.len])||"atom"!==c.name||!e.__lookup_operator_classes(n,c.value))break;if((w=e.__lookup_operator_classes(n,c.value)).indexOf("yf")>-1)y={value:new A.type.Term(c.value,[y.value]),len:++t,type:1};else{if(!(w.indexOf("yfx")>-1))break;var h;if(0===(h=d(e,r,++t,_,i)).type)return h.derived=!0,h;t=h.len,y={value:new A.type.Term(c.value,[y.value,h.value]),len:t,type:1}}}}else({type:0,value:A.error.syntax(r[y.len-1],"operator expected")});return y}return y}function w(e,r,t){var n,i=r[t].line,a=d(e,r,t,e.__get_max_priority(),!1),s=null;if(0!==a.type){if(r[t=a.len]&&"atom"===r[t].name&&"."===r[t].raw){if(t++,A.type.is_term(a.value)){if(":-/2"===a.value.indicator?n={value:s=new A.type.Rule(a.value.args[0],h(a.value.args[1])),len:t,type:1}:"--\x3e/2"===a.value.indicator?((s=function(e,r){e=e.rename(r);var t=r.next_free_variable(),n=function e(r,t,n){var i;if(A.type.is_term(r)&&"!/0"===r.indicator)return{value:r,variable:t,error:!1};if(A.type.is_term(r)&&",/2"===r.indicator){var a=e(r.args[0],t,n);if(a.error)return a;var s=e(r.args[1],a.variable,n);return s.error?s:{value:new k(",",[a.value,s.value]),variable:s.variable,error:!1}}if(A.type.is_term(r)&&"{}/1"===r.indicator)return{value:r.args[0],variable:t,error:!1};if(A.type.is_empty_list(r))return{value:new k("true",[]),variable:t,error:!1};if(A.type.is_list(r)){i=n.next_free_variable();for(var o,p=r;"./2"===p.indicator;)o=p,p=p.args[1];return A.type.is_variable(p)?{value:A.error.instantiation("DCG"),variable:t,error:!0}:A.type.is_empty_list(p)?(o.args[1]=i,{value:new k("=",[t,r]),variable:i,error:!1}):{value:A.error.type("list",r,"DCG"),variable:t,error:!0}}return A.type.is_callable(r)?(i=n.next_free_variable(),r.args=r.args.concat([t,i]),{value:r=new k(r.id,r.args),variable:i,error:!1}):{value:A.error.type("callable",r,"DCG"),variable:t,error:!0}}(e.body,t,r);return n.error?n.value:(e.body=n.value,e.head.args=e.head.args.concat([t,n.variable]),e.head=new k(e.head.id,e.head.args),e)}(new A.type.Rule(a.value.args[0],a.value.args[1]),e)).body=h(s.body),n={value:s,len:t,type:A.type.is_rule(s)?1:0}):n={value:s=new A.type.Rule(a.value,null),len:t,type:1},s){var o=s.singleton_variables();o.length>0&&e.throw_warning(A.warning.singleton(o,s.head.indicator,i))}return n}return{type:0,value:A.error.syntax(r[t],"callable expected")}}return{type:0,value:A.error.syntax(r[t]?r[t]:r[t-1],". or operator expected")}}return a}function h(e){return A.type.is_variable(e)?new k("call",[e]):A.type.is_term(e)&&-1!==[",/2",";/2","->/2"].indexOf(e.indicator)?new k(e.id,[h(e.args[0]),h(e.args[1])]):e}function g(e,r){for(var t=r||new A.type.Term("[]",[]),n=e.length-1;n>=0;n--)t=new A.type.Term(".",[e[n],t]);return t}function m(e){for(var r={},t=[],n=0;n<e.length;n++)e[n]in r||(t.push(e[n]),r[e[n]]=!0);return t}function v(e){return function(r,t,n){var i=n.args[0],a=n.args.slice(1,e);if(A.type.is_variable(i))r.throw_error(A.error.instantiation(r.level));else if(A.type.is_callable(i)){var s=new k(i.id,i.args.concat(a));r.prepend([new P(t.goal.replace(s),t.substitution,t)])}else r.throw_error(A.error.type("callable",i,r.level))}}function b(e){for(var r=e.length-1;r>=0;r--)if("/"===e.charAt(r))return new k("/",[new k(e.substring(0,r)),new T(parseInt(e.substring(r+1)),!1)])}function x(e){this.id=e}function T(e,r){this.is_float=void 0!==r?r:parseInt(e)!==e,this.value=this.is_float?e:parseInt(e)}f.prototype.set_last_tokens=function(e){return this.tokens=e},f.prototype.new_text=function(e){this.text=e,this.tokens=[]},f.prototype.get_tokens=function(e){var r,t=0,n=0,i=0,a=[];e?(t=(f=this.tokens[e-1]).len,r=function(e,r){return"on"===e.get_flag("char_conversion").id?r.replace(/./g,(function(r){return e.get_char_conversion(r)})):r}(this.thread,this.text.substr(f.len)),n=f.line,i=f.start):r=this.text;if(/^\s*$/.test(r))return null;for(;""!==r;){var s=[],o=!1;if(null===/^\n/.exec(r)){for(var l in _)if(_.hasOwnProperty(l)){var u=_[l].exec(r);u&&s.push({value:u[0],name:l,matches:u})}if(!s.length)return this.set_last_tokens([{value:r,matches:[],name:"lexical",line:n,start:i}]);var f;switch((f=p(s,(function(e,r){return e.value.length>=r.value.length?e:r}))).start=i,f.line=n,r=r.replace(f.value,""),i+=f.value.length,t+=f.value.length,f.name){case"atom":f.raw=f.value,"'"===f.value.charAt(0)&&(f.value=c(f.value.substr(1,f.value.length-2),"'"),null===f.value&&(f.name="lexical",f.value="unknown escape sequence"));break;case"number":f.float="0x"!==f.value.substring(0,2)&&null!==f.value.match(/[.eE]/)&&"0'."!==f.value,f.value=y(f.value),f.blank=o;break;case"string":var d=f.value.charAt(0);f.value=c(f.value.substr(1,f.value.length-2),d),null===f.value&&(f.name="lexical",f.value="unknown escape sequence");break;case"whitespace":var w=a[a.length-1];w&&(w.space=!0),o=!0;continue;case"r_bracket":a.length>0&&"l_bracket"===a[a.length-1].name&&((f=a.pop()).name="atom",f.value="{}",f.raw="{}",f.space=!1);break;case"r_brace":a.length>0&&"l_brace"===a[a.length-1].name&&((f=a.pop()).name="atom",f.value="[]",f.raw="[]",f.space=!1)}f.len=t,a.push(f),o=!1}else n++,i=0,t++,r=r.replace(/\n/,""),!0}var h=this.set_last_tokens(a);return 0===h.length?null:h};var V=0;function k(e,r,t){this.ref=t||++V,this.id=e,this.args=r||[],this.indicator=e+"/"+this.args.length}var S=0;function O(e,r,t,n,i,a){this.id=S++,this.stream=e,this.mode=r,this.alias=t,this.type=void 0!==n?n:"text",this.reposition=void 0===i||i,this.eof_action=void 0!==a?a:"eof_code",this.position="append"===this.mode?"end_of_stream":0,this.output="write"===this.mode||"append"===this.mode,this.input="read"===this.mode}function E(e){e=e||{},this.links=e}function P(e,r,t){r=r||new E,t=t||null,this.goal=e,this.substitution=r,this.parent=t}function C(e,r,t){this.head=e,this.body=r,this.dynamic=t||!1}function I(r){r=void 0===r||r<=0?1e3:r,this.rules={},this.src_predicates={},this.rename=0,this.modules=[],this.thread=new N(this),this.total_threads=1,this.renamed_variables={},this.public_predicates={},this.multifile_predicates={},this.limit=r,this.streams={user_input:new O(e.exports?nodejs_user_input:tau_user_input,"read","user_input","text",!1,"reset"),user_output:new O(e.exports?nodejs_user_output:tau_user_output,"write","user_output","text",!1,"eof_code")},this.file_system=e.exports?nodejs_file_system:tau_file_system,this.standard_input=this.streams.user_input,this.standard_output=this.streams.user_output,this.current_input=this.streams.user_input,this.current_output=this.streams.user_output,this.format_success=function(e){return e.substitution},this.format_error=function(e){return e.goal},this.flag={bounded:A.flag.bounded.value,max_integer:A.flag.max_integer.value,min_integer:A.flag.min_integer.value,integer_rounding_function:A.flag.integer_rounding_function.value,char_conversion:A.flag.char_conversion.value,debug:A.flag.debug.value,max_arity:A.flag.max_arity.value,unknown:A.flag.unknown.value,double_quotes:A.flag.double_quotes.value,occurs_check:A.flag.occurs_check.value,dialect:A.flag.dialect.value,version_data:A.flag.version_data.value,nodejs:A.flag.nodejs.value},this.__loaded_modules=[],this.__char_conversion={},this.__operators={1200:{":-":["fx","xfx"],"--\x3e":["xfx"],"?-":["fx"]},1100:{";":["xfy"]},1050:{"->":["xfy"]},1e3:{",":["xfy"]},900:{"\\+":["fy"]},700:{"=":["xfx"],"\\=":["xfx"],"==":["xfx"],"\\==":["xfx"],"@<":["xfx"],"@=<":["xfx"],"@>":["xfx"],"@>=":["xfx"],"=..":["xfx"],is:["xfx"],"=:=":["xfx"],"=\\=":["xfx"],"<":["xfx"],"=<":["xfx"],">":["xfx"],">=":["xfx"]},600:{":":["xfy"]},500:{"+":["yfx"],"-":["yfx"],"/\\":["yfx"],"\\/":["yfx"]},400:{"*":["yfx"],"/":["yfx"],"//":["yfx"],rem:["yfx"],mod:["yfx"],"<<":["yfx"],">>":["yfx"]},200:{"**":["xfx"],"^":["xfy"],"-":["fy"],"+":["fy"],"\\":["fy"]}}}function N(e){this.epoch=Date.now(),this.session=e,this.session.total_threads++,this.total_steps=0,this.cpu_time=0,this.cpu_time_last=0,this.points=[],this.debugger=!1,this.debugger_states=[],this.level="top_level/0",this.__calls=[],this.current_limit=this.session.limit,this.warnings=[]}function R(e,r,t){this.id=e,this.rules=r,this.exports=t,A.module[e]=this}R.prototype.exports_predicate=function(e){return-1!==this.exports.indexOf(e)},x.prototype.unify=function(e,t){if(t&&-1!==r(e.variables(),this.id)&&!A.type.is_variable(e))return null;var n={};return n[this.id]=e,new E(n)},T.prototype.unify=function(e,r){return A.type.is_number(e)&&this.value===e.value&&this.is_float===e.is_float?new E:null},k.prototype.unify=function(e,r){if(A.type.is_term(e)&&this.indicator===e.indicator){for(var t=new E,n=0;n<this.args.length;n++){var i=A.unify(this.args[n].apply(t),e.args[n].apply(t),r);if(null===i)return null;for(var a in i.links)t.links[a]=i.links[a];t=t.apply(i)}return t}return null},O.prototype.unify=function(e,r){return A.type.is_stream(e)&&this.id===e.id?new E:null},x.prototype.toString=function(e){return this.id},T.prototype.toString=function(e){return this.is_float&&-1===r(this.value.toString(),".")?this.value+".0":this.value.toString()},k.prototype.toString=function(e,r,t){if((e=e||{}).quoted=void 0===e.quoted||e.quoted,e.ignore_ops=void 0!==e.ignore_ops&&e.ignore_ops,e.numbervars=void 0!==e.numbervars&&e.numbervars,r=void 0===r?1200:r,t=void 0===t?"":t,e.numbervars&&"$VAR/1"===this.indicator&&A.type.is_integer(this.args[0])&&this.args[0].value>=0){var n=this.args[0].value,a=Math.floor(n/26);return"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[n%26]+(0!==a?a:"")}switch(this.indicator){case"[]/0":case"{}/0":case"!/0":return this.id;case"{}/1":return"{"+this.args[0].toString(e)+"}";case"./2":for(var s="["+this.args[0].toString(e),o=this.args[1];"./2"===o.indicator;)s+=", "+o.args[0].toString(e),o=o.args[1];return"[]/0"!==o.indicator&&(s+="|"+o.toString(e)),s+="]";case",/2":return"("+this.args[0].toString(e)+", "+this.args[1].toString(e)+")";default:var p=this.id,l=e.session?e.session.lookup_operator(this.id,this.args.length):null;if(void 0===e.session||e.ignore_ops||null===l)return e.quoted&&!/^(!|,|;|[a-z][0-9a-zA-Z_]*)$/.test(p)&&"{}"!==p&&"[]"!==p&&(p="'"+function(e){for(var r="",t=0;t<e.length;t++)switch(e.charAt(t)){case"'":r+="\\'";break;case"\\":r+="\\\\";break;case"\b":r+="\\b";break;case"\f":r+="\\f";break;case"\n":r+="\\n";break;case"\r":r+="\\r";break;case"\t":r+="\\t";break;case"\v":r+="\\v";break;default:r+=e.charAt(t)}return r}(p)+"'"),p+(this.args.length?"("+i(this.args,(function(r){return r.toString(e)})).join(", ")+")":"");var u=l.priority>r.priority||l.priority===r.priority&&("xfy"===l.class&&this.indicator!==r.indicator||"yfx"===l.class&&this.indicator!==r.indicator||this.indicator===r.indicator&&"yfx"===l.class&&"right"===t||this.indicator===r.indicator&&"xfy"===l.class&&"left"===t);l.indicator=this.indicator;var c=u?"(":"",y=u?")":"";return 0===this.args.length?"("+this.id+")":-1!==["fy","fx"].indexOf(l.class)?c+p+" "+this.args[0].toString(e,l)+y:-1!==["yf","xf"].indexOf(l.class)?c+this.args[0].toString(e,l)+" "+p+y:c+this.args[0].toString(e,l,"left")+" "+this.id+" "+this.args[1].toString(e,l,"right")+y}},O.prototype.toString=function(e){return"<stream>("+this.id+")"},E.prototype.toString=function(e){var r="{";for(var t in this.links)this.links.hasOwnProperty(t)&&("{"!==r&&(r+=", "),r+=t+"/"+this.links[t].toString(e));return r+="}"},P.prototype.toString=function(e){return null===this.goal?"<"+this.substitution.toString(e)+">":"<"+this.goal.toString(e)+", "+this.substitution.toString(e)+">"},C.prototype.toString=function(e){return this.body?this.head.toString(e)+" :- "+this.body.toString(e)+".":this.head.toString(e)+"."},I.prototype.toString=function(e){for(var r="",t=0;t<this.modules.length;t++)r+=":- use_module(library("+this.modules[t]+")).\n";for(key in r+="\n",this.rules)for(t=0;t<this.rules[key].length;t++)r+=this.rules[key][t].toString(e),r+="\n";return r},x.prototype.clone=function(){return new x(this.id)},T.prototype.clone=function(){return new T(this.value,this.is_float)},k.prototype.clone=function(){return new k(this.id,i(this.args,(function(e){return e.clone()})))},O.prototype.clone=function(){return new Stram(this.stream,this.mode,this.alias,this.type,this.reposition,this.eof_action)},E.prototype.clone=function(){var e={};for(var r in this.links)this.links.hasOwnProperty(r)&&(e[r]=this.links[r].clone());return new E(e)},P.prototype.clone=function(){return new P(this.goal.clone(),this.substitution.clone(),this.parent)},C.prototype.clone=function(){return new C(this.head.clone(),null!==this.body?this.body.clone():null)},x.prototype.equals=function(e){return A.type.is_variable(e)&&this.id===e.id},T.prototype.equals=function(e){return A.type.is_number(e)&&this.value===e.value&&this.is_float===e.is_float},k.prototype.equals=function(e){if(!A.type.is_term(e)||this.indicator!==e.indicator)return!1;for(var r=0;r<this.args.length;r++)if(!this.args[r].equals(e.args[r]))return!1;return!0},O.prototype.equals=function(e){return A.type.is_stream(e)&&this.id===e.id},E.prototype.equals=function(e){var r;if(!A.type.is_substitution(e))return!1;for(r in this.links)if(this.links.hasOwnProperty(r)&&(!e.links[r]||!this.links[r].equals(e.links[r])))return!1;for(r in e.links)if(e.links.hasOwnProperty(r)&&!this.links[r])return!1;return!0},P.prototype.equals=function(e){return A.type.is_state(e)&&this.goal.equals(e.goal)&&this.substitution.equals(e.substitution)&&this.parent===e.parent},C.prototype.equals=function(e){return A.type.is_rule(e)&&this.head.equals(e.head)&&(null===this.body&&null===e.body||null!==this.body&&this.body.equals(e.body))},x.prototype.rename=function(e){return e.get_free_variable(this)},T.prototype.rename=function(e){return this},k.prototype.rename=function(e){return new k(this.id,i(this.args,(function(r){return r.rename(e)})))},O.prototype.rename=function(e){return this},C.prototype.rename=function(e){return new C(this.head.rename(e),null!==this.body?this.body.rename(e):null)},x.prototype.variables=function(){return[this.id]},T.prototype.variables=function(){return[]},k.prototype.variables=function(){return[].concat.apply([],i(this.args,(function(e){return e.variables()})))},O.prototype.variables=function(){return[]},C.prototype.variables=function(){return null===this.body?this.head.variables():this.head.variables().concat(this.body.variables())},x.prototype.apply=function(e){return e.lookup(this.id)?e.lookup(this.id):this},T.prototype.apply=function(e){return this},k.prototype.apply=function(e){if("./2"===this.indicator){for(var r=[],t=this;"./2"===t.indicator;)r.push(t.args[0].apply(e)),t=t.args[1];for(var n=t.apply(e),a=r.length-1;a>=0;a--)n=new k(".",[r[a],n]);return n}return new k(this.id,i(this.args,(function(r){return r.apply(e)})),this.ref)},O.prototype.apply=function(e){return this},C.prototype.apply=function(e){return new C(this.head.apply(e),null!==this.body?this.body.apply(e):null)},E.prototype.apply=function(e){var r,t={};for(r in this.links)this.links.hasOwnProperty(r)&&(t[r]=this.links[r].apply(e));return new E(t)},k.prototype.select=function(){for(var e=this;",/2"===e.indicator;)e=e.args[0];return e},k.prototype.replace=function(e){return",/2"===this.indicator?",/2"===this.args[0].indicator?new k(",",[this.args[0].replace(e),this.args[1]]):null===e?this.args[1]:new k(",",[e,this.args[1]]):e},k.prototype.search=function(e){if(A.type.is_term(e)&&void 0!==e.ref&&this.ref===e.ref)return!0;for(var r=0;r<this.args.length;r++)if(A.type.is_term(this.args[r])&&this.args[r].search(e))return!0;return!1},I.prototype.get_current_input=function(){return this.current_input},N.prototype.get_current_input=function(){return this.session.get_current_input()},I.prototype.get_current_output=function(){return this.current_output},N.prototype.get_current_output=function(){return this.session.get_current_output()},I.prototype.set_current_input=function(e){this.current_input=e},N.prototype.set_current_input=function(e){return this.session.set_current_input(e)},I.prototype.set_current_output=function(e){this.current_input=e},N.prototype.set_current_output=function(e){return this.session.set_current_output(e)},I.prototype.get_stream_by_alias=function(e){return this.streams[e]},N.prototype.get_stream_by_alias=function(e){return this.session.get_stream_by_alias(e)},I.prototype.file_system_open=function(e,r,t){return this.file_system.open(e,r,t)},N.prototype.file_system_open=function(e,r,t){return this.session.file_system_open(e,r,t)},I.prototype.get_char_conversion=function(e){return this.__char_conversion[e]||e},N.prototype.get_char_conversion=function(e){return this.session.get_char_conversion(e)},I.prototype.parse=function(e){return this.thread.parse(e)},N.prototype.parse=function(e){var r=new f(this);r.new_text(e);var t=r.get_tokens();if(null===t)return!1;var n=d(this,t,0,this.__get_max_priority(),!1);return n.len===t.length&&{value:n.value,expr:n,tokens:t}},I.prototype.get_flag=function(e){return this.flag[e]},N.prototype.get_flag=function(e){return this.session.get_flag(e)},I.prototype.add_rule=function(e,r){return(r=r||{}).from=r.from?r.from:"$tau-js",this.src_predicates[e.head.indicator]=r.from,this.rules[e.head.indicator]||(this.rules[e.head.indicator]=[]),this.rules[e.head.indicator].push(e),this.public_predicates.hasOwnProperty(e.head.indicator)||(this.public_predicates[e.head.indicator]=!1),!0},N.prototype.add_rule=function(e,r){return this.session.add_rule(e,r)},I.prototype.run_directive=function(e){this.thread.run_directive(e)},N.prototype.run_directive=function(e){return!!A.type.is_directive(e)&&(A.directive[e.indicator](this,e),!0)},I.prototype.__get_max_priority=function(){return"1200"},N.prototype.__get_max_priority=function(){return this.session.__get_max_priority()},I.prototype.__get_next_priority=function(e){var r=0;for(var t in e=parseInt(e),this.__operators)if(this.__operators.hasOwnProperty(t)){var n=parseInt(t);n>r&&n<e&&(r=n)}return r.toString()},N.prototype.__get_next_priority=function(e){return this.session.__get_next_priority(e)},I.prototype.__lookup_operator_classes=function(e,r){return this.__operators.hasOwnProperty(e)&&this.__operators[e][r]instanceof Array&&this.__operators[e][r]||!1},N.prototype.__lookup_operator_classes=function(e,r){return this.session.__lookup_operator_classes(e,r)},I.prototype.lookup_operator=function(e,r){for(var t in this.__operators)if(this.__operators[t][e])for(var n=0;n<this.__operators[t][e].length;n++)if(0===r||this.__operators[t][e][n].length===r+1)return{priority:t,class:this.__operators[t][e][n]};return null},N.prototype.lookup_operator=function(e,r){return this.session.lookup_operator(e,r)},I.prototype.throw_warning=function(e){this.thread.throw_warning(e)},N.prototype.throw_warning=function(e){this.warnings.push(e)},I.prototype.get_warnings=function(){return this.thread.get_warnings()},N.prototype.get_warnings=function(){return this.warnings},I.prototype.add_goal=function(e,r){this.thread.add_goal(e,r)},N.prototype.add_goal=function(e,r,t){t=t||null,!0===r&&(this.points=[]);for(var n=e.variables(),i={},a=0;a<n.length;a++)i[n[a]]=new x(n[a]);this.points.push(new P(e,new E(i),t))},I.prototype.consult=function(e,r){return this.thread.consult(e,r)},N.prototype.consult=function(e,r){var t="";if("string"==typeof e){var n=(t=e).length;if(".pl"===t.substring(n-3,n)&&document.getElementById(t)){var i=document.getElementById(t),s=i.getAttribute("type");null!==s&&"text/prolog"===s.replace(/ /g,"").toLowerCase()&&(t=i.text)}}else{if(!e.nodeName)return!1;switch(e.nodeName.toLowerCase()){case"input":case"textarea":t=e.value;break;default:t=e.innerHTML}}return this.warnings=[],function(e,r,t){(t=t||{}).from=t.from?t.from:"$tau-js",t.reconsult=void 0===t.reconsult||t.reconsult;var n,i=new f(e),s={};i.new_text(r);for(var o=0,p=i.get_tokens(o);;){if(null===p||!p[o])break;var l=w(e,p,o);if(0===l.type)return new k("throw",[l.value]);if(null===l.value.body&&"?-/1"===l.value.head.indicator){var u=new N(e.session);u.add_goal(l.value.head.args[0]),u.answer((function(r){A.type.is_error(r)?e.throw_warning(r.args[0]):!1!==r&&null!==r||e.throw_warning(A.warning.failed_goal(l.value.head.args[0],l.len))})),o=l.len;var c=!0}else if(null===l.value.body&&":-/1"===l.value.head.indicator){c=e.run_directive(l.value.head.args[0]);o=l.len,"char_conversion/2"===l.value.head.args[0].indicator&&(p=i.get_tokens(o),o=0)}else{n=l.value.head.indicator,!1===t.reconsult||!0===s[n]||e.is_multifile_predicate(n)||(e.session.rules[n]=a(e.session.rules[n]||[],(function(e){return e.dynamic})),s[n]=!0);c=e.add_rule(l.value,t);o=l.len}if(!c)return c}return!0}(this,t,r)},I.prototype.query=function(e){return this.thread.query(e)},N.prototype.query=function(e){return this.points=[],this.debugger_points=[],function(e,r){var t=new f(e);t.new_text(r);for(var n=0;;){var i=t.get_tokens(n);if(null===i)break;var a=d(e,i,0,e.__get_max_priority(),!1);if(0===a.type)return new k("throw",[a.value]);var s=a.len;if(!i[s]||"atom"!==i[s].name||"."!==i[s].raw){var o=i[s];return new k("throw",[A.error.syntax(o||i[s-1],". or operator expected",!o)])}e.add_goal(h(a.value)),n=a.len+1}return!0}(this,e)},I.prototype.head_point=function(){return this.thread.head_point()},N.prototype.head_point=function(){return this.points[this.points.length-1]},I.prototype.get_free_variable=function(e){return this.thread.get_free_variable(e)},N.prototype.get_free_variable=function(e){var t=[];if("_"===e.id||void 0===this.session.renamed_variables[e.id]){for(this.session.rename++,this.points.length>0&&(t=this.head_point().substitution.domain());-1!==r(t,A.format_variable(this.session.rename));)this.session.rename++;if("_"===e.id)return new x(A.format_variable(this.session.rename));this.session.renamed_variables[e.id]=A.format_variable(this.session.rename)}return new x(this.session.renamed_variables[e.id])},I.prototype.next_free_variable=function(){return this.thread.next_free_variable()},N.prototype.next_free_variable=function(){this.session.rename++;var e=[];for(this.points.length>0&&(e=this.head_point().substitution.domain());-1!==r(e,A.format_variable(this.session.rename));)this.session.rename++;return new x(A.format_variable(this.session.rename))},I.prototype.is_public_predicate=function(e){return!this.public_predicates.hasOwnProperty(e)||!0===this.public_predicates[e]},N.prototype.is_public_predicate=function(e){return this.session.is_public_predicate(e)},I.prototype.is_multifile_predicate=function(e){return this.multifile_predicates.hasOwnProperty(e)&&!0===this.multifile_predicates[e]},N.prototype.is_multifile_predicate=function(e){return this.session.is_multifile_predicate(e)},I.prototype.prepend=function(e){return this.thread.prepend(e)},N.prototype.prepend=function(e){for(var r=e.length-1;r>=0;r--)this.points.push(e[r])},I.prototype.success=function(e,r){return this.thread.success(e,r)},N.prototype.success=function(e,r){r=void 0===r?e:r;this.prepend([new P(e.goal.replace(null),e.substitution,r)])},I.prototype.throw_error=function(e){return this.thread.throw_error(e)},N.prototype.throw_error=function(e){this.prepend([new P(new k("throw",[e]),new E,null,null)])},I.prototype.step_rule=function(e,r){return this.thread.step_rule(e,r)},N.prototype.step_rule=function(e,t){var n=t.indicator;if("user"===e&&(e=null),null===e&&this.session.rules.hasOwnProperty(n))return this.session.rules[n];for(var i=null===e?this.session.modules:-1===r(this.session.modules,e)?[]:[e],a=0;a<i.length;a++){var s=A.module[i[a]];if(s.rules.hasOwnProperty(n)&&(s.rules.hasOwnProperty(this.level)||s.exports_predicate(n)))return A.module[i[a]].rules[n]}return null},I.prototype.step=function(){return this.thread.step()},N.prototype.step=function(){if(0!==this.points.length){var e=!1,r=this.points.pop();if(this.debugger&&this.debugger_states.push(r),A.type.is_term(r.goal)){var t=r.goal.select(),n=null,i=[];if(null!==t){this.total_steps++;for(var a=r;null!==a.parent&&a.parent.goal.search(t);)a=a.parent;if(this.level=null===a.parent?"top_level/0":a.parent.goal.select().indicator,A.type.is_term(t)&&":/2"===t.indicator&&(n=t.args[0].id,t=t.args[1]),null===n&&A.type.is_builtin(t))this.__call_indicator=t.indicator,e=A.predicate[t.indicator](this,r,t);else{var s=this.step_rule(n,t);if(null===s)this.session.rules.hasOwnProperty(t.indicator)||("error"===this.get_flag("unknown").id?this.throw_error(A.error.existence("procedure",t.indicator,this.level)):"warning"===this.get_flag("unknown").id&&this.throw_warning("unknown procedure "+t.indicator+" (from "+this.level+")"));else if(s instanceof Function)e=s(this,r,t);else{for(var o in s)if(s.hasOwnProperty(o)){var p=s[o];this.session.renamed_variables={},p=p.rename(this);var l="true/0"===this.get_flag("occurs_check").indicator,u=new P,c=A.unify(t,p.head,l);null!==c&&(u.goal=r.goal.replace(p.body),null!==u.goal&&(u.goal=u.goal.apply(c)),u.substitution=r.substitution.apply(c),u.parent=r,i.push(u))}this.prepend(i)}}}}else A.type.is_variable(r.goal)?this.throw_error(A.error.instantiation(this.level)):this.throw_error(A.error.type("callable",r.goal,this.level));return e}},I.prototype.answer=function(e){return this.thread.answer(e)},N.prototype.answer=function(e){e=e||function(e){},this.__calls.push(e),this.__calls.length>1||this.again()},I.prototype.answers=function(e,r,t){return this.thread.answers(e,r,t)},N.prototype.answers=function(e,r,t){var n=this;r<=0?t&&t():this.answer((function(i){e(i),!1!==i?setTimeout((function(){n.answers(e,r-1,t)}),1):t&&t()}))},I.prototype.again=function(e){return this.thread.again(e)},N.prototype.again=function(e){for(var r,t=Date.now();this.__calls.length>0;){for(this.warnings=[],!1!==e&&(this.current_limit=this.session.limit);this.current_limit>0&&this.points.length>0&&null!==this.head_point().goal&&!A.type.is_error(this.head_point().goal);)if(this.current_limit--,!0===this.step())return;var n=Date.now();this.cpu_time_last=n-t,this.cpu_time+=this.cpu_time_last;var i=this.__calls.shift();this.current_limit<=0?i(null):0===this.points.length?i(!1):A.type.is_error(this.head_point().goal)?(r=this.session.format_error(this.points.pop()),this.points=[],i(r)):(this.debugger&&this.debugger_states.push(this.head_point()),i(r=this.session.format_success(this.points.pop())))}},I.prototype.unfold=function(e){if(null===e.body)return!1;var t=e.head,n=e.body,i=n.select(),a=new N(this),s=[];a.add_goal(i),a.step();for(var o=a.points.length-1;o>=0;o--){var p=a.points[o],l=t.apply(p.substitution),u=n.replace(p.goal);null!==u&&(u=u.apply(p.substitution)),s.push(new C(l,u))}var c=this.rules[t.indicator],y=r(c,e);return s.length>0&&-1!==y&&(c.splice.apply(c,[y,1].concat(s)),!0)},N.prototype.unfold=function(e){return this.session.unfold(e)},x.prototype.interpret=function(e){return A.error.instantiation(e.level)},T.prototype.interpret=function(e){return this},k.prototype.interpret=function(e){return A.type.is_unitary_list(this)?this.args[0].interpret(e):A.operate(e,this)},x.prototype.compare=function(e){return this.id<e.id?-1:this.id>e.id?1:0},T.prototype.compare=function(e){return this.value===e.value&&this.is_float===e.is_float?0:this.value<e.value||this.value===e.value&&this.is_float&&!e.is_float?-1:this.value>e.value?1:void 0},k.prototype.compare=function(e){if(this.args.length<e.args.length||this.args.length===e.args.length&&this.id<e.id)return-1;if(this.args.length>e.args.length||this.args.length===e.args.length&&this.id>e.id)return 1;for(var r=0;r<this.args.length;r++){var t=A.compare(this.args[r],e.args[r]);if(0!==t)return t}return 0},E.prototype.lookup=function(e){return this.links[e]?this.links[e]:null},E.prototype.filter=function(e){var r={};for(var t in this.links)if(this.links.hasOwnProperty(t)){var n=this.links[t];e(t,n)&&(r[t]=n)}return new E(r)},E.prototype.exclude=function(e){var t={};for(var n in this.links)this.links.hasOwnProperty(n)&&-1===r(e,n)&&(t[n]=this.links[n]);return new E(t)},E.prototype.add=function(e,r){this.links[e]=r},E.prototype.domain=function(e){var r=!0===e?function(e){return e}:function(e){return new x(e)},t=[];for(var n in this.links)t.push(r(n));return t},x.prototype.compile=function(){return'new pl.type.Var("'+this.id.toString()+'")'},T.prototype.compile=function(){return"new pl.type.Num("+this.value.toString()+", "+this.is_float.toString()+")"},k.prototype.compile=function(){return'new pl.type.Term("'+this.id.replace(/"/g,'\\"')+'", ['+i(this.args,(function(e){return e.compile()}))+"])"},C.prototype.compile=function(){return"new pl.type.Rule("+this.head.compile()+", "+(null===this.body?"null":this.body.compile())+")"},I.prototype.compile=function(){var e,r,t=[];for(var n in this.rules)if(this.rules.hasOwnProperty(n)){var i=this.rules[n];r=[],e='"'+n+'": [';for(var a=0;a<i.length;a++)r.push(i[a].compile());e+=r.join(),e+="]",t.push(e)}return"{"+t.join()+"};"},x.prototype.toJavaScript=function(){},T.prototype.toJavaScript=function(){return this.value},k.prototype.toJavaScript=function(){if(0===this.args.length&&"[]/0"!==this.indicator)return this.id;if(A.type.is_list(this)){for(var e,r=[],t=this;"./2"===t.indicator;){if(void 0===(e=t.args[0].toJavaScript()))return;r.push(e),t=t.args[1]}if("[]/0"===t.indicator)return r}},C.prototype.singleton_variables=function(){var e=this.head.variables(),r={},t=[];null!==this.body&&(e=e.concat(this.body.variables()));for(var n=0;n<e.length;n++)void 0===r[e[n]]&&(r[e[n]]=0),r[e[n]]++;for(var i in r)"_"!==i&&1===r[i]&&t.push(i);return t};var A={__env:e.exports?global:window,module:{},version:n,parser:{tokenizer:f,expression:d},utils:{str_indicator:b,codePointAt:s,fromCodePoint:o},statistics:{getCountTerms:function(){return V}},fromJavaScript:{test:{boolean:function(e){return!0===e||!1===e},number:function(e){return"number"==typeof e},string:function(e){return"string"==typeof e},list:function(e){return e instanceof Array},variable:function(e){return void 0===e},any:function(e){return!0}},conversion:{boolean:function(e){return new k(e?"true":"false",[])},number:function(e){return new T(e,e%1!=0)},string:function(e){return new k(e,[])},list:function(e){for(var r,t=[],n=0;n<e.length;n++){if(void 0===(r=A.fromJavaScript.apply(e[n])))return;t.push(r)}return g(t)},variable:function(e){return new x("_")},any:function(e){}},apply:function(e){for(var r in A.fromJavaScript.test)if("any"!==r&&A.fromJavaScript.test[r](e))return A.fromJavaScript.conversion[r](e);return A.fromJavaScript.conversion.any(e)}},type:{Var:x,Num:T,Term:k,Rule:C,State:P,Stream:O,Module:R,Thread:N,Session:I,Substitution:E,order:[x,T,k,O],compare:function(e,t){var n=r(A.type.order,e.constructor),i=r(A.type.order,t.constructor);if(n<i)return-1;if(n>i)return 1;if(e.constructor===T){if(e.is_float&&t.is_float)return 0;if(e.is_float)return-1;if(t.is_float)return 1}return 0},is_substitution:function(e){return e instanceof E},is_state:function(e){return e instanceof P},is_rule:function(e){return e instanceof C},is_variable:function(e){return e instanceof x},is_stream:function(e){return e instanceof O},is_anonymous_var:function(e){return e instanceof x&&"_"===e.id},is_callable:function(e){return e instanceof k},is_number:function(e){return e instanceof T},is_integer:function(e){return e instanceof T&&!e.is_float},is_float:function(e){return e instanceof T&&e.is_float},is_term:function(e){return e instanceof k},is_atom:function(e){return e instanceof k&&0===e.args.length},is_ground:function(e){if(e instanceof x)return!1;if(e instanceof k)for(var r=0;r<e.args.length;r++)if(!A.type.is_ground(e.args[r]))return!1;return!0},is_atomic:function(e){return e instanceof k&&0===e.args.length||e instanceof T},is_compound:function(e){return e instanceof k&&e.args.length>0},is_list:function(e){return e instanceof k&&("[]/0"===e.indicator||"./2"===e.indicator)},is_empty_list:function(e){return e instanceof k&&"[]/0"===e.indicator},is_non_empty_list:function(e){return e instanceof k&&"./2"===e.indicator},is_fully_list:function(e){for(;e instanceof k&&"./2"===e.indicator;)e=e.args[1];return e instanceof x||e instanceof k&&"[]/0"===e.indicator},is_instantiated_list:function(e){for(;e instanceof k&&"./2"===e.indicator;)e=e.args[1];return e instanceof k&&"[]/0"===e.indicator},is_unitary_list:function(e){return e instanceof k&&"./2"===e.indicator&&e.args[1]instanceof k&&"[]/0"===e.args[1].indicator},is_character:function(e){return e instanceof k&&(1===e.id.length||e.id.length>0&&e.id.length<=2&&s(e.id,0)>=65536)},is_character_code:function(e){return e instanceof T&&!e.is_float&&e.value>=0&&e.value<=1114111},is_byte:function(e){return e instanceof T&&!e.is_float&&e.value>=0&&e.value<=255},is_operator:function(e){return e instanceof k&&A.arithmetic.evaluation[e.indicator]},is_directive:function(e){return e instanceof k&&void 0!==A.directive[e.indicator]},is_builtin:function(e){return e instanceof k&&void 0!==A.predicate[e.indicator]},is_error:function(e){return e instanceof k&&"throw/1"===e.indicator},is_predicate_indicator:function(e){return e instanceof k&&"//2"===e.indicator&&e.args[0]instanceof k&&0===e.args[0].args.length&&e.args[1]instanceof T&&!1===e.args[1].is_float},is_flag:function(e){return e instanceof k&&0===e.args.length&&void 0!==A.flag[e.id]},is_value_flag:function(e,r){if(!A.type.is_flag(e))return!1;for(var t in A.flag[e.id].allowed)if(A.flag[e.id].allowed.hasOwnProperty(t)&&A.flag[e.id].allowed[t].equals(r))return!0;return!1},is_io_mode:function(e){return A.type.is_atom(e)&&-1!==["read","write","append"].indexOf(e.id)},is_stream_option:function(e){return A.type.is_term(e)&&("alias/1"===e.indicator&&A.type.is_atom(e.args[0])||"reposition/1"===e.indicator&&A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id)||"type/1"===e.indicator&&A.type.is_atom(e.args[0])&&("text"===e.args[0].id||"binary"===e.args[0].id)||"eof_action/1"===e.indicator&&A.type.is_atom(e.args[0])&&("error"===e.args[0].id||"eof_code"===e.args[0].id||"reset"===e.args[0].id))},is_stream_position:function(e){return A.type.is_integer(e)&&e.value>=0||A.type.is_atom(e)&&("end_of_stream"===e.id||"past_end_of_stream"===e.id)},is_stream_property:function(e){return A.type.is_term(e)&&("input/0"===e.indicator||"output/0"===e.indicator||"alias/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0]))||"file_name/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0]))||"position/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_stream_position(e.args[0]))||"reposition/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id))||"type/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0])&&("text"===e.args[0].id||"binary"===e.args[0].id))||"mode/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0])&&("read"===e.args[0].id||"write"===e.args[0].id||"append"===e.args[0].id))||"eof_action/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0])&&("error"===e.args[0].id||"eof_code"===e.args[0].id||"reset"===e.args[0].id))||"end_of_stream/1"===e.indicator&&(A.type.is_variable(e.args[0])||A.type.is_atom(e.args[0])&&("at"===e.args[0].id||"past"===e.args[0].id||"not"===e.args[0].id)))},is_streamable:function(e){return void 0!==e.__proto__.stream},is_read_option:function(e){return A.type.is_term(e)&&-1!==["variables/1","variable_names/1","singletons/1"].indexOf(e.indicator)},is_write_option:function(e){return A.type.is_term(e)&&("quoted/1"===e.indicator&&A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id)||"ignore_ops/1"===e.indicator&&A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id)||"numbervars/1"===e.indicator&&A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id))},is_close_option:function(e){return A.type.is_term(e)&&"force/1"===e.indicator&&A.type.is_atom(e.args[0])&&("true"===e.args[0].id||"false"===e.args[0].id)},is_modifiable_flag:function(e){return A.type.is_flag(e)&&A.flag[e.id].changeable},is_module:function(e){return e instanceof k&&"library/1"===e.indicator&&e.args[0]instanceof k&&0===e.args[0].args.length&&void 0!==A.module[e.args[0].id]}},arithmetic:{evaluation:{"e/0":{type_args:null,type_result:!0,fn:function(e){return Math.E}},"pi/0":{type_args:null,type_result:!0,fn:function(e){return Math.PI}},"tau/0":{type_args:null,type_result:!0,fn:function(e){return 2*Math.PI}},"epsilon/0":{type_args:null,type_result:!0,fn:function(e){return Number.EPSILON}},"+/1":{type_args:null,type_result:null,fn:function(e,r){return e}},"-/1":{type_args:null,type_result:null,fn:function(e,r){return-e}},"\\/1":{type_args:!1,type_result:!1,fn:function(e,r){return~e}},"abs/1":{type_args:null,type_result:null,fn:function(e,r){return Math.abs(e)}},"sign/1":{type_args:null,type_result:null,fn:function(e,r){return Math.sign(e)}},"float_integer_part/1":{type_args:!0,type_result:!1,fn:function(e,r){return parseInt(e)}},"float_fractional_part/1":{type_args:!0,type_result:!0,fn:function(e,r){return e-parseInt(e)}},"float/1":{type_args:null,type_result:!0,fn:function(e,r){return parseFloat(e)}},"floor/1":{type_args:!0,type_result:!1,fn:function(e,r){return Math.floor(e)}},"truncate/1":{type_args:!0,type_result:!1,fn:function(e,r){return parseInt(e)}},"round/1":{type_args:!0,type_result:!1,fn:function(e,r){return Math.round(e)}},"ceiling/1":{type_args:!0,type_result:!1,fn:function(e,r){return Math.ceil(e)}},"sin/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.sin(e)}},"cos/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.cos(e)}},"tan/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.tan(e)}},"asin/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.asin(e)}},"acos/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.acos(e)}},"atan/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.atan(e)}},"atan2/2":{type_args:null,type_result:!0,fn:function(e,r,t){return Math.atan2(e,r)}},"exp/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.exp(e)}},"sqrt/1":{type_args:null,type_result:!0,fn:function(e,r){return Math.sqrt(e)}},"log/1":{type_args:null,type_result:!0,fn:function(e,r){return e>0?Math.log(e):A.error.evaluation("undefined",r.__call_indicator)}},"+/2":{type_args:null,type_result:null,fn:function(e,r,t){return e+r}},"-/2":{type_args:null,type_result:null,fn:function(e,r,t){return e-r}},"*/2":{type_args:null,type_result:null,fn:function(e,r,t){return e*r}},"//2":{type_args:null,type_result:!0,fn:function(e,r,t){return r?e/r:A.error.evaluation("zero_division",t.__call_indicator)}},"///2":{type_args:!1,type_result:!1,fn:function(e,r,t){return r?parseInt(e/r):A.error.evaluation("zero_division",t.__call_indicator)}},"**/2":{type_args:null,type_result:!0,fn:function(e,r,t){return Math.pow(e,r)}},"^/2":{type_args:null,type_result:null,fn:function(e,r,t){return Math.pow(e,r)}},"<</2":{type_args:!1,type_result:!1,fn:function(e,r,t){return e<<r}},">>/2":{type_args:!1,type_result:!1,fn:function(e,r,t){return e>>r}},"/\\/2":{type_args:!1,type_result:!1,fn:function(e,r,t){return e&r}},"\\//2":{type_args:!1,type_result:!1,fn:function(e,r,t){return e|r}},"xor/2":{type_args:!1,type_result:!1,fn:function(e,r,t){return e^r}},"rem/2":{type_args:!1,type_result:!1,fn:function(e,r,t){return r?e%r:A.error.evaluation("zero_division",t.__call_indicator)}},"mod/2":{type_args:!1,type_result:!1,fn:function(e,r,t){return r?e-parseInt(e/r)*r:A.error.evaluation("zero_division",t.__call_indicator)}},"max/2":{type_args:null,type_result:null,fn:function(e,r,t){return Math.max(e,r)}},"min/2":{type_args:null,type_result:null,fn:function(e,r,t){return Math.min(e,r)}}}},directive:{"dynamic/1":function(e,r){var t=r.args[0];if(A.type.is_variable(t))e.throw_error(A.error.instantiation(r.indicator));else if(A.type.is_compound(t)&&"//2"===t.indicator)if(A.type.is_variable(t.args[0])||A.type.is_variable(t.args[1]))e.throw_error(A.error.instantiation(r.indicator));else if(A.type.is_atom(t.args[0]))if(A.type.is_integer(t.args[1])){var n=r.args[0].args[0].id+"/"+r.args[0].args[1].value;e.session.public_predicates[n]=!0,e.session.rules[n]||(e.session.rules[n]=[])}else e.throw_error(A.error.type("integer",t.args[1],r.indicator));else e.throw_error(A.error.type("atom",t.args[0],r.indicator));else e.throw_error(A.error.type("predicate_indicator",t,r.indicator))},"multifile/1":function(e,r){var t=r.args[0];A.type.is_variable(t)?e.throw_error(A.error.instantiation(r.indicator)):A.type.is_compound(t)&&"//2"===t.indicator?A.type.is_variable(t.args[0])||A.type.is_variable(t.args[1])?e.throw_error(A.error.instantiation(r.indicator)):A.type.is_atom(t.args[0])?A.type.is_integer(t.args[1])?e.session.multifile_predicates[r.args[0].args[0].id+"/"+r.args[0].args[1].value]=!0:e.throw_error(A.error.type("integer",t.args[1],r.indicator)):e.throw_error(A.error.type("atom",t.args[0],r.indicator)):e.throw_error(A.error.type("predicate_indicator",t,r.indicator))},"set_prolog_flag/2":function(e,r){var t=r.args[0],n=r.args[1];A.type.is_variable(t)||A.type.is_variable(n)?e.throw_error(A.error.instantiation(r.indicator)):A.type.is_atom(t)?A.type.is_flag(t)?A.type.is_value_flag(t,n)?A.type.is_modifiable_flag(t)?e.session.flag[t.id]=n:e.throw_error(A.error.permission("modify","flag",t)):e.throw_error(A.error.domain("flag_value",new k("+",[t,n]),r.indicator)):e.throw_error(A.error.domain("prolog_flag",t,r.indicator)):e.throw_error(A.error.type("atom",t,r.indicator))},"use_module/1":function(e,t){var n=t.args[0];if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_term(n)){if(A.type.is_module(n)){var i=n.args[0].id;-1===r(e.session.modules,i)&&e.session.modules.push(i)}}else e.throw_error(A.error.type("term",n,t.indicator))},"char_conversion/2":function(e,r){var t=r.args[0],n=r.args[1];A.type.is_variable(t)||A.type.is_variable(n)?e.throw_error(A.error.instantiation(r.indicator)):A.type.is_character(t)?A.type.is_character(n)?t.id===n.id?delete e.session.__char_conversion[t.id]:e.session.__char_conversion[t.id]=n.id:e.throw_error(A.error.type("character",n,r.indicator)):e.throw_error(A.error.type("character",t,r.indicator))},"op/3":function(e,t){var n=t.args[0],i=t.args[1],a=t.args[2];if(A.type.is_variable(n)||A.type.is_variable(i)||A.type.is_variable(a))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_integer(n))if(A.type.is_atom(i))if(A.type.is_atom(a))if(n.value<0||n.value>1200)e.throw_error(A.error.domain("operator_priority",n,t.indicator));else if(","===a.id)e.throw_error(A.error.permission("modify","operator",a,t.indicator));else if("|"===a.id&&(n.value<1001||3!==i.id.length))e.throw_error(A.error.permission("modify","operator",a,t.indicator));else if(-1===["fy","fx","yf","xf","xfx","yfx","xfy"].indexOf(i.id))e.throw_error(A.error.domain("operator_specifier",i,t.indicator));else{var s,o={prefix:null,infix:null,postfix:null};for(var p in e.session.__operators)if(e.session.__operators.hasOwnProperty(p)){var l=e.session.__operators[p][a.id];l&&(-1!==r(l,"fx")&&(o.prefix={priority:p,type:"fx"}),-1!==r(l,"fy")&&(o.prefix={priority:p,type:"fy"}),-1!==r(l,"xf")&&(o.postfix={priority:p,type:"xf"}),-1!==r(l,"yf")&&(o.postfix={priority:p,type:"yf"}),-1!==r(l,"xfx")&&(o.infix={priority:p,type:"xfx"}),-1!==r(l,"xfy")&&(o.infix={priority:p,type:"xfy"}),-1!==r(l,"yfx")&&(o.infix={priority:p,type:"yfx"}))}switch(i.id){case"fy":case"fx":s="prefix";break;case"yf":case"xf":s="postfix";break;default:s="infix"}if(!((o.prefix&&"prefix"===s||o.postfix&&"postfix"===s||o.infix&&"infix"===s)&&o[s].type!==i.id||o.infix&&"postfix"===s||o.postfix&&"infix"===s)||0===n.value)return o[s]&&(!function(e,r){for(var t=e.length-1;t>=0;t--)e[t]===r&&e.splice(t,1)}(e.session.__operators[o[s].priority][a.id],i.id),0===e.session.__operators[o[s].priority][a.id].length&&delete e.session.__operators[o[s].priority][a.id]),n.value>0&&(e.session.__operators[n.value]||(e.session.__operators[n.value.toString()]={}),e.session.__operators[n.value][a.id]||(e.session.__operators[n.value][a.id]=[]),e.session.__operators[n.value][a.id].push(i.id)),!0;e.throw_error(A.error.permission("create","operator",a,t.indicator))}else e.throw_error(A.error.type("atom",a,t.indicator));else e.throw_error(A.error.type("atom",i,t.indicator));else e.throw_error(A.error.type("integer",n,t.indicator))}},predicate:{"op/3":function(e,r,t){A.directive["op/3"](e,t)&&e.success(r)},"current_op/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2],s=[];for(var o in e.session.__operators)for(var p in e.session.__operators[o])for(var l=0;l<e.session.__operators[o][p].length;l++)s.push(new P(r.goal.replace(new k(",",[new k("=",[new T(o,!1),n]),new k(",",[new k("=",[new k(e.session.__operators[o][p][l],[]),i]),new k("=",[new k(p,[]),a])])])),r.substitution,r));e.prepend(s)},";/2":function(e,r,t){if(A.type.is_term(t.args[0])&&"->/2"===t.args[0].indicator){var n=e.points,i=e.session.format_success,a=e.session.format_error;e.session.format_success=function(e){return e.substitution},e.session.format_error=function(e){return e.goal},e.points=[new P(t.args[0].args[0],r.substitution,r)];e.__calls.unshift((function(s){e.points=n,e.session.format_success=i,e.session.format_error=a,!1===s?e.prepend([new P(r.goal.replace(t.args[1]),r.substitution,r)]):A.type.is_error(s)?e.throw_error(s.args[0]):null===s?(e.prepend([r]),e.__calls.shift()(null)):e.prepend([new P(r.goal.replace(t.args[0].args[1]).apply(s),r.substitution.apply(s),r)])}))}else{var s=new P(r.goal.replace(t.args[0]),r.substitution,r),o=new P(r.goal.replace(t.args[1]),r.substitution,r);e.prepend([s,o])}},"!/0":function(e,r,t){var n,i,a=[];for(n=r,i=null;null!==n.parent&&n.parent.goal.search(t);)if(i=n,null!==(n=n.parent).goal){var s=n.goal.select();if(s&&"call"===s.id&&s.search(t)){n=i;break}}for(var o=e.points.length-1;o>=0;o--){for(var p=e.points[o],l=p.parent;null!==l&&l!==n.parent;)l=l.parent;null===l&&l!==n.parent&&a.push(p)}e.points=a.reverse(),e.success(r)},"\\+/1":function(e,r,t){var n=t.args[0];A.type.is_variable(n)?e.throw_error(A.error.instantiation(e.level)):A.type.is_callable(n)?e.prepend([new P(r.goal.replace(new k(",",[new k(",",[new k("call",[n]),new k("!",[])]),new k("fail",[])])),r.substitution,r),new P(r.goal.replace(null),r.substitution,r)]):e.throw_error(A.error.type("callable",n,e.level))},"->/2":function(e,r,t){var n=r.goal.replace(new k(",",[t.args[0],new k(",",[new k("!"),t.args[1]])]));e.prepend([new P(n,r.substitution,r)])},"fail/0":function(e,r,t){},"false/0":function(e,r,t){},"true/0":function(e,r,t){e.success(r)},"call/1":v(1),"call/2":v(2),"call/3":v(3),"call/4":v(4),"call/5":v(5),"call/6":v(6),"call/7":v(7),"call/8":v(8),"once/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("call",[n]),new k("!",[])])),r.substitution,r)])},"forall/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("\\+",[new k(",",[new k("call",[n]),new k("\\+",[new k("call",[i])])])])),r.substitution,r)])},"repeat/0":function(e,r,t){e.prepend([new P(r.goal.replace(null),r.substitution,r),r])},"throw/1":function(e,r,t){A.type.is_variable(t.args[0])?e.throw_error(A.error.instantiation(e.level)):e.throw_error(t.args[0])},"catch/3":function(e,r,t){var n=e.points;e.points=[],e.prepend([new P(t.args[0],r.substitution,r)]);var a=e.session.format_success,s=e.session.format_error;e.session.format_success=function(e){return e.substitution},e.session.format_error=function(e){return e.goal};e.__calls.unshift((function(o){var p=e.points;if(e.points=n,e.session.format_success=a,e.session.format_error=s,A.type.is_error(o)){for(var l=[],u=e.points.length-1;u>=0;u--){for(var c=(_=e.points[u]).parent;null!==c&&c!==r.parent;)c=c.parent;null===c&&c!==r.parent&&l.push(_)}e.points=l;var y="true/0"===e.get_flag("occurs_check").indicator,_=new P,f=A.unify(o.args[0],t.args[1],y);null!==f?(_.substitution=r.substitution.apply(f),_.goal=r.goal.replace(t.args[2]).apply(f),_.parent=r,e.prepend([_])):e.throw_error(o.args[0])}else if(!1!==o){var d=null===o?[]:[new P(r.goal.apply(o).replace(null),r.substitution.apply(o),r)],w=[];for(u=p.length-1;u>=0;u--){w.push(p[u]);var h=null!==p[u].goal?p[u].goal.select():null;if(A.type.is_term(h)&&"!/0"===h.indicator)break}var g=i(w,(function(e){return null===e.goal&&(e.goal=new k("true",[])),(e=new P(r.goal.replace(new k("catch",[e.goal,t.args[1],t.args[2]])),r.substitution.apply(e.substitution),e.parent)).exclude=t.args[0].variables(),e})).reverse();e.prepend(g),e.prepend(d),null===o&&(this.current_limit=0,e.__calls.shift()(null))}}))},"=/2":function(e,r,t){var n="true/0"===e.get_flag("occurs_check").indicator,i=new P,a=A.unify(t.args[0],t.args[1],n);null!==a&&(i.goal=r.goal.apply(a).replace(null),i.substitution=r.substitution.apply(a),i.parent=r,e.prepend([i]))},"unify_with_occurs_check/2":function(e,r,t){var n=new P,i=A.unify(t.args[0],t.args[1],!0);null!==i&&(n.goal=r.goal.apply(i).replace(null),n.substitution=r.substitution.apply(i),n.parent=r,e.prepend([n]))},"\\=/2":function(e,r,t){var n="true/0"===e.get_flag("occurs_check").indicator;null===A.unify(t.args[0],t.args[1],n)&&e.success(r)},"subsumes_term/2":function(e,r,t){var n="true/0"===e.get_flag("occurs_check").indicator,i=A.unify(t.args[1],t.args[0],n);null!==i&&t.args[1].apply(i).equals(t.args[1])&&e.success(r)},"findall/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2];if(A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_callable(i))if(A.type.is_variable(a)||A.type.is_list(a)){var s=e.next_free_variable(),o=new k(",",[i,new k("=",[s,n])]),p=e.points,l=e.session.limit,u=e.session.format_success;e.session.format_success=function(e){return e.substitution},e.add_goal(o,!0,r);var c=[],y=function(t){if(!1===t||null===t||A.type.is_error(t)){if(e.points=p,e.session.limit=l,e.session.format_success=u,A.type.is_error(t))e.throw_error(t.args[0]);else if(e.current_limit>0){for(var n=new k("[]"),i=c.length-1;i>=0;i--)n=new k(".",[c[i],n]);e.prepend([new P(r.goal.replace(new k("=",[a,n])),r.substitution,r)])}}else e.__calls.unshift(y),c.push(t.links[s.id]),e.session.limit=e.current_limit};e.__calls.unshift(y)}else e.throw_error(A.error.type("list",a,t.indicator));else e.throw_error(A.error.type("callable",i,t.indicator))},"bagof/3":function(e,t,n){var i=n.args[0],a=n.args[1],s=n.args[2];if(A.type.is_variable(a))e.throw_error(A.error.instantiation(n.indicator));else if(A.type.is_callable(a))if(A.type.is_variable(s)||A.type.is_list(s)){var o,p=e.next_free_variable();"^/2"===a.indicator?(o=a.args[0].variables(),a=a.args[1]):o=[],o=o.concat(i.variables());for(var l=a.variables().filter((function(e){return-1===r(o,e)})),u=new k("[]"),c=l.length-1;c>=0;c--)u=new k(".",[new x(l[c]),u]);var y=new k(",",[a,new k("=",[p,new k(",",[u,i])])]),_=e.points,f=e.session.limit,d=e.session.format_success;e.session.format_success=function(e){return e.substitution},e.add_goal(y,!0,t);var w=[],h=function(r){if(!1===r||null===r||A.type.is_error(r)){if(e.points=_,e.session.limit=f,e.session.format_success=d,A.type.is_error(r))e.throw_error(r.args[0]);else if(e.current_limit>0){for(var n=[],i=0;i<w.length;i++){r=w[i].answers;for(var a=new k("[]"),o=r.length-1;o>=0;o--)a=new k(".",[r[o],a]);n.push(new P(t.goal.replace(new k(",",[new k("=",[u,w[i].variables]),new k("=",[s,a])])),t.substitution,t))}e.prepend(n)}}else{e.__calls.unshift(h);var l=!1,c=r.links[p.id].args[0],y=r.links[p.id].args[1];for(var g in w)if(w.hasOwnProperty(g)){var m=w[g];if(m.variables.equals(c)){m.answers.push(y),l=!0;break}}l||w.push({variables:c,answers:[y]}),e.session.limit=e.current_limit}};e.__calls.unshift(h)}else e.throw_error(A.error.type("list",s,n.indicator));else e.throw_error(A.error.type("callable",a,n.indicator))},"setof/3":function(e,t,n){var i=n.args[0],a=n.args[1],s=n.args[2];if(A.type.is_variable(a))e.throw_error(A.error.instantiation(n.indicator));else if(A.type.is_callable(a))if(A.type.is_variable(s)||A.type.is_list(s)){var o,p=e.next_free_variable();"^/2"===a.indicator?(o=a.args[0].variables(),a=a.args[1]):o=[],o=o.concat(i.variables());for(var l=a.variables().filter((function(e){return-1===r(o,e)})),u=new k("[]"),c=l.length-1;c>=0;c--)u=new k(".",[new x(l[c]),u]);var y=new k(",",[a,new k("=",[p,new k(",",[u,i])])]),_=e.points,f=e.session.limit,d=e.session.format_success;e.session.format_success=function(e){return e.substitution},e.add_goal(y,!0,t);var w=[],h=function(r){if(!1===r||null===r||A.type.is_error(r)){if(e.points=_,e.session.limit=f,e.session.format_success=d,A.type.is_error(r))e.throw_error(r.args[0]);else if(e.current_limit>0){for(var n=[],i=0;i<w.length;i++){r=w[i].answers.sort(A.compare);for(var a=new k("[]"),o=r.length-1;o>=0;o--)a=new k(".",[r[o],a]);n.push(new P(t.goal.replace(new k(",",[new k("=",[u,w[i].variables]),new k("=",[s,a])])),t.substitution,t))}e.prepend(n)}}else{e.__calls.unshift(h);var l=!1,c=r.links[p.id].args[0],y=r.links[p.id].args[1];for(var g in w)if(w.hasOwnProperty(g)){var m=w[g];if(m.variables.equals(c)){m.answers.push(y),l=!0;break}}l||w.push({variables:c,answers:[y]}),e.session.limit=e.current_limit}};e.__calls.unshift(h)}else e.throw_error(A.error.type("list",s,n.indicator));else e.throw_error(A.error.type("callable",a,n.indicator))},"functor/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2];if(A.type.is_variable(n)&&(A.type.is_variable(i)||A.type.is_variable(a)))e.throw_error(A.error.instantiation("functor/3"));else if(A.type.is_variable(a)||A.type.is_integer(a))if(A.type.is_variable(i)||A.type.is_atomic(i))if(A.type.is_integer(i)&&A.type.is_integer(a)&&0!==a.value)e.throw_error(A.error.type("atom",t.args[1],"functor/3"));else if(A.type.is_variable(n)){if(t.args[2].value>=0){for(var s=[],o=0;o<a.value;o++)s.push(e.next_free_variable());var p=A.type.is_integer(i)?i:new k(i.id,s);e.prepend([new P(r.goal.replace(new k("=",[n,p])),r.substitution,r)])}}else{var l=A.type.is_integer(n)?n:new k(n.id,[]),u=A.type.is_integer(n)?new T(0,!1):new T(n.args.length,!1),c=new k(",",[new k("=",[l,i]),new k("=",[u,a])]);e.prepend([new P(r.goal.replace(c),r.substitution,r)])}else e.throw_error(A.error.type("atomic",t.args[1],"functor/3"));else e.throw_error(A.error.type("integer",t.args[2],"functor/3"))},"arg/3":function(e,r,t){if(A.type.is_variable(t.args[0])||A.type.is_variable(t.args[1]))e.throw_error(A.error.instantiation(t.indicator));else if(t.args[0].value<0)e.throw_error(A.error.domain("not_less_than_zero",t.args[0],t.indicator));else if(A.type.is_compound(t.args[1])){var n=t.args[0].value;if(n>0&&n<=t.args[1].args.length){var i=new k("=",[t.args[1].args[n-1],t.args[2]]);e.prepend([new P(r.goal.replace(i),r.substitution,r)])}}else e.throw_error(A.error.type("compound",t.args[1],t.indicator))},"=../2":function(e,r,t){var n;if(A.type.is_variable(t.args[0])&&(A.type.is_variable(t.args[1])||A.type.is_non_empty_list(t.args[1])&&A.type.is_variable(t.args[1].args[0])))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_fully_list(t.args[1]))if(A.type.is_variable(t.args[0])){if(!A.type.is_variable(t.args[1])){var i=[];for(n=t.args[1].args[1];"./2"===n.indicator;)i.push(n.args[0]),n=n.args[1];A.type.is_variable(t.args[0])&&A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):0===i.length&&A.type.is_compound(t.args[1].args[0])?e.throw_error(A.error.type("atomic",t.args[1].args[0],t.indicator)):i.length>0&&(A.type.is_compound(t.args[1].args[0])||A.type.is_number(t.args[1].args[0]))?e.throw_error(A.error.type("atom",t.args[1].args[0],t.indicator)):0===i.length?e.prepend([new P(r.goal.replace(new k("=",[t.args[1].args[0],t.args[0]],r)),r.substitution,r)]):e.prepend([new P(r.goal.replace(new k("=",[new k(t.args[1].args[0].id,i),t.args[0]])),r.substitution,r)])}}else{if(A.type.is_atomic(t.args[0]))n=new k(".",[t.args[0],new k("[]")]);else{n=new k("[]");for(var a=t.args[0].args.length-1;a>=0;a--)n=new k(".",[t.args[0].args[a],n]);n=new k(".",[new k(t.args[0].id),n])}e.prepend([new P(r.goal.replace(new k("=",[n,t.args[1]])),r.substitution,r)])}else e.throw_error(A.error.type("list",t.args[1],t.indicator))},"copy_term/2":function(e,r,t){var n=t.args[0].rename(e);e.prepend([new P(r.goal.replace(new k("=",[n,t.args[1]])),r.substitution,r.parent)])},"term_variables/2":function(e,r,t){var n=t.args[0],a=t.args[1];if(A.type.is_fully_list(a)){var s=g(i(m(n.variables()),(function(e){return new x(e)})));e.prepend([new P(r.goal.replace(new k("=",[a,s])),r.substitution,r)])}else e.throw_error(A.error.type("list",a,t.indicator))},"clause/2":function(e,r,t){if(A.type.is_variable(t.args[0]))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_callable(t.args[0]))if(A.type.is_variable(t.args[1])||A.type.is_callable(t.args[1])){if(void 0!==e.session.rules[t.args[0].indicator])if(e.is_public_predicate(t.args[0].indicator)){var n=[];for(var i in e.session.rules[t.args[0].indicator])if(e.session.rules[t.args[0].indicator].hasOwnProperty(i)){var a=e.session.rules[t.args[0].indicator][i];e.session.renamed_variables={},null===(a=a.rename(e)).body&&(a.body=new k("true"));var s=new k(",",[new k("=",[a.head,t.args[0]]),new k("=",[a.body,t.args[1]])]);n.push(new P(r.goal.replace(s),r.substitution,r))}e.prepend(n)}else e.throw_error(A.error.permission("access","private_procedure",t.args[0].indicator,t.indicator))}else e.throw_error(A.error.type("callable",t.args[1],t.indicator));else e.throw_error(A.error.type("callable",t.args[0],t.indicator))},"current_predicate/1":function(e,r,t){var n=t.args[0];if(A.type.is_variable(n)||A.type.is_compound(n)&&"//2"===n.indicator)if(A.type.is_variable(n)||A.type.is_variable(n.args[0])||A.type.is_atom(n.args[0]))if(A.type.is_variable(n)||A.type.is_variable(n.args[1])||A.type.is_integer(n.args[1])){var i=[];for(var a in e.session.rules)if(e.session.rules.hasOwnProperty(a)){var s=a.lastIndexOf("/"),o=a.substr(0,s),p=parseInt(a.substr(s+1,a.length-(s+1))),l=new k("/",[new k(o),new T(p,!1)]),u=new k("=",[l,n]);i.push(new P(r.goal.replace(u),r.substitution,r))}e.prepend(i)}else e.throw_error(A.error.type("integer",n.args[1],t.indicator));else e.throw_error(A.error.type("atom",n.args[0],t.indicator));else e.throw_error(A.error.type("predicate_indicator",n,t.indicator))},"asserta/1":function(e,r,t){if(A.type.is_variable(t.args[0]))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_callable(t.args[0])){var n,i;":-/2"===t.args[0].indicator?(n=t.args[0].args[0],i=h(t.args[0].args[1])):(n=t.args[0],i=null),A.type.is_callable(n)?null===i||A.type.is_callable(i)?e.is_public_predicate(n.indicator)?(void 0===e.session.rules[n.indicator]&&(e.session.rules[n.indicator]=[]),e.session.public_predicates[n.indicator]=!0,e.session.rules[n.indicator]=[new C(n,i,!0)].concat(e.session.rules[n.indicator]),e.success(r)):e.throw_error(A.error.permission("modify","static_procedure",n.indicator,t.indicator)):e.throw_error(A.error.type("callable",i,t.indicator)):e.throw_error(A.error.type("callable",n,t.indicator))}else e.throw_error(A.error.type("callable",t.args[0],t.indicator))},"assertz/1":function(e,r,t){if(A.type.is_variable(t.args[0]))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_callable(t.args[0])){var n,i;":-/2"===t.args[0].indicator?(n=t.args[0].args[0],i=h(t.args[0].args[1])):(n=t.args[0],i=null),A.type.is_callable(n)?null===i||A.type.is_callable(i)?e.is_public_predicate(n.indicator)?(void 0===e.session.rules[n.indicator]&&(e.session.rules[n.indicator]=[]),e.session.public_predicates[n.indicator]=!0,e.session.rules[n.indicator].push(new C(n,i,!0)),e.success(r)):e.throw_error(A.error.permission("modify","static_procedure",n.indicator,t.indicator)):e.throw_error(A.error.type("callable",i,t.indicator)):e.throw_error(A.error.type("callable",n,t.indicator))}else e.throw_error(A.error.type("callable",t.args[0],t.indicator))},"retract/1":function(e,r,t){if(A.type.is_variable(t.args[0]))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_callable(t.args[0])){var n,i;if(":-/2"===t.args[0].indicator?(n=t.args[0].args[0],i=t.args[0].args[1]):(n=t.args[0],i=new k("true")),void 0===r.retract)if(e.is_public_predicate(n.indicator)){if(void 0!==e.session.rules[n.indicator]){for(var a=[],s=0;s<e.session.rules[n.indicator].length;s++){e.session.renamed_variables={};var o=e.session.rules[n.indicator][s],p=o.rename(e);null===p.body&&(p.body=new k("true",[]));var l="true/0"===e.get_flag("occurs_check").indicator;if(null!==A.unify(new k(",",[n,i]),new k(",",[p.head,p.body]),l)){var u=new P(r.goal.replace(new k(",",[new k("retract",[new k(":-",[n,i])]),new k(",",[new k("=",[n,p.head]),new k("=",[i,p.body])])])),r.substitution,r);u.retract=o,a.push(u)}}e.prepend(a)}}else e.throw_error(A.error.permission("modify","static_procedure",n.indicator,t.indicator));else!function(e,r,t,n){if(null!==e.session.rules[t])for(var i=0;i<e.session.rules[t].length;i++)if(e.session.rules[t][i]===n){e.session.rules[t].splice(i,1),e.success(r);break}}(e,r,n.indicator,r.retract)}else e.throw_error(A.error.type("callable",t.args[0],t.indicator))},"retractall/1":function(e,r,t){var n=t.args[0];A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_callable(n)?e.prepend([new P(r.goal.replace(new k(",",[new k("retract",[new A.type.Term(":-",[n,new x("_")])]),new k("fail",[])])),r.substitution,r),new P(r.goal.replace(null),r.substitution,r)]):e.throw_error(A.error.type("callable",n,t.indicator))},"abolish/1":function(e,r,t){if(A.type.is_variable(t.args[0])||A.type.is_term(t.args[0])&&"//2"===t.args[0].indicator&&(A.type.is_variable(t.args[0].args[0])||A.type.is_variable(t.args[0].args[1])))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_term(t.args[0])&&"//2"===t.args[0].indicator)if(A.type.is_atom(t.args[0].args[0]))if(A.type.is_integer(t.args[0].args[1]))if(t.args[0].args[1].value<0)e.throw_error(A.error.domain("not_less_than_zero",t.args[0].args[1],t.indicator));else if(A.type.is_number(e.get_flag("max_arity"))&&t.args[0].args[1].value>e.get_flag("max_arity").value)e.throw_error(A.error.representation("max_arity",t.indicator));else{var n=t.args[0].args[0].id+"/"+t.args[0].args[1].value;e.is_public_predicate(n)?(delete e.session.rules[n],e.success(r)):e.throw_error(A.error.permission("modify","static_procedure",n,t.indicator))}else e.throw_error(A.error.type("integer",t.args[0].args[1],t.indicator));else e.throw_error(A.error.type("atom",t.args[0].args[0],t.indicator));else e.throw_error(A.error.type("predicate_indicator",t.args[0],t.indicator))},"atom_length/2":function(e,r,t){if(A.type.is_variable(t.args[0]))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_atom(t.args[0]))if(A.type.is_variable(t.args[1])||A.type.is_integer(t.args[1]))if(A.type.is_integer(t.args[1])&&t.args[1].value<0)e.throw_error(A.error.domain("not_less_than_zero",t.args[1],t.indicator));else{var n=new T(t.args[0].id.length,!1);e.prepend([new P(r.goal.replace(new k("=",[n,t.args[1]])),r.substitution,r)])}else e.throw_error(A.error.type("integer",t.args[1],t.indicator));else e.throw_error(A.error.type("atom",t.args[0],t.indicator))},"atom_concat/3":function(e,r,t){var n,i,a=t.args[0],s=t.args[1],o=t.args[2];if(A.type.is_variable(o)&&(A.type.is_variable(a)||A.type.is_variable(s)))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(a)||A.type.is_atom(a))if(A.type.is_variable(s)||A.type.is_atom(s))if(A.type.is_variable(o)||A.type.is_atom(o)){var p=A.type.is_variable(a),l=A.type.is_variable(s);if(p||l)if(p&&!l)(n=o.id.substr(0,o.id.length-s.id.length))+s.id===o.id&&(i=new k("=",[a,new k(n)]),e.prepend([new P(r.goal.replace(i),r.substitution,r)]));else if(l&&!p)n=o.id.substr(a.id.length),a.id+n===o.id&&(i=new k("=",[s,new k(n)]),e.prepend([new P(r.goal.replace(i),r.substitution,r)]));else{for(var u=[],c=0;c<=o.id.length;c++){var y=new k(o.id.substr(0,c)),_=new k(o.id.substr(c));i=new k(",",[new k("=",[y,a]),new k("=",[_,s])]),u.push(new P(r.goal.replace(i),r.substitution,r))}e.prepend(u)}else i=new k("=",[o,new k(a.id+s.id)]),e.prepend([new P(r.goal.replace(i),r.substitution,r)])}else e.throw_error(A.error.type("atom",o,t.indicator));else e.throw_error(A.error.type("atom",s,t.indicator));else e.throw_error(A.error.type("atom",a,t.indicator))},"sub_atom/5":function(e,t,n){var i,a=n.args[0],s=n.args[1],o=n.args[2],p=n.args[3],l=n.args[4];if(A.type.is_variable(a))e.throw_error(A.error.instantiation(n.indicator));else if(A.type.is_variable(s)||A.type.is_integer(s))if(A.type.is_variable(o)||A.type.is_integer(o))if(A.type.is_variable(p)||A.type.is_integer(p))if(A.type.is_integer(s)&&s.value<0)e.throw_error(A.error.domain("not_less_than_zero",s,n.indicator));else if(A.type.is_integer(o)&&o.value<0)e.throw_error(A.error.domain("not_less_than_zero",o,n.indicator));else if(A.type.is_integer(p)&&p.value<0)e.throw_error(A.error.domain("not_less_than_zero",p,n.indicator));else{var u=[],c=[],y=[];if(A.type.is_variable(s))for(i=0;i<=a.id.length;i++)u.push(i);else u.push(s.value);if(A.type.is_variable(o))for(i=0;i<=a.id.length;i++)c.push(i);else c.push(o.value);if(A.type.is_variable(p))for(i=0;i<=a.id.length;i++)y.push(i);else y.push(p.value);var _=[];for(var f in u)if(u.hasOwnProperty(f))for(var d in i=u[f],c)if(c.hasOwnProperty(d)){var w=c[d],h=a.id.length-i-w;if(-1!==r(y,h)&&i+w+h===a.id.length){var g=a.id.substr(i,w);if(a.id===a.id.substr(0,i)+g+a.id.substr(i+w,h)){var m=new k("=",[new k(g),l]),v=new k("=",[s,new T(i)]),b=new k("=",[o,new T(w)]),x=new k("=",[p,new T(h)]),V=new k(",",[new k(",",[new k(",",[v,b]),x]),m]);_.push(new P(t.goal.replace(V),t.substitution,t))}}}e.prepend(_)}else e.throw_error(A.error.type("integer",p,n.indicator));else e.throw_error(A.error.type("integer",o,n.indicator));else e.throw_error(A.error.type("integer",s,n.indicator))},"atom_chars/2":function(e,r,t){var n=t.args[0],i=t.args[1];if(A.type.is_variable(n)&&A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(n)||A.type.is_atom(n))if(A.type.is_variable(n)){for(var a=i,s=A.type.is_variable(n),o="";"./2"===a.indicator;){if(A.type.is_character(a.args[0]))o+=a.args[0].id;else{if(A.type.is_variable(a.args[0])&&s)return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_variable(a.args[0]))return void e.throw_error(A.error.type("character",a.args[0],t.indicator))}a=a.args[1]}A.type.is_variable(a)&&s?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_empty_list(a)||A.type.is_variable(a)?e.prepend([new P(r.goal.replace(new k("=",[new k(o),n])),r.substitution,r)]):e.throw_error(A.error.type("list",i,t.indicator))}else{for(var p=new k("[]"),l=n.id.length-1;l>=0;l--)p=new k(".",[new k(n.id.charAt(l)),p]);e.prepend([new P(r.goal.replace(new k("=",[i,p])),r.substitution,r)])}else e.throw_error(A.error.type("atom",n,t.indicator))},"atom_codes/2":function(e,r,t){var n=t.args[0],i=t.args[1];if(A.type.is_variable(n)&&A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(n)||A.type.is_atom(n))if(A.type.is_variable(n)){for(var a=i,p=A.type.is_variable(n),l="";"./2"===a.indicator;){if(A.type.is_character_code(a.args[0]))l+=o(a.args[0].value);else{if(A.type.is_variable(a.args[0])&&p)return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_variable(a.args[0]))return void e.throw_error(A.error.representation("character_code",t.indicator))}a=a.args[1]}A.type.is_variable(a)&&p?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_empty_list(a)||A.type.is_variable(a)?e.prepend([new P(r.goal.replace(new k("=",[new k(l),n])),r.substitution,r)]):e.throw_error(A.error.type("list",i,t.indicator))}else{for(var u=new k("[]"),c=n.id.length-1;c>=0;c--)u=new k(".",[new T(s(n.id,c),!1),u]);e.prepend([new P(r.goal.replace(new k("=",[i,u])),r.substitution,r)])}else e.throw_error(A.error.type("atom",n,t.indicator))},"char_code/2":function(e,r,t){var n=t.args[0],i=t.args[1];if(A.type.is_variable(n)&&A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(n)||A.type.is_character(n))if(A.type.is_variable(i)||A.type.is_integer(i))if(A.type.is_variable(i)||A.type.is_character_code(i))if(A.type.is_variable(i)){var a=new T(s(n.id,0),!1);e.prepend([new P(r.goal.replace(new k("=",[a,i])),r.substitution,r)])}else{var p=new k(o(i.value));e.prepend([new P(r.goal.replace(new k("=",[p,n])),r.substitution,r)])}else e.throw_error(A.error.representation("character_code",t.indicator));else e.throw_error(A.error.type("integer",i,t.indicator));else e.throw_error(A.error.type("character",n,t.indicator))},"number_chars/2":function(e,r,t){var n,i=t.args[0],a=t.args[1];if(A.type.is_variable(i)&&A.type.is_variable(a))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_number(i))if(A.type.is_variable(a)||A.type.is_list(a)){var s=A.type.is_variable(i);if(!A.type.is_variable(a)){var o=a,p=!0;for(n="";"./2"===o.indicator;){if(A.type.is_character(o.args[0]))n+=o.args[0].id;else if(A.type.is_variable(o.args[0]))p=!1;else if(!A.type.is_variable(o.args[0]))return void e.throw_error(A.error.type("character",o.args[0],t.indicator));o=o.args[1]}if(p=p&&A.type.is_empty_list(o),!A.type.is_empty_list(o)&&!A.type.is_variable(o))return void e.throw_error(A.error.type("list",a,t.indicator));if(!p&&s)return void e.throw_error(A.error.instantiation(t.indicator));if(p){if(A.type.is_variable(o)&&s)return void e.throw_error(A.error.instantiation(t.indicator));var l=e.parse(n),u=l.value;return void(!A.type.is_number(u)||l.tokens[l.tokens.length-1].space?e.throw_error(A.error.syntax_by_predicate("parseable_number",t.indicator)):e.prepend([new P(r.goal.replace(new k("=",[i,u])),r.substitution,r)]))}}if(!s){n=i.toString();for(var c=new k("[]"),y=n.length-1;y>=0;y--)c=new k(".",[new k(n.charAt(y)),c]);e.prepend([new P(r.goal.replace(new k("=",[a,c])),r.substitution,r)])}}else e.throw_error(A.error.type("list",a,t.indicator));else e.throw_error(A.error.type("number",i,t.indicator))},"number_codes/2":function(e,r,t){var n,i=t.args[0],a=t.args[1];if(A.type.is_variable(i)&&A.type.is_variable(a))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_number(i))if(A.type.is_variable(a)||A.type.is_list(a)){var p=A.type.is_variable(i);if(!A.type.is_variable(a)){var l=a,u=!0;for(n="";"./2"===l.indicator;){if(A.type.is_character_code(l.args[0]))n+=o(l.args[0].value);else if(A.type.is_variable(l.args[0]))u=!1;else if(!A.type.is_variable(l.args[0]))return void e.throw_error(A.error.type("character_code",l.args[0],t.indicator));l=l.args[1]}if(u=u&&A.type.is_empty_list(l),!A.type.is_empty_list(l)&&!A.type.is_variable(l))return void e.throw_error(A.error.type("list",a,t.indicator));if(!u&&p)return void e.throw_error(A.error.instantiation(t.indicator));if(u){if(A.type.is_variable(l)&&p)return void e.throw_error(A.error.instantiation(t.indicator));var c=e.parse(n),y=c.value;return void(!A.type.is_number(y)||c.tokens[c.tokens.length-1].space?e.throw_error(A.error.syntax_by_predicate("parseable_number",t.indicator)):e.prepend([new P(r.goal.replace(new k("=",[i,y])),r.substitution,r)]))}}if(!p){n=i.toString();for(var _=new k("[]"),f=n.length-1;f>=0;f--)_=new k(".",[new T(s(n,f),!1),_]);e.prepend([new P(r.goal.replace(new k("=",[a,_])),r.substitution,r)])}}else e.throw_error(A.error.type("list",a,t.indicator));else e.throw_error(A.error.type("number",i,t.indicator))},"upcase_atom/2":function(e,r,t){var n=t.args[0],i=t.args[1];A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_atom(n)?A.type.is_variable(i)||A.type.is_atom(i)?e.prepend([new P(r.goal.replace(new k("=",[i,new k(n.id.toUpperCase(),[])])),r.substitution,r)]):e.throw_error(A.error.type("atom",i,t.indicator)):e.throw_error(A.error.type("atom",n,t.indicator))},"downcase_atom/2":function(e,r,t){var n=t.args[0],i=t.args[1];A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_atom(n)?A.type.is_variable(i)||A.type.is_atom(i)?e.prepend([new P(r.goal.replace(new k("=",[i,new k(n.id.toLowerCase(),[])])),r.substitution,r)]):e.throw_error(A.error.type("atom",i,t.indicator)):e.throw_error(A.error.type("atom",n,t.indicator))},"atomic_list_concat/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("atomic_list_concat",[n,new k("",[]),i])),r.substitution,r)])},"atomic_list_concat/3":function(e,r,t){var n=t.args[0],a=t.args[1],s=t.args[2];if(A.type.is_variable(a)||A.type.is_variable(n)&&A.type.is_variable(s))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(n)||A.type.is_list(n))if(A.type.is_variable(s)||A.type.is_atom(s))if(A.type.is_variable(s)){for(var o="",p=n;A.type.is_term(p)&&"./2"===p.indicator;){if(!A.type.is_atom(p.args[0])&&!A.type.is_number(p.args[0]))return void e.throw_error(A.error.type("atomic",p.args[0],t.indicator));""!==o&&(o+=a.id),A.type.is_atom(p.args[0])?o+=p.args[0].id:o+=""+p.args[0].value,p=p.args[1]}o=new k(o,[]),A.type.is_variable(p)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_term(p)&&"[]/0"===p.indicator?e.prepend([new P(r.goal.replace(new k("=",[o,s])),r.substitution,r)]):e.throw_error(A.error.type("list",n,t.indicator))}else{var l=g(i(s.id.split(a.id),(function(e){return new k(e,[])})));e.prepend([new P(r.goal.replace(new k("=",[l,n])),r.substitution,r)])}else e.throw_error(A.error.type("atom",s,t.indicator));else e.throw_error(A.error.type("list",n,t.indicator))},"@=</2":function(e,r,t){A.compare(t.args[0],t.args[1])<=0&&e.success(r)},"==/2":function(e,r,t){0===A.compare(t.args[0],t.args[1])&&e.success(r)},"\\==/2":function(e,r,t){0!==A.compare(t.args[0],t.args[1])&&e.success(r)},"@</2":function(e,r,t){A.compare(t.args[0],t.args[1])<0&&e.success(r)},"@>/2":function(e,r,t){A.compare(t.args[0],t.args[1])>0&&e.success(r)},"@>=/2":function(e,r,t){A.compare(t.args[0],t.args[1])>=0&&e.success(r)},"compare/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2];if(A.type.is_variable(n)||A.type.is_atom(n))if(A.type.is_atom(n)&&-1===["<",">","="].indexOf(n.id))e.throw_error(A.type.domain("order",n,t.indicator));else{var s=A.compare(i,a);s=0===s?"=":-1===s?"<":">",e.prepend([new P(r.goal.replace(new k("=",[n,new k(s,[])])),r.substitution,r)])}else e.throw_error(A.error.type("atom",n,t.indicator))},"is/2":function(e,r,t){var n=t.args[1].interpret(e);A.type.is_number(n)?e.prepend([new P(r.goal.replace(new k("=",[t.args[0],n],e.level)),r.substitution,r)]):e.throw_error(n)},"between/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2];if(A.type.is_variable(n)||A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_integer(n))if(A.type.is_integer(i))if(A.type.is_variable(a)||A.type.is_integer(a))if(A.type.is_variable(a)){var s=[new P(r.goal.replace(new k("=",[a,n])),r.substitution,r)];n.value<i.value&&s.push(new P(r.goal.replace(new k("between",[new T(n.value+1,!1),i,a])),r.substitution,r)),e.prepend(s)}else n.value<=a.value&&i.value>=a.value&&e.success(r);else e.throw_error(A.error.type("integer",a,t.indicator));else e.throw_error(A.error.type("integer",i,t.indicator));else e.throw_error(A.error.type("integer",n,t.indicator))},"succ/2":function(e,r,t){var n=t.args[0],i=t.args[1];A.type.is_variable(n)&&A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_variable(n)||A.type.is_integer(n)?A.type.is_variable(i)||A.type.is_integer(i)?!A.type.is_variable(n)&&n.value<0?e.throw_error(A.error.domain("not_less_than_zero",n,t.indicator)):!A.type.is_variable(i)&&i.value<0?e.throw_error(A.error.domain("not_less_than_zero",i,t.indicator)):(A.type.is_variable(i)||i.value>0)&&(A.type.is_variable(n)?e.prepend([new P(r.goal.replace(new k("=",[n,new T(i.value-1,!1)])),r.substitution,r)]):e.prepend([new P(r.goal.replace(new k("=",[i,new T(n.value+1,!1)])),r.substitution,r)])):e.throw_error(A.error.type("integer",i,t.indicator)):e.throw_error(A.error.type("integer",n,t.indicator))},"=:=/2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):0===n&&e.success(r)},"=\\=/2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):0!==n&&e.success(r)},"</2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):n<0&&e.success(r)},"=</2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):n<=0&&e.success(r)},">/2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):n>0&&e.success(r)},">=/2":function(e,r,t){var n=A.arithmetic_compare(e,t.args[0],t.args[1]);A.type.is_term(n)?e.throw_error(n):n>=0&&e.success(r)},"var/1":function(e,r,t){A.type.is_variable(t.args[0])&&e.success(r)},"atom/1":function(e,r,t){A.type.is_atom(t.args[0])&&e.success(r)},"atomic/1":function(e,r,t){A.type.is_atomic(t.args[0])&&e.success(r)},"compound/1":function(e,r,t){A.type.is_compound(t.args[0])&&e.success(r)},"integer/1":function(e,r,t){A.type.is_integer(t.args[0])&&e.success(r)},"float/1":function(e,r,t){A.type.is_float(t.args[0])&&e.success(r)},"number/1":function(e,r,t){A.type.is_number(t.args[0])&&e.success(r)},"nonvar/1":function(e,r,t){A.type.is_variable(t.args[0])||e.success(r)},"ground/1":function(e,r,t){0===t.variables().length&&e.success(r)},"acyclic_term/1":function(e,r,t){for(var n=r.substitution.apply(r.substitution),i=t.args[0].variables(),a=0;a<i.length;a++)if(void 0!==r.substitution.links[i[a]]&&!r.substitution.links[i[a]].equals(n.links[i[a]]))return;e.success(r)},"callable/1":function(e,r,t){A.type.is_callable(t.args[0])&&e.success(r)},"is_list/1":function(e,r,t){for(var n=t.args[0];A.type.is_term(n)&&"./2"===n.indicator;)n=n.args[1];A.type.is_term(n)&&"[]/0"===n.indicator&&e.success(r)},"current_input/1":function(e,r,t){var n=t.args[0];A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?(A.type.is_atom(n)&&e.get_stream_by_alias(n.id)&&(n=e.get_stream_by_alias(n.id)),e.prepend([new P(r.goal.replace(new k("=",[n,e.get_current_input()])),r.substitution,r)])):e.throw_error(A.error.domain("stream",n,t.indicator))},"current_output/1":function(e,r,t){var n=t.args[0];A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?(A.type.is_atom(n)&&e.get_stream_by_alias(n.id)&&(n=e.get_stream_by_alias(n.id)),e.prepend([new P(r.goal.replace(new k("=",[n,e.get_current_output()])),r.substitution,r)])):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"set_input/1":function(e,r,t){var n=t.args[0],i=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(i)?!0===i.output?e.throw_error(A.error.permission("input","stream",n,t.indicator)):(e.set_current_input(i),e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"set_output/1":function(e,r,t){var n=t.args[0],i=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(i)?!0===i.input?e.throw_error(A.error.permission("output","stream",n,t.indicator)):(e.set_current_output(i),e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"open/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2];e.prepend([new P(r.goal.replace(new k("open",[n,i,a,new k("[]",[])])),r.substitution,r)])},"open/4":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2],s=t.args[3];if(A.type.is_variable(n)||A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_atom(i))if(A.type.is_list(s))if(A.type.is_variable(a))if(A.type.is_atom(n)||A.type.is_streamable(n))if(A.type.is_io_mode(i)){for(var o,p={},l=s;A.type.is_term(l)&&"./2"===l.indicator;){if(o=l.args[0],A.type.is_variable(o))return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_stream_option(o))return void e.throw_error(A.error.domain("stream_option",o,t.indicator));p[o.id]=o.args[0].id,l=l.args[1]}if("[]/0"!==l.indicator)return void(A.type.is_variable(l)?e.throw_error(A.error.instantiation(t.indicator)):e.throw_error(A.error.type("list",s,t.indicator)));var u,c=p.alias;if(c&&e.get_stream_by_alias(c))return void e.throw_error(A.error.permission("open","source_sink",new k("alias",[new k(c,[])]),t.indicator));if(p.type||(p.type="text"),!1===(u=A.type.is_atom(n)?e.file_system_open(n.id,p.type,i.id):n.stream(p.type,i.id)))return void e.throw_error(A.error.permission("open","source_sink",n,t.indicator));if(null===u)return void e.throw_error(A.error.existence("source_sink",n,t.indicator));var y=new O(u,i.id,p.alias,p.type,"true"===p.reposition,p.eof_action);c?e.session.streams[c]=y:e.session.streams[y.id]=y,e.prepend([new P(r.goal.replace(new k("=",[a,y])),r.substitution,r)])}else e.throw_error(A.error.domain("io_mode",i,t.indicator));else e.throw_error(A.error.domain("source_sink",n,t.indicator));else e.throw_error(A.error.type("variable",a,t.indicator));else e.throw_error(A.error.type("list",s,t.indicator));else e.throw_error(A.error.type("atom",i,t.indicator))},"close/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k("close",[n,new k("[]",[])])),r.substitution,r)])},"close/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n)||A.type.is_variable(i))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_list(i))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream){for(var s,o={},p=i;A.type.is_term(p)&&"./2"===p.indicator;){if(s=p.args[0],A.type.is_variable(s))return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_close_option(s))return void e.throw_error(A.error.domain("close_option",s,t.indicator));o[s.id]="true"===s.args[0].id,p=p.args[1]}if("[]/0"!==p.indicator)return void(A.type.is_variable(p)?e.throw_error(A.error.instantiation(t.indicator)):e.throw_error(A.error.type("list",i,t.indicator)));if(a===e.session.standard_input||a===e.session.standard_output)return void e.success(r);a===e.session.current_input?e.session.current_input=e.session.standard_input:a===e.session.current_output&&(e.session.current_output=e.session.current_output),null!==a.alias?delete e.session.streams[a.alias]:delete e.session.streams[a.id],a.output&&a.stream.flush();var l=a.stream.close();a.stream=null,!0!==o.force&&!0!==l||e.success(r)}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("list",i,t.indicator))},"flush_output/0":function(e,r,t){e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("flush_output",[new x("S")])])),r.substitution,r)])},"flush_output/1":function(e,r,t){var n=t.args[0],i=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(i)&&null!==i.stream?!0===n.input?e.throw_error(A.error.permission("output","stream",output,t.indicator)):(i.stream.flush(),e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"stream_property/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_variable(n)||A.type.is_stream(a)&&null!==a.stream)if(A.type.is_variable(i)||A.type.is_stream_property(i)){var s=[],o=[];if(A.type.is_variable(n))for(var p in e.session.streams)s.push(e.session.streams[p]);else s.push(a);for(var l=0;l<s.length;l++){var u=[];s[l].filename&&u.push(new k("file_name",[new k(s[l].file_name,[])])),u.push(new k("mode",[new k(s[l].mode,[])])),u.push(new k(s[l].input?"input":"output",[])),s[l].alias&&u.push(new k("alias",[new k(s[l].alias,[])])),u.push(new k("position",["number"==typeof s[l].position?new T(s[l].position,!1):new k(s[l].position,[])])),u.push(new k("end_of_stream",[new k("end_of_stream"===s[l].position?"at":"past_end_of_stream"===s[l].position?"past":"not",[])])),u.push(new k("eof_action",[new k(s[l].eof_action,[])])),u.push(new k("reposition",[new k(s[l].reposition?"true":"false",[])])),u.push(new k("type",[new k(s[l].type,[])]));for(var c=0;c<u.length;c++)o.push(new P(r.goal.replace(new k(",",[new k("=",[A.type.is_variable(n)?n:a,s[l]]),new k("=",[i,u[c]])])),r.substitution,r))}e.prepend(o)}else e.throw_error(A.error.domain("stream_property",i,t.indicator));else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"at_end_of_stream/0":function(e,r,t){e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k(",",[new k("stream_property",[new x("S"),new k("end_of_stream",[new x("E")])]),new k(",",[new k("!",[]),new k(";",[new k("=",[new x("E"),new k("at",[])]),new k("=",[new x("E"),new k("past",[])])])])])])),r.substitution,r)])},"at_end_of_stream/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("stream_property",[n,new k("end_of_stream",[new x("E")])]),new k(",",[new k("!",[]),new k(";",[new k("=",[new x("E"),new k("at",[])]),new k("=",[new x("E"),new k("past",[])])])])])),r.substitution,r)])},"set_stream_position/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)||A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(a)&&null!==a.stream?A.type.is_stream_position(i)?!1===a.reposition?e.throw_error(A.error.permission("reposition","stream",n,t.indicator)):(A.type.is_integer(i)?a.position=i.value:a.position=i.id,e.success(r)):e.throw_error(A.error.domain("stream_position",i,t.indicator)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator))},"get_char/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("get_char",[new x("S"),n])])),r.substitution,r)])},"get_char/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_character(i))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("binary"===a.type)e.throw_error(A.error.permission("input","binary_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var s;if("end_of_stream"===a.position)s="end_of_file",a.position="past_end_of_stream";else{if(null===(s=a.stream.get(1,a.position)))return void e.throw_error(A.error.representation("character",t.indicator));a.position++}e.prepend([new P(r.goal.replace(new k("=",[new k(s,[]),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("in_character",i,t.indicator))},"get_code/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("get_code",[new x("S"),n])])),r.substitution,r)])},"get_code/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_integer(i))if(A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("binary"===a.type)e.throw_error(A.error.permission("input","binary_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var o;if("end_of_stream"===a.position)o=-1,a.position="past_end_of_stream";else{if(null===(o=a.stream.get(1,a.position)))return void e.throw_error(A.error.representation("character",t.indicator));o=s(o,0),a.position++}e.prepend([new P(r.goal.replace(new k("=",[new T(o,!1),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("integer",char,t.indicator))},"peek_char/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("peek_char",[new x("S"),n])])),r.substitution,r)])},"peek_char/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_character(i))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("binary"===a.type)e.throw_error(A.error.permission("input","binary_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var s;if("end_of_stream"===a.position)s="end_of_file",a.position="past_end_of_stream";else if(null===(s=a.stream.get(1,a.position)))return void e.throw_error(A.error.representation("character",t.indicator));e.prepend([new P(r.goal.replace(new k("=",[new k(s,[]),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("in_character",i,t.indicator))},"peek_code/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("peek_code",[new x("S"),n])])),r.substitution,r)])},"peek_code/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_integer(i))if(A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("binary"===a.type)e.throw_error(A.error.permission("input","binary_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var o;if("end_of_stream"===a.position)o=-1,a.position="past_end_of_stream";else{if(null===(o=a.stream.get(1,a.position)))return void e.throw_error(A.error.representation("character",t.indicator));o=s(o,0)}e.prepend([new P(r.goal.replace(new k("=",[new T(o,!1),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("integer",char,t.indicator))},"put_char/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("put_char",[new x("S"),n])])),r.substitution,r)])},"put_char/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)||A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_character(i)?A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(a)&&null!==a.stream?a.input?e.throw_error(A.error.permission("output","stream",n,t.indicator)):"binary"===a.type?e.throw_error(A.error.permission("output","binary_stream",n,t.indicator)):a.stream.put(i.id,a.position)&&("number"==typeof a.position&&a.position++,e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator)):e.throw_error(A.error.type("character",i,t.indicator))},"put_code/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("put_code",[new x("S"),n])])),r.substitution,r)])},"put_code/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)||A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_integer(i)?A.type.is_character_code(i)?A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(a)&&null!==a.stream?a.input?e.throw_error(A.error.permission("output","stream",n,t.indicator)):"binary"===a.type?e.throw_error(A.error.permission("output","binary_stream",n,t.indicator)):a.stream.put_char(o(i.value),a.position)&&("number"==typeof a.position&&a.position++,e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator)):e.throw_error(A.error.representation("character_code",t.indicator)):e.throw_error(A.error.type("integer",i,t.indicator))},"nl/0":function(e,r,t){e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("put_char",[new x("S"),new k("\n",[])])])),r.substitution,r)])},"nl/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k("put_char",[n,new k("\n",[])])),r.substitution,r)])},"get_byte/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("get_byte",[new x("S"),n])])),r.substitution,r)])},"get_byte/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_byte(i))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("text"===a.type)e.throw_error(A.error.permission("input","text_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var s;if("end_of_stream"===a.position)s="end_of_file",a.position="past_end_of_stream";else{if(null===(s=a.stream.get_byte(a.position)))return void e.throw_error(A.error.representation("byte",t.indicator));a.position++}e.prepend([new P(r.goal.replace(new k("=",[new T(s,!1),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("in_byte",char,t.indicator))},"peek_byte/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("peek_byte",[new x("S"),n])])),r.substitution,r)])},"peek_byte/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_variable(i)||A.type.is_byte(i))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(a)&&null!==a.stream)if(a.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("text"===a.type)e.throw_error(A.error.permission("input","text_stream",n,t.indicator));else if("past_end_of_stream"===a.position&&"error"===a.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{var s;if("end_of_stream"===a.position)s="end_of_file",a.position="past_end_of_stream";else if(null===(s=a.stream.get_byte(a.position)))return void e.throw_error(A.error.representation("byte",t.indicator));e.prepend([new P(r.goal.replace(new k("=",[new T(s,!1),i])),r.substitution,r)])}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("in_byte",char,t.indicator))},"put_byte/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("put_byte",[new x("S"),n])])),r.substitution,r)])},"put_byte/2":function(e,r,t){var n=t.args[0],i=t.args[1],a=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);A.type.is_variable(n)||A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_byte(i)?A.type.is_variable(n)||A.type.is_stream(n)||A.type.is_atom(n)?A.type.is_stream(a)&&null!==a.stream?a.input?e.throw_error(A.error.permission("output","stream",n,t.indicator)):"text"===a.type?e.throw_error(A.error.permission("output","text_stream",n,t.indicator)):a.stream.put_byte(i.value,a.position)&&("number"==typeof a.position&&a.position++,e.success(r)):e.throw_error(A.error.existence("stream",n,t.indicator)):e.throw_error(A.error.domain("stream_or_alias",n,t.indicator)):e.throw_error(A.error.type("byte",i,t.indicator))},"read/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("read_term",[new x("S"),n,new k("[]",[])])])),r.substitution,r)])},"read/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("read_term",[n,i,new k("[]",[])])),r.substitution,r)])},"read_term/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k(",",[new k("current_input",[new x("S")]),new k("read_term",[new x("S"),n,i])])),r.substitution,r)])},"read_term/3":function(e,r,t){var n=t.args[0],a=t.args[1],s=t.args[2],o=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n)||A.type.is_variable(s))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_list(s))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(o)&&null!==o.stream)if(o.output)e.throw_error(A.error.permission("input","stream",n,t.indicator));else if("binary"===o.type)e.throw_error(A.error.permission("input","binary_stream",n,t.indicator));else if("past_end_of_stream"===o.position&&"error"===o.eof_action)e.throw_error(A.error.permission("input","past_end_of_stream",n,t.indicator));else{for(var p,l={},u=s;A.type.is_term(u)&&"./2"===u.indicator;){if(p=u.args[0],A.type.is_variable(p))return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_read_option(p))return void e.throw_error(A.error.domain("read_option",p,t.indicator));l[p.id]=p.args[0],u=u.args[1]}if("[]/0"!==u.indicator)return void(A.type.is_variable(u)?e.throw_error(A.error.instantiation(t.indicator)):e.throw_error(A.error.type("list",s,t.indicator)));for(var c,y,_,w="",h=[],v=null;null===v||"atom"!==v.name||"."!==v.value||0===_.type&&"token_not_found"===A.flatten_error(new k("throw",[_.value])).found;){if(null===(c=o.stream.get(1,o.position)))return void e.throw_error(A.error.representation("character",t.indicator));if("end_of_file"===c||"past_end_of_file"===c)return void(_?e.throw_error(A.error.syntax(h[_.len-1],". or expression expected",!1)):e.throw_error(A.error.syntax(null,"token not found",!0)));o.position++,w+=c,(y=new f(e)).new_text(w),v=null!==(h=y.get_tokens())&&h.length>0?h[h.length-1]:null,null!==h&&(_=d(e,h,0,e.__get_max_priority(),!1))}if(1===_.type&&_.len===h.length-1&&"."===v.value){var b=new k("=",[a,_=_.value.rename(e)]);if(l.variables){var T=g(i(m(_.variables()),(function(e){return new x(e)})));b=new k(",",[b,new k("=",[l.variables,T])])}if(l.variable_names){T=g(i(m(_.variables()),(function(r){var t;for(t in e.session.renamed_variables)if(e.session.renamed_variables.hasOwnProperty(t)&&e.session.renamed_variables[t]===r)break;return new k("=",[new k(t,[]),new x(r)])})));b=new k(",",[b,new k("=",[l.variable_names,T])])}if(l.singletons){T=g(i(new C(_,null).singleton_variables(),(function(r){var t;for(t in e.session.renamed_variables)if(e.session.renamed_variables.hasOwnProperty(t)&&e.session.renamed_variables[t]===r)break;return new k("=",[new k(t,[]),new x(r)])})));b=new k(",",[b,new k("=",[l.singletons,T])])}e.prepend([new P(r.goal.replace(b),r.substitution,r)])}else 1===_.type?e.throw_error(A.error.syntax(h[_.len],"unexpected token",!1)):e.throw_error(_.value)}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("list",s,t.indicator))},"write/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("write",[new x("S"),n])])),r.substitution,r)])},"write/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("write_term",[n,i,new k(".",[new k("quoted",[new k("false",[])]),new k(".",[new k("ignore_ops",[new k("false")]),new k(".",[new k("numbervars",[new k("true")]),new k("[]",[])])])])])),r.substitution,r)])},"writeq/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("writeq",[new x("S"),n])])),r.substitution,r)])},"writeq/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("write_term",[n,i,new k(".",[new k("quoted",[new k("true",[])]),new k(".",[new k("ignore_ops",[new k("false")]),new k(".",[new k("numbervars",[new k("true")]),new k("[]",[])])])])])),r.substitution,r)])},"write_canonical/1":function(e,r,t){var n=t.args[0];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("write_canonical",[new x("S"),n])])),r.substitution,r)])},"write_canonical/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k("write_term",[n,i,new k(".",[new k("quoted",[new k("true",[])]),new k(".",[new k("ignore_ops",[new k("true")]),new k(".",[new k("numbervars",[new k("false")]),new k("[]",[])])])])])),r.substitution,r)])},"write_term/2":function(e,r,t){var n=t.args[0],i=t.args[1];e.prepend([new P(r.goal.replace(new k(",",[new k("current_output",[new x("S")]),new k("write_term",[new x("S"),n,i])])),r.substitution,r)])},"write_term/3":function(e,r,t){var n=t.args[0],i=t.args[1],a=t.args[2],s=A.type.is_stream(n)?n:e.get_stream_by_alias(n.id);if(A.type.is_variable(n)||A.type.is_variable(a))e.throw_error(A.error.instantiation(t.indicator));else if(A.type.is_list(a))if(A.type.is_stream(n)||A.type.is_atom(n))if(A.type.is_stream(s)&&null!==s.stream)if(s.input)e.throw_error(A.error.permission("output","stream",n,t.indicator));else if("binary"===s.type)e.throw_error(A.error.permission("output","binary_stream",n,t.indicator));else if("past_end_of_stream"===s.position&&"error"===s.eof_action)e.throw_error(A.error.permission("output","past_end_of_stream",n,t.indicator));else{for(var o,p={},l=a;A.type.is_term(l)&&"./2"===l.indicator;){if(o=l.args[0],A.type.is_variable(o))return void e.throw_error(A.error.instantiation(t.indicator));if(!A.type.is_write_option(o))return void e.throw_error(A.error.domain("write_option",o,t.indicator));p[o.id]="true"===o.args[0].id,l=l.args[1]}if("[]/0"!==l.indicator)return void(A.type.is_variable(l)?e.throw_error(A.error.instantiation(t.indicator)):e.throw_error(A.error.type("list",a,t.indicator)));p.session=e.session;var u=i.toString(p);s.stream.put(u,s.position),"number"==typeof s.position&&(s.position+=u.length),e.success(r)}else e.throw_error(A.error.existence("stream",n,t.indicator));else e.throw_error(A.error.domain("stream_or_alias",n,t.indicator));else e.throw_error(A.error.type("list",a,t.indicator))},"halt/0":function(e,r,t){e.points=[]},"halt/1":function(e,r,t){var n=t.args[0];A.type.is_variable(n)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_integer(n)?e.points=[]:e.throw_error(A.error.type("integer",n,t.indicator))},"current_prolog_flag/2":function(e,r,t){var n=t.args[0],i=t.args[1];if(A.type.is_variable(n)||A.type.is_atom(n))if(A.type.is_variable(n)||A.type.is_flag(n)){var a=[];for(var s in A.flag)if(A.flag.hasOwnProperty(s)){var o=new k(",",[new k("=",[new k(s),n]),new k("=",[e.get_flag(s),i])]);a.push(new P(r.goal.replace(o),r.substitution,r))}e.prepend(a)}else e.throw_error(A.error.domain("prolog_flag",n,t.indicator));else e.throw_error(A.error.type("atom",n,t.indicator))},"set_prolog_flag/2":function(e,r,t){var n=t.args[0],i=t.args[1];A.type.is_variable(n)||A.type.is_variable(i)?e.throw_error(A.error.instantiation(t.indicator)):A.type.is_atom(n)?A.type.is_flag(n)?A.type.is_value_flag(n,i)?A.type.is_modifiable_flag(n)?(e.session.flag[n.id]=i,e.success(r)):e.throw_error(A.error.permission("modify","flag",n)):e.throw_error(A.error.domain("flag_value",new k("+",[n,i]),t.indicator)):e.throw_error(A.error.domain("prolog_flag",n,t.indicator)):e.throw_error(A.error.type("atom",n,t.indicator))}},flag:{bounded:{allowed:[new k("true"),new k("false")],value:new k("true"),changeable:!1},max_integer:{allowed:[new T(Number.MAX_SAFE_INTEGER)],value:new T(Number.MAX_SAFE_INTEGER),changeable:!1},min_integer:{allowed:[new T(Number.MIN_SAFE_INTEGER)],value:new T(Number.MIN_SAFE_INTEGER),changeable:!1},integer_rounding_function:{allowed:[new k("down"),new k("toward_zero")],value:new k("toward_zero"),changeable:!1},char_conversion:{allowed:[new k("on"),new k("off")],value:new k("on"),changeable:!0},debug:{allowed:[new k("on"),new k("off")],value:new k("off"),changeable:!0},max_arity:{allowed:[new k("unbounded")],value:new k("unbounded"),changeable:!1},unknown:{allowed:[new k("error"),new k("fail"),new k("warning")],value:new k("error"),changeable:!0},double_quotes:{allowed:[new k("chars"),new k("codes"),new k("atom")],value:new k("codes"),changeable:!0},occurs_check:{allowed:[new k("false"),new k("true")],value:new k("false"),changeable:!0},dialect:{allowed:[new k("tau")],value:new k("tau"),changeable:!1},version_data:{allowed:[new k("tau",[new T(n.major,!1),new T(n.minor,!1),new T(n.patch,!1),new k(n.status)])],value:new k("tau",[new T(n.major,!1),new T(n.minor,!1),new T(n.patch,!1),new k(n.status)]),changeable:!1},nodejs:{allowed:[new k("yes"),new k("no")],value:new k(e.exports?"yes":"no"),changeable:!1}},unify:function(e,r,t){t=void 0!==t&&t;for(var n=[{left:e,right:r}],i={};0!==n.length;){var a=n.pop();if(e=a.left,r=a.right,A.type.is_term(e)&&A.type.is_term(r)){if(e.indicator!==r.indicator)return null;for(var s=0;s<e.args.length;s++)n.push({left:e.args[s],right:r.args[s]})}else if(A.type.is_number(e)&&A.type.is_number(r)){if(e.value!==r.value||e.is_float!==r.is_float)return null}else if(A.type.is_variable(e)){if(A.type.is_variable(r)&&e.id===r.id)continue;if(!0===t&&-1!==r.variables().indexOf(e.id))return null;if("_"!==e.id){var o=new E;o.add(e.id,r);for(s=0;s<n.length;s++)n[s].left=n[s].left.apply(o),n[s].right=n[s].right.apply(o);for(var s in i)i[s]=i[s].apply(o);i[e.id]=r}}else if(A.type.is_variable(r))n.push({left:r,right:e});else{if(void 0===e.unify)return null;if(!e.unify(r))return null}}return new E(i)},compare:function(e,r){var t=A.type.compare(e,r);return 0!==t?t:e.compare(r)},arithmetic_compare:function(e,r,t){var n=r.interpret(e);if(A.type.is_number(n)){var i=t.interpret(e);return A.type.is_number(i)?n.value<i.value?-1:n.value>i.value?1:0:i}return n},operate:function(e,r){if(A.type.is_operator(r)){for(var t,n=A.type.is_operator(r),i=[],a=!1,s=0;s<r.args.length;s++){if(t=r.args[s].interpret(e),!A.type.is_number(t))return t;if(null!==n.type_args&&t.is_float!==n.type_args)return A.error.type(n.type_args?"float":"integer",t,e.__call_indicator);i.push(t.value),a=a||t.is_float}return i.push(e),t=A.arithmetic.evaluation[r.indicator].fn.apply(this,i),a=null===n.type_result?a:n.type_result,A.type.is_term(t)?t:t===Number.POSITIVE_INFINITY||t===Number.NEGATIVE_INFINITY?A.error.evaluation("overflow",e.__call_indicator):!1===a&&"true"===e.get_flag("bounded").id&&(t>e.get_flag("max_integer").value||t<e.get_flag("min_integer").value)?A.error.evaluation("int_overflow",e.__call_indicator):new T(t,a)}return A.error.type("evaluable",r.indicator,e.__call_indicator)},error:{existence:function(e,r,t){return"string"==typeof r&&(r=b(r)),new k("error",[new k("existence_error",[new k(e),r]),b(t)])},type:function(e,r,t){return new k("error",[new k("type_error",[new k(e),r]),b(t)])},instantiation:function(e){return new k("error",[new k("instantiation_error"),b(e)])},domain:function(e,r,t){return new k("error",[new k("domain_error",[new k(e),r]),b(t)])},representation:function(e,r){return new k("error",[new k("representation_error",[new k(e)]),b(r)])},permission:function(e,r,t,n){return new k("error",[new k("permission_error",[new k(e),new k(r),t]),b(n)])},evaluation:function(e,r){return new k("error",[new k("evaluation_error",[new k(e)]),b(r)])},syntax:function(e,r,t){e=e||{value:"",line:0,column:0,matches:[""],start:0};var n=t&&e.matches.length>0?e.start+e.matches[0].length:e.start,i=t?new k("token_not_found"):new k("found",[new k(e.value.toString())]),a=new k(".",[new k("line",[new T(e.line+1)]),new k(".",[new k("column",[new T(n+1)]),new k(".",[i,new k("[]",[])])])]);return new k("error",[new k("syntax_error",[new k(r)]),a])},syntax_by_predicate:function(e,r){return new k("error",[new k("syntax_error",[new k(e)]),b(r)])}},warning:{singleton:function(e,r,t){for(var n=new k("[]"),i=e.length-1;i>=0;i--)n=new k(".",[new x(e[i]),n]);return new k("warning",[new k("singleton_variables",[n,b(r)]),new k(".",[new k("line",[new T(t,!1)]),new k("[]")])])},failed_goal:function(e,r){return new k("warning",[new k("failed_goal",[e]),new k(".",[new k("line",[new T(r,!1)]),new k("[]")])])}},format_variable:function(e){return"_"+e},format_answer:function(e,r,t){if(r instanceof I&&(r=r.thread),(t=t||{}).session=r?r.session:void 0,A.type.is_error(e))return"uncaught exception: "+e.args[0].toString();if(!1===e)return"false.";if(null===e)return"limit exceeded ;";var n=0,i="";if(A.type.is_substitution(e)){var a=e.domain(!0);e=e.filter((function(e,r){return!A.type.is_variable(r)||-1!==a.indexOf(r.id)&&e!==r.id}))}for(var s in e.links)e.links.hasOwnProperty(s)&&(n++,""!==i&&(i+=", "),i+=s.toString(t)+" = "+e.links[s].toString(t));var o=void 0===r||r.points.length>0?" ;":".";return 0===n?"true"+o:i+o},flatten_error:function(e){if(!A.type.is_error(e))return null;e=e.args[0];var r={};return r.type=e.args[0].id,r.thrown="syntax_error"===r.type?null:e.args[1].id,r.expected=null,r.found=null,r.representation=null,r.existence=null,r.existence_type=null,r.line=null,r.column=null,r.permission_operation=null,r.permission_type=null,r.evaluation_type=null,"type_error"===r.type||"domain_error"===r.type?(r.expected=e.args[0].args[0].id,r.found=e.args[0].args[1].toString()):"syntax_error"===r.type?"./2"===e.args[1].indicator?(r.expected=e.args[0].args[0].id,r.found=e.args[1].args[1].args[1].args[0],r.found="token_not_found"===r.found.id?r.found.id:r.found.args[0].id,r.line=e.args[1].args[0].args[0].value,r.column=e.args[1].args[1].args[0].args[0].value):r.thrown=e.args[1].id:"permission_error"===r.type?(r.found=e.args[0].args[2].toString(),r.permission_operation=e.args[0].args[0].id,r.permission_type=e.args[0].args[1].id):"evaluation_error"===r.type?r.evaluation_type=e.args[0].args[0].id:"representation_error"===r.type?r.representation=e.args[0].args[0].id:"existence_error"===r.type&&(r.existence=e.args[0].args[1].toString(),r.existence_type=e.args[0].args[0].id),r},create:function(e){return new A.type.Session(e)}};e.exports=A}()},5047:e=>{!function(r){var t=["append/2","append/3","member/2","permutation/2","maplist/2","maplist/3","maplist/4","maplist/5","maplist/6","maplist/7","maplist/8","include/3","exclude/3","foldl/4","sum_list/2","max_list/2","min_list/2","prod_list/2","last/2","prefix/2","nth0/3","nth1/3","nth0/4","nth1/4","length/2","replicate/3","select/3","sort/2","msort/2","keysort/2","take/3","drop/3","reverse/2","list_to_set/2"];e.exports=function(e){new(r=e).type.Module("lists",{"append/2":[new r.type.Rule(new r.type.Term("append",[new r.type.Var("X"),new r.type.Var("L")]),new r.type.Term("foldl",[new r.type.Term("append",[]),new r.type.Var("X"),new r.type.Term("[]",[]),new r.type.Var("L")]))],"append/3":[new r.type.Rule(new r.type.Term("append",[new r.type.Term("[]",[]),new r.type.Var("X"),new r.type.Var("X")]),null),new r.type.Rule(new r.type.Term("append",[new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("T")]),new r.type.Var("X"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("S")])]),new r.type.Term("append",[new r.type.Var("T"),new r.type.Var("X"),new r.type.Var("S")]))],"member/2":[new r.type.Rule(new r.type.Term("member",[new r.type.Var("X"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("_")])]),null),new r.type.Rule(new r.type.Term("member",[new r.type.Var("X"),new r.type.Term(".",[new r.type.Var("_"),new r.type.Var("Xs")])]),new r.type.Term("member",[new r.type.Var("X"),new r.type.Var("Xs")]))],"permutation/2":[new r.type.Rule(new r.type.Term("permutation",[new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("permutation",[new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("T")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("permutation",[new r.type.Var("T"),new r.type.Var("P")]),new r.type.Term(",",[new r.type.Term("append",[new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("P")]),new r.type.Term("append",[new r.type.Var("X"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("Y")]),new r.type.Var("S")])])]))],"maplist/2":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("X")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("Xs")])]))],"maplist/3":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs")])]))],"maplist/4":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")]),new r.type.Term(".",[new r.type.Var("C"),new r.type.Var("Cs")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B"),new r.type.Var("C")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs"),new r.type.Var("Cs")])]))],"maplist/5":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")]),new r.type.Term(".",[new r.type.Var("C"),new r.type.Var("Cs")]),new r.type.Term(".",[new r.type.Var("D"),new r.type.Var("Ds")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B"),new r.type.Var("C"),new r.type.Var("D")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs"),new r.type.Var("Cs"),new r.type.Var("Ds")])]))],"maplist/6":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")]),new r.type.Term(".",[new r.type.Var("C"),new r.type.Var("Cs")]),new r.type.Term(".",[new r.type.Var("D"),new r.type.Var("Ds")]),new r.type.Term(".",[new r.type.Var("E"),new r.type.Var("Es")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B"),new r.type.Var("C"),new r.type.Var("D"),new r.type.Var("E")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs"),new r.type.Var("Cs"),new r.type.Var("Ds"),new r.type.Var("Es")])]))],"maplist/7":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")]),new r.type.Term(".",[new r.type.Var("C"),new r.type.Var("Cs")]),new r.type.Term(".",[new r.type.Var("D"),new r.type.Var("Ds")]),new r.type.Term(".",[new r.type.Var("E"),new r.type.Var("Es")]),new r.type.Term(".",[new r.type.Var("F"),new r.type.Var("Fs")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B"),new r.type.Var("C"),new r.type.Var("D"),new r.type.Var("E"),new r.type.Var("F")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs"),new r.type.Var("Cs"),new r.type.Var("Ds"),new r.type.Var("Es"),new r.type.Var("Fs")])]))],"maplist/8":[new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("A"),new r.type.Var("As")]),new r.type.Term(".",[new r.type.Var("B"),new r.type.Var("Bs")]),new r.type.Term(".",[new r.type.Var("C"),new r.type.Var("Cs")]),new r.type.Term(".",[new r.type.Var("D"),new r.type.Var("Ds")]),new r.type.Term(".",[new r.type.Var("E"),new r.type.Var("Es")]),new r.type.Term(".",[new r.type.Var("F"),new r.type.Var("Fs")]),new r.type.Term(".",[new r.type.Var("G"),new r.type.Var("Gs")])]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P"),new r.type.Var("A"),new r.type.Var("B"),new r.type.Var("C"),new r.type.Var("D"),new r.type.Var("E"),new r.type.Var("F"),new r.type.Var("G")]),new r.type.Term("maplist",[new r.type.Var("P"),new r.type.Var("As"),new r.type.Var("Bs"),new r.type.Var("Cs"),new r.type.Var("Ds"),new r.type.Var("Es"),new r.type.Var("Fs"),new r.type.Var("Gs")])]))],"include/3":[new r.type.Rule(new r.type.Term("include",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("include",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("T")]),new r.type.Var("L")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("P"),new r.type.Var("A")]),new r.type.Term(",",[new r.type.Term("append",[new r.type.Var("A"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Term("[]",[])]),new r.type.Var("B")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("F"),new r.type.Var("B")]),new r.type.Term(",",[new r.type.Term(";",[new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("F")]),new r.type.Term(",",[new r.type.Term("=",[new r.type.Var("L"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("S")])]),new r.type.Term("!",[])])]),new r.type.Term("=",[new r.type.Var("L"),new r.type.Var("S")])]),new r.type.Term("include",[new r.type.Var("P"),new r.type.Var("T"),new r.type.Var("S")])])])])]))],"exclude/3":[new r.type.Rule(new r.type.Term("exclude",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Term("[]",[])]),null),new r.type.Rule(new r.type.Term("exclude",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("T")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("exclude",[new r.type.Var("P"),new r.type.Var("T"),new r.type.Var("E")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("P"),new r.type.Var("L")]),new r.type.Term(",",[new r.type.Term("append",[new r.type.Var("L"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Term("[]",[])]),new r.type.Var("Q")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("R"),new r.type.Var("Q")]),new r.type.Term(";",[new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("R")]),new r.type.Term(",",[new r.type.Term("!",[]),new r.type.Term("=",[new r.type.Var("S"),new r.type.Var("E")])])]),new r.type.Term("=",[new r.type.Var("S"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("E")])])])])])])]))],"foldl/4":[new r.type.Rule(new r.type.Term("foldl",[new r.type.Var("_"),new r.type.Term("[]",[]),new r.type.Var("I"),new r.type.Var("I")]),null),new r.type.Rule(new r.type.Term("foldl",[new r.type.Var("P"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Var("T")]),new r.type.Var("I"),new r.type.Var("R")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("P"),new r.type.Var("L")]),new r.type.Term(",",[new r.type.Term("append",[new r.type.Var("L"),new r.type.Term(".",[new r.type.Var("I"),new r.type.Term(".",[new r.type.Var("H"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Term("[]",[])])])]),new r.type.Var("L2")]),new r.type.Term(",",[new r.type.Term("=..",[new r.type.Var("P2"),new r.type.Var("L2")]),new r.type.Term(",",[new r.type.Term("call",[new r.type.Var("P2")]),new r.type.Term("foldl",[new r.type.Var("P"),new r.type.Var("T"),new r.type.Var("X"),new r.type.Var("R")])])])])]))],"select/3":[new r.type.Rule(new r.type.Term("select",[new r.type.Var("E"),new r.type.Term(".",[new r.type.Var("E"),new r.type.Var("Xs")]),new r.type.Var("Xs")]),null),new r.type.Rule(new r.type.Term("select",[new r.type.Var("E"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Ys")])]),new r.type.Term("select",[new r.type.Var("E"),new r.type.Var("Xs"),new r.type.Var("Ys")]))],"sum_list/2":[new r.type.Rule(new r.type.Term("sum_list",[new r.type.Term("[]",[]),new r.type.Num(0,!1)]),null),new r.type.Rule(new r.type.Term("sum_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("sum_list",[new r.type.Var("Xs"),new r.type.Var("Y")]),new r.type.Term("is",[new r.type.Var("S"),new r.type.Term("+",[new r.type.Var("X"),new r.type.Var("Y")])])]))],"max_list/2":[new r.type.Rule(new r.type.Term("max_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Term("[]",[])]),new r.type.Var("X")]),null),new r.type.Rule(new r.type.Term("max_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("max_list",[new r.type.Var("Xs"),new r.type.Var("Y")]),new r.type.Term(";",[new r.type.Term(",",[new r.type.Term(">=",[new r.type.Var("X"),new r.type.Var("Y")]),new r.type.Term(",",[new r.type.Term("=",[new r.type.Var("S"),new r.type.Var("X")]),new r.type.Term("!",[])])]),new r.type.Term("=",[new r.type.Var("S"),new r.type.Var("Y")])])]))],"min_list/2":[new r.type.Rule(new r.type.Term("min_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Term("[]",[])]),new r.type.Var("X")]),null),new r.type.Rule(new r.type.Term("min_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("min_list",[new r.type.Var("Xs"),new r.type.Var("Y")]),new r.type.Term(";",[new r.type.Term(",",[new r.type.Term("=<",[new r.type.Var("X"),new r.type.Var("Y")]),new r.type.Term(",",[new r.type.Term("=",[new r.type.Var("S"),new r.type.Var("X")]),new r.type.Term("!",[])])]),new r.type.Term("=",[new r.type.Var("S"),new r.type.Var("Y")])])]))],"prod_list/2":[new r.type.Rule(new r.type.Term("prod_list",[new r.type.Term("[]",[]),new r.type.Num(1,!1)]),null),new r.type.Rule(new r.type.Term("prod_list",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("S")]),new r.type.Term(",",[new r.type.Term("prod_list",[new r.type.Var("Xs"),new r.type.Var("Y")]),new r.type.Term("is",[new r.type.Var("S"),new r.type.Term("*",[new r.type.Var("X"),new r.type.Var("Y")])])]))],"last/2":[new r.type.Rule(new r.type.Term("last",[new r.type.Term(".",[new r.type.Var("X"),new r.type.Term("[]",[])]),new r.type.Var("X")]),null),new r.type.Rule(new r.type.Term("last",[new r.type.Term(".",[new r.type.Var("_"),new r.type.Var("Xs")]),new r.type.Var("X")]),new r.type.Term("last",[new r.type.Var("Xs"),new r.type.Var("X")]))],"prefix/2":[new r.type.Rule(new r.type.Term("prefix",[new r.type.Var("Part"),new r.type.Var("Whole")]),new r.type.Term("append",[new r.type.Var("Part"),new r.type.Var("_"),new r.type.Var("Whole")]))],"nth0/3":[new r.type.Rule(new r.type.Term("nth0",[new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z")]),new r.type.Term(";",[new r.type.Term("->",[new r.type.Term("var",[new r.type.Var("X")]),new r.type.Term("nth",[new r.type.Num(0,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("_")])]),new r.type.Term(",",[new r.type.Term(">=",[new r.type.Var("X"),new r.type.Num(0,!1)]),new r.type.Term(",",[new r.type.Term("nth",[new r.type.Num(0,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("_")]),new r.type.Term("!",[])])])]))],"nth1/3":[new r.type.Rule(new r.type.Term("nth1",[new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z")]),new r.type.Term(";",[new r.type.Term("->",[new r.type.Term("var",[new r.type.Var("X")]),new r.type.Term("nth",[new r.type.Num(1,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("_")])]),new r.type.Term(",",[new r.type.Term(">",[new r.type.Var("X"),new r.type.Num(0,!1)]),new r.type.Term(",",[new r.type.Term("nth",[new r.type.Num(1,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("_")]),new r.type.Term("!",[])])])]))],"nth0/4":[new r.type.Rule(new r.type.Term("nth0",[new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")]),new r.type.Term(";",[new r.type.Term("->",[new r.type.Term("var",[new r.type.Var("X")]),new r.type.Term("nth",[new r.type.Num(0,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")])]),new r.type.Term(",",[new r.type.Term(">=",[new r.type.Var("X"),new r.type.Num(0,!1)]),new r.type.Term(",",[new r.type.Term("nth",[new r.type.Num(0,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")]),new r.type.Term("!",[])])])]))],"nth1/4":[new r.type.Rule(new r.type.Term("nth1",[new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")]),new r.type.Term(";",[new r.type.Term("->",[new r.type.Term("var",[new r.type.Var("X")]),new r.type.Term("nth",[new r.type.Num(1,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")])]),new r.type.Term(",",[new r.type.Term(">",[new r.type.Var("X"),new r.type.Num(0,!1)]),new r.type.Term(",",[new r.type.Term("nth",[new r.type.Num(1,!1),new r.type.Var("X"),new r.type.Var("Y"),new r.type.Var("Z"),new r.type.Var("W")]),new r.type.Term("!",[])])])]))],"nth/5":[new r.type.Rule(new r.type.Term("nth",[new r.type.Var("N"),new r.type.Var("N"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("X"),new r.type.Var("Xs")]),null),new r.type.Rule(new r.type.Term("nth",[new r.type.Var("N"),new r.type.Var("O"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Xs")]),new r.type.Var("Y"),new r.type.Term(".",[new r.type.Var("X"),new r.type.Var("Ys")])]),new r.type.Term(",",[new r.type.Term("is",[new r.type.Var("M"),new r.type.Term("+",[new r.type.Var("N"),new r.type.Num(1,!1)])]),new r.type.Term("nth",[new r.type.Var("M"),new r.type.Var("O"),new r.type.Var("Xs"),new r.type.Var("Y"),new r.type.Var("Ys")])]))],"length/2":function(e,t,n){var i=n.args[0],a=n.args[1];if(r.type.is_variable(a)||r.type.is_integer(a))if(r.type.is_integer(a)&&a.value<0)e.throw_error(r.error.domain("not_less_than_zero",a,n.indicator));else{var s=new r.type.Term("length",[i,new r.type.Num(0,!1),a]);r.type.is_integer(a)&&(s=new r.type.Term(",",[s,new r.type.Term("!",[])])),e.prepend([new r.type.State(t.goal.replace(s),t.substitution,t)])}else e.throw_error(r.error.type("integer",a,n.indicator))},"length/3":[new r.type.Rule(new r.type.Term("length",[new r.type.Term("[]",[]),new r.type.Var("N"),new r.type.Var("N")]),null),new r.type.Rule(new r.type.Term("length",[new r.type.Term(".",[new r.type.Var("_"),new r.type.Var("X")]),new r.type.Var("A"),new r.type.Var("N")]),new r.type.Term(",",[new r.type.Term("succ",[new r.type.Var("A"),new r.type.Var("B")]),new r.type.Term("length",[new r.type.Var("X"),new r.type.Var("B"),new r.type.Var("N")])]))],"replicate/3":function(e,t,n){var i=n.args[0],a=n.args[1],s=n.args[2];if(r.type.is_variable(a))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_integer(a))if(a.value<0)e.throw_error(r.error.domain("not_less_than_zero",a,n.indicator));else if(r.type.is_variable(s)||r.type.is_list(s)){for(var o=new r.type.Term("[]"),p=0;p<a.value;p++)o=new r.type.Term(".",[i,o]);e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[o,s])),t.substitution,t)])}else e.throw_error(r.error.type("list",s,n.indicator));else e.throw_error(r.error.type("integer",a,n.indicator))},"sort/2":function(e,t,n){var i=n.args[0],a=n.args[1];if(r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_variable(a)||r.type.is_fully_list(a)){for(var s=[],o=i;"./2"===o.indicator;)s.push(o.args[0]),o=o.args[1];if(r.type.is_variable(o))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_empty_list(o)){for(var p=s.sort(r.compare),l=p.length-1;l>0;l--)p[l].equals(p[l-1])&&p.splice(l,1);var u=new r.type.Term("[]");for(l=p.length-1;l>=0;l--)u=new r.type.Term(".",[p[l],u]);e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[u,a])),t.substitution,t)])}else e.throw_error(r.error.type("list",i,n.indicator))}else e.throw_error(r.error.type("list",a,n.indicator))},"msort/2":function(e,t,n){var i=n.args[0],a=n.args[1];if(r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_variable(a)||r.type.is_fully_list(a)){for(var s=[],o=i;"./2"===o.indicator;)s.push(o.args[0]),o=o.args[1];if(r.type.is_variable(o))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_empty_list(o)){for(var p=s.sort(r.compare),l=new r.type.Term("[]"),u=p.length-1;u>=0;u--)l=new r.type.Term(".",[p[u],l]);e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[l,a])),t.substitution,t)])}else e.throw_error(r.error.type("list",i,n.indicator))}else e.throw_error(r.error.type("list",a,n.indicator))},"keysort/2":function(e,t,n){var i=n.args[0],a=n.args[1];if(r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_variable(a)||r.type.is_fully_list(a)){for(var s,o=[],p=i;"./2"===p.indicator;){if(s=p.args[0],r.type.is_variable(s))return void e.throw_error(r.error.instantiation(n.indicator));if(!r.type.is_term(s)||"-/2"!==s.indicator)return void e.throw_error(r.error.type("pair",s,n.indicator));s.args[0].pair=s.args[1],o.push(s.args[0]),p=p.args[1]}if(r.type.is_variable(p))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_empty_list(p)){for(var l=o.sort(r.compare),u=new r.type.Term("[]"),c=l.length-1;c>=0;c--)u=new r.type.Term(".",[new r.type.Term("-",[l[c],l[c].pair]),u]),delete l[c].pair;e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[u,a])),t.substitution,t)])}else e.throw_error(r.error.type("list",i,n.indicator))}else e.throw_error(r.error.type("list",a,n.indicator))},"take/3":function(e,t,n){var i=n.args[0],a=n.args[1],s=n.args[2];if(r.type.is_variable(a)||r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_list(a))if(r.type.is_integer(i))if(r.type.is_variable(s)||r.type.is_list(s)){for(var o=i.value,p=[],l=a;o>0&&"./2"===l.indicator;)p.push(l.args[0]),l=l.args[1],o--;if(0===o){var u=new r.type.Term("[]");for(o=p.length-1;o>=0;o--)u=new r.type.Term(".",[p[o],u]);e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[u,s])),t.substitution,t)])}}else e.throw_error(r.error.type("list",s,n.indicator));else e.throw_error(r.error.type("integer",i,n.indicator));else e.throw_error(r.error.type("list",a,n.indicator))},"drop/3":function(e,t,n){var i=n.args[0],a=n.args[1],s=n.args[2];if(r.type.is_variable(a)||r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_list(a))if(r.type.is_integer(i))if(r.type.is_variable(s)||r.type.is_list(s)){for(var o=i.value,p=[],l=a;o>0&&"./2"===l.indicator;)p.push(l.args[0]),l=l.args[1],o--;0===o&&e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[l,s])),t.substitution,t)])}else e.throw_error(r.error.type("list",s,n.indicator));else e.throw_error(r.error.type("integer",i,n.indicator));else e.throw_error(r.error.type("list",a,n.indicator))},"reverse/2":function(e,t,n){var i=n.args[0],a=n.args[1],s=r.type.is_instantiated_list(i),o=r.type.is_instantiated_list(a);if(r.type.is_variable(i)&&r.type.is_variable(a))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_variable(i)||r.type.is_fully_list(i))if(r.type.is_variable(a)||r.type.is_fully_list(a))if(s||o){for(var p=s?i:a,l=new r.type.Term("[]",[]);"./2"===p.indicator;)l=new r.type.Term(".",[p.args[0],l]),p=p.args[1];e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[l,s?a:i])),t.substitution,t)])}else e.throw_error(r.error.instantiation(n.indicator));else e.throw_error(r.error.type("list",a,n.indicator));else e.throw_error(r.error.type("list",i,n.indicator))},"list_to_set/2":function(e,t,n){var i=n.args[0],a=n.args[1];if(r.type.is_variable(i))e.throw_error(r.error.instantiation(n.indicator));else{for(var s=i,o=[];"./2"===s.indicator;)o.push(s.args[0]),s=s.args[1];if(r.type.is_variable(s))e.throw_error(r.error.instantiation(n.indicator));else if(r.type.is_term(s)&&"[]/0"===s.indicator){for(var p,l=[],u=new r.type.Term("[]",[]),c=0;c<o.length;c++){p=!1;for(var y=0;y<l.length&&!p;y++)p=0===r.compare(o[c],l[y]);p||l.push(o[c])}for(c=l.length-1;c>=0;c--)u=new r.type.Term(".",[l[c],u]);e.prepend([new r.type.State(t.goal.replace(new r.type.Term("=",[a,u])),t.substitution,t)])}else e.throw_error(r.error.type("list",i,n.indicator))}}},t)}}(void 0)},2594:e=>{"use strict";e.exports=require("@yarnpkg/cli")},966:e=>{"use strict";e.exports=require("@yarnpkg/core")},4688:e=>{"use strict";e.exports=require("@yarnpkg/fslib")},3129:e=>{"use strict";e.exports=require("child_process")},8042:e=>{"use strict";e.exports=require("clipanion")},6417:e=>{"use strict";e.exports=require("crypto")},5747:e=>{"use strict";e.exports=require("fs")},2087:e=>{"use strict";e.exports=require("os")},5622:e=>{"use strict";e.exports=require("path")},2184:e=>{"use strict";e.exports=require("vm")}},r={};function t(n){if(r[n])return r[n].exports;var i=r[n]={exports:{}};return e[n](i,i.exports,t),i.exports}return t.n=e=>{var r=e&&e.__esModule?()=>e.default:()=>e;return t.d(r,{a:r}),r},t.d=(e,r)=>{for(var n in r)t.o(r,n)&&!t.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:r[n]})},t.o=(e,r)=>Object.prototype.hasOwnProperty.call(e,r),t.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t(1023)})();
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/readline-sync-npm-1.4.9-a685324904-cedd48f422.zip/node_modules/readline-sync/lib/readline-sync.js
+  var require_readline_sync = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/readline-sync-npm-1.4.9-a685324904-cedd48f422.zip/node_modules/readline-sync/lib/readline-sync.js"(exports) {
+      "use strict";
+      var IS_WIN = process.platform === "win32";
+      var ALGORITHM_CIPHER = "aes-256-cbc";
+      var ALGORITHM_HASH = "sha256";
+      var DEFAULT_ERR_MSG = "The current environment doesn't support interactive reading from TTY.";
+      var fs = require("fs");
+      var TTY = process.binding("tty_wrap").TTY;
+      var childProc = require("child_process");
+      var pathUtil = require("path");
+      var defaultOptions = {
+        prompt: "> ",
+        hideEchoBack: false,
+        mask: "*",
+        limit: [],
+        limitMessage: "Input another, please.$<( [)limit(])>",
+        defaultInput: "",
+        trueValue: [],
+        falseValue: [],
+        caseSensitive: false,
+        keepWhitespace: false,
+        encoding: "utf8",
+        bufferSize: 1024,
+        print: void 0,
+        history: true,
+        cd: false,
+        phContent: void 0,
+        preCheck: void 0
+      };
+      var fdR = "none";
+      var fdW;
+      var ttyR;
+      var isRawMode = false;
+      var extHostPath;
+      var extHostArgs;
+      var tempdir;
+      var salt = 0;
+      var lastInput = "";
+      var inputHistory = [];
+      var rawInput;
+      var _DBG_useExt = false;
+      var _DBG_checkOptions = false;
+      var _DBG_checkMethod = false;
+      function getHostArgs(options) {
+        function encodeArg(arg) {
+          return arg.replace(/[^\w\u0080-\uFFFF]/g, function(chr) {
+            return "#" + chr.charCodeAt(0) + ";";
+          });
+        }
+        return extHostArgs.concat(function(conf) {
+          var args = [];
+          Object.keys(conf).forEach(function(optionName) {
+            if (conf[optionName] === "boolean") {
+              if (options[optionName]) {
+                args.push("--" + optionName);
+              }
+            } else if (conf[optionName] === "string") {
+              if (options[optionName]) {
+                args.push("--" + optionName, encodeArg(options[optionName]));
+              }
+            }
+          });
+          return args;
+        }({
+          display: "string",
+          displayOnly: "boolean",
+          keyIn: "boolean",
+          hideEchoBack: "boolean",
+          mask: "string",
+          limit: "string",
+          caseSensitive: "boolean"
+        }));
+      }
+      function _execFileSync(options, execOptions) {
+        function getTempfile(name) {
+          var filepath, suffix = "", fd;
+          tempdir = tempdir || require("os").tmpdir();
+          while (true) {
+            filepath = pathUtil.join(tempdir, name + suffix);
+            try {
+              fd = fs.openSync(filepath, "wx");
+            } catch (e) {
+              if (e.code === "EEXIST") {
+                suffix++;
+                continue;
+              } else {
+                throw e;
+              }
+            }
+            fs.closeSync(fd);
+            break;
+          }
+          return filepath;
+        }
+        var hostArgs, shellPath, shellArgs, res = {}, exitCode, extMessage, pathStdout = getTempfile("readline-sync.stdout"), pathStderr = getTempfile("readline-sync.stderr"), pathExit = getTempfile("readline-sync.exit"), pathDone = getTempfile("readline-sync.done"), crypto = require("crypto"), shasum, decipher, password;
+        shasum = crypto.createHash(ALGORITHM_HASH);
+        shasum.update("" + process.pid + salt++ + Math.random());
+        password = shasum.digest("hex");
+        decipher = crypto.createDecipher(ALGORITHM_CIPHER, password);
+        hostArgs = getHostArgs(options);
+        if (IS_WIN) {
+          shellPath = process.env.ComSpec || "cmd.exe";
+          process.env.Q = '"';
+          shellArgs = [
+            "/V:ON",
+            "/S",
+            "/C",
+            "(%Q%" + shellPath + "%Q% /V:ON /S /C %Q%%Q%" + extHostPath + "%Q%" + hostArgs.map(function(arg) {
+              return " %Q%" + arg + "%Q%";
+            }).join("") + " & (echo !ERRORLEVEL!)>%Q%" + pathExit + "%Q%%Q%) 2>%Q%" + pathStderr + "%Q% |%Q%" + process.execPath + "%Q% %Q%" + __dirname + "\\encrypt.js%Q% %Q%" + ALGORITHM_CIPHER + "%Q% %Q%" + password + "%Q% >%Q%" + pathStdout + "%Q% & (echo 1)>%Q%" + pathDone + "%Q%"
+          ];
+        } else {
+          shellPath = "/bin/sh";
+          shellArgs = [
+            "-c",
+            '("' + extHostPath + '"' + hostArgs.map(function(arg) {
+              return " '" + arg.replace(/'/g, "'\\''") + "'";
+            }).join("") + '; echo $?>"' + pathExit + '") 2>"' + pathStderr + '" |"' + process.execPath + '" "' + __dirname + '/encrypt.js" "' + ALGORITHM_CIPHER + '" "' + password + '" >"' + pathStdout + '"; echo 1 >"' + pathDone + '"'
+          ];
+        }
+        if (_DBG_checkMethod) {
+          _DBG_checkMethod("_execFileSync", hostArgs);
+        }
+        try {
+          childProc.spawn(shellPath, shellArgs, execOptions);
+        } catch (e) {
+          res.error = new Error(e.message);
+          res.error.method = "_execFileSync - spawn";
+          res.error.program = shellPath;
+          res.error.args = shellArgs;
+        }
+        while (fs.readFileSync(pathDone, {encoding: options.encoding}).trim() !== "1") {
+        }
+        if ((exitCode = fs.readFileSync(pathExit, {encoding: options.encoding}).trim()) === "0") {
+          res.input = decipher.update(fs.readFileSync(pathStdout, {encoding: "binary"}), "hex", options.encoding) + decipher.final(options.encoding);
+        } else {
+          extMessage = fs.readFileSync(pathStderr, {encoding: options.encoding}).trim();
+          res.error = new Error(DEFAULT_ERR_MSG + (extMessage ? "\n" + extMessage : ""));
+          res.error.method = "_execFileSync";
+          res.error.program = shellPath;
+          res.error.args = shellArgs;
+          res.error.extMessage = extMessage;
+          res.error.exitCode = +exitCode;
+        }
+        fs.unlinkSync(pathStdout);
+        fs.unlinkSync(pathStderr);
+        fs.unlinkSync(pathExit);
+        fs.unlinkSync(pathDone);
+        return res;
+      }
+      function readlineExt(options) {
+        var hostArgs, res = {}, extMessage, execOptions = {env: process.env, encoding: options.encoding};
+        if (!extHostPath) {
+          if (IS_WIN) {
+            if (process.env.PSModulePath) {
+              extHostPath = "powershell.exe";
+              extHostArgs = ["-ExecutionPolicy", "Bypass", "-File", __dirname + "\\read.ps1"];
+            } else {
+              extHostPath = "cscript.exe";
+              extHostArgs = ["//nologo", __dirname + "\\read.cs.js"];
+            }
+          } else {
+            extHostPath = "/bin/sh";
+            extHostArgs = [__dirname + "/read.sh"];
+          }
+        }
+        if (IS_WIN && !process.env.PSModulePath) {
+          execOptions.stdio = [process.stdin];
+        }
+        if (childProc.execFileSync) {
+          hostArgs = getHostArgs(options);
+          if (_DBG_checkMethod) {
+            _DBG_checkMethod("execFileSync", hostArgs);
+          }
+          try {
+            res.input = childProc.execFileSync(extHostPath, hostArgs, execOptions);
+          } catch (e) {
+            extMessage = e.stderr ? (e.stderr + "").trim() : "";
+            res.error = new Error(DEFAULT_ERR_MSG + (extMessage ? "\n" + extMessage : ""));
+            res.error.method = "execFileSync";
+            res.error.program = extHostPath;
+            res.error.args = hostArgs;
+            res.error.extMessage = extMessage;
+            res.error.exitCode = e.status;
+            res.error.code = e.code;
+            res.error.signal = e.signal;
+          }
+        } else {
+          res = _execFileSync(options, execOptions);
+        }
+        if (!res.error) {
+          res.input = res.input.replace(/^\s*'|'\s*$/g, "");
+          options.display = "";
+        }
+        return res;
+      }
+      function _readlineSync(options) {
+        var input = "", displaySave = options.display, silent = !options.display && options.keyIn && options.hideEchoBack && !options.mask;
+        function tryExt() {
+          var res = readlineExt(options);
+          if (res.error) {
+            throw res.error;
+          }
+          return res.input;
+        }
+        if (_DBG_checkOptions) {
+          _DBG_checkOptions(options);
+        }
+        (function() {
+          var fsB, constants, verNum;
+          function getFsB() {
+            if (!fsB) {
+              fsB = process.binding("fs");
+              constants = process.binding("constants");
+            }
+            return fsB;
+          }
+          if (typeof fdR !== "string") {
+            return;
+          }
+          fdR = null;
+          if (IS_WIN) {
+            verNum = function(ver) {
+              var nums = ver.replace(/^\D+/, "").split(".");
+              var verNum2 = 0;
+              if (nums[0] = +nums[0]) {
+                verNum2 += nums[0] * 1e4;
+              }
+              if (nums[1] = +nums[1]) {
+                verNum2 += nums[1] * 100;
+              }
+              if (nums[2] = +nums[2]) {
+                verNum2 += nums[2];
+              }
+              return verNum2;
+            }(process.version);
+            if (!(verNum >= 20302 && verNum < 40204 || verNum >= 5e4 && verNum < 50100 || verNum >= 50600 && verNum < 60200) && process.stdin.isTTY) {
+              process.stdin.pause();
+              fdR = process.stdin.fd;
+              ttyR = process.stdin._handle;
+            } else {
+              try {
+                fdR = getFsB().open("CONIN$", constants.O_RDWR, parseInt("0666", 8));
+                ttyR = new TTY(fdR, true);
+              } catch (e) {
+              }
+            }
+            if (process.stdout.isTTY) {
+              fdW = process.stdout.fd;
+            } else {
+              try {
+                fdW = fs.openSync("\\\\.\\CON", "w");
+              } catch (e) {
+              }
+              if (typeof fdW !== "number") {
+                try {
+                  fdW = getFsB().open("CONOUT$", constants.O_RDWR, parseInt("0666", 8));
+                } catch (e) {
+                }
+              }
+            }
+          } else {
+            if (process.stdin.isTTY) {
+              process.stdin.pause();
+              try {
+                fdR = fs.openSync("/dev/tty", "r");
+                ttyR = process.stdin._handle;
+              } catch (e) {
+              }
+            } else {
+              try {
+                fdR = fs.openSync("/dev/tty", "r");
+                ttyR = new TTY(fdR, false);
+              } catch (e) {
+              }
+            }
+            if (process.stdout.isTTY) {
+              fdW = process.stdout.fd;
+            } else {
+              try {
+                fdW = fs.openSync("/dev/tty", "w");
+              } catch (e) {
+              }
+            }
+          }
+        })();
+        (function() {
+          var atEol, limit, isCooked = !options.hideEchoBack && !options.keyIn, buffer, reqSize, readSize, chunk, line;
+          rawInput = "";
+          function setRawMode(mode) {
+            if (mode === isRawMode) {
+              return true;
+            }
+            if (ttyR.setRawMode(mode) !== 0) {
+              return false;
+            }
+            isRawMode = mode;
+            return true;
+          }
+          if (_DBG_useExt || !ttyR || typeof fdW !== "number" && (options.display || !isCooked)) {
+            input = tryExt();
+            return;
+          }
+          if (options.display) {
+            fs.writeSync(fdW, options.display);
+            options.display = "";
+          }
+          if (options.displayOnly) {
+            return;
+          }
+          if (!setRawMode(!isCooked)) {
+            input = tryExt();
+            return;
+          }
+          reqSize = options.keyIn ? 1 : options.bufferSize;
+          buffer = Buffer.allocUnsafe && Buffer.alloc ? Buffer.alloc(reqSize) : new Buffer(reqSize);
+          if (options.keyIn && options.limit) {
+            limit = new RegExp("[^" + options.limit + "]", "g" + (options.caseSensitive ? "" : "i"));
+          }
+          while (true) {
+            readSize = 0;
+            try {
+              readSize = fs.readSync(fdR, buffer, 0, reqSize);
+            } catch (e) {
+              if (e.code !== "EOF") {
+                setRawMode(false);
+                input += tryExt();
+                return;
+              }
+            }
+            if (readSize > 0) {
+              chunk = buffer.toString(options.encoding, 0, readSize);
+              rawInput += chunk;
+            } else {
+              chunk = "\n";
+              rawInput += String.fromCharCode(0);
+            }
+            if (chunk && typeof (line = (chunk.match(/^(.*?)[\r\n]/) || [])[1]) === "string") {
+              chunk = line;
+              atEol = true;
+            }
+            if (chunk) {
+              chunk = chunk.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, "");
+            }
+            if (chunk && limit) {
+              chunk = chunk.replace(limit, "");
+            }
+            if (chunk) {
+              if (!isCooked) {
+                if (!options.hideEchoBack) {
+                  fs.writeSync(fdW, chunk);
+                } else if (options.mask) {
+                  fs.writeSync(fdW, new Array(chunk.length + 1).join(options.mask));
+                }
+              }
+              input += chunk;
+            }
+            if (!options.keyIn && atEol || options.keyIn && input.length >= reqSize) {
+              break;
+            }
+          }
+          if (!isCooked && !silent) {
+            fs.writeSync(fdW, "\n");
+          }
+          setRawMode(false);
+        })();
+        if (options.print && !silent) {
+          options.print(displaySave + (options.displayOnly ? "" : (options.hideEchoBack ? new Array(input.length + 1).join(options.mask) : input) + "\n"), options.encoding);
+        }
+        return options.displayOnly ? "" : lastInput = options.keepWhitespace || options.keyIn ? input : input.trim();
+      }
+      function flattenArray(array, validator) {
+        var flatArray = [];
+        function _flattenArray(array2) {
+          if (array2 == null) {
+            return;
+          } else if (Array.isArray(array2)) {
+            array2.forEach(_flattenArray);
+          } else if (!validator || validator(array2)) {
+            flatArray.push(array2);
+          }
+        }
+        _flattenArray(array);
+        return flatArray;
+      }
+      function escapePattern(pattern) {
+        return pattern.replace(/[\x00-\x7f]/g, function(s) {
+          return "\\x" + ("00" + s.charCodeAt().toString(16)).substr(-2);
+        });
+      }
+      function margeOptions() {
+        var optionsList = Array.prototype.slice.call(arguments), optionNames, fromDefault;
+        if (optionsList.length && typeof optionsList[0] === "boolean") {
+          fromDefault = optionsList.shift();
+          if (fromDefault) {
+            optionNames = Object.keys(defaultOptions);
+            optionsList.unshift(defaultOptions);
+          }
+        }
+        return optionsList.reduce(function(options, optionsPart) {
+          if (optionsPart == null) {
+            return options;
+          }
+          if (optionsPart.hasOwnProperty("noEchoBack") && !optionsPart.hasOwnProperty("hideEchoBack")) {
+            optionsPart.hideEchoBack = optionsPart.noEchoBack;
+            delete optionsPart.noEchoBack;
+          }
+          if (optionsPart.hasOwnProperty("noTrim") && !optionsPart.hasOwnProperty("keepWhitespace")) {
+            optionsPart.keepWhitespace = optionsPart.noTrim;
+            delete optionsPart.noTrim;
+          }
+          if (!fromDefault) {
+            optionNames = Object.keys(optionsPart);
+          }
+          optionNames.forEach(function(optionName) {
+            var value;
+            if (!optionsPart.hasOwnProperty(optionName)) {
+              return;
+            }
+            value = optionsPart[optionName];
+            switch (optionName) {
+              case "mask":
+              case "limitMessage":
+              case "defaultInput":
+              case "encoding":
+                value = value != null ? value + "" : "";
+                if (value && optionName !== "limitMessage") {
+                  value = value.replace(/[\r\n]/g, "");
+                }
+                options[optionName] = value;
+                break;
+              case "bufferSize":
+                if (!isNaN(value = parseInt(value, 10)) && typeof value === "number") {
+                  options[optionName] = value;
+                }
+                break;
+              case "displayOnly":
+              case "keyIn":
+              case "hideEchoBack":
+              case "caseSensitive":
+              case "keepWhitespace":
+              case "history":
+              case "cd":
+                options[optionName] = !!value;
+                break;
+              case "limit":
+              case "trueValue":
+              case "falseValue":
+                options[optionName] = flattenArray(value, function(value2) {
+                  var type = typeof value2;
+                  return type === "string" || type === "number" || type === "function" || value2 instanceof RegExp;
+                }).map(function(value2) {
+                  return typeof value2 === "string" ? value2.replace(/[\r\n]/g, "") : value2;
+                });
+                break;
+              case "print":
+              case "phContent":
+              case "preCheck":
+                options[optionName] = typeof value === "function" ? value : void 0;
+                break;
+              case "prompt":
+              case "display":
+                options[optionName] = value != null ? value : "";
+                break;
+            }
+          });
+          return options;
+        }, {});
+      }
+      function isMatched(res, comps, caseSensitive) {
+        return comps.some(function(comp) {
+          var type = typeof comp;
+          return type === "string" ? caseSensitive ? res === comp : res.toLowerCase() === comp.toLowerCase() : type === "number" ? parseFloat(res) === comp : type === "function" ? comp(res) : comp instanceof RegExp ? comp.test(res) : false;
+        });
+      }
+      function replaceHomePath(path, expand) {
+        var homePath = pathUtil.normalize(IS_WIN ? (process.env.HOMEDRIVE || "") + (process.env.HOMEPATH || "") : process.env.HOME || "").replace(/[\/\\]+$/, "");
+        path = pathUtil.normalize(path);
+        return expand ? path.replace(/^~(?=\/|\\|$)/, homePath) : path.replace(new RegExp("^" + escapePattern(homePath) + "(?=\\/|\\\\|$)", IS_WIN ? "i" : ""), "~");
+      }
+      function replacePlaceholder(text, generator) {
+        var PTN_INNER = "(?:\\(([\\s\\S]*?)\\))?(\\w+|.-.)(?:\\(([\\s\\S]*?)\\))?", rePlaceholder = new RegExp("(\\$)?(\\$<" + PTN_INNER + ">)", "g"), rePlaceholderCompat = new RegExp("(\\$)?(\\$\\{" + PTN_INNER + "\\})", "g");
+        function getPlaceholderText(s, escape2, placeholder, pre, param, post) {
+          var text2;
+          return escape2 || typeof (text2 = generator(param)) !== "string" ? placeholder : text2 ? (pre || "") + text2 + (post || "") : "";
+        }
+        return text.replace(rePlaceholder, getPlaceholderText).replace(rePlaceholderCompat, getPlaceholderText);
+      }
+      function array2charlist(array, caseSensitive, collectSymbols) {
+        var values, group = [], groupClass = -1, charCode = 0, symbols = "", suppressed;
+        function addGroup(groups, group2) {
+          if (group2.length > 3) {
+            groups.push(group2[0] + "..." + group2[group2.length - 1]);
+            suppressed = true;
+          } else if (group2.length) {
+            groups = groups.concat(group2);
+          }
+          return groups;
+        }
+        values = array.reduce(function(chars, value) {
+          return chars.concat((value + "").split(""));
+        }, []).reduce(function(groups, curChar) {
+          var curGroupClass, curCharCode;
+          if (!caseSensitive) {
+            curChar = curChar.toLowerCase();
+          }
+          curGroupClass = /^\d$/.test(curChar) ? 1 : /^[A-Z]$/.test(curChar) ? 2 : /^[a-z]$/.test(curChar) ? 3 : 0;
+          if (collectSymbols && curGroupClass === 0) {
+            symbols += curChar;
+          } else {
+            curCharCode = curChar.charCodeAt(0);
+            if (curGroupClass && curGroupClass === groupClass && curCharCode === charCode + 1) {
+              group.push(curChar);
+            } else {
+              groups = addGroup(groups, group);
+              group = [curChar];
+              groupClass = curGroupClass;
+            }
+            charCode = curCharCode;
+          }
+          return groups;
+        }, []);
+        values = addGroup(values, group);
+        if (symbols) {
+          values.push(symbols);
+          suppressed = true;
+        }
+        return {values, suppressed};
+      }
+      function joinChunks(chunks, suppressed) {
+        return chunks.join(chunks.length > 2 ? ", " : suppressed ? " / " : "/");
+      }
+      function getPhContent(param, options) {
+        var text, values, resCharlist = {}, arg;
+        if (options.phContent) {
+          text = options.phContent(param, options);
+        }
+        if (typeof text !== "string") {
+          switch (param) {
+            case "hideEchoBack":
+            case "mask":
+            case "defaultInput":
+            case "caseSensitive":
+            case "keepWhitespace":
+            case "encoding":
+            case "bufferSize":
+            case "history":
+            case "cd":
+              text = !options.hasOwnProperty(param) ? "" : typeof options[param] === "boolean" ? options[param] ? "on" : "off" : options[param] + "";
+              break;
+            case "limit":
+            case "trueValue":
+            case "falseValue":
+              values = options[options.hasOwnProperty(param + "Src") ? param + "Src" : param];
+              if (options.keyIn) {
+                resCharlist = array2charlist(values, options.caseSensitive);
+                values = resCharlist.values;
+              } else {
+                values = values.filter(function(value) {
+                  var type = typeof value;
+                  return type === "string" || type === "number";
+                });
+              }
+              text = joinChunks(values, resCharlist.suppressed);
+              break;
+            case "limitCount":
+            case "limitCountNotZero":
+              text = options[options.hasOwnProperty("limitSrc") ? "limitSrc" : "limit"].length;
+              text = text || param !== "limitCountNotZero" ? text + "" : "";
+              break;
+            case "lastInput":
+              text = lastInput;
+              break;
+            case "cwd":
+            case "CWD":
+            case "cwdHome":
+              text = process.cwd();
+              if (param === "CWD") {
+                text = pathUtil.basename(text);
+              } else if (param === "cwdHome") {
+                text = replaceHomePath(text);
+              }
+              break;
+            case "date":
+            case "time":
+            case "localeDate":
+            case "localeTime":
+              text = new Date()["to" + param.replace(/^./, function(str) {
+                return str.toUpperCase();
+              }) + "String"]();
+              break;
+            default:
+              if (typeof (arg = (param.match(/^history_m(\d+)$/) || [])[1]) === "string") {
+                text = inputHistory[inputHistory.length - arg] || "";
+              }
+          }
+        }
+        return text;
+      }
+      function getPhCharlist(param) {
+        var matches = /^(.)-(.)$/.exec(param), text = "", from, to, code, step;
+        if (!matches) {
+          return null;
+        }
+        from = matches[1].charCodeAt(0);
+        to = matches[2].charCodeAt(0);
+        step = from < to ? 1 : -1;
+        for (code = from; code !== to + step; code += step) {
+          text += String.fromCharCode(code);
+        }
+        return text;
+      }
+      function parseCl(cl) {
+        var reToken = new RegExp(/(\s*)(?:("|')(.*?)(?:\2|$)|(\S+))/g), matches, taken = "", args = [], part;
+        cl = cl.trim();
+        while (matches = reToken.exec(cl)) {
+          part = matches[3] || matches[4] || "";
+          if (matches[1]) {
+            args.push(taken);
+            taken = "";
+          }
+          taken += part;
+        }
+        if (taken) {
+          args.push(taken);
+        }
+        return args;
+      }
+      function toBool(res, options) {
+        return options.trueValue.length && isMatched(res, options.trueValue, options.caseSensitive) ? true : options.falseValue.length && isMatched(res, options.falseValue, options.caseSensitive) ? false : res;
+      }
+      function getValidLine(options) {
+        var res, forceNext, limitMessage, matches, histInput, args, resCheck;
+        function _getPhContent(param) {
+          return getPhContent(param, options);
+        }
+        function addDisplay(text) {
+          options.display += (/[^\r\n]$/.test(options.display) ? "\n" : "") + text;
+        }
+        options.limitSrc = options.limit;
+        options.displaySrc = options.display;
+        options.limit = "";
+        options.display = replacePlaceholder(options.display + "", _getPhContent);
+        while (true) {
+          res = _readlineSync(options);
+          forceNext = false;
+          limitMessage = "";
+          if (options.defaultInput && !res) {
+            res = options.defaultInput;
+          }
+          if (options.history) {
+            if (matches = /^\s*\!(?:\!|-1)(:p)?\s*$/.exec(res)) {
+              histInput = inputHistory[0] || "";
+              if (matches[1]) {
+                forceNext = true;
+              } else {
+                res = histInput;
+              }
+              addDisplay(histInput + "\n");
+              if (!forceNext) {
+                options.displayOnly = true;
+                _readlineSync(options);
+                options.displayOnly = false;
+              }
+            } else if (res && res !== inputHistory[inputHistory.length - 1]) {
+              inputHistory = [res];
+            }
+          }
+          if (!forceNext && options.cd && res) {
+            args = parseCl(res);
+            switch (args[0].toLowerCase()) {
+              case "cd":
+                if (args[1]) {
+                  try {
+                    process.chdir(replaceHomePath(args[1], true));
+                  } catch (e) {
+                    addDisplay(e + "");
+                  }
+                }
+                forceNext = true;
+                break;
+              case "pwd":
+                addDisplay(process.cwd());
+                forceNext = true;
+                break;
+            }
+          }
+          if (!forceNext && options.preCheck) {
+            resCheck = options.preCheck(res, options);
+            res = resCheck.res;
+            if (resCheck.forceNext) {
+              forceNext = true;
+            }
+          }
+          if (!forceNext) {
+            if (!options.limitSrc.length || isMatched(res, options.limitSrc, options.caseSensitive)) {
+              break;
+            }
+            if (options.limitMessage) {
+              limitMessage = replacePlaceholder(options.limitMessage, _getPhContent);
+            }
+          }
+          addDisplay((limitMessage ? limitMessage + "\n" : "") + replacePlaceholder(options.displaySrc + "", _getPhContent));
+        }
+        return toBool(res, options);
+      }
+      exports._DBG_set_useExt = function(val) {
+        _DBG_useExt = val;
+      };
+      exports._DBG_set_checkOptions = function(val) {
+        _DBG_checkOptions = val;
+      };
+      exports._DBG_set_checkMethod = function(val) {
+        _DBG_checkMethod = val;
+      };
+      exports._DBG_clearHistory = function() {
+        lastInput = "";
+        inputHistory = [];
+      };
+      exports.setDefaultOptions = function(options) {
+        defaultOptions = margeOptions(true, options);
+        return margeOptions(true);
+      };
+      exports.question = function(query, options) {
+        return getValidLine(margeOptions(margeOptions(true, options), {
+          display: query
+        }));
+      };
+      exports.prompt = function(options) {
+        var readOptions = margeOptions(true, options);
+        readOptions.display = readOptions.prompt;
+        return getValidLine(readOptions);
+      };
+      exports.keyIn = function(query, options) {
+        var readOptions = margeOptions(margeOptions(true, options), {
+          display: query,
+          keyIn: true,
+          keepWhitespace: true
+        });
+        readOptions.limitSrc = readOptions.limit.filter(function(value) {
+          var type = typeof value;
+          return type === "string" || type === "number";
+        }).map(function(text) {
+          return replacePlaceholder(text + "", getPhCharlist);
+        });
+        readOptions.limit = escapePattern(readOptions.limitSrc.join(""));
+        ["trueValue", "falseValue"].forEach(function(optionName) {
+          readOptions[optionName] = readOptions[optionName].reduce(function(comps, comp) {
+            var type = typeof comp;
+            if (type === "string" || type === "number") {
+              comps = comps.concat((comp + "").split(""));
+            } else {
+              comps.push(comp);
+            }
+            return comps;
+          }, []);
+        });
+        readOptions.display = replacePlaceholder(readOptions.display + "", function(param) {
+          return getPhContent(param, readOptions);
+        });
+        return toBool(_readlineSync(readOptions), readOptions);
+      };
+      exports.questionEMail = function(query, options) {
+        if (query == null) {
+          query = "Input e-mail address: ";
+        }
+        return exports.question(query, margeOptions({
+          hideEchoBack: false,
+          limit: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+          limitMessage: "Input valid e-mail address, please.",
+          trueValue: null,
+          falseValue: null
+        }, options, {
+          keepWhitespace: false,
+          cd: false
+        }));
+      };
+      exports.questionNewPassword = function(query, options) {
+        var resCharlist, min, max, readOptions = margeOptions({
+          hideEchoBack: true,
+          mask: "*",
+          limitMessage: "It can include: $<charlist>\nAnd the length must be: $<length>",
+          trueValue: null,
+          falseValue: null,
+          caseSensitive: true
+        }, options, {
+          history: false,
+          cd: false,
+          phContent: function(param) {
+            return param === "charlist" ? resCharlist.text : param === "length" ? min + "..." + max : null;
+          }
+        }), charlist, confirmMessage, unmatchMessage, limit, limitMessage, res1, res2;
+        options = options || {};
+        charlist = replacePlaceholder(options.charlist ? options.charlist + "" : "$<!-~>", getPhCharlist);
+        if (isNaN(min = parseInt(options.min, 10)) || typeof min !== "number") {
+          min = 12;
+        }
+        if (isNaN(max = parseInt(options.max, 10)) || typeof max !== "number") {
+          max = 24;
+        }
+        limit = new RegExp("^[" + escapePattern(charlist) + "]{" + min + "," + max + "}$");
+        resCharlist = array2charlist([charlist], readOptions.caseSensitive, true);
+        resCharlist.text = joinChunks(resCharlist.values, resCharlist.suppressed);
+        confirmMessage = options.confirmMessage != null ? options.confirmMessage : "Reinput a same one to confirm it: ";
+        unmatchMessage = options.unmatchMessage != null ? options.unmatchMessage : "It differs from first one. Hit only the Enter key if you want to retry from first one.";
+        if (query == null) {
+          query = "Input new password: ";
+        }
+        limitMessage = readOptions.limitMessage;
+        while (!res2) {
+          readOptions.limit = limit;
+          readOptions.limitMessage = limitMessage;
+          res1 = exports.question(query, readOptions);
+          readOptions.limit = [res1, ""];
+          readOptions.limitMessage = unmatchMessage;
+          res2 = exports.question(confirmMessage, readOptions);
+        }
+        return res1;
+      };
+      function _questionNum(query, options, parser) {
+        var validValue;
+        function getValidValue(value) {
+          validValue = parser(value);
+          return !isNaN(validValue) && typeof validValue === "number";
+        }
+        exports.question(query, margeOptions({
+          limitMessage: "Input valid number, please."
+        }, options, {
+          limit: getValidValue,
+          cd: false
+        }));
+        return validValue;
+      }
+      exports.questionInt = function(query, options) {
+        return _questionNum(query, options, function(value) {
+          return parseInt(value, 10);
+        });
+      };
+      exports.questionFloat = function(query, options) {
+        return _questionNum(query, options, parseFloat);
+      };
+      exports.questionPath = function(query, options) {
+        var validPath, error = "", readOptions = margeOptions({
+          hideEchoBack: false,
+          limitMessage: "$<error(\n)>Input valid path, please.$<( Min:)min>$<( Max:)max>",
+          history: true,
+          cd: true
+        }, options, {
+          keepWhitespace: false,
+          limit: function(value) {
+            var exists, stat, res;
+            value = replaceHomePath(value, true);
+            error = "";
+            function mkdirParents(dirPath) {
+              dirPath.split(/\/|\\/).reduce(function(parents, dir) {
+                var path = pathUtil.resolve(parents += dir + pathUtil.sep);
+                if (!fs.existsSync(path)) {
+                  fs.mkdirSync(path);
+                } else if (!fs.statSync(path).isDirectory()) {
+                  throw new Error("Non directory already exists: " + path);
+                }
+                return parents;
+              }, "");
+            }
+            try {
+              exists = fs.existsSync(value);
+              validPath = exists ? fs.realpathSync(value) : pathUtil.resolve(value);
+              if (!options.hasOwnProperty("exists") && !exists || typeof options.exists === "boolean" && options.exists !== exists) {
+                error = (exists ? "Already exists" : "No such file or directory") + ": " + validPath;
+                return false;
+              }
+              if (!exists && options.create) {
+                if (options.isDirectory) {
+                  mkdirParents(validPath);
+                } else {
+                  mkdirParents(pathUtil.dirname(validPath));
+                  fs.closeSync(fs.openSync(validPath, "w"));
+                }
+                validPath = fs.realpathSync(validPath);
+              }
+              if (exists && (options.min || options.max || options.isFile || options.isDirectory)) {
+                stat = fs.statSync(validPath);
+                if (options.isFile && !stat.isFile()) {
+                  error = "Not file: " + validPath;
+                  return false;
+                } else if (options.isDirectory && !stat.isDirectory()) {
+                  error = "Not directory: " + validPath;
+                  return false;
+                } else if (options.min && stat.size < +options.min || options.max && stat.size > +options.max) {
+                  error = "Size " + stat.size + " is out of range: " + validPath;
+                  return false;
+                }
+              }
+              if (typeof options.validate === "function" && (res = options.validate(validPath)) !== true) {
+                if (typeof res === "string") {
+                  error = res;
+                }
+                return false;
+              }
+            } catch (e) {
+              error = e + "";
+              return false;
+            }
+            return true;
+          },
+          phContent: function(param) {
+            return param === "error" ? error : param !== "min" && param !== "max" ? null : options.hasOwnProperty(param) ? options[param] + "" : "";
+          }
+        });
+        options = options || {};
+        if (query == null) {
+          query = 'Input path (you can "cd" and "pwd"): ';
+        }
+        exports.question(query, readOptions);
+        return validPath;
+      };
+      function getClHandler(commandHandler, options) {
+        var clHandler = {}, hIndex = {};
+        if (typeof commandHandler === "object") {
+          Object.keys(commandHandler).forEach(function(cmd) {
+            if (typeof commandHandler[cmd] === "function") {
+              hIndex[options.caseSensitive ? cmd : cmd.toLowerCase()] = commandHandler[cmd];
+            }
+          });
+          clHandler.preCheck = function(res) {
+            var cmdKey;
+            clHandler.args = parseCl(res);
+            cmdKey = clHandler.args[0] || "";
+            if (!options.caseSensitive) {
+              cmdKey = cmdKey.toLowerCase();
+            }
+            clHandler.hRes = cmdKey !== "_" && hIndex.hasOwnProperty(cmdKey) ? hIndex[cmdKey].apply(res, clHandler.args.slice(1)) : hIndex.hasOwnProperty("_") ? hIndex._.apply(res, clHandler.args) : null;
+            return {res, forceNext: false};
+          };
+          if (!hIndex.hasOwnProperty("_")) {
+            clHandler.limit = function() {
+              var cmdKey = clHandler.args[0] || "";
+              if (!options.caseSensitive) {
+                cmdKey = cmdKey.toLowerCase();
+              }
+              return hIndex.hasOwnProperty(cmdKey);
+            };
+          }
+        } else {
+          clHandler.preCheck = function(res) {
+            clHandler.args = parseCl(res);
+            clHandler.hRes = typeof commandHandler === "function" ? commandHandler.apply(res, clHandler.args) : true;
+            return {res, forceNext: false};
+          };
+        }
+        return clHandler;
+      }
+      exports.promptCL = function(commandHandler, options) {
+        var readOptions = margeOptions({
+          hideEchoBack: false,
+          limitMessage: "Requested command is not available.",
+          caseSensitive: false,
+          history: true
+        }, options), clHandler = getClHandler(commandHandler, readOptions);
+        readOptions.limit = clHandler.limit;
+        readOptions.preCheck = clHandler.preCheck;
+        exports.prompt(readOptions);
+        return clHandler.args;
+      };
+      exports.promptLoop = function(inputHandler, options) {
+        var readOptions = margeOptions({
+          hideEchoBack: false,
+          trueValue: null,
+          falseValue: null,
+          caseSensitive: false,
+          history: true
+        }, options);
+        while (true) {
+          if (inputHandler(exports.prompt(readOptions))) {
+            break;
+          }
+        }
+        return;
+      };
+      exports.promptCLLoop = function(commandHandler, options) {
+        var readOptions = margeOptions({
+          hideEchoBack: false,
+          limitMessage: "Requested command is not available.",
+          caseSensitive: false,
+          history: true
+        }, options), clHandler = getClHandler(commandHandler, readOptions);
+        readOptions.limit = clHandler.limit;
+        readOptions.preCheck = clHandler.preCheck;
+        while (true) {
+          exports.prompt(readOptions);
+          if (clHandler.hRes) {
+            break;
+          }
+        }
+        return;
+      };
+      exports.promptSimShell = function(options) {
+        return exports.prompt(margeOptions({
+          hideEchoBack: false,
+          history: true
+        }, options, {
+          prompt: function() {
+            return IS_WIN ? "$<cwd>>" : (process.env.USER || "") + (process.env.HOSTNAME ? "@" + process.env.HOSTNAME.replace(/\..*$/, "") : "") + ":$<cwdHome>$ ";
+          }()
+        }));
+      };
+      function _keyInYN(query, options, limit) {
+        var res;
+        if (query == null) {
+          query = "Are you sure? ";
+        }
+        if ((!options || options.guide !== false) && (query += "")) {
+          query = query.replace(/\s*:?\s*$/, "") + " [y/n]: ";
+        }
+        res = exports.keyIn(query, margeOptions(options, {
+          hideEchoBack: false,
+          limit,
+          trueValue: "y",
+          falseValue: "n",
+          caseSensitive: false
+        }));
+        return typeof res === "boolean" ? res : "";
+      }
+      exports.keyInYN = function(query, options) {
+        return _keyInYN(query, options);
+      };
+      exports.keyInYNStrict = function(query, options) {
+        return _keyInYN(query, options, "yn");
+      };
+      exports.keyInPause = function(query, options) {
+        if (query == null) {
+          query = "Continue...";
+        }
+        if ((!options || options.guide !== false) && (query += "")) {
+          query = query.replace(/\s+$/, "") + " (Hit any key)";
+        }
+        exports.keyIn(query, margeOptions({
+          limit: null
+        }, options, {
+          hideEchoBack: true,
+          mask: ""
+        }));
+        return;
+      };
+      exports.keyInSelect = function(items, query, options) {
+        var readOptions = margeOptions({
+          hideEchoBack: false
+        }, options, {
+          trueValue: null,
+          falseValue: null,
+          caseSensitive: false,
+          phContent: function(param) {
+            return param === "itemsCount" ? items.length + "" : param === "firstItem" ? (items[0] + "").trim() : param === "lastItem" ? (items[items.length - 1] + "").trim() : null;
+          }
+        }), keylist = "", key2i = {}, charCode = 49, display = "\n";
+        if (!Array.isArray(items) || !items.length || items.length > 35) {
+          throw "`items` must be Array (max length: 35).";
+        }
+        items.forEach(function(item, i) {
+          var key2 = String.fromCharCode(charCode);
+          keylist += key2;
+          key2i[key2] = i;
+          display += "[" + key2 + "] " + (item + "").trim() + "\n";
+          charCode = charCode === 57 ? 97 : charCode + 1;
+        });
+        if (!options || options.cancel !== false) {
+          keylist += "0";
+          key2i["0"] = -1;
+          display += "[0] " + (options && options.cancel != null && typeof options.cancel !== "boolean" ? (options.cancel + "").trim() : "CANCEL") + "\n";
+        }
+        readOptions.limit = keylist;
+        display += "\n";
+        if (query == null) {
+          query = "Choose one from list: ";
+        }
+        if (query += "") {
+          if (!options || options.guide !== false) {
+            query = query.replace(/\s*:?\s*$/, "") + " [$<limit>]: ";
+          }
+          display += query;
+        }
+        return key2i[exports.keyIn(display, readOptions).toLowerCase()];
+      };
+      exports.getRawInput = function() {
+        return rawInput;
+      };
+      function _setOption(optionName, args) {
+        var options;
+        if (args.length) {
+          options = {};
+          options[optionName] = args[0];
+        }
+        return exports.setDefaultOptions(options)[optionName];
+      }
+      exports.setPrint = function() {
+        return _setOption("print", arguments);
+      };
+      exports.setPrompt = function() {
+        return _setOption("prompt", arguments);
+      };
+      exports.setEncoding = function() {
+        return _setOption("encoding", arguments);
+      };
+      exports.setMask = function() {
+        return _setOption("mask", arguments);
+      };
+      exports.setBufferSize = function() {
+        return _setOption("bufferSize", arguments);
+      };
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/tau-prolog-npm-0.2.66-b5d2420a05-6a61b37925.zip/node_modules/tau-prolog/modules/core.js
+  var require_core = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/tau-prolog-npm-0.2.66-b5d2420a05-6a61b37925.zip/node_modules/tau-prolog/modules/core.js"(exports, module) {
+      (function() {
+        var version = {major: 0, minor: 2, patch: 66, status: "beta"};
+        tau_file_system = {
+          files: {},
+          open: function(path, type, mode) {
+            var file = tau_file_system.files[path];
+            if (!file) {
+              if (mode === "read")
+                return null;
+              file = {
+                path,
+                text: "",
+                type,
+                get: function(length, position) {
+                  if (position === this.text.length) {
+                    return "end_of_file";
+                  } else if (position > this.text.length) {
+                    return "end_of_file";
+                  } else {
+                    return this.text.substring(position, position + length);
+                  }
+                },
+                put: function(text, position) {
+                  if (position === "end_of_file") {
+                    this.text += text;
+                    return true;
+                  } else if (position === "past_end_of_file") {
+                    return null;
+                  } else {
+                    this.text = this.text.substring(0, position) + text + this.text.substring(position + text.length);
+                    return true;
+                  }
+                },
+                get_byte: function(position) {
+                  if (position === "end_of_stream")
+                    return -1;
+                  var index = Math.floor(position / 2);
+                  if (this.text.length <= index)
+                    return -1;
+                  var code = codePointAt(this.text[Math.floor(position / 2)], 0);
+                  if (position % 2 === 0)
+                    return code & 255;
+                  else
+                    return code / 256 >>> 0;
+                },
+                put_byte: function(byte, position) {
+                  var index = position === "end_of_stream" ? this.text.length : Math.floor(position / 2);
+                  if (this.text.length < index)
+                    return null;
+                  var code = this.text.length === index ? -1 : codePointAt(this.text[Math.floor(position / 2)], 0);
+                  if (position % 2 === 0) {
+                    code = code / 256 >>> 0;
+                    code = (code & 255) << 8 | byte & 255;
+                  } else {
+                    code = code & 255;
+                    code = (byte & 255) << 8 | code & 255;
+                  }
+                  if (this.text.length === index)
+                    this.text += fromCodePoint(code);
+                  else
+                    this.text = this.text.substring(0, index) + fromCodePoint(code) + this.text.substring(index + 1);
+                  return true;
+                },
+                flush: function() {
+                  return true;
+                },
+                close: function() {
+                  var file2 = tau_file_system.files[this.path];
+                  if (!file2) {
+                    return null;
+                  } else {
+                    return true;
+                  }
+                }
+              };
+              tau_file_system.files[path] = file;
+            }
+            if (mode === "write")
+              file.text = "";
+            return file;
+          }
+        };
+        tau_user_input = {
+          buffer: "",
+          get: function(length, _) {
+            var text;
+            while (tau_user_input.buffer.length < length) {
+              text = window.prompt();
+              if (text) {
+                tau_user_input.buffer += text;
+              }
+            }
+            text = tau_user_input.buffer.substr(0, length);
+            tau_user_input.buffer = tau_user_input.buffer.substr(length);
+            return text;
+          }
+        };
+        tau_user_output = {
+          put: function(text, _) {
+            console.log(text);
+            return true;
+          },
+          flush: function() {
+            return true;
+          }
+        };
+        nodejs_file_system = {
+          open: function(path, type, mode) {
+            var fs = require("fs");
+            var fd = fs.openSync(path, mode[0]);
+            if (mode === "read" && !fs.existsSync(path))
+              return null;
+            return {
+              get: function(length, position) {
+                var buffer = new Buffer(length);
+                fs.readSync(fd, buffer, 0, length, position);
+                return buffer.toString();
+              },
+              put: function(text, position) {
+                var buffer = Buffer.from(text);
+                if (position === "end_of_file")
+                  fs.writeSync(fd, buffer);
+                else if (position === "past_end_of_file")
+                  return null;
+                else
+                  fs.writeSync(fd, buffer, 0, buffer.length, position);
+                return true;
+              },
+              get_byte: function(position) {
+                return null;
+              },
+              put_byte: function(byte, position) {
+                return null;
+              },
+              flush: function() {
+                return true;
+              },
+              close: function() {
+                fs.closeSync(fd);
+                return true;
+              }
+            };
+          }
+        };
+        nodejs_user_input = {
+          buffer: "",
+          get: function(length, _) {
+            var text;
+            var readlineSync = require_readline_sync();
+            while (nodejs_user_input.buffer.length < length)
+              nodejs_user_input.buffer += readlineSync.question();
+            text = nodejs_user_input.buffer.substr(0, length);
+            nodejs_user_input.buffer = nodejs_user_input.buffer.substr(length);
+            return text;
+          }
+        };
+        nodejs_user_output = {
+          put: function(text, _) {
+            process.stdout.write(text);
+            return true;
+          },
+          flush: function() {
+            return true;
+          }
+        };
+        var indexOf;
+        if (!Array.prototype.indexOf) {
+          indexOf = function(array, elem) {
+            var len = array.length;
+            for (var i = 0; i < len; i++) {
+              if (elem === array[i])
+                return i;
+            }
+            return -1;
+          };
+        } else {
+          indexOf = function(array, elem) {
+            return array.indexOf(elem);
+          };
+        }
+        var reduce = function(array, fn) {
+          if (array.length === 0)
+            return void 0;
+          var elem = array[0];
+          var len = array.length;
+          for (var i = 1; i < len; i++) {
+            elem = fn(elem, array[i]);
+          }
+          return elem;
+        };
+        var map;
+        if (!Array.prototype.map) {
+          map = function(array, fn) {
+            var a = [];
+            var len = array.length;
+            for (var i = 0; i < len; i++) {
+              a.push(fn(array[i]));
+            }
+            return a;
+          };
+        } else {
+          map = function(array, fn) {
+            return array.map(fn);
+          };
+        }
+        var filter;
+        if (!Array.prototype.filter) {
+          filter = function(array, fn) {
+            var a = [];
+            var len = array.length;
+            for (var i = 0; i < len; i++) {
+              if (fn(array[i]))
+                a.push(array[i]);
+            }
+            return a;
+          };
+        } else {
+          filter = function(array, fn) {
+            return array.filter(fn);
+          };
+        }
+        var codePointAt;
+        if (!String.prototype.codePointAt) {
+          codePointAt = function(str, i) {
+            return str.charCodeAt(i);
+          };
+        } else {
+          codePointAt = function(str, i) {
+            return str.codePointAt(i);
+          };
+        }
+        var fromCodePoint;
+        if (!String.fromCodePoint) {
+          fromCodePoint = function() {
+            return String.fromCharCode.apply(null, arguments);
+          };
+        } else {
+          fromCodePoint = function() {
+            return String.fromCodePoint.apply(null, arguments);
+          };
+        }
+        var ERROR = 0;
+        var SUCCESS = 1;
+        var regex_escape = /(\\a)|(\\b)|(\\f)|(\\n)|(\\r)|(\\t)|(\\v)|\\x([0-9a-fA-F]+)\\|\\([0-7]+)\\|(\\\\)|(\\')|('')|(\\")|(\\`)|(\\.)|(.)/g;
+        var escape_map = {"\\a": 7, "\\b": 8, "\\f": 12, "\\n": 10, "\\r": 13, "\\t": 9, "\\v": 11};
+        function escape2(str) {
+          var s = [];
+          var _error = false;
+          str.replace(regex_escape, function(match, a, b, f, n, r, t, v, hex, octal, back, single, dsingle, double, backquote, error, char2) {
+            switch (true) {
+              case hex !== void 0:
+                s.push(parseInt(hex, 16));
+                return "";
+              case octal !== void 0:
+                s.push(parseInt(octal, 8));
+                return "";
+              case back !== void 0:
+              case single !== void 0:
+              case dsingle !== void 0:
+              case double !== void 0:
+              case backquote !== void 0:
+                s.push(codePointAt(match.substr(1), 0));
+                return "";
+              case char2 !== void 0:
+                s.push(codePointAt(char2, 0));
+                return "";
+              case error !== void 0:
+                _error = true;
+              default:
+                s.push(escape_map[match]);
+                return "";
+            }
+          });
+          if (_error)
+            return null;
+          return s;
+        }
+        function escapeAtom(str, quote) {
+          var atom = "";
+          if (str.length < 2)
+            return str;
+          try {
+            str = str.replace(/\\([0-7]+)\\/g, function(match, g1) {
+              return fromCodePoint(parseInt(g1, 8));
+            });
+            str = str.replace(/\\x([0-9a-fA-F]+)\\/g, function(match, g1) {
+              return fromCodePoint(parseInt(g1, 16));
+            });
+          } catch (error) {
+            return null;
+          }
+          for (var i = 0; i < str.length; i++) {
+            var a = str.charAt(i);
+            var b = str.charAt(i + 1);
+            if (a === quote && b === quote) {
+              i++;
+              atom += quote;
+            } else if (a === "\\") {
+              if (["a", "b", "f", "n", "r", "t", "v", "'", '"', "\\", "a", "\b", "\f", "\n", "\r", "	", "\v"].indexOf(b) !== -1) {
+                i += 1;
+                switch (b) {
+                  case "a":
+                    atom += "a";
+                    break;
+                  case "b":
+                    atom += "\b";
+                    break;
+                  case "f":
+                    atom += "\f";
+                    break;
+                  case "n":
+                    atom += "\n";
+                    break;
+                  case "r":
+                    atom += "\r";
+                    break;
+                  case "t":
+                    atom += "	";
+                    break;
+                  case "v":
+                    atom += "\v";
+                    break;
+                  case "'":
+                    atom += "'";
+                    break;
+                  case '"':
+                    atom += '"';
+                    break;
+                  case "\\":
+                    atom += "\\";
+                    break;
+                }
+              } else {
+                return null;
+              }
+            } else {
+              atom += a;
+            }
+          }
+          return atom;
+        }
+        function redoEscape(str) {
+          var atom = "";
+          for (var i = 0; i < str.length; i++) {
+            switch (str.charAt(i)) {
+              case "'":
+                atom += "\\'";
+                break;
+              case "\\":
+                atom += "\\\\";
+                break;
+              case "\b":
+                atom += "\\b";
+                break;
+              case "\f":
+                atom += "\\f";
+                break;
+              case "\n":
+                atom += "\\n";
+                break;
+              case "\r":
+                atom += "\\r";
+                break;
+              case "	":
+                atom += "\\t";
+                break;
+              case "\v":
+                atom += "\\v";
+                break;
+              default:
+                atom += str.charAt(i);
+                break;
+            }
+          }
+          return atom;
+        }
+        function convertNum(num) {
+          var n = num.substr(2);
+          switch (num.substr(0, 2).toLowerCase()) {
+            case "0x":
+              return parseInt(n, 16);
+            case "0b":
+              return parseInt(n, 2);
+            case "0o":
+              return parseInt(n, 8);
+            case "0'":
+              return escape2(n)[0];
+            default:
+              return parseFloat(num);
+          }
+        }
+        var rules = {
+          whitespace: /^\s*(?:(?:%.*)|(?:\/\*(?:\n|\r|.)*?\*\/)|(?:\s+))\s*/,
+          variable: /^(?:[A-Z_][a-zA-Z0-9_]*)/,
+          atom: /^(\!|,|;|[a-z][0-9a-zA-Z_]*|[#\$\&\*\+\-\.\/\:\<\=\>\?\@\^\~\\]+|'(?:[^']*?(?:\\(?:x?\d+)?\\)*(?:'')*(?:\\')*)*')/,
+          number: /^(?:0o[0-7]+|0x[0-9a-fA-F]+|0b[01]+|0'(?:''|\\[abfnrtv\\'"`]|\\x?\d+\\|[^\\])|\d+(?:\.\d+(?:[eE][+-]?\d+)?)?)/,
+          string: /^(?:"([^"]|""|\\")*"|`([^`]|``|\\`)*`)/,
+          l_brace: /^(?:\[)/,
+          r_brace: /^(?:\])/,
+          l_bracket: /^(?:\{)/,
+          r_bracket: /^(?:\})/,
+          bar: /^(?:\|)/,
+          l_paren: /^(?:\()/,
+          r_paren: /^(?:\))/
+        };
+        function replace(thread, text) {
+          if (thread.get_flag("char_conversion").id === "on") {
+            return text.replace(/./g, function(char2) {
+              return thread.get_char_conversion(char2);
+            });
+          }
+          return text;
+        }
+        function Tokenizer(thread) {
+          this.thread = thread;
+          this.text = "";
+          this.tokens = [];
+        }
+        Tokenizer.prototype.set_last_tokens = function(tokens) {
+          return this.tokens = tokens;
+        };
+        Tokenizer.prototype.new_text = function(text) {
+          this.text = text;
+          this.tokens = [];
+        };
+        Tokenizer.prototype.get_tokens = function(init) {
+          var text;
+          var len = 0;
+          var line = 0;
+          var start = 0;
+          var tokens = [];
+          var last_in_blank = false;
+          if (init) {
+            var token = this.tokens[init - 1];
+            len = token.len;
+            text = replace(this.thread, this.text.substr(token.len));
+            line = token.line;
+            start = token.start;
+          } else
+            text = this.text;
+          if (/^\s*$/.test(text))
+            return null;
+          while (text !== "") {
+            var matches = [];
+            var last_is_blank = false;
+            if (/^\n/.exec(text) !== null) {
+              line++;
+              start = 0;
+              len++;
+              text = text.replace(/\n/, "");
+              last_in_blank = true;
+              continue;
+            }
+            for (var rule in rules) {
+              if (rules.hasOwnProperty(rule)) {
+                var matchs = rules[rule].exec(text);
+                if (matchs) {
+                  matches.push({
+                    value: matchs[0],
+                    name: rule,
+                    matches: matchs
+                  });
+                }
+              }
+            }
+            if (!matches.length)
+              return this.set_last_tokens([{value: text, matches: [], name: "lexical", line, start}]);
+            var token = reduce(matches, function(a, b) {
+              return a.value.length >= b.value.length ? a : b;
+            });
+            token.start = start;
+            token.line = line;
+            text = text.replace(token.value, "");
+            start += token.value.length;
+            len += token.value.length;
+            switch (token.name) {
+              case "atom":
+                token.raw = token.value;
+                if (token.value.charAt(0) === "'") {
+                  token.value = escapeAtom(token.value.substr(1, token.value.length - 2), "'");
+                  if (token.value === null) {
+                    token.name = "lexical";
+                    token.value = "unknown escape sequence";
+                  }
+                }
+                break;
+              case "number":
+                token.float = token.value.substring(0, 2) !== "0x" && token.value.match(/[.eE]/) !== null && token.value !== "0'.";
+                token.value = convertNum(token.value);
+                token.blank = last_is_blank;
+                break;
+              case "string":
+                var del = token.value.charAt(0);
+                token.value = escapeAtom(token.value.substr(1, token.value.length - 2), del);
+                if (token.value === null) {
+                  token.name = "lexical";
+                  token.value = "unknown escape sequence";
+                }
+                break;
+              case "whitespace":
+                var last = tokens[tokens.length - 1];
+                if (last)
+                  last.space = true;
+                last_is_blank = true;
+                continue;
+              case "r_bracket":
+                if (tokens.length > 0 && tokens[tokens.length - 1].name === "l_bracket") {
+                  token = tokens.pop();
+                  token.name = "atom";
+                  token.value = "{}";
+                  token.raw = "{}";
+                  token.space = false;
+                }
+                break;
+              case "r_brace":
+                if (tokens.length > 0 && tokens[tokens.length - 1].name === "l_brace") {
+                  token = tokens.pop();
+                  token.name = "atom";
+                  token.value = "[]";
+                  token.raw = "[]";
+                  token.space = false;
+                }
+                break;
+            }
+            token.len = len;
+            tokens.push(token);
+            last_is_blank = false;
+          }
+          var t = this.set_last_tokens(tokens);
+          return t.length === 0 ? null : t;
+        };
+        function parseExpr(thread, tokens, start, priority, toplevel) {
+          if (!tokens[start])
+            return {type: ERROR, value: pl3.error.syntax(tokens[start - 1], "expression expected", true)};
+          var error;
+          if (priority === "0") {
+            var token = tokens[start];
+            switch (token.name) {
+              case "number":
+                return {type: SUCCESS, len: start + 1, value: new pl3.type.Num(token.value, token.float)};
+              case "variable":
+                return {type: SUCCESS, len: start + 1, value: new pl3.type.Var(token.value)};
+              case "string":
+                var str;
+                switch (thread.get_flag("double_quotes").id) {
+                  case "atom":
+                    ;
+                    str = new Term(token.value, []);
+                    break;
+                  case "codes":
+                    str = new Term("[]", []);
+                    for (var i = token.value.length - 1; i >= 0; i--)
+                      str = new Term(".", [new pl3.type.Num(codePointAt(token.value, i), false), str]);
+                    break;
+                  case "chars":
+                    str = new Term("[]", []);
+                    for (var i = token.value.length - 1; i >= 0; i--)
+                      str = new Term(".", [new pl3.type.Term(token.value.charAt(i), []), str]);
+                    break;
+                }
+                return {type: SUCCESS, len: start + 1, value: str};
+              case "l_paren":
+                var expr = parseExpr(thread, tokens, start + 1, thread.__get_max_priority(), true);
+                if (expr.type !== SUCCESS)
+                  return expr;
+                if (tokens[expr.len] && tokens[expr.len].name === "r_paren") {
+                  expr.len++;
+                  return expr;
+                }
+                return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[expr.len] ? tokens[expr.len] : tokens[expr.len - 1], ") or operator expected", !tokens[expr.len])};
+              case "l_bracket":
+                var expr = parseExpr(thread, tokens, start + 1, thread.__get_max_priority(), true);
+                if (expr.type !== SUCCESS)
+                  return expr;
+                if (tokens[expr.len] && tokens[expr.len].name === "r_bracket") {
+                  expr.len++;
+                  expr.value = new Term("{}", [expr.value]);
+                  return expr;
+                }
+                return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[expr.len] ? tokens[expr.len] : tokens[expr.len - 1], "} or operator expected", !tokens[expr.len])};
+            }
+            var result = parseTerm(thread, tokens, start, toplevel);
+            if (result.type === SUCCESS || result.derived)
+              return result;
+            result = parseList(thread, tokens, start);
+            if (result.type === SUCCESS || result.derived)
+              return result;
+            return {type: ERROR, derived: false, value: pl3.error.syntax(tokens[start], "unexpected token")};
+          }
+          var max_priority = thread.__get_max_priority();
+          var next_priority = thread.__get_next_priority(priority);
+          var aux_start = start;
+          if (tokens[start].name === "atom" && tokens[start + 1] && (tokens[start].space || tokens[start + 1].name !== "l_paren")) {
+            var token = tokens[start++];
+            var classes = thread.__lookup_operator_classes(priority, token.value);
+            if (classes && classes.indexOf("fy") > -1) {
+              var expr = parseExpr(thread, tokens, start, priority, toplevel);
+              if (expr.type !== ERROR) {
+                if (token.value === "-" && !token.space && pl3.type.is_number(expr.value)) {
+                  return {
+                    value: new pl3.type.Num(-expr.value.value, expr.value.is_float),
+                    len: expr.len,
+                    type: SUCCESS
+                  };
+                } else {
+                  return {
+                    value: new pl3.type.Term(token.value, [expr.value]),
+                    len: expr.len,
+                    type: SUCCESS
+                  };
+                }
+              } else {
+                error = expr;
+              }
+            } else if (classes && classes.indexOf("fx") > -1) {
+              var expr = parseExpr(thread, tokens, start, next_priority, toplevel);
+              if (expr.type !== ERROR) {
+                return {
+                  value: new pl3.type.Term(token.value, [expr.value]),
+                  len: expr.len,
+                  type: SUCCESS
+                };
+              } else {
+                error = expr;
+              }
+            }
+          }
+          start = aux_start;
+          var expr = parseExpr(thread, tokens, start, next_priority, toplevel);
+          if (expr.type === SUCCESS) {
+            start = expr.len;
+            var token = tokens[start];
+            if (tokens[start] && (tokens[start].name === "atom" && thread.__lookup_operator_classes(priority, token.value) || tokens[start].name === "bar" && thread.__lookup_operator_classes(priority, "|"))) {
+              var next_priority_lt = next_priority;
+              var next_priority_eq = priority;
+              var classes = thread.__lookup_operator_classes(priority, token.value);
+              if (classes.indexOf("xf") > -1) {
+                return {
+                  value: new pl3.type.Term(token.value, [expr.value]),
+                  len: ++expr.len,
+                  type: SUCCESS
+                };
+              } else if (classes.indexOf("xfx") > -1) {
+                var expr2 = parseExpr(thread, tokens, start + 1, next_priority_lt, toplevel);
+                if (expr2.type === SUCCESS) {
+                  return {
+                    value: new pl3.type.Term(token.value, [expr.value, expr2.value]),
+                    len: expr2.len,
+                    type: SUCCESS
+                  };
+                } else {
+                  expr2.derived = true;
+                  return expr2;
+                }
+              } else if (classes.indexOf("xfy") > -1) {
+                var expr2 = parseExpr(thread, tokens, start + 1, next_priority_eq, toplevel);
+                if (expr2.type === SUCCESS) {
+                  return {
+                    value: new pl3.type.Term(token.value, [expr.value, expr2.value]),
+                    len: expr2.len,
+                    type: SUCCESS
+                  };
+                } else {
+                  expr2.derived = true;
+                  return expr2;
+                }
+              } else if (expr.type !== ERROR) {
+                while (true) {
+                  start = expr.len;
+                  var token = tokens[start];
+                  if (token && token.name === "atom" && thread.__lookup_operator_classes(priority, token.value)) {
+                    var classes = thread.__lookup_operator_classes(priority, token.value);
+                    if (classes.indexOf("yf") > -1) {
+                      expr = {
+                        value: new pl3.type.Term(token.value, [expr.value]),
+                        len: ++start,
+                        type: SUCCESS
+                      };
+                    } else if (classes.indexOf("yfx") > -1) {
+                      var expr2 = parseExpr(thread, tokens, ++start, next_priority_lt, toplevel);
+                      if (expr2.type === ERROR) {
+                        expr2.derived = true;
+                        return expr2;
+                      }
+                      start = expr2.len;
+                      expr = {
+                        value: new pl3.type.Term(token.value, [expr.value, expr2.value]),
+                        len: start,
+                        type: SUCCESS
+                      };
+                    } else {
+                      break;
+                    }
+                  } else {
+                    break;
+                  }
+                }
+              }
+            } else {
+              error = {type: ERROR, value: pl3.error.syntax(tokens[expr.len - 1], "operator expected")};
+            }
+            return expr;
+          }
+          return expr;
+        }
+        function parseTerm(thread, tokens, start, toplevel) {
+          if (!tokens[start] || tokens[start].name === "atom" && tokens[start].raw === "." && !toplevel && (tokens[start].space || !tokens[start + 1] || tokens[start + 1].name !== "l_paren"))
+            return {type: ERROR, derived: false, value: pl3.error.syntax(tokens[start - 1], "unfounded token")};
+          var atom = tokens[start];
+          var exprs = [];
+          if (tokens[start].name === "atom" && tokens[start].raw !== ",") {
+            start++;
+            if (tokens[start - 1].space)
+              return {type: SUCCESS, len: start, value: new pl3.type.Term(atom.value, exprs)};
+            if (tokens[start] && tokens[start].name === "l_paren") {
+              if (tokens[start + 1] && tokens[start + 1].name === "r_paren")
+                return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start + 1], "argument expected")};
+              var expr = parseExpr(thread, tokens, ++start, "999", true);
+              if (expr.type === ERROR) {
+                if (expr.derived)
+                  return expr;
+                else
+                  return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start] ? tokens[start] : tokens[start - 1], "argument expected", !tokens[start])};
+              }
+              exprs.push(expr.value);
+              start = expr.len;
+              while (tokens[start] && tokens[start].name === "atom" && tokens[start].value === ",") {
+                expr = parseExpr(thread, tokens, start + 1, "999", true);
+                if (expr.type === ERROR) {
+                  if (expr.derived)
+                    return expr;
+                  else
+                    return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start + 1] ? tokens[start + 1] : tokens[start], "argument expected", !tokens[start + 1])};
+                }
+                exprs.push(expr.value);
+                start = expr.len;
+              }
+              if (tokens[start] && tokens[start].name === "r_paren")
+                start++;
+              else
+                return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start] ? tokens[start] : tokens[start - 1], ", or ) expected", !tokens[start])};
+            }
+            return {type: SUCCESS, len: start, value: new pl3.type.Term(atom.value, exprs)};
+          }
+          return {type: ERROR, derived: false, value: pl3.error.syntax(tokens[start], "term expected")};
+        }
+        function parseList(thread, tokens, start) {
+          if (!tokens[start])
+            return {type: ERROR, derived: false, value: pl3.error.syntax(tokens[start - 1], "[ expected")};
+          if (tokens[start] && tokens[start].name === "l_brace") {
+            var expr = parseExpr(thread, tokens, ++start, "999", true);
+            var exprs = [expr.value];
+            var cons = void 0;
+            if (expr.type === ERROR) {
+              if (tokens[start] && tokens[start].name === "r_brace") {
+                return {type: SUCCESS, len: start + 1, value: new pl3.type.Term("[]", [])};
+              }
+              return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start], "] expected")};
+            }
+            start = expr.len;
+            while (tokens[start] && tokens[start].name === "atom" && tokens[start].value === ",") {
+              expr = parseExpr(thread, tokens, start + 1, "999", true);
+              if (expr.type === ERROR) {
+                if (expr.derived)
+                  return expr;
+                else
+                  return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start + 1] ? tokens[start + 1] : tokens[start], "argument expected", !tokens[start + 1])};
+              }
+              exprs.push(expr.value);
+              start = expr.len;
+            }
+            var bar = false;
+            if (tokens[start] && tokens[start].name === "bar") {
+              bar = true;
+              expr = parseExpr(thread, tokens, start + 1, "999", true);
+              if (expr.type === ERROR) {
+                if (expr.derived)
+                  return expr;
+                else
+                  return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start + 1] ? tokens[start + 1] : tokens[start], "argument expected", !tokens[start + 1])};
+              }
+              cons = expr.value;
+              start = expr.len;
+            }
+            if (tokens[start] && tokens[start].name === "r_brace")
+              return {type: SUCCESS, len: start + 1, value: arrayToList(exprs, cons)};
+            else
+              return {type: ERROR, derived: true, value: pl3.error.syntax(tokens[start] ? tokens[start] : tokens[start - 1], bar ? "] expected" : ", or | or ] expected", !tokens[start])};
+          }
+          return {type: ERROR, derived: false, value: pl3.error.syntax(tokens[start], "list expected")};
+        }
+        function parseRule(thread, tokens, start) {
+          var line = tokens[start].line;
+          var expr = parseExpr(thread, tokens, start, thread.__get_max_priority(), false);
+          var rule = null;
+          var obj;
+          if (expr.type !== ERROR) {
+            start = expr.len;
+            if (tokens[start] && tokens[start].name === "atom" && tokens[start].raw === ".") {
+              start++;
+              if (pl3.type.is_term(expr.value)) {
+                if (expr.value.indicator === ":-/2") {
+                  rule = new pl3.type.Rule(expr.value.args[0], body_conversion(expr.value.args[1]));
+                  obj = {
+                    value: rule,
+                    len: start,
+                    type: SUCCESS
+                  };
+                } else if (expr.value.indicator === "-->/2") {
+                  rule = rule_to_dcg(new pl3.type.Rule(expr.value.args[0], expr.value.args[1]), thread);
+                  rule.body = body_conversion(rule.body);
+                  obj = {
+                    value: rule,
+                    len: start,
+                    type: pl3.type.is_rule(rule) ? SUCCESS : ERROR
+                  };
+                } else {
+                  rule = new pl3.type.Rule(expr.value, null);
+                  obj = {
+                    value: rule,
+                    len: start,
+                    type: SUCCESS
+                  };
+                }
+                if (rule) {
+                  var singleton = rule.singleton_variables();
+                  if (singleton.length > 0)
+                    thread.throw_warning(pl3.warning.singleton(singleton, rule.head.indicator, line));
+                }
+                return obj;
+              } else {
+                return {type: ERROR, value: pl3.error.syntax(tokens[start], "callable expected")};
+              }
+            } else {
+              return {type: ERROR, value: pl3.error.syntax(tokens[start] ? tokens[start] : tokens[start - 1], ". or operator expected")};
+            }
+          }
+          return expr;
+        }
+        function parseProgram(thread, string, options) {
+          options = options ? options : {};
+          options.from = options.from ? options.from : "$tau-js";
+          options.reconsult = options.reconsult !== void 0 ? options.reconsult : true;
+          var tokenizer = new Tokenizer(thread);
+          var reconsulted = {};
+          var indicator;
+          tokenizer.new_text(string);
+          var n = 0;
+          var tokens = tokenizer.get_tokens(n);
+          do {
+            if (tokens === null || !tokens[n])
+              break;
+            var expr = parseRule(thread, tokens, n);
+            if (expr.type === ERROR) {
+              return new Term("throw", [expr.value]);
+            } else if (expr.value.body === null && expr.value.head.indicator === "?-/1") {
+              var n_thread = new Thread(thread.session);
+              n_thread.add_goal(expr.value.head.args[0]);
+              n_thread.answer(function(answer) {
+                if (pl3.type.is_error(answer)) {
+                  thread.throw_warning(answer.args[0]);
+                } else if (answer === false || answer === null) {
+                  thread.throw_warning(pl3.warning.failed_goal(expr.value.head.args[0], expr.len));
+                }
+              });
+              n = expr.len;
+              var result = true;
+            } else if (expr.value.body === null && expr.value.head.indicator === ":-/1") {
+              var result = thread.run_directive(expr.value.head.args[0]);
+              n = expr.len;
+              if (expr.value.head.args[0].indicator === "char_conversion/2") {
+                tokens = tokenizer.get_tokens(n);
+                n = 0;
+              }
+            } else {
+              indicator = expr.value.head.indicator;
+              if (options.reconsult !== false && reconsulted[indicator] !== true && !thread.is_multifile_predicate(indicator)) {
+                thread.session.rules[indicator] = filter(thread.session.rules[indicator] || [], function(rule) {
+                  return rule.dynamic;
+                });
+                reconsulted[indicator] = true;
+              }
+              var result = thread.add_rule(expr.value, options);
+              n = expr.len;
+            }
+            if (!result) {
+              return result;
+            }
+          } while (true);
+          return true;
+        }
+        function parseQuery(thread, string) {
+          var tokenizer = new Tokenizer(thread);
+          tokenizer.new_text(string);
+          var n = 0;
+          do {
+            var tokens = tokenizer.get_tokens(n);
+            if (tokens === null)
+              break;
+            var expr = parseExpr(thread, tokens, 0, thread.__get_max_priority(), false);
+            if (expr.type !== ERROR) {
+              var expr_position = expr.len;
+              var tokens_pos = expr_position;
+              if (tokens[expr_position] && tokens[expr_position].name === "atom" && tokens[expr_position].raw === ".") {
+                thread.add_goal(body_conversion(expr.value));
+              } else {
+                var token = tokens[expr_position];
+                return new Term("throw", [pl3.error.syntax(token ? token : tokens[expr_position - 1], ". or operator expected", !token)]);
+              }
+              n = expr.len + 1;
+            } else {
+              return new Term("throw", [expr.value]);
+            }
+          } while (true);
+          return true;
+        }
+        function rule_to_dcg(rule, thread) {
+          rule = rule.rename(thread);
+          var begin = thread.next_free_variable();
+          var dcg = body_to_dcg(rule.body, begin, thread);
+          if (dcg.error)
+            return dcg.value;
+          rule.body = dcg.value;
+          rule.head.args = rule.head.args.concat([begin, dcg.variable]);
+          rule.head = new Term(rule.head.id, rule.head.args);
+          return rule;
+        }
+        function body_to_dcg(expr, last, thread) {
+          var free;
+          if (pl3.type.is_term(expr) && expr.indicator === "!/0") {
+            return {
+              value: expr,
+              variable: last,
+              error: false
+            };
+          } else if (pl3.type.is_term(expr) && expr.indicator === ",/2") {
+            var left = body_to_dcg(expr.args[0], last, thread);
+            if (left.error)
+              return left;
+            var right = body_to_dcg(expr.args[1], left.variable, thread);
+            if (right.error)
+              return right;
+            return {
+              value: new Term(",", [left.value, right.value]),
+              variable: right.variable,
+              error: false
+            };
+          } else if (pl3.type.is_term(expr) && expr.indicator === "{}/1") {
+            return {
+              value: expr.args[0],
+              variable: last,
+              error: false
+            };
+          } else if (pl3.type.is_empty_list(expr)) {
+            return {
+              value: new Term("true", []),
+              variable: last,
+              error: false
+            };
+          } else if (pl3.type.is_list(expr)) {
+            free = thread.next_free_variable();
+            var pointer = expr;
+            var prev;
+            while (pointer.indicator === "./2") {
+              prev = pointer;
+              pointer = pointer.args[1];
+            }
+            if (pl3.type.is_variable(pointer)) {
+              return {
+                value: pl3.error.instantiation("DCG"),
+                variable: last,
+                error: true
+              };
+            } else if (!pl3.type.is_empty_list(pointer)) {
+              return {
+                value: pl3.error.type("list", expr, "DCG"),
+                variable: last,
+                error: true
+              };
+            } else {
+              prev.args[1] = free;
+              return {
+                value: new Term("=", [last, expr]),
+                variable: free,
+                error: false
+              };
+            }
+          } else if (pl3.type.is_callable(expr)) {
+            free = thread.next_free_variable();
+            expr.args = expr.args.concat([last, free]);
+            expr = new Term(expr.id, expr.args);
+            return {
+              value: expr,
+              variable: free,
+              error: false
+            };
+          } else {
+            return {
+              value: pl3.error.type("callable", expr, "DCG"),
+              variable: last,
+              error: true
+            };
+          }
+        }
+        function body_conversion(expr) {
+          if (pl3.type.is_variable(expr))
+            return new Term("call", [expr]);
+          else if (pl3.type.is_term(expr) && [",/2", ";/2", "->/2"].indexOf(expr.indicator) !== -1)
+            return new Term(expr.id, [body_conversion(expr.args[0]), body_conversion(expr.args[1])]);
+          return expr;
+        }
+        function arrayToList(array, cons) {
+          var list = cons ? cons : new pl3.type.Term("[]", []);
+          for (var i = array.length - 1; i >= 0; i--)
+            list = new pl3.type.Term(".", [array[i], list]);
+          return list;
+        }
+        function remove(array, element) {
+          for (var i = array.length - 1; i >= 0; i--) {
+            if (array[i] === element) {
+              array.splice(i, 1);
+            }
+          }
+        }
+        function nub(array) {
+          var seen = {};
+          var unique = [];
+          for (var i = 0; i < array.length; i++) {
+            if (!(array[i] in seen)) {
+              unique.push(array[i]);
+              seen[array[i]] = true;
+            }
+          }
+          return unique;
+        }
+        function retract(thread, point, indicator, rule) {
+          if (thread.session.rules[indicator] !== null) {
+            for (var i = 0; i < thread.session.rules[indicator].length; i++) {
+              if (thread.session.rules[indicator][i] === rule) {
+                thread.session.rules[indicator].splice(i, 1);
+                thread.success(point);
+                break;
+              }
+            }
+          }
+        }
+        function callN(n) {
+          return function(thread, point, atom) {
+            var closure = atom.args[0], args = atom.args.slice(1, n);
+            if (pl3.type.is_variable(closure)) {
+              thread.throw_error(pl3.error.instantiation(thread.level));
+            } else if (!pl3.type.is_callable(closure)) {
+              thread.throw_error(pl3.error.type("callable", closure, thread.level));
+            } else {
+              var goal = new Term(closure.id, closure.args.concat(args));
+              thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+            }
+          };
+        }
+        function str_indicator(str) {
+          for (var i = str.length - 1; i >= 0; i--)
+            if (str.charAt(i) === "/")
+              return new Term("/", [new Term(str.substring(0, i)), new Num(parseInt(str.substring(i + 1)), false)]);
+        }
+        function Var(id) {
+          this.id = id;
+        }
+        function Num(value, is_float) {
+          this.is_float = is_float !== void 0 ? is_float : parseInt(value) !== value;
+          this.value = this.is_float ? value : parseInt(value);
+        }
+        var term_ref = 0;
+        function Term(id, args, ref) {
+          this.ref = ref || ++term_ref;
+          this.id = id;
+          this.args = args || [];
+          this.indicator = id + "/" + this.args.length;
+        }
+        var stream_ref = 0;
+        function Stream(stream, mode, alias, type, reposition, eof_action) {
+          this.id = stream_ref++;
+          this.stream = stream;
+          this.mode = mode;
+          this.alias = alias;
+          this.type = type !== void 0 ? type : "text";
+          this.reposition = reposition !== void 0 ? reposition : true;
+          this.eof_action = eof_action !== void 0 ? eof_action : "eof_code";
+          this.position = this.mode === "append" ? "end_of_stream" : 0;
+          this.output = this.mode === "write" || this.mode === "append";
+          this.input = this.mode === "read";
+        }
+        function Substitution(links) {
+          links = links || {};
+          this.links = links;
+        }
+        function State(goal, subs, parent) {
+          subs = subs || new Substitution();
+          parent = parent || null;
+          this.goal = goal;
+          this.substitution = subs;
+          this.parent = parent;
+        }
+        function Rule(head, body, dynamic) {
+          this.head = head;
+          this.body = body;
+          this.dynamic = dynamic ? dynamic : false;
+        }
+        function Session2(limit) {
+          limit = limit === void 0 || limit <= 0 ? 1e3 : limit;
+          this.rules = {};
+          this.src_predicates = {};
+          this.rename = 0;
+          this.modules = [];
+          this.thread = new Thread(this);
+          this.total_threads = 1;
+          this.renamed_variables = {};
+          this.public_predicates = {};
+          this.multifile_predicates = {};
+          this.limit = limit;
+          this.streams = {
+            "user_input": new Stream(typeof module !== "undefined" && module.exports ? nodejs_user_input : tau_user_input, "read", "user_input", "text", false, "reset"),
+            "user_output": new Stream(typeof module !== "undefined" && module.exports ? nodejs_user_output : tau_user_output, "write", "user_output", "text", false, "eof_code")
+          };
+          this.file_system = typeof module !== "undefined" && module.exports ? nodejs_file_system : tau_file_system;
+          this.standard_input = this.streams["user_input"];
+          this.standard_output = this.streams["user_output"];
+          this.current_input = this.streams["user_input"];
+          this.current_output = this.streams["user_output"];
+          this.format_success = function(state) {
+            return state.substitution;
+          };
+          this.format_error = function(state) {
+            return state.goal;
+          };
+          this.flag = {
+            bounded: pl3.flag.bounded.value,
+            max_integer: pl3.flag.max_integer.value,
+            min_integer: pl3.flag.min_integer.value,
+            integer_rounding_function: pl3.flag.integer_rounding_function.value,
+            char_conversion: pl3.flag.char_conversion.value,
+            debug: pl3.flag.debug.value,
+            max_arity: pl3.flag.max_arity.value,
+            unknown: pl3.flag.unknown.value,
+            double_quotes: pl3.flag.double_quotes.value,
+            occurs_check: pl3.flag.occurs_check.value,
+            dialect: pl3.flag.dialect.value,
+            version_data: pl3.flag.version_data.value,
+            nodejs: pl3.flag.nodejs.value
+          };
+          this.__loaded_modules = [];
+          this.__char_conversion = {};
+          this.__operators = {
+            1200: {":-": ["fx", "xfx"], "-->": ["xfx"], "?-": ["fx"]},
+            1100: {";": ["xfy"]},
+            1050: {"->": ["xfy"]},
+            1e3: {",": ["xfy"]},
+            900: {"\\+": ["fy"]},
+            700: {
+              "=": ["xfx"],
+              "\\=": ["xfx"],
+              "==": ["xfx"],
+              "\\==": ["xfx"],
+              "@<": ["xfx"],
+              "@=<": ["xfx"],
+              "@>": ["xfx"],
+              "@>=": ["xfx"],
+              "=..": ["xfx"],
+              "is": ["xfx"],
+              "=:=": ["xfx"],
+              "=\\=": ["xfx"],
+              "<": ["xfx"],
+              "=<": ["xfx"],
+              ">": ["xfx"],
+              ">=": ["xfx"]
+            },
+            600: {":": ["xfy"]},
+            500: {"+": ["yfx"], "-": ["yfx"], "/\\": ["yfx"], "\\/": ["yfx"]},
+            400: {
+              "*": ["yfx"],
+              "/": ["yfx"],
+              "//": ["yfx"],
+              "rem": ["yfx"],
+              "mod": ["yfx"],
+              "<<": ["yfx"],
+              ">>": ["yfx"]
+            },
+            200: {"**": ["xfx"], "^": ["xfy"], "-": ["fy"], "+": ["fy"], "\\": ["fy"]}
+          };
+        }
+        function Thread(session) {
+          this.epoch = Date.now();
+          this.session = session;
+          this.session.total_threads++;
+          this.total_steps = 0;
+          this.cpu_time = 0;
+          this.cpu_time_last = 0;
+          this.points = [];
+          this.debugger = false;
+          this.debugger_states = [];
+          this.level = "top_level/0";
+          this.__calls = [];
+          this.current_limit = this.session.limit;
+          this.warnings = [];
+        }
+        function Module(id, rules2, exports2) {
+          this.id = id;
+          this.rules = rules2;
+          this.exports = exports2;
+          pl3.module[id] = this;
+        }
+        Module.prototype.exports_predicate = function(indicator) {
+          return this.exports.indexOf(indicator) !== -1;
+        };
+        Var.prototype.unify = function(obj, occurs_check) {
+          if (occurs_check && indexOf(obj.variables(), this.id) !== -1 && !pl3.type.is_variable(obj)) {
+            return null;
+          }
+          var links = {};
+          links[this.id] = obj;
+          return new Substitution(links);
+        };
+        Num.prototype.unify = function(obj, _) {
+          if (pl3.type.is_number(obj) && this.value === obj.value && this.is_float === obj.is_float) {
+            return new Substitution();
+          }
+          return null;
+        };
+        Term.prototype.unify = function(obj, occurs_check) {
+          if (pl3.type.is_term(obj) && this.indicator === obj.indicator) {
+            var subs = new Substitution();
+            for (var i = 0; i < this.args.length; i++) {
+              var mgu = pl3.unify(this.args[i].apply(subs), obj.args[i].apply(subs), occurs_check);
+              if (mgu === null)
+                return null;
+              for (var x in mgu.links)
+                subs.links[x] = mgu.links[x];
+              subs = subs.apply(mgu);
+            }
+            return subs;
+          }
+          return null;
+        };
+        Stream.prototype.unify = function(obj, occurs_check) {
+          if (pl3.type.is_stream(obj) && this.id === obj.id) {
+            return new Substitution();
+          }
+          return null;
+        };
+        Var.prototype.toString = function(_) {
+          return this.id;
+        };
+        Num.prototype.toString = function(_) {
+          return this.is_float && indexOf(this.value.toString(), ".") === -1 ? this.value + ".0" : this.value.toString();
+        };
+        Term.prototype.toString = function(options, priority, from) {
+          options = !options ? {} : options;
+          options.quoted = options.quoted === void 0 ? true : options.quoted;
+          options.ignore_ops = options.ignore_ops === void 0 ? false : options.ignore_ops;
+          options.numbervars = options.numbervars === void 0 ? false : options.numbervars;
+          priority = priority === void 0 ? 1200 : priority;
+          from = from === void 0 ? "" : from;
+          if (options.numbervars && this.indicator === "$VAR/1" && pl3.type.is_integer(this.args[0]) && this.args[0].value >= 0) {
+            var i = this.args[0].value;
+            var number = Math.floor(i / 26);
+            var letter = i % 26;
+            return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[letter] + (number !== 0 ? number : "");
+          }
+          switch (this.indicator) {
+            case "[]/0":
+            case "{}/0":
+            case "!/0":
+              return this.id;
+            case "{}/1":
+              return "{" + this.args[0].toString(options) + "}";
+            case "./2":
+              var list = "[" + this.args[0].toString(options);
+              var pointer = this.args[1];
+              while (pointer.indicator === "./2") {
+                list += ", " + pointer.args[0].toString(options);
+                pointer = pointer.args[1];
+              }
+              if (pointer.indicator !== "[]/0") {
+                list += "|" + pointer.toString(options);
+              }
+              list += "]";
+              return list;
+            case ",/2":
+              return "(" + this.args[0].toString(options) + ", " + this.args[1].toString(options) + ")";
+            default:
+              var id = this.id;
+              var operator = options.session ? options.session.lookup_operator(this.id, this.args.length) : null;
+              if (options.session === void 0 || options.ignore_ops || operator === null) {
+                if (options.quoted && !/^(!|,|;|[a-z][0-9a-zA-Z_]*)$/.test(id) && id !== "{}" && id !== "[]")
+                  id = "'" + redoEscape(id) + "'";
+                return id + (this.args.length ? "(" + map(this.args, function(x) {
+                  return x.toString(options);
+                }).join(", ") + ")" : "");
+              } else {
+                var cond = operator.priority > priority.priority || operator.priority === priority.priority && (operator.class === "xfy" && this.indicator !== priority.indicator || operator.class === "yfx" && this.indicator !== priority.indicator || this.indicator === priority.indicator && operator.class === "yfx" && from === "right" || this.indicator === priority.indicator && operator.class === "xfy" && from === "left");
+                operator.indicator = this.indicator;
+                var lpar = cond ? "(" : "";
+                var rpar = cond ? ")" : "";
+                if (this.args.length === 0) {
+                  return "(" + this.id + ")";
+                } else if (["fy", "fx"].indexOf(operator.class) !== -1) {
+                  return lpar + id + " " + this.args[0].toString(options, operator) + rpar;
+                } else if (["yf", "xf"].indexOf(operator.class) !== -1) {
+                  return lpar + this.args[0].toString(options, operator) + " " + id + rpar;
+                } else {
+                  return lpar + this.args[0].toString(options, operator, "left") + " " + this.id + " " + this.args[1].toString(options, operator, "right") + rpar;
+                }
+              }
+          }
+        };
+        Stream.prototype.toString = function(_) {
+          return "<stream>(" + this.id + ")";
+        };
+        Substitution.prototype.toString = function(options) {
+          var str = "{";
+          for (var link in this.links) {
+            if (!this.links.hasOwnProperty(link))
+              continue;
+            if (str !== "{") {
+              str += ", ";
+            }
+            str += link + "/" + this.links[link].toString(options);
+          }
+          str += "}";
+          return str;
+        };
+        State.prototype.toString = function(options) {
+          if (this.goal === null) {
+            return "<" + this.substitution.toString(options) + ">";
+          } else {
+            return "<" + this.goal.toString(options) + ", " + this.substitution.toString(options) + ">";
+          }
+        };
+        Rule.prototype.toString = function(options) {
+          if (!this.body) {
+            return this.head.toString(options) + ".";
+          } else {
+            return this.head.toString(options) + " :- " + this.body.toString(options) + ".";
+          }
+        };
+        Session2.prototype.toString = function(options) {
+          var str = "";
+          for (var i = 0; i < this.modules.length; i++) {
+            str += ":- use_module(library(" + this.modules[i] + ")).\n";
+          }
+          str += "\n";
+          for (key in this.rules) {
+            for (i = 0; i < this.rules[key].length; i++) {
+              str += this.rules[key][i].toString(options);
+              str += "\n";
+            }
+          }
+          return str;
+        };
+        Var.prototype.clone = function() {
+          return new Var(this.id);
+        };
+        Num.prototype.clone = function() {
+          return new Num(this.value, this.is_float);
+        };
+        Term.prototype.clone = function() {
+          return new Term(this.id, map(this.args, function(arg) {
+            return arg.clone();
+          }));
+        };
+        Stream.prototype.clone = function() {
+          return new Stram(this.stream, this.mode, this.alias, this.type, this.reposition, this.eof_action);
+        };
+        Substitution.prototype.clone = function() {
+          var links = {};
+          for (var link in this.links) {
+            if (!this.links.hasOwnProperty(link))
+              continue;
+            links[link] = this.links[link].clone();
+          }
+          return new Substitution(links);
+        };
+        State.prototype.clone = function() {
+          return new State(this.goal.clone(), this.substitution.clone(), this.parent);
+        };
+        Rule.prototype.clone = function() {
+          return new Rule(this.head.clone(), this.body !== null ? this.body.clone() : null);
+        };
+        Var.prototype.equals = function(obj) {
+          return pl3.type.is_variable(obj) && this.id === obj.id;
+        };
+        Num.prototype.equals = function(obj) {
+          return pl3.type.is_number(obj) && this.value === obj.value && this.is_float === obj.is_float;
+        };
+        Term.prototype.equals = function(obj) {
+          if (!pl3.type.is_term(obj) || this.indicator !== obj.indicator) {
+            return false;
+          }
+          for (var i = 0; i < this.args.length; i++) {
+            if (!this.args[i].equals(obj.args[i])) {
+              return false;
+            }
+          }
+          return true;
+        };
+        Stream.prototype.equals = function(obj) {
+          return pl3.type.is_stream(obj) && this.id === obj.id;
+        };
+        Substitution.prototype.equals = function(obj) {
+          var link;
+          if (!pl3.type.is_substitution(obj)) {
+            return false;
+          }
+          for (link in this.links) {
+            if (!this.links.hasOwnProperty(link))
+              continue;
+            if (!obj.links[link] || !this.links[link].equals(obj.links[link])) {
+              return false;
+            }
+          }
+          for (link in obj.links) {
+            if (!obj.links.hasOwnProperty(link))
+              continue;
+            if (!this.links[link]) {
+              return false;
+            }
+          }
+          return true;
+        };
+        State.prototype.equals = function(obj) {
+          return pl3.type.is_state(obj) && this.goal.equals(obj.goal) && this.substitution.equals(obj.substitution) && this.parent === obj.parent;
+        };
+        Rule.prototype.equals = function(obj) {
+          return pl3.type.is_rule(obj) && this.head.equals(obj.head) && (this.body === null && obj.body === null || this.body !== null && this.body.equals(obj.body));
+        };
+        Var.prototype.rename = function(thread) {
+          return thread.get_free_variable(this);
+        };
+        Num.prototype.rename = function(_) {
+          return this;
+        };
+        Term.prototype.rename = function(thread) {
+          return new Term(this.id, map(this.args, function(arg) {
+            return arg.rename(thread);
+          }));
+        };
+        Stream.prototype.rename = function(thread) {
+          return this;
+        };
+        Rule.prototype.rename = function(thread) {
+          return new Rule(this.head.rename(thread), this.body !== null ? this.body.rename(thread) : null);
+        };
+        Var.prototype.variables = function() {
+          return [this.id];
+        };
+        Num.prototype.variables = function() {
+          return [];
+        };
+        Term.prototype.variables = function() {
+          return [].concat.apply([], map(this.args, function(arg) {
+            return arg.variables();
+          }));
+        };
+        Stream.prototype.variables = function() {
+          return [];
+        };
+        Rule.prototype.variables = function() {
+          if (this.body === null) {
+            return this.head.variables();
+          } else {
+            return this.head.variables().concat(this.body.variables());
+          }
+        };
+        Var.prototype.apply = function(subs) {
+          if (subs.lookup(this.id)) {
+            return subs.lookup(this.id);
+          }
+          return this;
+        };
+        Num.prototype.apply = function(_) {
+          return this;
+        };
+        Term.prototype.apply = function(subs) {
+          if (this.indicator === "./2") {
+            var arr = [];
+            var pointer = this;
+            while (pointer.indicator === "./2") {
+              arr.push(pointer.args[0].apply(subs));
+              pointer = pointer.args[1];
+            }
+            var list = pointer.apply(subs);
+            for (var i = arr.length - 1; i >= 0; i--) {
+              list = new Term(".", [arr[i], list]);
+            }
+            return list;
+          }
+          return new Term(this.id, map(this.args, function(arg) {
+            return arg.apply(subs);
+          }), this.ref);
+        };
+        Stream.prototype.apply = function(_) {
+          return this;
+        };
+        Rule.prototype.apply = function(subs) {
+          return new Rule(this.head.apply(subs), this.body !== null ? this.body.apply(subs) : null);
+        };
+        Substitution.prototype.apply = function(subs) {
+          var link, links = {};
+          for (link in this.links) {
+            if (!this.links.hasOwnProperty(link))
+              continue;
+            links[link] = this.links[link].apply(subs);
+          }
+          return new Substitution(links);
+        };
+        Term.prototype.select = function() {
+          var pointer = this;
+          while (pointer.indicator === ",/2")
+            pointer = pointer.args[0];
+          return pointer;
+        };
+        Term.prototype.replace = function(expr) {
+          if (this.indicator === ",/2") {
+            if (this.args[0].indicator === ",/2") {
+              return new Term(",", [this.args[0].replace(expr), this.args[1]]);
+            } else {
+              return expr === null ? this.args[1] : new Term(",", [expr, this.args[1]]);
+            }
+          } else {
+            return expr;
+          }
+        };
+        Term.prototype.search = function(expr) {
+          if (pl3.type.is_term(expr) && expr.ref !== void 0 && this.ref === expr.ref)
+            return true;
+          for (var i = 0; i < this.args.length; i++)
+            if (pl3.type.is_term(this.args[i]) && this.args[i].search(expr))
+              return true;
+          return false;
+        };
+        Session2.prototype.get_current_input = function() {
+          return this.current_input;
+        };
+        Thread.prototype.get_current_input = function() {
+          return this.session.get_current_input();
+        };
+        Session2.prototype.get_current_output = function() {
+          return this.current_output;
+        };
+        Thread.prototype.get_current_output = function() {
+          return this.session.get_current_output();
+        };
+        Session2.prototype.set_current_input = function(input) {
+          this.current_input = input;
+        };
+        Thread.prototype.set_current_input = function(input) {
+          return this.session.set_current_input(input);
+        };
+        Session2.prototype.set_current_output = function(output2) {
+          this.current_input = output2;
+        };
+        Thread.prototype.set_current_output = function(output2) {
+          return this.session.set_current_output(output2);
+        };
+        Session2.prototype.get_stream_by_alias = function(alias) {
+          return this.streams[alias];
+        };
+        Thread.prototype.get_stream_by_alias = function(alias) {
+          return this.session.get_stream_by_alias(alias);
+        };
+        Session2.prototype.file_system_open = function(path, type, mode) {
+          return this.file_system.open(path, type, mode);
+        };
+        Thread.prototype.file_system_open = function(path, type, mode) {
+          return this.session.file_system_open(path, type, mode);
+        };
+        Session2.prototype.get_char_conversion = function(char2) {
+          return this.__char_conversion[char2] || char2;
+        };
+        Thread.prototype.get_char_conversion = function(char2) {
+          return this.session.get_char_conversion(char2);
+        };
+        Session2.prototype.parse = function(string) {
+          return this.thread.parse(string);
+        };
+        Thread.prototype.parse = function(string) {
+          var tokenizer = new Tokenizer(this);
+          tokenizer.new_text(string);
+          var tokens = tokenizer.get_tokens();
+          if (tokens === null)
+            return false;
+          var expr = parseExpr(this, tokens, 0, this.__get_max_priority(), false);
+          if (expr.len !== tokens.length)
+            return false;
+          return {value: expr.value, expr, tokens};
+        };
+        Session2.prototype.get_flag = function(flag) {
+          return this.flag[flag];
+        };
+        Thread.prototype.get_flag = function(flag) {
+          return this.session.get_flag(flag);
+        };
+        Session2.prototype.add_rule = function(rule, options) {
+          options = options ? options : {};
+          options.from = options.from ? options.from : "$tau-js";
+          this.src_predicates[rule.head.indicator] = options.from;
+          if (!this.rules[rule.head.indicator]) {
+            this.rules[rule.head.indicator] = [];
+          }
+          this.rules[rule.head.indicator].push(rule);
+          if (!this.public_predicates.hasOwnProperty(rule.head.indicator))
+            this.public_predicates[rule.head.indicator] = false;
+          return true;
+        };
+        Thread.prototype.add_rule = function(rule, options) {
+          return this.session.add_rule(rule, options);
+        };
+        Session2.prototype.run_directive = function(directive) {
+          this.thread.run_directive(directive);
+        };
+        Thread.prototype.run_directive = function(directive) {
+          if (pl3.type.is_directive(directive)) {
+            pl3.directive[directive.indicator](this, directive);
+            return true;
+          }
+          return false;
+        };
+        Session2.prototype.__get_max_priority = function() {
+          return "1200";
+        };
+        Thread.prototype.__get_max_priority = function() {
+          return this.session.__get_max_priority();
+        };
+        Session2.prototype.__get_next_priority = function(priority) {
+          var max = 0;
+          priority = parseInt(priority);
+          for (var key2 in this.__operators) {
+            if (!this.__operators.hasOwnProperty(key2))
+              continue;
+            var n = parseInt(key2);
+            if (n > max && n < priority)
+              max = n;
+          }
+          return max.toString();
+        };
+        Thread.prototype.__get_next_priority = function(priority) {
+          return this.session.__get_next_priority(priority);
+        };
+        Session2.prototype.__lookup_operator_classes = function(priority, operator) {
+          if (this.__operators.hasOwnProperty(priority) && this.__operators[priority][operator] instanceof Array) {
+            return this.__operators[priority][operator] || false;
+          }
+          return false;
+        };
+        Thread.prototype.__lookup_operator_classes = function(priority, operator) {
+          return this.session.__lookup_operator_classes(priority, operator);
+        };
+        Session2.prototype.lookup_operator = function(name, arity) {
+          for (var p in this.__operators)
+            if (this.__operators[p][name]) {
+              for (var i = 0; i < this.__operators[p][name].length; i++)
+                if (arity === 0 || this.__operators[p][name][i].length === arity + 1)
+                  return {priority: p, class: this.__operators[p][name][i]};
+            }
+          return null;
+        };
+        Thread.prototype.lookup_operator = function(name, arity) {
+          return this.session.lookup_operator(name, arity);
+        };
+        Session2.prototype.throw_warning = function(warning) {
+          this.thread.throw_warning(warning);
+        };
+        Thread.prototype.throw_warning = function(warning) {
+          this.warnings.push(warning);
+        };
+        Session2.prototype.get_warnings = function() {
+          return this.thread.get_warnings();
+        };
+        Thread.prototype.get_warnings = function() {
+          return this.warnings;
+        };
+        Session2.prototype.add_goal = function(goal, unique) {
+          this.thread.add_goal(goal, unique);
+        };
+        Thread.prototype.add_goal = function(goal, unique, parent) {
+          parent = parent ? parent : null;
+          if (unique === true)
+            this.points = [];
+          var vars = goal.variables();
+          var links = {};
+          for (var i = 0; i < vars.length; i++)
+            links[vars[i]] = new Var(vars[i]);
+          this.points.push(new State(goal, new Substitution(links), parent));
+        };
+        Session2.prototype.consult = function(program, options) {
+          return this.thread.consult(program, options);
+        };
+        Thread.prototype.consult = function(program, options) {
+          var string = "";
+          if (typeof program === "string") {
+            string = program;
+            var len = string.length;
+            if (string.substring(len - 3, len) === ".pl" && document.getElementById(string)) {
+              var script = document.getElementById(string);
+              var type = script.getAttribute("type");
+              if (type !== null && type.replace(/ /g, "").toLowerCase() === "text/prolog") {
+                string = script.text;
+              }
+            }
+          } else if (program.nodeName) {
+            switch (program.nodeName.toLowerCase()) {
+              case "input":
+              case "textarea":
+                string = program.value;
+                break;
+              default:
+                string = program.innerHTML;
+                break;
+            }
+          } else {
+            return false;
+          }
+          this.warnings = [];
+          return parseProgram(this, string, options);
+        };
+        Session2.prototype.query = function(string) {
+          return this.thread.query(string);
+        };
+        Thread.prototype.query = function(string) {
+          this.points = [];
+          this.debugger_points = [];
+          return parseQuery(this, string);
+        };
+        Session2.prototype.head_point = function() {
+          return this.thread.head_point();
+        };
+        Thread.prototype.head_point = function() {
+          return this.points[this.points.length - 1];
+        };
+        Session2.prototype.get_free_variable = function(variable) {
+          return this.thread.get_free_variable(variable);
+        };
+        Thread.prototype.get_free_variable = function(variable) {
+          var variables = [];
+          if (variable.id === "_" || this.session.renamed_variables[variable.id] === void 0) {
+            this.session.rename++;
+            if (this.points.length > 0)
+              variables = this.head_point().substitution.domain();
+            while (indexOf(variables, pl3.format_variable(this.session.rename)) !== -1) {
+              this.session.rename++;
+            }
+            if (variable.id === "_") {
+              return new Var(pl3.format_variable(this.session.rename));
+            } else {
+              this.session.renamed_variables[variable.id] = pl3.format_variable(this.session.rename);
+            }
+          }
+          return new Var(this.session.renamed_variables[variable.id]);
+        };
+        Session2.prototype.next_free_variable = function() {
+          return this.thread.next_free_variable();
+        };
+        Thread.prototype.next_free_variable = function() {
+          this.session.rename++;
+          var variables = [];
+          if (this.points.length > 0)
+            variables = this.head_point().substitution.domain();
+          while (indexOf(variables, pl3.format_variable(this.session.rename)) !== -1) {
+            this.session.rename++;
+          }
+          return new Var(pl3.format_variable(this.session.rename));
+        };
+        Session2.prototype.is_public_predicate = function(indicator) {
+          return !this.public_predicates.hasOwnProperty(indicator) || this.public_predicates[indicator] === true;
+        };
+        Thread.prototype.is_public_predicate = function(indicator) {
+          return this.session.is_public_predicate(indicator);
+        };
+        Session2.prototype.is_multifile_predicate = function(indicator) {
+          return this.multifile_predicates.hasOwnProperty(indicator) && this.multifile_predicates[indicator] === true;
+        };
+        Thread.prototype.is_multifile_predicate = function(indicator) {
+          return this.session.is_multifile_predicate(indicator);
+        };
+        Session2.prototype.prepend = function(states) {
+          return this.thread.prepend(states);
+        };
+        Thread.prototype.prepend = function(states) {
+          for (var i = states.length - 1; i >= 0; i--)
+            this.points.push(states[i]);
+        };
+        Session2.prototype.success = function(point, parent) {
+          return this.thread.success(point, parent);
+        };
+        Thread.prototype.success = function(point, parent) {
+          var parent = typeof parent === "undefined" ? point : parent;
+          this.prepend([new State(point.goal.replace(null), point.substitution, parent)]);
+        };
+        Session2.prototype.throw_error = function(error) {
+          return this.thread.throw_error(error);
+        };
+        Thread.prototype.throw_error = function(error) {
+          this.prepend([new State(new Term("throw", [error]), new Substitution(), null, null)]);
+        };
+        Session2.prototype.step_rule = function(mod, atom) {
+          return this.thread.step_rule(mod, atom);
+        };
+        Thread.prototype.step_rule = function(mod, atom) {
+          var name = atom.indicator;
+          if (mod === "user")
+            mod = null;
+          if (mod === null && this.session.rules.hasOwnProperty(name))
+            return this.session.rules[name];
+          var modules = mod === null ? this.session.modules : indexOf(this.session.modules, mod) === -1 ? [] : [mod];
+          for (var i = 0; i < modules.length; i++) {
+            var module2 = pl3.module[modules[i]];
+            if (module2.rules.hasOwnProperty(name) && (module2.rules.hasOwnProperty(this.level) || module2.exports_predicate(name)))
+              return pl3.module[modules[i]].rules[name];
+          }
+          return null;
+        };
+        Session2.prototype.step = function() {
+          return this.thread.step();
+        };
+        Thread.prototype.step = function() {
+          if (this.points.length === 0) {
+            return;
+          }
+          var asyn = false;
+          var point = this.points.pop();
+          if (this.debugger)
+            this.debugger_states.push(point);
+          if (pl3.type.is_term(point.goal)) {
+            var atom = point.goal.select();
+            var mod = null;
+            var states = [];
+            if (atom !== null) {
+              this.total_steps++;
+              var level = point;
+              while (level.parent !== null && level.parent.goal.search(atom))
+                level = level.parent;
+              this.level = level.parent === null ? "top_level/0" : level.parent.goal.select().indicator;
+              if (pl3.type.is_term(atom) && atom.indicator === ":/2") {
+                mod = atom.args[0].id;
+                atom = atom.args[1];
+              }
+              if (mod === null && pl3.type.is_builtin(atom)) {
+                this.__call_indicator = atom.indicator;
+                asyn = pl3.predicate[atom.indicator](this, point, atom);
+              } else {
+                var srule = this.step_rule(mod, atom);
+                if (srule === null) {
+                  if (!this.session.rules.hasOwnProperty(atom.indicator)) {
+                    if (this.get_flag("unknown").id === "error") {
+                      this.throw_error(pl3.error.existence("procedure", atom.indicator, this.level));
+                    } else if (this.get_flag("unknown").id === "warning") {
+                      this.throw_warning("unknown procedure " + atom.indicator + " (from " + this.level + ")");
+                    }
+                  }
+                } else if (srule instanceof Function) {
+                  asyn = srule(this, point, atom);
+                } else {
+                  for (var _rule in srule) {
+                    if (!srule.hasOwnProperty(_rule))
+                      continue;
+                    var rule = srule[_rule];
+                    this.session.renamed_variables = {};
+                    rule = rule.rename(this);
+                    var occurs_check = this.get_flag("occurs_check").indicator === "true/0";
+                    var state = new State();
+                    var mgu = pl3.unify(atom, rule.head, occurs_check);
+                    if (mgu !== null) {
+                      state.goal = point.goal.replace(rule.body);
+                      if (state.goal !== null) {
+                        state.goal = state.goal.apply(mgu);
+                      }
+                      state.substitution = point.substitution.apply(mgu);
+                      state.parent = point;
+                      states.push(state);
+                    }
+                  }
+                  this.prepend(states);
+                }
+              }
+            }
+          } else if (pl3.type.is_variable(point.goal)) {
+            this.throw_error(pl3.error.instantiation(this.level));
+          } else {
+            this.throw_error(pl3.error.type("callable", point.goal, this.level));
+          }
+          return asyn;
+        };
+        Session2.prototype.answer = function(success) {
+          return this.thread.answer(success);
+        };
+        Thread.prototype.answer = function(success) {
+          success = success || function(_) {
+          };
+          this.__calls.push(success);
+          if (this.__calls.length > 1) {
+            return;
+          }
+          this.again();
+        };
+        Session2.prototype.answers = function(callback, max, after) {
+          return this.thread.answers(callback, max, after);
+        };
+        Thread.prototype.answers = function(callback, max, after) {
+          var answers = max || 1e3;
+          var thread = this;
+          if (max <= 0) {
+            if (after)
+              after();
+            return;
+          }
+          this.answer(function(answer) {
+            callback(answer);
+            if (answer !== false) {
+              setTimeout(function() {
+                thread.answers(callback, max - 1, after);
+              }, 1);
+            } else if (after) {
+              after();
+            }
+          });
+        };
+        Session2.prototype.again = function(reset_limit) {
+          return this.thread.again(reset_limit);
+        };
+        Thread.prototype.again = function(reset_limit) {
+          var answer;
+          var t0 = Date.now();
+          while (this.__calls.length > 0) {
+            this.warnings = [];
+            if (reset_limit !== false)
+              this.current_limit = this.session.limit;
+            while (this.current_limit > 0 && this.points.length > 0 && this.head_point().goal !== null && !pl3.type.is_error(this.head_point().goal)) {
+              this.current_limit--;
+              if (this.step() === true) {
+                return;
+              }
+            }
+            var t1 = Date.now();
+            this.cpu_time_last = t1 - t0;
+            this.cpu_time += this.cpu_time_last;
+            var success = this.__calls.shift();
+            if (this.current_limit <= 0) {
+              success(null);
+            } else if (this.points.length === 0) {
+              success(false);
+            } else if (pl3.type.is_error(this.head_point().goal)) {
+              answer = this.session.format_error(this.points.pop());
+              this.points = [];
+              success(answer);
+            } else {
+              if (this.debugger)
+                this.debugger_states.push(this.head_point());
+              answer = this.session.format_success(this.points.pop());
+              success(answer);
+            }
+          }
+        };
+        Session2.prototype.unfold = function(rule) {
+          if (rule.body === null)
+            return false;
+          var head = rule.head;
+          var body = rule.body;
+          var atom = body.select();
+          var thread = new Thread(this);
+          var unfolded = [];
+          thread.add_goal(atom);
+          thread.step();
+          for (var i = thread.points.length - 1; i >= 0; i--) {
+            var point = thread.points[i];
+            var head2 = head.apply(point.substitution);
+            var body2 = body.replace(point.goal);
+            if (body2 !== null)
+              body2 = body2.apply(point.substitution);
+            unfolded.push(new Rule(head2, body2));
+          }
+          var rules2 = this.rules[head.indicator];
+          var index = indexOf(rules2, rule);
+          if (unfolded.length > 0 && index !== -1) {
+            rules2.splice.apply(rules2, [index, 1].concat(unfolded));
+            return true;
+          }
+          return false;
+        };
+        Thread.prototype.unfold = function(rule) {
+          return this.session.unfold(rule);
+        };
+        Var.prototype.interpret = function(thread) {
+          return pl3.error.instantiation(thread.level);
+        };
+        Num.prototype.interpret = function(thread) {
+          return this;
+        };
+        Term.prototype.interpret = function(thread) {
+          if (pl3.type.is_unitary_list(this)) {
+            return this.args[0].interpret(thread);
+          } else {
+            return pl3.operate(thread, this);
+          }
+        };
+        Var.prototype.compare = function(obj) {
+          if (this.id < obj.id) {
+            return -1;
+          } else if (this.id > obj.id) {
+            return 1;
+          } else {
+            return 0;
+          }
+        };
+        Num.prototype.compare = function(obj) {
+          if (this.value === obj.value && this.is_float === obj.is_float) {
+            return 0;
+          } else if (this.value < obj.value || this.value === obj.value && this.is_float && !obj.is_float) {
+            return -1;
+          } else if (this.value > obj.value) {
+            return 1;
+          }
+        };
+        Term.prototype.compare = function(obj) {
+          if (this.args.length < obj.args.length || this.args.length === obj.args.length && this.id < obj.id) {
+            return -1;
+          } else if (this.args.length > obj.args.length || this.args.length === obj.args.length && this.id > obj.id) {
+            return 1;
+          } else {
+            for (var i = 0; i < this.args.length; i++) {
+              var arg = pl3.compare(this.args[i], obj.args[i]);
+              if (arg !== 0) {
+                return arg;
+              }
+            }
+            return 0;
+          }
+        };
+        Substitution.prototype.lookup = function(variable) {
+          if (this.links[variable]) {
+            return this.links[variable];
+          } else {
+            return null;
+          }
+        };
+        Substitution.prototype.filter = function(predicate) {
+          var links = {};
+          for (var id in this.links) {
+            if (!this.links.hasOwnProperty(id))
+              continue;
+            var value = this.links[id];
+            if (predicate(id, value)) {
+              links[id] = value;
+            }
+          }
+          return new Substitution(links);
+        };
+        Substitution.prototype.exclude = function(variables) {
+          var links = {};
+          for (var variable in this.links) {
+            if (!this.links.hasOwnProperty(variable))
+              continue;
+            if (indexOf(variables, variable) === -1) {
+              links[variable] = this.links[variable];
+            }
+          }
+          return new Substitution(links);
+        };
+        Substitution.prototype.add = function(variable, value) {
+          this.links[variable] = value;
+        };
+        Substitution.prototype.domain = function(plain) {
+          var f = plain === true ? function(x2) {
+            return x2;
+          } : function(x2) {
+            return new Var(x2);
+          };
+          var vars = [];
+          for (var x in this.links)
+            vars.push(f(x));
+          return vars;
+        };
+        Var.prototype.compile = function() {
+          return 'new pl.type.Var("' + this.id.toString() + '")';
+        };
+        Num.prototype.compile = function() {
+          return "new pl.type.Num(" + this.value.toString() + ", " + this.is_float.toString() + ")";
+        };
+        Term.prototype.compile = function() {
+          return 'new pl.type.Term("' + this.id.replace(/"/g, '\\"') + '", [' + map(this.args, function(arg) {
+            return arg.compile();
+          }) + "])";
+        };
+        Rule.prototype.compile = function() {
+          return "new pl.type.Rule(" + this.head.compile() + ", " + (this.body === null ? "null" : this.body.compile()) + ")";
+        };
+        Session2.prototype.compile = function() {
+          var str, obj = [], rules2;
+          for (var _indicator in this.rules) {
+            if (!this.rules.hasOwnProperty(_indicator))
+              continue;
+            var indicator = this.rules[_indicator];
+            rules2 = [];
+            str = '"' + _indicator + '": [';
+            for (var i = 0; i < indicator.length; i++) {
+              rules2.push(indicator[i].compile());
+            }
+            str += rules2.join();
+            str += "]";
+            obj.push(str);
+          }
+          return "{" + obj.join() + "};";
+        };
+        Var.prototype.toJavaScript = function() {
+          return void 0;
+        };
+        Num.prototype.toJavaScript = function() {
+          return this.value;
+        };
+        Term.prototype.toJavaScript = function() {
+          if (this.args.length === 0 && this.indicator !== "[]/0") {
+            return this.id;
+          } else if (pl3.type.is_list(this)) {
+            var arr = [];
+            var pointer = this;
+            var value;
+            while (pointer.indicator === "./2") {
+              value = pointer.args[0].toJavaScript();
+              if (value === void 0)
+                return void 0;
+              arr.push(value);
+              pointer = pointer.args[1];
+            }
+            if (pointer.indicator === "[]/0")
+              return arr;
+          }
+          return void 0;
+        };
+        Rule.prototype.singleton_variables = function() {
+          var variables = this.head.variables();
+          var count = {};
+          var singleton = [];
+          if (this.body !== null)
+            variables = variables.concat(this.body.variables());
+          for (var i = 0; i < variables.length; i++) {
+            if (count[variables[i]] === void 0)
+              count[variables[i]] = 0;
+            count[variables[i]]++;
+          }
+          for (var key2 in count)
+            if (key2 !== "_" && count[key2] === 1)
+              singleton.push(key2);
+          return singleton;
+        };
+        var pl3 = {
+          __env: typeof module !== "undefined" && module.exports ? global : window,
+          module: {},
+          version,
+          parser: {
+            tokenizer: Tokenizer,
+            expression: parseExpr
+          },
+          utils: {
+            str_indicator,
+            codePointAt,
+            fromCodePoint
+          },
+          statistics: {
+            getCountTerms: function() {
+              return term_ref;
+            }
+          },
+          fromJavaScript: {
+            test: {
+              boolean: function(obj) {
+                return obj === true || obj === false;
+              },
+              number: function(obj) {
+                return typeof obj === "number";
+              },
+              string: function(obj) {
+                return typeof obj === "string";
+              },
+              list: function(obj) {
+                return obj instanceof Array;
+              },
+              variable: function(obj) {
+                return obj === void 0;
+              },
+              any: function(_) {
+                return true;
+              }
+            },
+            conversion: {
+              boolean: function(obj) {
+                return new Term(obj ? "true" : "false", []);
+              },
+              number: function(obj) {
+                return new Num(obj, obj % 1 !== 0);
+              },
+              string: function(obj) {
+                return new Term(obj, []);
+              },
+              list: function(obj) {
+                var arr = [];
+                var elem;
+                for (var i = 0; i < obj.length; i++) {
+                  elem = pl3.fromJavaScript.apply(obj[i]);
+                  if (elem === void 0)
+                    return void 0;
+                  arr.push(elem);
+                }
+                return arrayToList(arr);
+              },
+              variable: function(obj) {
+                return new Var("_");
+              },
+              any: function(obj) {
+                return void 0;
+              }
+            },
+            apply: function(obj) {
+              for (var i in pl3.fromJavaScript.test)
+                if (i !== "any" && pl3.fromJavaScript.test[i](obj))
+                  return pl3.fromJavaScript.conversion[i](obj);
+              return pl3.fromJavaScript.conversion.any(obj);
+            }
+          },
+          type: {
+            Var,
+            Num,
+            Term,
+            Rule,
+            State,
+            Stream,
+            Module,
+            Thread,
+            Session: Session2,
+            Substitution,
+            order: [Var, Num, Term, Stream],
+            compare: function(x, y) {
+              var ord_x = indexOf(pl3.type.order, x.constructor);
+              var ord_y = indexOf(pl3.type.order, y.constructor);
+              if (ord_x < ord_y) {
+                return -1;
+              } else if (ord_x > ord_y) {
+                return 1;
+              } else {
+                if (x.constructor === Num) {
+                  if (x.is_float && y.is_float)
+                    return 0;
+                  else if (x.is_float)
+                    return -1;
+                  else if (y.is_float)
+                    return 1;
+                }
+                return 0;
+              }
+            },
+            is_substitution: function(obj) {
+              return obj instanceof Substitution;
+            },
+            is_state: function(obj) {
+              return obj instanceof State;
+            },
+            is_rule: function(obj) {
+              return obj instanceof Rule;
+            },
+            is_variable: function(obj) {
+              return obj instanceof Var;
+            },
+            is_stream: function(obj) {
+              return obj instanceof Stream;
+            },
+            is_anonymous_var: function(obj) {
+              return obj instanceof Var && obj.id === "_";
+            },
+            is_callable: function(obj) {
+              return obj instanceof Term;
+            },
+            is_number: function(obj) {
+              return obj instanceof Num;
+            },
+            is_integer: function(obj) {
+              return obj instanceof Num && !obj.is_float;
+            },
+            is_float: function(obj) {
+              return obj instanceof Num && obj.is_float;
+            },
+            is_term: function(obj) {
+              return obj instanceof Term;
+            },
+            is_atom: function(obj) {
+              return obj instanceof Term && obj.args.length === 0;
+            },
+            is_ground: function(obj) {
+              if (obj instanceof Var)
+                return false;
+              if (obj instanceof Term) {
+                for (var i = 0; i < obj.args.length; i++)
+                  if (!pl3.type.is_ground(obj.args[i]))
+                    return false;
+              }
+              return true;
+            },
+            is_atomic: function(obj) {
+              return obj instanceof Term && obj.args.length === 0 || obj instanceof Num;
+            },
+            is_compound: function(obj) {
+              return obj instanceof Term && obj.args.length > 0;
+            },
+            is_list: function(obj) {
+              return obj instanceof Term && (obj.indicator === "[]/0" || obj.indicator === "./2");
+            },
+            is_empty_list: function(obj) {
+              return obj instanceof Term && obj.indicator === "[]/0";
+            },
+            is_non_empty_list: function(obj) {
+              return obj instanceof Term && obj.indicator === "./2";
+            },
+            is_fully_list: function(obj) {
+              while (obj instanceof Term && obj.indicator === "./2") {
+                obj = obj.args[1];
+              }
+              return obj instanceof Var || obj instanceof Term && obj.indicator === "[]/0";
+            },
+            is_instantiated_list: function(obj) {
+              while (obj instanceof Term && obj.indicator === "./2") {
+                obj = obj.args[1];
+              }
+              return obj instanceof Term && obj.indicator === "[]/0";
+            },
+            is_unitary_list: function(obj) {
+              return obj instanceof Term && obj.indicator === "./2" && obj.args[1] instanceof Term && obj.args[1].indicator === "[]/0";
+            },
+            is_character: function(obj) {
+              return obj instanceof Term && (obj.id.length === 1 || obj.id.length > 0 && obj.id.length <= 2 && codePointAt(obj.id, 0) >= 65536);
+            },
+            is_character_code: function(obj) {
+              return obj instanceof Num && !obj.is_float && obj.value >= 0 && obj.value <= 1114111;
+            },
+            is_byte: function(obj) {
+              return obj instanceof Num && !obj.is_float && obj.value >= 0 && obj.value <= 255;
+            },
+            is_operator: function(obj) {
+              return obj instanceof Term && pl3.arithmetic.evaluation[obj.indicator];
+            },
+            is_directive: function(obj) {
+              return obj instanceof Term && pl3.directive[obj.indicator] !== void 0;
+            },
+            is_builtin: function(obj) {
+              return obj instanceof Term && pl3.predicate[obj.indicator] !== void 0;
+            },
+            is_error: function(obj) {
+              return obj instanceof Term && obj.indicator === "throw/1";
+            },
+            is_predicate_indicator: function(obj) {
+              return obj instanceof Term && obj.indicator === "//2" && obj.args[0] instanceof Term && obj.args[0].args.length === 0 && obj.args[1] instanceof Num && obj.args[1].is_float === false;
+            },
+            is_flag: function(obj) {
+              return obj instanceof Term && obj.args.length === 0 && pl3.flag[obj.id] !== void 0;
+            },
+            is_value_flag: function(flag, obj) {
+              if (!pl3.type.is_flag(flag))
+                return false;
+              for (var value in pl3.flag[flag.id].allowed) {
+                if (!pl3.flag[flag.id].allowed.hasOwnProperty(value))
+                  continue;
+                if (pl3.flag[flag.id].allowed[value].equals(obj))
+                  return true;
+              }
+              return false;
+            },
+            is_io_mode: function(obj) {
+              return pl3.type.is_atom(obj) && ["read", "write", "append"].indexOf(obj.id) !== -1;
+            },
+            is_stream_option: function(obj) {
+              return pl3.type.is_term(obj) && (obj.indicator === "alias/1" && pl3.type.is_atom(obj.args[0]) || obj.indicator === "reposition/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false") || obj.indicator === "type/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "text" || obj.args[0].id === "binary") || obj.indicator === "eof_action/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "error" || obj.args[0].id === "eof_code" || obj.args[0].id === "reset"));
+            },
+            is_stream_position: function(obj) {
+              return pl3.type.is_integer(obj) && obj.value >= 0 || pl3.type.is_atom(obj) && (obj.id === "end_of_stream" || obj.id === "past_end_of_stream");
+            },
+            is_stream_property: function(obj) {
+              return pl3.type.is_term(obj) && (obj.indicator === "input/0" || obj.indicator === "output/0" || obj.indicator === "alias/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0])) || obj.indicator === "file_name/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0])) || obj.indicator === "position/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_stream_position(obj.args[0])) || obj.indicator === "reposition/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false")) || obj.indicator === "type/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "text" || obj.args[0].id === "binary")) || obj.indicator === "mode/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "read" || obj.args[0].id === "write" || obj.args[0].id === "append")) || obj.indicator === "eof_action/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "error" || obj.args[0].id === "eof_code" || obj.args[0].id === "reset")) || obj.indicator === "end_of_stream/1" && (pl3.type.is_variable(obj.args[0]) || pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "at" || obj.args[0].id === "past" || obj.args[0].id === "not")));
+            },
+            is_streamable: function(obj) {
+              return obj.__proto__.stream !== void 0;
+            },
+            is_read_option: function(obj) {
+              return pl3.type.is_term(obj) && ["variables/1", "variable_names/1", "singletons/1"].indexOf(obj.indicator) !== -1;
+            },
+            is_write_option: function(obj) {
+              return pl3.type.is_term(obj) && (obj.indicator === "quoted/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false") || obj.indicator === "ignore_ops/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false") || obj.indicator === "numbervars/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false"));
+            },
+            is_close_option: function(obj) {
+              return pl3.type.is_term(obj) && obj.indicator === "force/1" && pl3.type.is_atom(obj.args[0]) && (obj.args[0].id === "true" || obj.args[0].id === "false");
+            },
+            is_modifiable_flag: function(obj) {
+              return pl3.type.is_flag(obj) && pl3.flag[obj.id].changeable;
+            },
+            is_module: function(obj) {
+              return obj instanceof Term && obj.indicator === "library/1" && obj.args[0] instanceof Term && obj.args[0].args.length === 0 && pl3.module[obj.args[0].id] !== void 0;
+            }
+          },
+          arithmetic: {
+            evaluation: {
+              "e/0": {
+                type_args: null,
+                type_result: true,
+                fn: function(_) {
+                  return Math.E;
+                }
+              },
+              "pi/0": {
+                type_args: null,
+                type_result: true,
+                fn: function(_) {
+                  return Math.PI;
+                }
+              },
+              "tau/0": {
+                type_args: null,
+                type_result: true,
+                fn: function(_) {
+                  return 2 * Math.PI;
+                }
+              },
+              "epsilon/0": {
+                type_args: null,
+                type_result: true,
+                fn: function(_) {
+                  return Number.EPSILON;
+                }
+              },
+              "+/1": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, _) {
+                  return x;
+                }
+              },
+              "-/1": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, _) {
+                  return -x;
+                }
+              },
+              "\\/1": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, _) {
+                  return ~x;
+                }
+              },
+              "abs/1": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, _) {
+                  return Math.abs(x);
+                }
+              },
+              "sign/1": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, _) {
+                  return Math.sign(x);
+                }
+              },
+              "float_integer_part/1": {
+                type_args: true,
+                type_result: false,
+                fn: function(x, _) {
+                  return parseInt(x);
+                }
+              },
+              "float_fractional_part/1": {
+                type_args: true,
+                type_result: true,
+                fn: function(x, _) {
+                  return x - parseInt(x);
+                }
+              },
+              "float/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return parseFloat(x);
+                }
+              },
+              "floor/1": {
+                type_args: true,
+                type_result: false,
+                fn: function(x, _) {
+                  return Math.floor(x);
+                }
+              },
+              "truncate/1": {
+                type_args: true,
+                type_result: false,
+                fn: function(x, _) {
+                  return parseInt(x);
+                }
+              },
+              "round/1": {
+                type_args: true,
+                type_result: false,
+                fn: function(x, _) {
+                  return Math.round(x);
+                }
+              },
+              "ceiling/1": {
+                type_args: true,
+                type_result: false,
+                fn: function(x, _) {
+                  return Math.ceil(x);
+                }
+              },
+              "sin/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.sin(x);
+                }
+              },
+              "cos/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.cos(x);
+                }
+              },
+              "tan/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.tan(x);
+                }
+              },
+              "asin/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.asin(x);
+                }
+              },
+              "acos/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.acos(x);
+                }
+              },
+              "atan/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.atan(x);
+                }
+              },
+              "atan2/2": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, y, _) {
+                  return Math.atan2(x, y);
+                }
+              },
+              "exp/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.exp(x);
+                }
+              },
+              "sqrt/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, _) {
+                  return Math.sqrt(x);
+                }
+              },
+              "log/1": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, thread) {
+                  return x > 0 ? Math.log(x) : pl3.error.evaluation("undefined", thread.__call_indicator);
+                }
+              },
+              "+/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return x + y;
+                }
+              },
+              "-/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return x - y;
+                }
+              },
+              "*/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return x * y;
+                }
+              },
+              "//2": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, y, thread) {
+                  return y ? x / y : pl3.error.evaluation("zero_division", thread.__call_indicator);
+                }
+              },
+              "///2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, thread) {
+                  return y ? parseInt(x / y) : pl3.error.evaluation("zero_division", thread.__call_indicator);
+                }
+              },
+              "**/2": {
+                type_args: null,
+                type_result: true,
+                fn: function(x, y, _) {
+                  return Math.pow(x, y);
+                }
+              },
+              "^/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return Math.pow(x, y);
+                }
+              },
+              "<</2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, _) {
+                  return x << y;
+                }
+              },
+              ">>/2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, _) {
+                  return x >> y;
+                }
+              },
+              "/\\/2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, _) {
+                  return x & y;
+                }
+              },
+              "\\//2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, _) {
+                  return x | y;
+                }
+              },
+              "xor/2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, _) {
+                  return x ^ y;
+                }
+              },
+              "rem/2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, thread) {
+                  return y ? x % y : pl3.error.evaluation("zero_division", thread.__call_indicator);
+                }
+              },
+              "mod/2": {
+                type_args: false,
+                type_result: false,
+                fn: function(x, y, thread) {
+                  return y ? x - parseInt(x / y) * y : pl3.error.evaluation("zero_division", thread.__call_indicator);
+                }
+              },
+              "max/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return Math.max(x, y);
+                }
+              },
+              "min/2": {
+                type_args: null,
+                type_result: null,
+                fn: function(x, y, _) {
+                  return Math.min(x, y);
+                }
+              }
+            }
+          },
+          directive: {
+            "dynamic/1": function(thread, atom) {
+              var indicator = atom.args[0];
+              if (pl3.type.is_variable(indicator)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_compound(indicator) || indicator.indicator !== "//2") {
+                thread.throw_error(pl3.error.type("predicate_indicator", indicator, atom.indicator));
+              } else if (pl3.type.is_variable(indicator.args[0]) || pl3.type.is_variable(indicator.args[1])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(indicator.args[0])) {
+                thread.throw_error(pl3.error.type("atom", indicator.args[0], atom.indicator));
+              } else if (!pl3.type.is_integer(indicator.args[1])) {
+                thread.throw_error(pl3.error.type("integer", indicator.args[1], atom.indicator));
+              } else {
+                var key2 = atom.args[0].args[0].id + "/" + atom.args[0].args[1].value;
+                thread.session.public_predicates[key2] = true;
+                if (!thread.session.rules[key2])
+                  thread.session.rules[key2] = [];
+              }
+            },
+            "multifile/1": function(thread, atom) {
+              var indicator = atom.args[0];
+              if (pl3.type.is_variable(indicator)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_compound(indicator) || indicator.indicator !== "//2") {
+                thread.throw_error(pl3.error.type("predicate_indicator", indicator, atom.indicator));
+              } else if (pl3.type.is_variable(indicator.args[0]) || pl3.type.is_variable(indicator.args[1])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(indicator.args[0])) {
+                thread.throw_error(pl3.error.type("atom", indicator.args[0], atom.indicator));
+              } else if (!pl3.type.is_integer(indicator.args[1])) {
+                thread.throw_error(pl3.error.type("integer", indicator.args[1], atom.indicator));
+              } else {
+                thread.session.multifile_predicates[atom.args[0].args[0].id + "/" + atom.args[0].args[1].value] = true;
+              }
+            },
+            "set_prolog_flag/2": function(thread, atom) {
+              var flag = atom.args[0], value = atom.args[1];
+              if (pl3.type.is_variable(flag) || pl3.type.is_variable(value)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(flag)) {
+                thread.throw_error(pl3.error.type("atom", flag, atom.indicator));
+              } else if (!pl3.type.is_flag(flag)) {
+                thread.throw_error(pl3.error.domain("prolog_flag", flag, atom.indicator));
+              } else if (!pl3.type.is_value_flag(flag, value)) {
+                thread.throw_error(pl3.error.domain("flag_value", new Term("+", [flag, value]), atom.indicator));
+              } else if (!pl3.type.is_modifiable_flag(flag)) {
+                thread.throw_error(pl3.error.permission("modify", "flag", flag));
+              } else {
+                thread.session.flag[flag.id] = value;
+              }
+            },
+            "use_module/1": function(thread, atom) {
+              var module2 = atom.args[0];
+              if (pl3.type.is_variable(module2)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_term(module2)) {
+                thread.throw_error(pl3.error.type("term", module2, atom.indicator));
+              } else {
+                if (pl3.type.is_module(module2)) {
+                  var name = module2.args[0].id;
+                  if (indexOf(thread.session.modules, name) === -1)
+                    thread.session.modules.push(name);
+                } else {
+                }
+              }
+            },
+            "char_conversion/2": function(thread, atom) {
+              var inchar = atom.args[0], outchar = atom.args[1];
+              if (pl3.type.is_variable(inchar) || pl3.type.is_variable(outchar)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_character(inchar)) {
+                thread.throw_error(pl3.error.type("character", inchar, atom.indicator));
+              } else if (!pl3.type.is_character(outchar)) {
+                thread.throw_error(pl3.error.type("character", outchar, atom.indicator));
+              } else {
+                if (inchar.id === outchar.id) {
+                  delete thread.session.__char_conversion[inchar.id];
+                } else {
+                  thread.session.__char_conversion[inchar.id] = outchar.id;
+                }
+              }
+            },
+            "op/3": function(thread, atom) {
+              var priority = atom.args[0], type = atom.args[1], operator = atom.args[2];
+              if (pl3.type.is_variable(priority) || pl3.type.is_variable(type) || pl3.type.is_variable(operator)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_integer(priority)) {
+                thread.throw_error(pl3.error.type("integer", priority, atom.indicator));
+              } else if (!pl3.type.is_atom(type)) {
+                thread.throw_error(pl3.error.type("atom", type, atom.indicator));
+              } else if (!pl3.type.is_atom(operator)) {
+                thread.throw_error(pl3.error.type("atom", operator, atom.indicator));
+              } else if (priority.value < 0 || priority.value > 1200) {
+                thread.throw_error(pl3.error.domain("operator_priority", priority, atom.indicator));
+              } else if (operator.id === ",") {
+                thread.throw_error(pl3.error.permission("modify", "operator", operator, atom.indicator));
+              } else if (operator.id === "|" && (priority.value < 1001 || type.id.length !== 3)) {
+                thread.throw_error(pl3.error.permission("modify", "operator", operator, atom.indicator));
+              } else if (["fy", "fx", "yf", "xf", "xfx", "yfx", "xfy"].indexOf(type.id) === -1) {
+                thread.throw_error(pl3.error.domain("operator_specifier", type, atom.indicator));
+              } else {
+                var fix = {prefix: null, infix: null, postfix: null};
+                for (var p in thread.session.__operators) {
+                  if (!thread.session.__operators.hasOwnProperty(p))
+                    continue;
+                  var classes = thread.session.__operators[p][operator.id];
+                  if (classes) {
+                    if (indexOf(classes, "fx") !== -1) {
+                      fix.prefix = {priority: p, type: "fx"};
+                    }
+                    if (indexOf(classes, "fy") !== -1) {
+                      fix.prefix = {priority: p, type: "fy"};
+                    }
+                    if (indexOf(classes, "xf") !== -1) {
+                      fix.postfix = {priority: p, type: "xf"};
+                    }
+                    if (indexOf(classes, "yf") !== -1) {
+                      fix.postfix = {priority: p, type: "yf"};
+                    }
+                    if (indexOf(classes, "xfx") !== -1) {
+                      fix.infix = {priority: p, type: "xfx"};
+                    }
+                    if (indexOf(classes, "xfy") !== -1) {
+                      fix.infix = {priority: p, type: "xfy"};
+                    }
+                    if (indexOf(classes, "yfx") !== -1) {
+                      fix.infix = {priority: p, type: "yfx"};
+                    }
+                  }
+                }
+                var current_class;
+                switch (type.id) {
+                  case "fy":
+                  case "fx":
+                    current_class = "prefix";
+                    break;
+                  case "yf":
+                  case "xf":
+                    current_class = "postfix";
+                    break;
+                  default:
+                    current_class = "infix";
+                    break;
+                }
+                if (((fix.prefix && current_class === "prefix" || fix.postfix && current_class === "postfix" || fix.infix && current_class === "infix") && fix[current_class].type !== type.id || fix.infix && current_class === "postfix" || fix.postfix && current_class === "infix") && priority.value !== 0) {
+                  thread.throw_error(pl3.error.permission("create", "operator", operator, atom.indicator));
+                } else {
+                  if (fix[current_class]) {
+                    remove(thread.session.__operators[fix[current_class].priority][operator.id], type.id);
+                    if (thread.session.__operators[fix[current_class].priority][operator.id].length === 0) {
+                      delete thread.session.__operators[fix[current_class].priority][operator.id];
+                    }
+                  }
+                  if (priority.value > 0) {
+                    if (!thread.session.__operators[priority.value])
+                      thread.session.__operators[priority.value.toString()] = {};
+                    if (!thread.session.__operators[priority.value][operator.id])
+                      thread.session.__operators[priority.value][operator.id] = [];
+                    thread.session.__operators[priority.value][operator.id].push(type.id);
+                  }
+                  return true;
+                }
+              }
+            }
+          },
+          predicate: {
+            "op/3": function(thread, point, atom) {
+              if (pl3.directive["op/3"](thread, atom))
+                thread.success(point);
+            },
+            "current_op/3": function(thread, point, atom) {
+              var priority = atom.args[0], specifier = atom.args[1], operator = atom.args[2];
+              var points = [];
+              for (var p in thread.session.__operators)
+                for (var o in thread.session.__operators[p])
+                  for (var i = 0; i < thread.session.__operators[p][o].length; i++)
+                    points.push(new State(point.goal.replace(new Term(",", [
+                      new Term("=", [new Num(p, false), priority]),
+                      new Term(",", [
+                        new Term("=", [new Term(thread.session.__operators[p][o][i], []), specifier]),
+                        new Term("=", [new Term(o, []), operator])
+                      ])
+                    ])), point.substitution, point));
+              thread.prepend(points);
+            },
+            ";/2": function(thread, point, atom) {
+              if (pl3.type.is_term(atom.args[0]) && atom.args[0].indicator === "->/2") {
+                var points = thread.points;
+                var format_success = thread.session.format_success;
+                var format_error = thread.session.format_error;
+                thread.session.format_success = function(x) {
+                  return x.substitution;
+                };
+                thread.session.format_error = function(x) {
+                  return x.goal;
+                };
+                thread.points = [new State(atom.args[0].args[0], point.substitution, point)];
+                var callback = function(answer) {
+                  thread.points = points;
+                  thread.session.format_success = format_success;
+                  thread.session.format_error = format_error;
+                  if (answer === false) {
+                    thread.prepend([new State(point.goal.replace(atom.args[1]), point.substitution, point)]);
+                  } else if (pl3.type.is_error(answer))
+                    thread.throw_error(answer.args[0]);
+                  else if (answer === null) {
+                    thread.prepend([point]);
+                    thread.__calls.shift()(null);
+                  } else {
+                    thread.prepend([new State(point.goal.replace(atom.args[0].args[1]).apply(answer), point.substitution.apply(answer), point)]);
+                  }
+                };
+                thread.__calls.unshift(callback);
+              } else {
+                var left = new State(point.goal.replace(atom.args[0]), point.substitution, point);
+                var right = new State(point.goal.replace(atom.args[1]), point.substitution, point);
+                thread.prepend([left, right]);
+              }
+            },
+            "!/0": function(thread, point, atom) {
+              var parent_cut, last_cut, states = [];
+              parent_cut = point;
+              last_cut = null;
+              while (parent_cut.parent !== null && parent_cut.parent.goal.search(atom)) {
+                last_cut = parent_cut;
+                parent_cut = parent_cut.parent;
+                if (parent_cut.goal !== null) {
+                  var selected = parent_cut.goal.select();
+                  if (selected && selected.id === "call" && selected.search(atom)) {
+                    parent_cut = last_cut;
+                    break;
+                  }
+                }
+              }
+              for (var i = thread.points.length - 1; i >= 0; i--) {
+                var state = thread.points[i];
+                var node = state.parent;
+                while (node !== null && node !== parent_cut.parent) {
+                  node = node.parent;
+                }
+                if (node === null && node !== parent_cut.parent)
+                  states.push(state);
+              }
+              thread.points = states.reverse();
+              thread.success(point);
+            },
+            "\\+/1": function(thread, point, atom) {
+              var goal = atom.args[0];
+              if (pl3.type.is_variable(goal)) {
+                thread.throw_error(pl3.error.instantiation(thread.level));
+              } else if (!pl3.type.is_callable(goal)) {
+                thread.throw_error(pl3.error.type("callable", goal, thread.level));
+              } else {
+                thread.prepend([
+                  new State(point.goal.replace(new Term(",", [new Term(",", [new Term("call", [goal]), new Term("!", [])]), new Term("fail", [])])), point.substitution, point),
+                  new State(point.goal.replace(null), point.substitution, point)
+                ]);
+              }
+            },
+            "->/2": function(thread, point, atom) {
+              var goal = point.goal.replace(new Term(",", [atom.args[0], new Term(",", [new Term("!"), atom.args[1]])]));
+              thread.prepend([new State(goal, point.substitution, point)]);
+            },
+            "fail/0": function(_1, _2, _3) {
+            },
+            "false/0": function(_1, _2, _3) {
+            },
+            "true/0": function(thread, point, _) {
+              thread.success(point);
+            },
+            "call/1": callN(1),
+            "call/2": callN(2),
+            "call/3": callN(3),
+            "call/4": callN(4),
+            "call/5": callN(5),
+            "call/6": callN(6),
+            "call/7": callN(7),
+            "call/8": callN(8),
+            "once/1": function(thread, point, atom) {
+              var goal = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("call", [goal]), new Term("!", [])])), point.substitution, point)]);
+            },
+            "forall/2": function(thread, point, atom) {
+              var generate = atom.args[0], test = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("\\+", [new Term(",", [new Term("call", [generate]), new Term("\\+", [new Term("call", [test])])])])), point.substitution, point)]);
+            },
+            "repeat/0": function(thread, point, _) {
+              thread.prepend([new State(point.goal.replace(null), point.substitution, point), point]);
+            },
+            "throw/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(thread.level));
+              } else {
+                thread.throw_error(atom.args[0]);
+              }
+            },
+            "catch/3": function(thread, point, atom) {
+              var points = thread.points;
+              thread.points = [];
+              thread.prepend([new State(atom.args[0], point.substitution, point)]);
+              var format_success = thread.session.format_success;
+              var format_error = thread.session.format_error;
+              thread.session.format_success = function(x) {
+                return x.substitution;
+              };
+              thread.session.format_error = function(x) {
+                return x.goal;
+              };
+              var callback = function(answer) {
+                var call_points = thread.points;
+                thread.points = points;
+                thread.session.format_success = format_success;
+                thread.session.format_error = format_error;
+                if (pl3.type.is_error(answer)) {
+                  var states = [];
+                  for (var i = thread.points.length - 1; i >= 0; i--) {
+                    var state = thread.points[i];
+                    var node = state.parent;
+                    while (node !== null && node !== point.parent) {
+                      node = node.parent;
+                    }
+                    if (node === null && node !== point.parent)
+                      states.push(state);
+                  }
+                  thread.points = states;
+                  var occurs_check = thread.get_flag("occurs_check").indicator === "true/0";
+                  var state = new State();
+                  var mgu = pl3.unify(answer.args[0], atom.args[1], occurs_check);
+                  if (mgu !== null) {
+                    state.substitution = point.substitution.apply(mgu);
+                    state.goal = point.goal.replace(atom.args[2]).apply(mgu);
+                    state.parent = point;
+                    thread.prepend([state]);
+                  } else {
+                    thread.throw_error(answer.args[0]);
+                  }
+                } else if (answer !== false) {
+                  var answer_state = answer === null ? [] : [new State(point.goal.apply(answer).replace(null), point.substitution.apply(answer), point)];
+                  var filter_points = [];
+                  for (var i = call_points.length - 1; i >= 0; i--) {
+                    filter_points.push(call_points[i]);
+                    var selected = call_points[i].goal !== null ? call_points[i].goal.select() : null;
+                    if (pl3.type.is_term(selected) && selected.indicator === "!/0")
+                      break;
+                  }
+                  var catch_points = map(filter_points, function(state2) {
+                    if (state2.goal === null)
+                      state2.goal = new Term("true", []);
+                    state2 = new State(point.goal.replace(new Term("catch", [state2.goal, atom.args[1], atom.args[2]])), point.substitution.apply(state2.substitution), state2.parent);
+                    state2.exclude = atom.args[0].variables();
+                    return state2;
+                  }).reverse();
+                  thread.prepend(catch_points);
+                  thread.prepend(answer_state);
+                  if (answer === null) {
+                    this.current_limit = 0;
+                    thread.__calls.shift()(null);
+                  }
+                }
+              };
+              thread.__calls.unshift(callback);
+            },
+            "=/2": function(thread, point, atom) {
+              var occurs_check = thread.get_flag("occurs_check").indicator === "true/0";
+              var state = new State();
+              var mgu = pl3.unify(atom.args[0], atom.args[1], occurs_check);
+              if (mgu !== null) {
+                state.goal = point.goal.apply(mgu).replace(null);
+                state.substitution = point.substitution.apply(mgu);
+                state.parent = point;
+                thread.prepend([state]);
+              }
+            },
+            "unify_with_occurs_check/2": function(thread, point, atom) {
+              var state = new State();
+              var mgu = pl3.unify(atom.args[0], atom.args[1], true);
+              if (mgu !== null) {
+                state.goal = point.goal.apply(mgu).replace(null);
+                state.substitution = point.substitution.apply(mgu);
+                state.parent = point;
+                thread.prepend([state]);
+              }
+            },
+            "\\=/2": function(thread, point, atom) {
+              var occurs_check = thread.get_flag("occurs_check").indicator === "true/0";
+              var mgu = pl3.unify(atom.args[0], atom.args[1], occurs_check);
+              if (mgu === null) {
+                thread.success(point);
+              }
+            },
+            "subsumes_term/2": function(thread, point, atom) {
+              var occurs_check = thread.get_flag("occurs_check").indicator === "true/0";
+              var mgu = pl3.unify(atom.args[1], atom.args[0], occurs_check);
+              if (mgu !== null && atom.args[1].apply(mgu).equals(atom.args[1])) {
+                thread.success(point);
+              }
+            },
+            "findall/3": function(thread, point, atom) {
+              var template = atom.args[0], goal = atom.args[1], instances = atom.args[2];
+              if (pl3.type.is_variable(goal)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(goal)) {
+                thread.throw_error(pl3.error.type("callable", goal, atom.indicator));
+              } else if (!pl3.type.is_variable(instances) && !pl3.type.is_list(instances)) {
+                thread.throw_error(pl3.error.type("list", instances, atom.indicator));
+              } else {
+                var variable = thread.next_free_variable();
+                var newGoal = new Term(",", [goal, new Term("=", [variable, template])]);
+                var points = thread.points;
+                var limit = thread.session.limit;
+                var format_success = thread.session.format_success;
+                thread.session.format_success = function(x) {
+                  return x.substitution;
+                };
+                thread.add_goal(newGoal, true, point);
+                var answers = [];
+                var callback = function(answer) {
+                  if (answer !== false && answer !== null && !pl3.type.is_error(answer)) {
+                    thread.__calls.unshift(callback);
+                    answers.push(answer.links[variable.id]);
+                    thread.session.limit = thread.current_limit;
+                  } else {
+                    thread.points = points;
+                    thread.session.limit = limit;
+                    thread.session.format_success = format_success;
+                    if (pl3.type.is_error(answer)) {
+                      thread.throw_error(answer.args[0]);
+                    } else if (thread.current_limit > 0) {
+                      var list = new Term("[]");
+                      for (var i = answers.length - 1; i >= 0; i--) {
+                        list = new Term(".", [answers[i], list]);
+                      }
+                      thread.prepend([new State(point.goal.replace(new Term("=", [instances, list])), point.substitution, point)]);
+                    }
+                  }
+                };
+                thread.__calls.unshift(callback);
+              }
+            },
+            "bagof/3": function(thread, point, atom) {
+              var answer, template = atom.args[0], goal = atom.args[1], instances = atom.args[2];
+              if (pl3.type.is_variable(goal)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(goal)) {
+                thread.throw_error(pl3.error.type("callable", goal, atom.indicator));
+              } else if (!pl3.type.is_variable(instances) && !pl3.type.is_list(instances)) {
+                thread.throw_error(pl3.error.type("list", instances, atom.indicator));
+              } else {
+                var variable = thread.next_free_variable();
+                var template_vars;
+                if (goal.indicator === "^/2") {
+                  template_vars = goal.args[0].variables();
+                  goal = goal.args[1];
+                } else {
+                  template_vars = [];
+                }
+                template_vars = template_vars.concat(template.variables());
+                var free_vars = goal.variables().filter(function(v) {
+                  return indexOf(template_vars, v) === -1;
+                });
+                var list_vars = new Term("[]");
+                for (var i = free_vars.length - 1; i >= 0; i--) {
+                  list_vars = new Term(".", [new Var(free_vars[i]), list_vars]);
+                }
+                var newGoal = new Term(",", [goal, new Term("=", [variable, new Term(",", [list_vars, template])])]);
+                var points = thread.points;
+                var limit = thread.session.limit;
+                var format_success = thread.session.format_success;
+                thread.session.format_success = function(x) {
+                  return x.substitution;
+                };
+                thread.add_goal(newGoal, true, point);
+                var answers = [];
+                var callback = function(answer2) {
+                  if (answer2 !== false && answer2 !== null && !pl3.type.is_error(answer2)) {
+                    thread.__calls.unshift(callback);
+                    var match = false;
+                    var arg_vars = answer2.links[variable.id].args[0];
+                    var arg_template = answer2.links[variable.id].args[1];
+                    for (var _elem in answers) {
+                      if (!answers.hasOwnProperty(_elem))
+                        continue;
+                      var elem = answers[_elem];
+                      if (elem.variables.equals(arg_vars)) {
+                        elem.answers.push(arg_template);
+                        match = true;
+                        break;
+                      }
+                    }
+                    if (!match) {
+                      answers.push({variables: arg_vars, answers: [arg_template]});
+                    }
+                    thread.session.limit = thread.current_limit;
+                  } else {
+                    thread.points = points;
+                    thread.session.limit = limit;
+                    thread.session.format_success = format_success;
+                    if (pl3.type.is_error(answer2)) {
+                      thread.throw_error(answer2.args[0]);
+                    } else if (thread.current_limit > 0) {
+                      var states = [];
+                      for (var i2 = 0; i2 < answers.length; i2++) {
+                        answer2 = answers[i2].answers;
+                        var list = new Term("[]");
+                        for (var j = answer2.length - 1; j >= 0; j--) {
+                          list = new Term(".", [answer2[j], list]);
+                        }
+                        states.push(new State(point.goal.replace(new Term(",", [new Term("=", [list_vars, answers[i2].variables]), new Term("=", [instances, list])])), point.substitution, point));
+                      }
+                      thread.prepend(states);
+                    }
+                  }
+                };
+                thread.__calls.unshift(callback);
+              }
+            },
+            "setof/3": function(thread, point, atom) {
+              var answer, template = atom.args[0], goal = atom.args[1], instances = atom.args[2];
+              if (pl3.type.is_variable(goal)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(goal)) {
+                thread.throw_error(pl3.error.type("callable", goal, atom.indicator));
+              } else if (!pl3.type.is_variable(instances) && !pl3.type.is_list(instances)) {
+                thread.throw_error(pl3.error.type("list", instances, atom.indicator));
+              } else {
+                var variable = thread.next_free_variable();
+                var template_vars;
+                if (goal.indicator === "^/2") {
+                  template_vars = goal.args[0].variables();
+                  goal = goal.args[1];
+                } else {
+                  template_vars = [];
+                }
+                template_vars = template_vars.concat(template.variables());
+                var free_vars = goal.variables().filter(function(v) {
+                  return indexOf(template_vars, v) === -1;
+                });
+                var list_vars = new Term("[]");
+                for (var i = free_vars.length - 1; i >= 0; i--) {
+                  list_vars = new Term(".", [new Var(free_vars[i]), list_vars]);
+                }
+                var newGoal = new Term(",", [goal, new Term("=", [variable, new Term(",", [list_vars, template])])]);
+                var points = thread.points;
+                var limit = thread.session.limit;
+                var format_success = thread.session.format_success;
+                thread.session.format_success = function(x) {
+                  return x.substitution;
+                };
+                thread.add_goal(newGoal, true, point);
+                var answers = [];
+                var callback = function(answer2) {
+                  if (answer2 !== false && answer2 !== null && !pl3.type.is_error(answer2)) {
+                    thread.__calls.unshift(callback);
+                    var match = false;
+                    var arg_vars = answer2.links[variable.id].args[0];
+                    var arg_template = answer2.links[variable.id].args[1];
+                    for (var _elem in answers) {
+                      if (!answers.hasOwnProperty(_elem))
+                        continue;
+                      var elem = answers[_elem];
+                      if (elem.variables.equals(arg_vars)) {
+                        elem.answers.push(arg_template);
+                        match = true;
+                        break;
+                      }
+                    }
+                    if (!match) {
+                      answers.push({variables: arg_vars, answers: [arg_template]});
+                    }
+                    thread.session.limit = thread.current_limit;
+                  } else {
+                    thread.points = points;
+                    thread.session.limit = limit;
+                    thread.session.format_success = format_success;
+                    if (pl3.type.is_error(answer2)) {
+                      thread.throw_error(answer2.args[0]);
+                    } else if (thread.current_limit > 0) {
+                      var states = [];
+                      for (var i2 = 0; i2 < answers.length; i2++) {
+                        answer2 = answers[i2].answers.sort(pl3.compare);
+                        var list = new Term("[]");
+                        for (var j = answer2.length - 1; j >= 0; j--) {
+                          list = new Term(".", [answer2[j], list]);
+                        }
+                        states.push(new State(point.goal.replace(new Term(",", [new Term("=", [list_vars, answers[i2].variables]), new Term("=", [instances, list])])), point.substitution, point));
+                      }
+                      thread.prepend(states);
+                    }
+                  }
+                };
+                thread.__calls.unshift(callback);
+              }
+            },
+            "functor/3": function(thread, point, atom) {
+              var subs;
+              var term = atom.args[0], name = atom.args[1], arity = atom.args[2];
+              if (pl3.type.is_variable(term) && (pl3.type.is_variable(name) || pl3.type.is_variable(arity))) {
+                thread.throw_error(pl3.error.instantiation("functor/3"));
+              } else if (!pl3.type.is_variable(arity) && !pl3.type.is_integer(arity)) {
+                thread.throw_error(pl3.error.type("integer", atom.args[2], "functor/3"));
+              } else if (!pl3.type.is_variable(name) && !pl3.type.is_atomic(name)) {
+                thread.throw_error(pl3.error.type("atomic", atom.args[1], "functor/3"));
+              } else if (pl3.type.is_integer(name) && pl3.type.is_integer(arity) && arity.value !== 0) {
+                thread.throw_error(pl3.error.type("atom", atom.args[1], "functor/3"));
+              } else if (pl3.type.is_variable(term)) {
+                if (atom.args[2].value >= 0) {
+                  var args = [];
+                  for (var i = 0; i < arity.value; i++)
+                    args.push(thread.next_free_variable());
+                  var functor = pl3.type.is_integer(name) ? name : new Term(name.id, args);
+                  thread.prepend([new State(point.goal.replace(new Term("=", [term, functor])), point.substitution, point)]);
+                }
+              } else {
+                var id = pl3.type.is_integer(term) ? term : new Term(term.id, []);
+                var length = pl3.type.is_integer(term) ? new Num(0, false) : new Num(term.args.length, false);
+                var goal = new Term(",", [new Term("=", [id, name]), new Term("=", [length, arity])]);
+                thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+              }
+            },
+            "arg/3": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0]) || pl3.type.is_variable(atom.args[1])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (atom.args[0].value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", atom.args[0], atom.indicator));
+              } else if (!pl3.type.is_compound(atom.args[1])) {
+                thread.throw_error(pl3.error.type("compound", atom.args[1], atom.indicator));
+              } else {
+                var n = atom.args[0].value;
+                if (n > 0 && n <= atom.args[1].args.length) {
+                  var goal = new Term("=", [atom.args[1].args[n - 1], atom.args[2]]);
+                  thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+                }
+              }
+            },
+            "=../2": function(thread, point, atom) {
+              var list;
+              if (pl3.type.is_variable(atom.args[0]) && (pl3.type.is_variable(atom.args[1]) || pl3.type.is_non_empty_list(atom.args[1]) && pl3.type.is_variable(atom.args[1].args[0]))) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_fully_list(atom.args[1])) {
+                thread.throw_error(pl3.error.type("list", atom.args[1], atom.indicator));
+              } else if (!pl3.type.is_variable(atom.args[0])) {
+                if (pl3.type.is_atomic(atom.args[0])) {
+                  list = new Term(".", [atom.args[0], new Term("[]")]);
+                } else {
+                  list = new Term("[]");
+                  for (var i = atom.args[0].args.length - 1; i >= 0; i--) {
+                    list = new Term(".", [atom.args[0].args[i], list]);
+                  }
+                  list = new Term(".", [new Term(atom.args[0].id), list]);
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [list, atom.args[1]])), point.substitution, point)]);
+              } else if (!pl3.type.is_variable(atom.args[1])) {
+                var args = [];
+                list = atom.args[1].args[1];
+                while (list.indicator === "./2") {
+                  args.push(list.args[0]);
+                  list = list.args[1];
+                }
+                if (pl3.type.is_variable(atom.args[0]) && pl3.type.is_variable(list)) {
+                  thread.throw_error(pl3.error.instantiation(atom.indicator));
+                } else if (args.length === 0 && pl3.type.is_compound(atom.args[1].args[0])) {
+                  thread.throw_error(pl3.error.type("atomic", atom.args[1].args[0], atom.indicator));
+                } else if (args.length > 0 && (pl3.type.is_compound(atom.args[1].args[0]) || pl3.type.is_number(atom.args[1].args[0]))) {
+                  thread.throw_error(pl3.error.type("atom", atom.args[1].args[0], atom.indicator));
+                } else {
+                  if (args.length === 0) {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [atom.args[1].args[0], atom.args[0]], point)), point.substitution, point)]);
+                  } else {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [new Term(atom.args[1].args[0].id, args), atom.args[0]])), point.substitution, point)]);
+                  }
+                }
+              }
+            },
+            "copy_term/2": function(thread, point, atom) {
+              var renamed = atom.args[0].rename(thread);
+              thread.prepend([new State(point.goal.replace(new Term("=", [renamed, atom.args[1]])), point.substitution, point.parent)]);
+            },
+            "term_variables/2": function(thread, point, atom) {
+              var term = atom.args[0], vars = atom.args[1];
+              if (!pl3.type.is_fully_list(vars)) {
+                thread.throw_error(pl3.error.type("list", vars, atom.indicator));
+              } else {
+                var list = arrayToList(map(nub(term.variables()), function(v) {
+                  return new Var(v);
+                }));
+                thread.prepend([new State(point.goal.replace(new Term("=", [vars, list])), point.substitution, point)]);
+              }
+            },
+            "clause/2": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(atom.args[0])) {
+                thread.throw_error(pl3.error.type("callable", atom.args[0], atom.indicator));
+              } else if (!pl3.type.is_variable(atom.args[1]) && !pl3.type.is_callable(atom.args[1])) {
+                thread.throw_error(pl3.error.type("callable", atom.args[1], atom.indicator));
+              } else if (thread.session.rules[atom.args[0].indicator] !== void 0) {
+                if (thread.is_public_predicate(atom.args[0].indicator)) {
+                  var states = [];
+                  for (var _rule in thread.session.rules[atom.args[0].indicator]) {
+                    if (!thread.session.rules[atom.args[0].indicator].hasOwnProperty(_rule))
+                      continue;
+                    var rule = thread.session.rules[atom.args[0].indicator][_rule];
+                    thread.session.renamed_variables = {};
+                    rule = rule.rename(thread);
+                    if (rule.body === null) {
+                      rule.body = new Term("true");
+                    }
+                    var goal = new Term(",", [new Term("=", [rule.head, atom.args[0]]), new Term("=", [rule.body, atom.args[1]])]);
+                    states.push(new State(point.goal.replace(goal), point.substitution, point));
+                  }
+                  thread.prepend(states);
+                } else {
+                  thread.throw_error(pl3.error.permission("access", "private_procedure", atom.args[0].indicator, atom.indicator));
+                }
+              }
+            },
+            "current_predicate/1": function(thread, point, atom) {
+              var indicator = atom.args[0];
+              if (!pl3.type.is_variable(indicator) && (!pl3.type.is_compound(indicator) || indicator.indicator !== "//2")) {
+                thread.throw_error(pl3.error.type("predicate_indicator", indicator, atom.indicator));
+              } else if (!pl3.type.is_variable(indicator) && !pl3.type.is_variable(indicator.args[0]) && !pl3.type.is_atom(indicator.args[0])) {
+                thread.throw_error(pl3.error.type("atom", indicator.args[0], atom.indicator));
+              } else if (!pl3.type.is_variable(indicator) && !pl3.type.is_variable(indicator.args[1]) && !pl3.type.is_integer(indicator.args[1])) {
+                thread.throw_error(pl3.error.type("integer", indicator.args[1], atom.indicator));
+              } else {
+                var states = [];
+                for (var i in thread.session.rules) {
+                  if (!thread.session.rules.hasOwnProperty(i))
+                    continue;
+                  var index = i.lastIndexOf("/");
+                  var name = i.substr(0, index);
+                  var arity = parseInt(i.substr(index + 1, i.length - (index + 1)));
+                  var predicate = new Term("/", [new Term(name), new Num(arity, false)]);
+                  var goal = new Term("=", [predicate, indicator]);
+                  states.push(new State(point.goal.replace(goal), point.substitution, point));
+                }
+                thread.prepend(states);
+              }
+            },
+            "asserta/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(atom.args[0])) {
+                thread.throw_error(pl3.error.type("callable", atom.args[0], atom.indicator));
+              } else {
+                var head, body;
+                if (atom.args[0].indicator === ":-/2") {
+                  head = atom.args[0].args[0];
+                  body = body_conversion(atom.args[0].args[1]);
+                } else {
+                  head = atom.args[0];
+                  body = null;
+                }
+                if (!pl3.type.is_callable(head)) {
+                  thread.throw_error(pl3.error.type("callable", head, atom.indicator));
+                } else if (body !== null && !pl3.type.is_callable(body)) {
+                  thread.throw_error(pl3.error.type("callable", body, atom.indicator));
+                } else if (thread.is_public_predicate(head.indicator)) {
+                  if (thread.session.rules[head.indicator] === void 0) {
+                    thread.session.rules[head.indicator] = [];
+                  }
+                  thread.session.public_predicates[head.indicator] = true;
+                  thread.session.rules[head.indicator] = [new Rule(head, body, true)].concat(thread.session.rules[head.indicator]);
+                  thread.success(point);
+                } else {
+                  thread.throw_error(pl3.error.permission("modify", "static_procedure", head.indicator, atom.indicator));
+                }
+              }
+            },
+            "assertz/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(atom.args[0])) {
+                thread.throw_error(pl3.error.type("callable", atom.args[0], atom.indicator));
+              } else {
+                var head, body;
+                if (atom.args[0].indicator === ":-/2") {
+                  head = atom.args[0].args[0];
+                  body = body_conversion(atom.args[0].args[1]);
+                } else {
+                  head = atom.args[0];
+                  body = null;
+                }
+                if (!pl3.type.is_callable(head)) {
+                  thread.throw_error(pl3.error.type("callable", head, atom.indicator));
+                } else if (body !== null && !pl3.type.is_callable(body)) {
+                  thread.throw_error(pl3.error.type("callable", body, atom.indicator));
+                } else if (thread.is_public_predicate(head.indicator)) {
+                  if (thread.session.rules[head.indicator] === void 0) {
+                    thread.session.rules[head.indicator] = [];
+                  }
+                  thread.session.public_predicates[head.indicator] = true;
+                  thread.session.rules[head.indicator].push(new Rule(head, body, true));
+                  thread.success(point);
+                } else {
+                  thread.throw_error(pl3.error.permission("modify", "static_procedure", head.indicator, atom.indicator));
+                }
+              }
+            },
+            "retract/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(atom.args[0])) {
+                thread.throw_error(pl3.error.type("callable", atom.args[0], atom.indicator));
+              } else {
+                var head, body;
+                if (atom.args[0].indicator === ":-/2") {
+                  head = atom.args[0].args[0];
+                  body = atom.args[0].args[1];
+                } else {
+                  head = atom.args[0];
+                  body = new Term("true");
+                }
+                if (typeof point.retract === "undefined") {
+                  if (thread.is_public_predicate(head.indicator)) {
+                    if (thread.session.rules[head.indicator] !== void 0) {
+                      var states = [];
+                      for (var i = 0; i < thread.session.rules[head.indicator].length; i++) {
+                        thread.session.renamed_variables = {};
+                        var orule = thread.session.rules[head.indicator][i];
+                        var rule = orule.rename(thread);
+                        if (rule.body === null)
+                          rule.body = new Term("true", []);
+                        var occurs_check = thread.get_flag("occurs_check").indicator === "true/0";
+                        var mgu = pl3.unify(new Term(",", [head, body]), new Term(",", [rule.head, rule.body]), occurs_check);
+                        if (mgu !== null) {
+                          var state = new State(point.goal.replace(new Term(",", [
+                            new Term("retract", [new Term(":-", [head, body])]),
+                            new Term(",", [
+                              new Term("=", [head, rule.head]),
+                              new Term("=", [body, rule.body])
+                            ])
+                          ])), point.substitution, point);
+                          state.retract = orule;
+                          states.push(state);
+                        }
+                      }
+                      thread.prepend(states);
+                    }
+                  } else {
+                    thread.throw_error(pl3.error.permission("modify", "static_procedure", head.indicator, atom.indicator));
+                  }
+                } else {
+                  retract(thread, point, head.indicator, point.retract);
+                }
+              }
+            },
+            "retractall/1": function(thread, point, atom) {
+              var head = atom.args[0];
+              if (pl3.type.is_variable(head)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_callable(head)) {
+                thread.throw_error(pl3.error.type("callable", head, atom.indicator));
+              } else {
+                thread.prepend([
+                  new State(point.goal.replace(new Term(",", [
+                    new Term("retract", [new pl3.type.Term(":-", [head, new Var("_")])]),
+                    new Term("fail", [])
+                  ])), point.substitution, point),
+                  new State(point.goal.replace(null), point.substitution, point)
+                ]);
+              }
+            },
+            "abolish/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0]) || pl3.type.is_term(atom.args[0]) && atom.args[0].indicator === "//2" && (pl3.type.is_variable(atom.args[0].args[0]) || pl3.type.is_variable(atom.args[0].args[1]))) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_term(atom.args[0]) || atom.args[0].indicator !== "//2") {
+                thread.throw_error(pl3.error.type("predicate_indicator", atom.args[0], atom.indicator));
+              } else if (!pl3.type.is_atom(atom.args[0].args[0])) {
+                thread.throw_error(pl3.error.type("atom", atom.args[0].args[0], atom.indicator));
+              } else if (!pl3.type.is_integer(atom.args[0].args[1])) {
+                thread.throw_error(pl3.error.type("integer", atom.args[0].args[1], atom.indicator));
+              } else if (atom.args[0].args[1].value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", atom.args[0].args[1], atom.indicator));
+              } else if (pl3.type.is_number(thread.get_flag("max_arity")) && atom.args[0].args[1].value > thread.get_flag("max_arity").value) {
+                thread.throw_error(pl3.error.representation("max_arity", atom.indicator));
+              } else {
+                var indicator = atom.args[0].args[0].id + "/" + atom.args[0].args[1].value;
+                if (thread.is_public_predicate(indicator)) {
+                  delete thread.session.rules[indicator];
+                  thread.success(point);
+                } else {
+                  thread.throw_error(pl3.error.permission("modify", "static_procedure", indicator, atom.indicator));
+                }
+              }
+            },
+            "atom_length/2": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(atom.args[0])) {
+                thread.throw_error(pl3.error.type("atom", atom.args[0], atom.indicator));
+              } else if (!pl3.type.is_variable(atom.args[1]) && !pl3.type.is_integer(atom.args[1])) {
+                thread.throw_error(pl3.error.type("integer", atom.args[1], atom.indicator));
+              } else if (pl3.type.is_integer(atom.args[1]) && atom.args[1].value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", atom.args[1], atom.indicator));
+              } else {
+                var length = new Num(atom.args[0].id.length, false);
+                thread.prepend([new State(point.goal.replace(new Term("=", [length, atom.args[1]])), point.substitution, point)]);
+              }
+            },
+            "atom_concat/3": function(thread, point, atom) {
+              var str, goal, start = atom.args[0], end = atom.args[1], whole = atom.args[2];
+              if (pl3.type.is_variable(whole) && (pl3.type.is_variable(start) || pl3.type.is_variable(end))) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(start) && !pl3.type.is_atom(start)) {
+                thread.throw_error(pl3.error.type("atom", start, atom.indicator));
+              } else if (!pl3.type.is_variable(end) && !pl3.type.is_atom(end)) {
+                thread.throw_error(pl3.error.type("atom", end, atom.indicator));
+              } else if (!pl3.type.is_variable(whole) && !pl3.type.is_atom(whole)) {
+                thread.throw_error(pl3.error.type("atom", whole, atom.indicator));
+              } else {
+                var v1 = pl3.type.is_variable(start);
+                var v2 = pl3.type.is_variable(end);
+                if (!v1 && !v2) {
+                  goal = new Term("=", [whole, new Term(start.id + end.id)]);
+                  thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+                } else if (v1 && !v2) {
+                  str = whole.id.substr(0, whole.id.length - end.id.length);
+                  if (str + end.id === whole.id) {
+                    goal = new Term("=", [start, new Term(str)]);
+                    thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+                  }
+                } else if (v2 && !v1) {
+                  str = whole.id.substr(start.id.length);
+                  if (start.id + str === whole.id) {
+                    goal = new Term("=", [end, new Term(str)]);
+                    thread.prepend([new State(point.goal.replace(goal), point.substitution, point)]);
+                  }
+                } else {
+                  var states = [];
+                  for (var i = 0; i <= whole.id.length; i++) {
+                    var atom1 = new Term(whole.id.substr(0, i));
+                    var atom2 = new Term(whole.id.substr(i));
+                    goal = new Term(",", [new Term("=", [atom1, start]), new Term("=", [atom2, end])]);
+                    states.push(new State(point.goal.replace(goal), point.substitution, point));
+                  }
+                  thread.prepend(states);
+                }
+              }
+            },
+            "sub_atom/5": function(thread, point, atom) {
+              var i, atom1 = atom.args[0], before = atom.args[1], length = atom.args[2], after = atom.args[3], subatom = atom.args[4];
+              if (pl3.type.is_variable(atom1)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(before) && !pl3.type.is_integer(before)) {
+                thread.throw_error(pl3.error.type("integer", before, atom.indicator));
+              } else if (!pl3.type.is_variable(length) && !pl3.type.is_integer(length)) {
+                thread.throw_error(pl3.error.type("integer", length, atom.indicator));
+              } else if (!pl3.type.is_variable(after) && !pl3.type.is_integer(after)) {
+                thread.throw_error(pl3.error.type("integer", after, atom.indicator));
+              } else if (pl3.type.is_integer(before) && before.value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", before, atom.indicator));
+              } else if (pl3.type.is_integer(length) && length.value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", length, atom.indicator));
+              } else if (pl3.type.is_integer(after) && after.value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", after, atom.indicator));
+              } else {
+                var bs = [], ls = [], as = [];
+                if (pl3.type.is_variable(before)) {
+                  for (i = 0; i <= atom1.id.length; i++) {
+                    bs.push(i);
+                  }
+                } else {
+                  bs.push(before.value);
+                }
+                if (pl3.type.is_variable(length)) {
+                  for (i = 0; i <= atom1.id.length; i++) {
+                    ls.push(i);
+                  }
+                } else {
+                  ls.push(length.value);
+                }
+                if (pl3.type.is_variable(after)) {
+                  for (i = 0; i <= atom1.id.length; i++) {
+                    as.push(i);
+                  }
+                } else {
+                  as.push(after.value);
+                }
+                var states = [];
+                for (var _i in bs) {
+                  if (!bs.hasOwnProperty(_i))
+                    continue;
+                  i = bs[_i];
+                  for (var _j in ls) {
+                    if (!ls.hasOwnProperty(_j))
+                      continue;
+                    var j = ls[_j];
+                    var k = atom1.id.length - i - j;
+                    if (indexOf(as, k) !== -1) {
+                      if (i + j + k === atom1.id.length) {
+                        var str = atom1.id.substr(i, j);
+                        if (atom1.id === atom1.id.substr(0, i) + str + atom1.id.substr(i + j, k)) {
+                          var pl1 = new Term("=", [new Term(str), subatom]);
+                          var pl22 = new Term("=", [before, new Num(i)]);
+                          var pl32 = new Term("=", [length, new Num(j)]);
+                          var pl4 = new Term("=", [after, new Num(k)]);
+                          var goal = new Term(",", [new Term(",", [new Term(",", [pl22, pl32]), pl4]), pl1]);
+                          states.push(new State(point.goal.replace(goal), point.substitution, point));
+                        }
+                      }
+                    }
+                  }
+                }
+                thread.prepend(states);
+              }
+            },
+            "atom_chars/2": function(thread, point, atom) {
+              var atom1 = atom.args[0], list = atom.args[1];
+              if (pl3.type.is_variable(atom1) && pl3.type.is_variable(list)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(atom1) && !pl3.type.is_atom(atom1)) {
+                thread.throw_error(pl3.error.type("atom", atom1, atom.indicator));
+              } else {
+                if (!pl3.type.is_variable(atom1)) {
+                  var list1 = new Term("[]");
+                  for (var i = atom1.id.length - 1; i >= 0; i--) {
+                    list1 = new Term(".", [new Term(atom1.id.charAt(i)), list1]);
+                  }
+                  thread.prepend([new State(point.goal.replace(new Term("=", [list, list1])), point.substitution, point)]);
+                } else {
+                  var pointer = list;
+                  var v = pl3.type.is_variable(atom1);
+                  var str = "";
+                  while (pointer.indicator === "./2") {
+                    if (!pl3.type.is_character(pointer.args[0])) {
+                      if (pl3.type.is_variable(pointer.args[0]) && v) {
+                        thread.throw_error(pl3.error.instantiation(atom.indicator));
+                        return;
+                      } else if (!pl3.type.is_variable(pointer.args[0])) {
+                        thread.throw_error(pl3.error.type("character", pointer.args[0], atom.indicator));
+                        return;
+                      }
+                    } else {
+                      str += pointer.args[0].id;
+                    }
+                    pointer = pointer.args[1];
+                  }
+                  if (pl3.type.is_variable(pointer) && v) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  } else if (!pl3.type.is_empty_list(pointer) && !pl3.type.is_variable(pointer)) {
+                    thread.throw_error(pl3.error.type("list", list, atom.indicator));
+                  } else {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [new Term(str), atom1])), point.substitution, point)]);
+                  }
+                }
+              }
+            },
+            "atom_codes/2": function(thread, point, atom) {
+              var atom1 = atom.args[0], list = atom.args[1];
+              if (pl3.type.is_variable(atom1) && pl3.type.is_variable(list)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(atom1) && !pl3.type.is_atom(atom1)) {
+                thread.throw_error(pl3.error.type("atom", atom1, atom.indicator));
+              } else {
+                if (!pl3.type.is_variable(atom1)) {
+                  var list1 = new Term("[]");
+                  for (var i = atom1.id.length - 1; i >= 0; i--) {
+                    list1 = new Term(".", [new Num(codePointAt(atom1.id, i), false), list1]);
+                  }
+                  thread.prepend([new State(point.goal.replace(new Term("=", [list, list1])), point.substitution, point)]);
+                } else {
+                  var pointer = list;
+                  var v = pl3.type.is_variable(atom1);
+                  var str = "";
+                  while (pointer.indicator === "./2") {
+                    if (!pl3.type.is_character_code(pointer.args[0])) {
+                      if (pl3.type.is_variable(pointer.args[0]) && v) {
+                        thread.throw_error(pl3.error.instantiation(atom.indicator));
+                        return;
+                      } else if (!pl3.type.is_variable(pointer.args[0])) {
+                        thread.throw_error(pl3.error.representation("character_code", atom.indicator));
+                        return;
+                      }
+                    } else {
+                      str += fromCodePoint(pointer.args[0].value);
+                    }
+                    pointer = pointer.args[1];
+                  }
+                  if (pl3.type.is_variable(pointer) && v) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  } else if (!pl3.type.is_empty_list(pointer) && !pl3.type.is_variable(pointer)) {
+                    thread.throw_error(pl3.error.type("list", list, atom.indicator));
+                  } else {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [new Term(str), atom1])), point.substitution, point)]);
+                  }
+                }
+              }
+            },
+            "char_code/2": function(thread, point, atom) {
+              var char2 = atom.args[0], code = atom.args[1];
+              if (pl3.type.is_variable(char2) && pl3.type.is_variable(code)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(char2) && !pl3.type.is_character(char2)) {
+                thread.throw_error(pl3.error.type("character", char2, atom.indicator));
+              } else if (!pl3.type.is_variable(code) && !pl3.type.is_integer(code)) {
+                thread.throw_error(pl3.error.type("integer", code, atom.indicator));
+              } else if (!pl3.type.is_variable(code) && !pl3.type.is_character_code(code)) {
+                thread.throw_error(pl3.error.representation("character_code", atom.indicator));
+              } else {
+                if (pl3.type.is_variable(code)) {
+                  var code1 = new Num(codePointAt(char2.id, 0), false);
+                  thread.prepend([new State(point.goal.replace(new Term("=", [code1, code])), point.substitution, point)]);
+                } else {
+                  var char1 = new Term(fromCodePoint(code.value));
+                  thread.prepend([new State(point.goal.replace(new Term("=", [char1, char2])), point.substitution, point)]);
+                }
+              }
+            },
+            "number_chars/2": function(thread, point, atom) {
+              var str, num = atom.args[0], list = atom.args[1];
+              if (pl3.type.is_variable(num) && pl3.type.is_variable(list)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(num) && !pl3.type.is_number(num)) {
+                thread.throw_error(pl3.error.type("number", num, atom.indicator));
+              } else if (!pl3.type.is_variable(list) && !pl3.type.is_list(list)) {
+                thread.throw_error(pl3.error.type("list", list, atom.indicator));
+              } else {
+                var isvar = pl3.type.is_variable(num);
+                if (!pl3.type.is_variable(list)) {
+                  var pointer = list;
+                  var total = true;
+                  str = "";
+                  while (pointer.indicator === "./2") {
+                    if (!pl3.type.is_character(pointer.args[0])) {
+                      if (pl3.type.is_variable(pointer.args[0])) {
+                        total = false;
+                      } else if (!pl3.type.is_variable(pointer.args[0])) {
+                        thread.throw_error(pl3.error.type("character", pointer.args[0], atom.indicator));
+                        return;
+                      }
+                    } else {
+                      str += pointer.args[0].id;
+                    }
+                    pointer = pointer.args[1];
+                  }
+                  total = total && pl3.type.is_empty_list(pointer);
+                  if (!pl3.type.is_empty_list(pointer) && !pl3.type.is_variable(pointer)) {
+                    thread.throw_error(pl3.error.type("list", list, atom.indicator));
+                    return;
+                  }
+                  if (!total && isvar) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (total) {
+                    if (pl3.type.is_variable(pointer) && isvar) {
+                      thread.throw_error(pl3.error.instantiation(atom.indicator));
+                      return;
+                    } else {
+                      var expr = thread.parse(str);
+                      var num2 = expr.value;
+                      if (!pl3.type.is_number(num2) || expr.tokens[expr.tokens.length - 1].space) {
+                        thread.throw_error(pl3.error.syntax_by_predicate("parseable_number", atom.indicator));
+                      } else {
+                        thread.prepend([new State(point.goal.replace(new Term("=", [num, num2])), point.substitution, point)]);
+                      }
+                      return;
+                    }
+                  }
+                }
+                if (!isvar) {
+                  str = num.toString();
+                  var list2 = new Term("[]");
+                  for (var i = str.length - 1; i >= 0; i--) {
+                    list2 = new Term(".", [new Term(str.charAt(i)), list2]);
+                  }
+                  thread.prepend([new State(point.goal.replace(new Term("=", [list, list2])), point.substitution, point)]);
+                }
+              }
+            },
+            "number_codes/2": function(thread, point, atom) {
+              var str, num = atom.args[0], list = atom.args[1];
+              if (pl3.type.is_variable(num) && pl3.type.is_variable(list)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(num) && !pl3.type.is_number(num)) {
+                thread.throw_error(pl3.error.type("number", num, atom.indicator));
+              } else if (!pl3.type.is_variable(list) && !pl3.type.is_list(list)) {
+                thread.throw_error(pl3.error.type("list", list, atom.indicator));
+              } else {
+                var isvar = pl3.type.is_variable(num);
+                if (!pl3.type.is_variable(list)) {
+                  var pointer = list;
+                  var total = true;
+                  str = "";
+                  while (pointer.indicator === "./2") {
+                    if (!pl3.type.is_character_code(pointer.args[0])) {
+                      if (pl3.type.is_variable(pointer.args[0])) {
+                        total = false;
+                      } else if (!pl3.type.is_variable(pointer.args[0])) {
+                        thread.throw_error(pl3.error.type("character_code", pointer.args[0], atom.indicator));
+                        return;
+                      }
+                    } else {
+                      str += fromCodePoint(pointer.args[0].value);
+                    }
+                    pointer = pointer.args[1];
+                  }
+                  total = total && pl3.type.is_empty_list(pointer);
+                  if (!pl3.type.is_empty_list(pointer) && !pl3.type.is_variable(pointer)) {
+                    thread.throw_error(pl3.error.type("list", list, atom.indicator));
+                    return;
+                  }
+                  if (!total && isvar) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (total) {
+                    if (pl3.type.is_variable(pointer) && isvar) {
+                      thread.throw_error(pl3.error.instantiation(atom.indicator));
+                      return;
+                    } else {
+                      var expr = thread.parse(str);
+                      var num2 = expr.value;
+                      if (!pl3.type.is_number(num2) || expr.tokens[expr.tokens.length - 1].space) {
+                        thread.throw_error(pl3.error.syntax_by_predicate("parseable_number", atom.indicator));
+                      } else {
+                        thread.prepend([new State(point.goal.replace(new Term("=", [num, num2])), point.substitution, point)]);
+                      }
+                      return;
+                    }
+                  }
+                }
+                if (!isvar) {
+                  str = num.toString();
+                  var list2 = new Term("[]");
+                  for (var i = str.length - 1; i >= 0; i--) {
+                    list2 = new Term(".", [new Num(codePointAt(str, i), false), list2]);
+                  }
+                  thread.prepend([new State(point.goal.replace(new Term("=", [list, list2])), point.substitution, point)]);
+                }
+              }
+            },
+            "upcase_atom/2": function(thread, point, atom) {
+              var original = atom.args[0], upcase = atom.args[1];
+              if (pl3.type.is_variable(original)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(original)) {
+                thread.throw_error(pl3.error.type("atom", original, atom.indicator));
+              } else if (!pl3.type.is_variable(upcase) && !pl3.type.is_atom(upcase)) {
+                thread.throw_error(pl3.error.type("atom", upcase, atom.indicator));
+              } else {
+                thread.prepend([new State(point.goal.replace(new Term("=", [upcase, new Term(original.id.toUpperCase(), [])])), point.substitution, point)]);
+              }
+            },
+            "downcase_atom/2": function(thread, point, atom) {
+              var original = atom.args[0], downcase = atom.args[1];
+              if (pl3.type.is_variable(original)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(original)) {
+                thread.throw_error(pl3.error.type("atom", original, atom.indicator));
+              } else if (!pl3.type.is_variable(downcase) && !pl3.type.is_atom(downcase)) {
+                thread.throw_error(pl3.error.type("atom", downcase, atom.indicator));
+              } else {
+                thread.prepend([new State(point.goal.replace(new Term("=", [downcase, new Term(original.id.toLowerCase(), [])])), point.substitution, point)]);
+              }
+            },
+            "atomic_list_concat/2": function(thread, point, atom) {
+              var list = atom.args[0], concat = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("atomic_list_concat", [list, new Term("", []), concat])), point.substitution, point)]);
+            },
+            "atomic_list_concat/3": function(thread, point, atom) {
+              var list = atom.args[0], separator = atom.args[1], concat = atom.args[2];
+              if (pl3.type.is_variable(separator) || pl3.type.is_variable(list) && pl3.type.is_variable(concat)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(list) && !pl3.type.is_list(list)) {
+                thread.throw_error(pl3.error.type("list", list, atom.indicator));
+              } else if (!pl3.type.is_variable(concat) && !pl3.type.is_atom(concat)) {
+                thread.throw_error(pl3.error.type("atom", concat, atom.indicator));
+              } else {
+                if (!pl3.type.is_variable(concat)) {
+                  var atomic = arrayToList(map(concat.id.split(separator.id), function(id2) {
+                    return new Term(id2, []);
+                  }));
+                  thread.prepend([new State(point.goal.replace(new Term("=", [atomic, list])), point.substitution, point)]);
+                } else {
+                  var id = "";
+                  var pointer = list;
+                  while (pl3.type.is_term(pointer) && pointer.indicator === "./2") {
+                    if (!pl3.type.is_atom(pointer.args[0]) && !pl3.type.is_number(pointer.args[0])) {
+                      thread.throw_error(pl3.error.type("atomic", pointer.args[0], atom.indicator));
+                      return;
+                    }
+                    if (id !== "")
+                      id += separator.id;
+                    if (pl3.type.is_atom(pointer.args[0]))
+                      id += pointer.args[0].id;
+                    else
+                      id += "" + pointer.args[0].value;
+                    pointer = pointer.args[1];
+                  }
+                  id = new Term(id, []);
+                  if (pl3.type.is_variable(pointer)) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  } else if (!pl3.type.is_term(pointer) || pointer.indicator !== "[]/0") {
+                    thread.throw_error(pl3.error.type("list", list, atom.indicator));
+                  } else {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [id, concat])), point.substitution, point)]);
+                  }
+                }
+              }
+            },
+            "@=</2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) <= 0) {
+                thread.success(point);
+              }
+            },
+            "==/2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) === 0) {
+                thread.success(point);
+              }
+            },
+            "\\==/2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) !== 0) {
+                thread.success(point);
+              }
+            },
+            "@</2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) < 0) {
+                thread.success(point);
+              }
+            },
+            "@>/2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) > 0) {
+                thread.success(point);
+              }
+            },
+            "@>=/2": function(thread, point, atom) {
+              if (pl3.compare(atom.args[0], atom.args[1]) >= 0) {
+                thread.success(point);
+              }
+            },
+            "compare/3": function(thread, point, atom) {
+              var order = atom.args[0], left = atom.args[1], right = atom.args[2];
+              if (!pl3.type.is_variable(order) && !pl3.type.is_atom(order)) {
+                thread.throw_error(pl3.error.type("atom", order, atom.indicator));
+              } else if (pl3.type.is_atom(order) && ["<", ">", "="].indexOf(order.id) === -1) {
+                thread.throw_error(pl3.type.domain("order", order, atom.indicator));
+              } else {
+                var compare = pl3.compare(left, right);
+                compare = compare === 0 ? "=" : compare === -1 ? "<" : ">";
+                thread.prepend([new State(point.goal.replace(new Term("=", [order, new Term(compare, [])])), point.substitution, point)]);
+              }
+            },
+            "is/2": function(thread, point, atom) {
+              var op = atom.args[1].interpret(thread);
+              if (!pl3.type.is_number(op)) {
+                thread.throw_error(op);
+              } else {
+                thread.prepend([new State(point.goal.replace(new Term("=", [atom.args[0], op], thread.level)), point.substitution, point)]);
+              }
+            },
+            "between/3": function(thread, point, atom) {
+              var lower = atom.args[0], upper = atom.args[1], bet = atom.args[2];
+              if (pl3.type.is_variable(lower) || pl3.type.is_variable(upper)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_integer(lower)) {
+                thread.throw_error(pl3.error.type("integer", lower, atom.indicator));
+              } else if (!pl3.type.is_integer(upper)) {
+                thread.throw_error(pl3.error.type("integer", upper, atom.indicator));
+              } else if (!pl3.type.is_variable(bet) && !pl3.type.is_integer(bet)) {
+                thread.throw_error(pl3.error.type("integer", bet, atom.indicator));
+              } else {
+                if (pl3.type.is_variable(bet)) {
+                  var states = [new State(point.goal.replace(new Term("=", [bet, lower])), point.substitution, point)];
+                  if (lower.value < upper.value)
+                    states.push(new State(point.goal.replace(new Term("between", [new Num(lower.value + 1, false), upper, bet])), point.substitution, point));
+                  thread.prepend(states);
+                } else if (lower.value <= bet.value && upper.value >= bet.value) {
+                  thread.success(point);
+                }
+              }
+            },
+            "succ/2": function(thread, point, atom) {
+              var n = atom.args[0], m = atom.args[1];
+              if (pl3.type.is_variable(n) && pl3.type.is_variable(m)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(n) && !pl3.type.is_integer(n)) {
+                thread.throw_error(pl3.error.type("integer", n, atom.indicator));
+              } else if (!pl3.type.is_variable(m) && !pl3.type.is_integer(m)) {
+                thread.throw_error(pl3.error.type("integer", m, atom.indicator));
+              } else if (!pl3.type.is_variable(n) && n.value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", n, atom.indicator));
+              } else if (!pl3.type.is_variable(m) && m.value < 0) {
+                thread.throw_error(pl3.error.domain("not_less_than_zero", m, atom.indicator));
+              } else {
+                if (pl3.type.is_variable(m) || m.value > 0) {
+                  if (pl3.type.is_variable(n)) {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [n, new Num(m.value - 1, false)])), point.substitution, point)]);
+                  } else {
+                    thread.prepend([new State(point.goal.replace(new Term("=", [m, new Num(n.value + 1, false)])), point.substitution, point)]);
+                  }
+                }
+              }
+            },
+            "=:=/2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp === 0) {
+                thread.success(point);
+              }
+            },
+            "=\\=/2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp !== 0) {
+                thread.success(point);
+              }
+            },
+            "</2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp < 0) {
+                thread.success(point);
+              }
+            },
+            "=</2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp <= 0) {
+                thread.success(point);
+              }
+            },
+            ">/2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp > 0) {
+                thread.success(point);
+              }
+            },
+            ">=/2": function(thread, point, atom) {
+              var cmp = pl3.arithmetic_compare(thread, atom.args[0], atom.args[1]);
+              if (pl3.type.is_term(cmp)) {
+                thread.throw_error(cmp);
+              } else if (cmp >= 0) {
+                thread.success(point);
+              }
+            },
+            "var/1": function(thread, point, atom) {
+              if (pl3.type.is_variable(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "atom/1": function(thread, point, atom) {
+              if (pl3.type.is_atom(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "atomic/1": function(thread, point, atom) {
+              if (pl3.type.is_atomic(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "compound/1": function(thread, point, atom) {
+              if (pl3.type.is_compound(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "integer/1": function(thread, point, atom) {
+              if (pl3.type.is_integer(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "float/1": function(thread, point, atom) {
+              if (pl3.type.is_float(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "number/1": function(thread, point, atom) {
+              if (pl3.type.is_number(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "nonvar/1": function(thread, point, atom) {
+              if (!pl3.type.is_variable(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "ground/1": function(thread, point, atom) {
+              if (atom.variables().length === 0) {
+                thread.success(point);
+              }
+            },
+            "acyclic_term/1": function(thread, point, atom) {
+              var test = point.substitution.apply(point.substitution);
+              var variables = atom.args[0].variables();
+              for (var i = 0; i < variables.length; i++)
+                if (point.substitution.links[variables[i]] !== void 0 && !point.substitution.links[variables[i]].equals(test.links[variables[i]]))
+                  return;
+              thread.success(point);
+            },
+            "callable/1": function(thread, point, atom) {
+              if (pl3.type.is_callable(atom.args[0])) {
+                thread.success(point);
+              }
+            },
+            "is_list/1": function(thread, point, atom) {
+              var list = atom.args[0];
+              while (pl3.type.is_term(list) && list.indicator === "./2")
+                list = list.args[1];
+              if (pl3.type.is_term(list) && list.indicator === "[]/0")
+                thread.success(point);
+            },
+            "current_input/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream", stream, atom.indicator));
+              } else {
+                if (pl3.type.is_atom(stream) && thread.get_stream_by_alias(stream.id))
+                  stream = thread.get_stream_by_alias(stream.id);
+                thread.prepend([
+                  new State(point.goal.replace(new Term("=", [stream, thread.get_current_input()])), point.substitution, point)
+                ]);
+              }
+            },
+            "current_output/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else {
+                if (pl3.type.is_atom(stream) && thread.get_stream_by_alias(stream.id))
+                  stream = thread.get_stream_by_alias(stream.id);
+                thread.prepend([
+                  new State(point.goal.replace(new Term("=", [stream, thread.get_current_output()])), point.substitution, point)
+                ]);
+              }
+            },
+            "set_input/1": function(thread, point, atom) {
+              var input = atom.args[0];
+              var stream = pl3.type.is_stream(input) ? input : thread.get_stream_by_alias(input.id);
+              if (pl3.type.is_variable(input)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(input) && !pl3.type.is_stream(input) && !pl3.type.is_atom(input)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", input, atom.indicator));
+              } else if (!pl3.type.is_stream(stream)) {
+                thread.throw_error(pl3.error.existence("stream", input, atom.indicator));
+              } else if (stream.output === true) {
+                thread.throw_error(pl3.error.permission("input", "stream", input, atom.indicator));
+              } else {
+                thread.set_current_input(stream);
+                thread.success(point);
+              }
+            },
+            "set_output/1": function(thread, point, atom) {
+              var output2 = atom.args[0];
+              var stream = pl3.type.is_stream(output2) ? output2 : thread.get_stream_by_alias(output2.id);
+              if (pl3.type.is_variable(output2)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(output2) && !pl3.type.is_stream(output2) && !pl3.type.is_atom(output2)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", output2, atom.indicator));
+              } else if (!pl3.type.is_stream(stream)) {
+                thread.throw_error(pl3.error.existence("stream", output2, atom.indicator));
+              } else if (stream.input === true) {
+                thread.throw_error(pl3.error.permission("output", "stream", output2, atom.indicator));
+              } else {
+                thread.set_current_output(stream);
+                thread.success(point);
+              }
+            },
+            "open/3": function(thread, point, atom) {
+              var dest = atom.args[0], mode = atom.args[1], stream = atom.args[2];
+              thread.prepend([new State(point.goal.replace(new Term("open", [dest, mode, stream, new Term("[]", [])])), point.substitution, point)]);
+            },
+            "open/4": function(thread, point, atom) {
+              var dest = atom.args[0], mode = atom.args[1], stream = atom.args[2], options = atom.args[3];
+              if (pl3.type.is_variable(dest) || pl3.type.is_variable(mode)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(mode) && !pl3.type.is_atom(mode)) {
+                thread.throw_error(pl3.error.type("atom", mode, atom.indicator));
+              } else if (!pl3.type.is_list(options)) {
+                thread.throw_error(pl3.error.type("list", options, atom.indicator));
+              } else if (!pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.type("variable", stream, atom.indicator));
+              } else if (!pl3.type.is_atom(dest) && !pl3.type.is_streamable(dest)) {
+                thread.throw_error(pl3.error.domain("source_sink", dest, atom.indicator));
+              } else if (!pl3.type.is_io_mode(mode)) {
+                thread.throw_error(pl3.error.domain("io_mode", mode, atom.indicator));
+              } else {
+                var obj_options = {};
+                var pointer = options;
+                var property;
+                while (pl3.type.is_term(pointer) && pointer.indicator === "./2") {
+                  property = pointer.args[0];
+                  if (pl3.type.is_variable(property)) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (!pl3.type.is_stream_option(property)) {
+                    thread.throw_error(pl3.error.domain("stream_option", property, atom.indicator));
+                    return;
+                  }
+                  obj_options[property.id] = property.args[0].id;
+                  pointer = pointer.args[1];
+                }
+                if (pointer.indicator !== "[]/0") {
+                  if (pl3.type.is_variable(pointer))
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  else
+                    thread.throw_error(pl3.error.type("list", options, atom.indicator));
+                  return;
+                } else {
+                  var alias = obj_options["alias"];
+                  if (alias && thread.get_stream_by_alias(alias)) {
+                    thread.throw_error(pl3.error.permission("open", "source_sink", new Term("alias", [new Term(alias, [])]), atom.indicator));
+                    return;
+                  }
+                  if (!obj_options["type"])
+                    obj_options["type"] = "text";
+                  var file;
+                  if (pl3.type.is_atom(dest))
+                    file = thread.file_system_open(dest.id, obj_options["type"], mode.id);
+                  else
+                    file = dest.stream(obj_options["type"], mode.id);
+                  if (file === false) {
+                    thread.throw_error(pl3.error.permission("open", "source_sink", dest, atom.indicator));
+                    return;
+                  } else if (file === null) {
+                    thread.throw_error(pl3.error.existence("source_sink", dest, atom.indicator));
+                    return;
+                  }
+                  var newstream = new Stream(file, mode.id, obj_options["alias"], obj_options["type"], obj_options["reposition"] === "true", obj_options["eof_action"]);
+                  if (alias)
+                    thread.session.streams[alias] = newstream;
+                  else
+                    thread.session.streams[newstream.id] = newstream;
+                  thread.prepend([new State(point.goal.replace(new Term("=", [stream, newstream])), point.substitution, point)]);
+                }
+              }
+            },
+            "close/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term("close", [stream, new Term("[]", [])])), point.substitution, point)]);
+            },
+            "close/2": function(thread, point, atom) {
+              var stream = atom.args[0], options = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(options)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_list(options)) {
+                thread.throw_error(pl3.error.type("list", options, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else {
+                var obj_options = {};
+                var pointer = options;
+                var property;
+                while (pl3.type.is_term(pointer) && pointer.indicator === "./2") {
+                  property = pointer.args[0];
+                  if (pl3.type.is_variable(property)) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (!pl3.type.is_close_option(property)) {
+                    thread.throw_error(pl3.error.domain("close_option", property, atom.indicator));
+                    return;
+                  }
+                  obj_options[property.id] = property.args[0].id === "true";
+                  pointer = pointer.args[1];
+                }
+                if (pointer.indicator !== "[]/0") {
+                  if (pl3.type.is_variable(pointer))
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  else
+                    thread.throw_error(pl3.error.type("list", options, atom.indicator));
+                  return;
+                } else {
+                  if (stream2 === thread.session.standard_input || stream2 === thread.session.standard_output) {
+                    thread.success(point);
+                    return;
+                  } else if (stream2 === thread.session.current_input) {
+                    thread.session.current_input = thread.session.standard_input;
+                  } else if (stream2 === thread.session.current_output) {
+                    thread.session.current_output = thread.session.current_output;
+                  }
+                  if (stream2.alias !== null)
+                    delete thread.session.streams[stream2.alias];
+                  else
+                    delete thread.session.streams[stream2.id];
+                  if (stream2.output)
+                    stream2.stream.flush();
+                  var closed = stream2.stream.close();
+                  stream2.stream = null;
+                  if (obj_options.force === true || closed === true) {
+                    thread.success(point);
+                  }
+                }
+              }
+            },
+            "flush_output/0": function(thread, point, atom) {
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("flush_output", [new Var("S")])])), point.substitution, point)]);
+            },
+            "flush_output/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream.input === true) {
+                thread.throw_error(pl3.error.permission("output", "stream", output, atom.indicator));
+              } else {
+                stream2.stream.flush();
+                thread.success(point);
+              }
+            },
+            "stream_property/2": function(thread, point, atom) {
+              var stream = atom.args[0], property = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && (!pl3.type.is_stream(stream2) || stream2.stream === null)) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (!pl3.type.is_variable(property) && !pl3.type.is_stream_property(property)) {
+                thread.throw_error(pl3.error.domain("stream_property", property, atom.indicator));
+              } else {
+                var streams = [];
+                var states = [];
+                if (!pl3.type.is_variable(stream))
+                  streams.push(stream2);
+                else
+                  for (var key2 in thread.session.streams)
+                    streams.push(thread.session.streams[key2]);
+                for (var i = 0; i < streams.length; i++) {
+                  var properties = [];
+                  if (streams[i].filename)
+                    properties.push(new Term("file_name", [new Term(streams[i].file_name, [])]));
+                  properties.push(new Term("mode", [new Term(streams[i].mode, [])]));
+                  properties.push(new Term(streams[i].input ? "input" : "output", []));
+                  if (streams[i].alias)
+                    properties.push(new Term("alias", [new Term(streams[i].alias, [])]));
+                  properties.push(new Term("position", [
+                    typeof streams[i].position === "number" ? new Num(streams[i].position, false) : new Term(streams[i].position, [])
+                  ]));
+                  properties.push(new Term("end_of_stream", [new Term(streams[i].position === "end_of_stream" ? "at" : streams[i].position === "past_end_of_stream" ? "past" : "not", [])]));
+                  properties.push(new Term("eof_action", [new Term(streams[i].eof_action, [])]));
+                  properties.push(new Term("reposition", [new Term(streams[i].reposition ? "true" : "false", [])]));
+                  properties.push(new Term("type", [new Term(streams[i].type, [])]));
+                  for (var j = 0; j < properties.length; j++) {
+                    states.push(new State(point.goal.replace(new Term(",", [
+                      new Term("=", [pl3.type.is_variable(stream) ? stream : stream2, streams[i]]),
+                      new Term("=", [property, properties[j]])
+                    ])), point.substitution, point));
+                  }
+                }
+                thread.prepend(states);
+              }
+            },
+            "at_end_of_stream/0": function(thread, point, atom) {
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term(",", [
+                new Term("stream_property", [new Var("S"), new Term("end_of_stream", [new Var("E")])]),
+                new Term(",", [new Term("!", []), new Term(";", [new Term("=", [
+                  new Var("E"),
+                  new Term("at", [])
+                ]), new Term("=", [new Var("E"), new Term("past", [])])])])
+              ])])), point.substitution, point)]);
+            },
+            "at_end_of_stream/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [
+                new Term("stream_property", [stream, new Term("end_of_stream", [new Var("E")])]),
+                new Term(",", [new Term("!", []), new Term(";", [
+                  new Term("=", [new Var("E"), new Term("at", [])]),
+                  new Term("=", [new Var("E"), new Term("past", [])])
+                ])])
+              ])), point.substitution, point)]);
+            },
+            "set_stream_position/2": function(thread, point, atom) {
+              var stream = atom.args[0], position = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(position)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (!pl3.type.is_stream_position(position)) {
+                thread.throw_error(pl3.error.domain("stream_position", position, atom.indicator));
+              } else if (stream2.reposition === false) {
+                thread.throw_error(pl3.error.permission("reposition", "stream", stream, atom.indicator));
+              } else {
+                if (pl3.type.is_integer(position))
+                  stream2.position = position.value;
+                else
+                  stream2.position = position.id;
+                thread.success(point);
+              }
+            },
+            "get_char/1": function(thread, point, atom) {
+              var char2 = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("get_char", [new Var("S"), char2])])), point.substitution, point)]);
+            },
+            "get_char/2": function(thread, point, atom) {
+              var stream = atom.args[0], char2 = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(char2) && !pl3.type.is_character(char2)) {
+                thread.throw_error(pl3.error.type("in_character", char2, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("input", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_char;
+                if (stream2.position === "end_of_stream") {
+                  stream_char = "end_of_file";
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_char = stream2.stream.get(1, stream2.position);
+                  if (stream_char === null) {
+                    thread.throw_error(pl3.error.representation("character", atom.indicator));
+                    return;
+                  }
+                  stream2.position++;
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Term(stream_char, []), char2])), point.substitution, point)]);
+              }
+            },
+            "get_code/1": function(thread, point, atom) {
+              var code = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("get_code", [new Var("S"), code])])), point.substitution, point)]);
+            },
+            "get_code/2": function(thread, point, atom) {
+              var stream = atom.args[0], code = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(code) && !pl3.type.is_integer(code)) {
+                thread.throw_error(pl3.error.type("integer", char, atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("input", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_code;
+                if (stream2.position === "end_of_stream") {
+                  stream_code = -1;
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_code = stream2.stream.get(1, stream2.position);
+                  if (stream_code === null) {
+                    thread.throw_error(pl3.error.representation("character", atom.indicator));
+                    return;
+                  }
+                  stream_code = codePointAt(stream_code, 0);
+                  stream2.position++;
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Num(stream_code, false), code])), point.substitution, point)]);
+              }
+            },
+            "peek_char/1": function(thread, point, atom) {
+              var char2 = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("peek_char", [new Var("S"), char2])])), point.substitution, point)]);
+            },
+            "peek_char/2": function(thread, point, atom) {
+              var stream = atom.args[0], char2 = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(char2) && !pl3.type.is_character(char2)) {
+                thread.throw_error(pl3.error.type("in_character", char2, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("input", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_char;
+                if (stream2.position === "end_of_stream") {
+                  stream_char = "end_of_file";
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_char = stream2.stream.get(1, stream2.position);
+                  if (stream_char === null) {
+                    thread.throw_error(pl3.error.representation("character", atom.indicator));
+                    return;
+                  }
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Term(stream_char, []), char2])), point.substitution, point)]);
+              }
+            },
+            "peek_code/1": function(thread, point, atom) {
+              var code = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("peek_code", [new Var("S"), code])])), point.substitution, point)]);
+            },
+            "peek_code/2": function(thread, point, atom) {
+              var stream = atom.args[0], code = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(code) && !pl3.type.is_integer(code)) {
+                thread.throw_error(pl3.error.type("integer", char, atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("input", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_code;
+                if (stream2.position === "end_of_stream") {
+                  stream_code = -1;
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_code = stream2.stream.get(1, stream2.position);
+                  if (stream_code === null) {
+                    thread.throw_error(pl3.error.representation("character", atom.indicator));
+                    return;
+                  }
+                  stream_code = codePointAt(stream_code, 0);
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Num(stream_code, false), code])), point.substitution, point)]);
+              }
+            },
+            "put_char/1": function(thread, point, atom) {
+              var char2 = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("put_char", [new Var("S"), char2])])), point.substitution, point)]);
+            },
+            "put_char/2": function(thread, point, atom) {
+              var stream = atom.args[0], char2 = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(char2)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_character(char2)) {
+                thread.throw_error(pl3.error.type("character", char2, atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.input) {
+                thread.throw_error(pl3.error.permission("output", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("output", "binary_stream", stream, atom.indicator));
+              } else {
+                if (stream2.stream.put(char2.id, stream2.position)) {
+                  if (typeof stream2.position === "number")
+                    stream2.position++;
+                  thread.success(point);
+                }
+              }
+            },
+            "put_code/1": function(thread, point, atom) {
+              var code = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("put_code", [new Var("S"), code])])), point.substitution, point)]);
+            },
+            "put_code/2": function(thread, point, atom) {
+              var stream = atom.args[0], code = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(code)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_integer(code)) {
+                thread.throw_error(pl3.error.type("integer", code, atom.indicator));
+              } else if (!pl3.type.is_character_code(code)) {
+                thread.throw_error(pl3.error.representation("character_code", atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.input) {
+                thread.throw_error(pl3.error.permission("output", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("output", "binary_stream", stream, atom.indicator));
+              } else {
+                if (stream2.stream.put_char(fromCodePoint(code.value), stream2.position)) {
+                  if (typeof stream2.position === "number")
+                    stream2.position++;
+                  thread.success(point);
+                }
+              }
+            },
+            "nl/0": function(thread, point, atom) {
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("put_char", [new Var("S"), new Term("\n", [])])])), point.substitution, point)]);
+            },
+            "nl/1": function(thread, point, atom) {
+              var stream = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term("put_char", [stream, new Term("\n", [])])), point.substitution, point)]);
+            },
+            "get_byte/1": function(thread, point, atom) {
+              var byte = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("get_byte", [new Var("S"), byte])])), point.substitution, point)]);
+            },
+            "get_byte/2": function(thread, point, atom) {
+              var stream = atom.args[0], byte = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(byte) && !pl3.type.is_byte(byte)) {
+                thread.throw_error(pl3.error.type("in_byte", char, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "text") {
+                thread.throw_error(pl3.error.permission("input", "text_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_byte;
+                if (stream2.position === "end_of_stream") {
+                  stream_byte = "end_of_file";
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_byte = stream2.stream.get_byte(stream2.position);
+                  if (stream_byte === null) {
+                    thread.throw_error(pl3.error.representation("byte", atom.indicator));
+                    return;
+                  }
+                  stream2.position++;
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Num(stream_byte, false), byte])), point.substitution, point)]);
+              }
+            },
+            "peek_byte/1": function(thread, point, atom) {
+              var byte = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("peek_byte", [new Var("S"), byte])])), point.substitution, point)]);
+            },
+            "peek_byte/2": function(thread, point, atom) {
+              var stream = atom.args[0], byte = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_variable(byte) && !pl3.type.is_byte(byte)) {
+                thread.throw_error(pl3.error.type("in_byte", char, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "text") {
+                thread.throw_error(pl3.error.permission("input", "text_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var stream_byte;
+                if (stream2.position === "end_of_stream") {
+                  stream_byte = "end_of_file";
+                  stream2.position = "past_end_of_stream";
+                } else {
+                  stream_byte = stream2.stream.get_byte(stream2.position);
+                  if (stream_byte === null) {
+                    thread.throw_error(pl3.error.representation("byte", atom.indicator));
+                    return;
+                  }
+                }
+                thread.prepend([new State(point.goal.replace(new Term("=", [new Num(stream_byte, false), byte])), point.substitution, point)]);
+              }
+            },
+            "put_byte/1": function(thread, point, atom) {
+              var byte = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("put_byte", [new Var("S"), byte])])), point.substitution, point)]);
+            },
+            "put_byte/2": function(thread, point, atom) {
+              var stream = atom.args[0], byte = atom.args[1];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(byte)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_byte(byte)) {
+                thread.throw_error(pl3.error.type("byte", byte, atom.indicator));
+              } else if (!pl3.type.is_variable(stream) && !pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.input) {
+                thread.throw_error(pl3.error.permission("output", "stream", stream, atom.indicator));
+              } else if (stream2.type === "text") {
+                thread.throw_error(pl3.error.permission("output", "text_stream", stream, atom.indicator));
+              } else {
+                if (stream2.stream.put_byte(byte.value, stream2.position)) {
+                  if (typeof stream2.position === "number")
+                    stream2.position++;
+                  thread.success(point);
+                }
+              }
+            },
+            "read/1": function(thread, point, atom) {
+              var term = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("read_term", [new Var("S"), term, new Term("[]", [])])])), point.substitution, point)]);
+            },
+            "read/2": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("read_term", [stream, term, new Term("[]", [])])), point.substitution, point)]);
+            },
+            "read_term/2": function(thread, point, atom) {
+              var term = atom.args[0], options = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_input", [new Var("S")]), new Term("read_term", [new Var("S"), term, options])])), point.substitution, point)]);
+            },
+            "read_term/3": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1], options = atom.args[2];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(options)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_list(options)) {
+                thread.throw_error(pl3.error.type("list", options, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.output) {
+                thread.throw_error(pl3.error.permission("input", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("input", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("input", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var obj_options = {};
+                var pointer = options;
+                var property;
+                while (pl3.type.is_term(pointer) && pointer.indicator === "./2") {
+                  property = pointer.args[0];
+                  if (pl3.type.is_variable(property)) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (!pl3.type.is_read_option(property)) {
+                    thread.throw_error(pl3.error.domain("read_option", property, atom.indicator));
+                    return;
+                  }
+                  obj_options[property.id] = property.args[0];
+                  pointer = pointer.args[1];
+                }
+                if (pointer.indicator !== "[]/0") {
+                  if (pl3.type.is_variable(pointer))
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  else
+                    thread.throw_error(pl3.error.type("list", options, atom.indicator));
+                  return;
+                } else {
+                  var char2, tokenizer, expr;
+                  var text = "";
+                  var tokens = [];
+                  var last_token = null;
+                  while (last_token === null || last_token.name !== "atom" || last_token.value !== "." || expr.type === ERROR && pl3.flatten_error(new Term("throw", [expr.value])).found === "token_not_found") {
+                    char2 = stream2.stream.get(1, stream2.position);
+                    if (char2 === null) {
+                      thread.throw_error(pl3.error.representation("character", atom.indicator));
+                      return;
+                    }
+                    if (char2 === "end_of_file" || char2 === "past_end_of_file") {
+                      if (expr)
+                        thread.throw_error(pl3.error.syntax(tokens[expr.len - 1], ". or expression expected", false));
+                      else
+                        thread.throw_error(pl3.error.syntax(null, "token not found", true));
+                      return;
+                    }
+                    stream2.position++;
+                    text += char2;
+                    tokenizer = new Tokenizer(thread);
+                    tokenizer.new_text(text);
+                    tokens = tokenizer.get_tokens();
+                    last_token = tokens !== null && tokens.length > 0 ? tokens[tokens.length - 1] : null;
+                    if (tokens === null)
+                      continue;
+                    expr = parseExpr(thread, tokens, 0, thread.__get_max_priority(), false);
+                  }
+                  if (expr.type === SUCCESS && expr.len === tokens.length - 1 && last_token.value === ".") {
+                    expr = expr.value.rename(thread);
+                    var eq = new Term("=", [term, expr]);
+                    if (obj_options.variables) {
+                      var vars = arrayToList(map(nub(expr.variables()), function(v) {
+                        return new Var(v);
+                      }));
+                      eq = new Term(",", [eq, new Term("=", [obj_options.variables, vars])]);
+                    }
+                    if (obj_options.variable_names) {
+                      var vars = arrayToList(map(nub(expr.variables()), function(v) {
+                        var prop;
+                        for (prop in thread.session.renamed_variables) {
+                          if (thread.session.renamed_variables.hasOwnProperty(prop)) {
+                            if (thread.session.renamed_variables[prop] === v)
+                              break;
+                          }
+                        }
+                        return new Term("=", [new Term(prop, []), new Var(v)]);
+                      }));
+                      eq = new Term(",", [eq, new Term("=", [obj_options.variable_names, vars])]);
+                    }
+                    if (obj_options.singletons) {
+                      var vars = arrayToList(map(new Rule(expr, null).singleton_variables(), function(v) {
+                        var prop;
+                        for (prop in thread.session.renamed_variables) {
+                          if (thread.session.renamed_variables.hasOwnProperty(prop)) {
+                            if (thread.session.renamed_variables[prop] === v)
+                              break;
+                          }
+                        }
+                        return new Term("=", [new Term(prop, []), new Var(v)]);
+                      }));
+                      eq = new Term(",", [eq, new Term("=", [obj_options.singletons, vars])]);
+                    }
+                    thread.prepend([new State(point.goal.replace(eq), point.substitution, point)]);
+                  } else {
+                    if (expr.type === SUCCESS)
+                      thread.throw_error(pl3.error.syntax(tokens[expr.len], "unexpected token", false));
+                    else
+                      thread.throw_error(expr.value);
+                  }
+                }
+              }
+            },
+            "write/1": function(thread, point, atom) {
+              var term = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("write", [new Var("S"), term])])), point.substitution, point)]);
+            },
+            "write/2": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("write_term", [
+                stream,
+                term,
+                new Term(".", [
+                  new Term("quoted", [new Term("false", [])]),
+                  new Term(".", [
+                    new Term("ignore_ops", [new Term("false")]),
+                    new Term(".", [new Term("numbervars", [new Term("true")]), new Term("[]", [])])
+                  ])
+                ])
+              ])), point.substitution, point)]);
+            },
+            "writeq/1": function(thread, point, atom) {
+              var term = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("writeq", [new Var("S"), term])])), point.substitution, point)]);
+            },
+            "writeq/2": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("write_term", [
+                stream,
+                term,
+                new Term(".", [
+                  new Term("quoted", [new Term("true", [])]),
+                  new Term(".", [
+                    new Term("ignore_ops", [new Term("false")]),
+                    new Term(".", [new Term("numbervars", [new Term("true")]), new Term("[]", [])])
+                  ])
+                ])
+              ])), point.substitution, point)]);
+            },
+            "write_canonical/1": function(thread, point, atom) {
+              var term = atom.args[0];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("write_canonical", [new Var("S"), term])])), point.substitution, point)]);
+            },
+            "write_canonical/2": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term("write_term", [
+                stream,
+                term,
+                new Term(".", [
+                  new Term("quoted", [new Term("true", [])]),
+                  new Term(".", [
+                    new Term("ignore_ops", [new Term("true")]),
+                    new Term(".", [new Term("numbervars", [new Term("false")]), new Term("[]", [])])
+                  ])
+                ])
+              ])), point.substitution, point)]);
+            },
+            "write_term/2": function(thread, point, atom) {
+              var term = atom.args[0], options = atom.args[1];
+              thread.prepend([new State(point.goal.replace(new Term(",", [new Term("current_output", [new Var("S")]), new Term("write_term", [new Var("S"), term, options])])), point.substitution, point)]);
+            },
+            "write_term/3": function(thread, point, atom) {
+              var stream = atom.args[0], term = atom.args[1], options = atom.args[2];
+              var stream2 = pl3.type.is_stream(stream) ? stream : thread.get_stream_by_alias(stream.id);
+              if (pl3.type.is_variable(stream) || pl3.type.is_variable(options)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_list(options)) {
+                thread.throw_error(pl3.error.type("list", options, atom.indicator));
+              } else if (!pl3.type.is_stream(stream) && !pl3.type.is_atom(stream)) {
+                thread.throw_error(pl3.error.domain("stream_or_alias", stream, atom.indicator));
+              } else if (!pl3.type.is_stream(stream2) || stream2.stream === null) {
+                thread.throw_error(pl3.error.existence("stream", stream, atom.indicator));
+              } else if (stream2.input) {
+                thread.throw_error(pl3.error.permission("output", "stream", stream, atom.indicator));
+              } else if (stream2.type === "binary") {
+                thread.throw_error(pl3.error.permission("output", "binary_stream", stream, atom.indicator));
+              } else if (stream2.position === "past_end_of_stream" && stream2.eof_action === "error") {
+                thread.throw_error(pl3.error.permission("output", "past_end_of_stream", stream, atom.indicator));
+              } else {
+                var obj_options = {};
+                var pointer = options;
+                var property;
+                while (pl3.type.is_term(pointer) && pointer.indicator === "./2") {
+                  property = pointer.args[0];
+                  if (pl3.type.is_variable(property)) {
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                    return;
+                  } else if (!pl3.type.is_write_option(property)) {
+                    thread.throw_error(pl3.error.domain("write_option", property, atom.indicator));
+                    return;
+                  }
+                  obj_options[property.id] = property.args[0].id === "true";
+                  pointer = pointer.args[1];
+                }
+                if (pointer.indicator !== "[]/0") {
+                  if (pl3.type.is_variable(pointer))
+                    thread.throw_error(pl3.error.instantiation(atom.indicator));
+                  else
+                    thread.throw_error(pl3.error.type("list", options, atom.indicator));
+                  return;
+                } else {
+                  obj_options.session = thread.session;
+                  var text = term.toString(obj_options);
+                  stream2.stream.put(text, stream2.position);
+                  if (typeof stream2.position === "number")
+                    stream2.position += text.length;
+                  thread.success(point);
+                }
+              }
+            },
+            "halt/0": function(thread, point, _) {
+              thread.points = [];
+            },
+            "halt/1": function(thread, point, atom) {
+              var int = atom.args[0];
+              if (pl3.type.is_variable(int)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_integer(int)) {
+                thread.throw_error(pl3.error.type("integer", int, atom.indicator));
+              } else {
+                thread.points = [];
+              }
+            },
+            "current_prolog_flag/2": function(thread, point, atom) {
+              var flag = atom.args[0], value = atom.args[1];
+              if (!pl3.type.is_variable(flag) && !pl3.type.is_atom(flag)) {
+                thread.throw_error(pl3.error.type("atom", flag, atom.indicator));
+              } else if (!pl3.type.is_variable(flag) && !pl3.type.is_flag(flag)) {
+                thread.throw_error(pl3.error.domain("prolog_flag", flag, atom.indicator));
+              } else {
+                var states = [];
+                for (var name in pl3.flag) {
+                  if (!pl3.flag.hasOwnProperty(name))
+                    continue;
+                  var goal = new Term(",", [new Term("=", [new Term(name), flag]), new Term("=", [thread.get_flag(name), value])]);
+                  states.push(new State(point.goal.replace(goal), point.substitution, point));
+                }
+                thread.prepend(states);
+              }
+            },
+            "set_prolog_flag/2": function(thread, point, atom) {
+              var flag = atom.args[0], value = atom.args[1];
+              if (pl3.type.is_variable(flag) || pl3.type.is_variable(value)) {
+                thread.throw_error(pl3.error.instantiation(atom.indicator));
+              } else if (!pl3.type.is_atom(flag)) {
+                thread.throw_error(pl3.error.type("atom", flag, atom.indicator));
+              } else if (!pl3.type.is_flag(flag)) {
+                thread.throw_error(pl3.error.domain("prolog_flag", flag, atom.indicator));
+              } else if (!pl3.type.is_value_flag(flag, value)) {
+                thread.throw_error(pl3.error.domain("flag_value", new Term("+", [flag, value]), atom.indicator));
+              } else if (!pl3.type.is_modifiable_flag(flag)) {
+                thread.throw_error(pl3.error.permission("modify", "flag", flag));
+              } else {
+                thread.session.flag[flag.id] = value;
+                thread.success(point);
+              }
+            }
+          },
+          flag: {
+            bounded: {
+              allowed: [new Term("true"), new Term("false")],
+              value: new Term("true"),
+              changeable: false
+            },
+            max_integer: {
+              allowed: [new Num(Number.MAX_SAFE_INTEGER)],
+              value: new Num(Number.MAX_SAFE_INTEGER),
+              changeable: false
+            },
+            min_integer: {
+              allowed: [new Num(Number.MIN_SAFE_INTEGER)],
+              value: new Num(Number.MIN_SAFE_INTEGER),
+              changeable: false
+            },
+            integer_rounding_function: {
+              allowed: [new Term("down"), new Term("toward_zero")],
+              value: new Term("toward_zero"),
+              changeable: false
+            },
+            char_conversion: {
+              allowed: [new Term("on"), new Term("off")],
+              value: new Term("on"),
+              changeable: true
+            },
+            debug: {
+              allowed: [new Term("on"), new Term("off")],
+              value: new Term("off"),
+              changeable: true
+            },
+            max_arity: {
+              allowed: [new Term("unbounded")],
+              value: new Term("unbounded"),
+              changeable: false
+            },
+            unknown: {
+              allowed: [new Term("error"), new Term("fail"), new Term("warning")],
+              value: new Term("error"),
+              changeable: true
+            },
+            double_quotes: {
+              allowed: [new Term("chars"), new Term("codes"), new Term("atom")],
+              value: new Term("codes"),
+              changeable: true
+            },
+            occurs_check: {
+              allowed: [new Term("false"), new Term("true")],
+              value: new Term("false"),
+              changeable: true
+            },
+            dialect: {
+              allowed: [new Term("tau")],
+              value: new Term("tau"),
+              changeable: false
+            },
+            version_data: {
+              allowed: [new Term("tau", [new Num(version.major, false), new Num(version.minor, false), new Num(version.patch, false), new Term(version.status)])],
+              value: new Term("tau", [new Num(version.major, false), new Num(version.minor, false), new Num(version.patch, false), new Term(version.status)]),
+              changeable: false
+            },
+            nodejs: {
+              allowed: [new Term("yes"), new Term("no")],
+              value: new Term(typeof module !== "undefined" && module.exports ? "yes" : "no"),
+              changeable: false
+            }
+          },
+          unify: function(s, t, occurs_check) {
+            occurs_check = occurs_check === void 0 ? false : occurs_check;
+            var G = [{left: s, right: t}], links = {};
+            while (G.length !== 0) {
+              var eq = G.pop();
+              s = eq.left;
+              t = eq.right;
+              if (pl3.type.is_term(s) && pl3.type.is_term(t)) {
+                if (s.indicator !== t.indicator)
+                  return null;
+                for (var i = 0; i < s.args.length; i++)
+                  G.push({left: s.args[i], right: t.args[i]});
+              } else if (pl3.type.is_number(s) && pl3.type.is_number(t)) {
+                if (s.value !== t.value || s.is_float !== t.is_float)
+                  return null;
+              } else if (pl3.type.is_variable(s)) {
+                if (pl3.type.is_variable(t) && s.id === t.id)
+                  continue;
+                if (occurs_check === true && t.variables().indexOf(s.id) !== -1)
+                  return null;
+                if (s.id !== "_") {
+                  var subs = new Substitution();
+                  subs.add(s.id, t);
+                  for (var i = 0; i < G.length; i++) {
+                    G[i].left = G[i].left.apply(subs);
+                    G[i].right = G[i].right.apply(subs);
+                  }
+                  for (var i in links)
+                    links[i] = links[i].apply(subs);
+                  links[s.id] = t;
+                }
+              } else if (pl3.type.is_variable(t)) {
+                G.push({left: t, right: s});
+              } else if (s.unify !== void 0) {
+                if (!s.unify(t))
+                  return null;
+              } else {
+                return null;
+              }
+            }
+            return new Substitution(links);
+          },
+          compare: function(obj1, obj2) {
+            var type = pl3.type.compare(obj1, obj2);
+            return type !== 0 ? type : obj1.compare(obj2);
+          },
+          arithmetic_compare: function(thread, obj1, obj2) {
+            var expr1 = obj1.interpret(thread);
+            if (!pl3.type.is_number(expr1)) {
+              return expr1;
+            } else {
+              var expr2 = obj2.interpret(thread);
+              if (!pl3.type.is_number(expr2)) {
+                return expr2;
+              } else {
+                return expr1.value < expr2.value ? -1 : expr1.value > expr2.value ? 1 : 0;
+              }
+            }
+          },
+          operate: function(thread, obj) {
+            if (pl3.type.is_operator(obj)) {
+              var op = pl3.type.is_operator(obj);
+              var args = [], value;
+              var type = false;
+              for (var i = 0; i < obj.args.length; i++) {
+                value = obj.args[i].interpret(thread);
+                if (!pl3.type.is_number(value)) {
+                  return value;
+                } else if (op.type_args !== null && value.is_float !== op.type_args) {
+                  return pl3.error.type(op.type_args ? "float" : "integer", value, thread.__call_indicator);
+                } else {
+                  args.push(value.value);
+                }
+                type = type || value.is_float;
+              }
+              args.push(thread);
+              value = pl3.arithmetic.evaluation[obj.indicator].fn.apply(this, args);
+              type = op.type_result === null ? type : op.type_result;
+              if (pl3.type.is_term(value)) {
+                return value;
+              } else if (value === Number.POSITIVE_INFINITY || value === Number.NEGATIVE_INFINITY) {
+                return pl3.error.evaluation("overflow", thread.__call_indicator);
+              } else if (type === false && thread.get_flag("bounded").id === "true" && (value > thread.get_flag("max_integer").value || value < thread.get_flag("min_integer").value)) {
+                return pl3.error.evaluation("int_overflow", thread.__call_indicator);
+              } else {
+                return new Num(value, type);
+              }
+            } else {
+              return pl3.error.type("evaluable", obj.indicator, thread.__call_indicator);
+            }
+          },
+          error: {
+            existence: function(type, object, indicator) {
+              if (typeof object === "string")
+                object = str_indicator(object);
+              return new Term("error", [new Term("existence_error", [new Term(type), object]), str_indicator(indicator)]);
+            },
+            type: function(expected, found, indicator) {
+              return new Term("error", [new Term("type_error", [new Term(expected), found]), str_indicator(indicator)]);
+            },
+            instantiation: function(indicator) {
+              return new Term("error", [new Term("instantiation_error"), str_indicator(indicator)]);
+            },
+            domain: function(expected, found, indicator) {
+              return new Term("error", [new Term("domain_error", [new Term(expected), found]), str_indicator(indicator)]);
+            },
+            representation: function(flag, indicator) {
+              return new Term("error", [new Term("representation_error", [new Term(flag)]), str_indicator(indicator)]);
+            },
+            permission: function(operation, type, found, indicator) {
+              return new Term("error", [new Term("permission_error", [new Term(operation), new Term(type), found]), str_indicator(indicator)]);
+            },
+            evaluation: function(error, indicator) {
+              return new Term("error", [new Term("evaluation_error", [new Term(error)]), str_indicator(indicator)]);
+            },
+            syntax: function(token, expected, last) {
+              token = token || {value: "", line: 0, column: 0, matches: [""], start: 0};
+              var position = last && token.matches.length > 0 ? token.start + token.matches[0].length : token.start;
+              var found = last ? new Term("token_not_found") : new Term("found", [new Term(token.value.toString())]);
+              var info = new Term(".", [new Term("line", [new Num(token.line + 1)]), new Term(".", [new Term("column", [new Num(position + 1)]), new Term(".", [found, new Term("[]", [])])])]);
+              return new Term("error", [new Term("syntax_error", [new Term(expected)]), info]);
+            },
+            syntax_by_predicate: function(expected, indicator) {
+              return new Term("error", [new Term("syntax_error", [new Term(expected)]), str_indicator(indicator)]);
+            }
+          },
+          warning: {
+            singleton: function(variables, rule, line) {
+              var list = new Term("[]");
+              for (var i = variables.length - 1; i >= 0; i--)
+                list = new Term(".", [new Var(variables[i]), list]);
+              return new Term("warning", [new Term("singleton_variables", [list, str_indicator(rule)]), new Term(".", [new Term("line", [new Num(line, false)]), new Term("[]")])]);
+            },
+            failed_goal: function(goal, line) {
+              return new Term("warning", [new Term("failed_goal", [goal]), new Term(".", [new Term("line", [new Num(line, false)]), new Term("[]")])]);
+            }
+          },
+          format_variable: function(variable) {
+            return "_" + variable;
+          },
+          format_answer: function(answer, thread, options) {
+            if (thread instanceof Session2)
+              thread = thread.thread;
+            var options = options ? options : {};
+            options.session = thread ? thread.session : void 0;
+            if (pl3.type.is_error(answer)) {
+              return "uncaught exception: " + answer.args[0].toString();
+            } else if (answer === false) {
+              return "false.";
+            } else if (answer === null) {
+              return "limit exceeded ;";
+            } else {
+              var i = 0;
+              var str = "";
+              if (pl3.type.is_substitution(answer)) {
+                var dom = answer.domain(true);
+                answer = answer.filter(function(id, value) {
+                  return !pl3.type.is_variable(value) || dom.indexOf(value.id) !== -1 && id !== value.id;
+                });
+              }
+              for (var link in answer.links) {
+                if (!answer.links.hasOwnProperty(link))
+                  continue;
+                i++;
+                if (str !== "") {
+                  str += ", ";
+                }
+                str += link.toString(options) + " = " + answer.links[link].toString(options);
+              }
+              var delimiter = typeof thread === "undefined" || thread.points.length > 0 ? " ;" : ".";
+              if (i === 0) {
+                return "true" + delimiter;
+              } else {
+                return str + delimiter;
+              }
+            }
+          },
+          flatten_error: function(error) {
+            if (!pl3.type.is_error(error))
+              return null;
+            error = error.args[0];
+            var obj = {};
+            obj.type = error.args[0].id;
+            obj.thrown = obj.type === "syntax_error" ? null : error.args[1].id;
+            obj.expected = null;
+            obj.found = null;
+            obj.representation = null;
+            obj.existence = null;
+            obj.existence_type = null;
+            obj.line = null;
+            obj.column = null;
+            obj.permission_operation = null;
+            obj.permission_type = null;
+            obj.evaluation_type = null;
+            if (obj.type === "type_error" || obj.type === "domain_error") {
+              obj.expected = error.args[0].args[0].id;
+              obj.found = error.args[0].args[1].toString();
+            } else if (obj.type === "syntax_error") {
+              if (error.args[1].indicator === "./2") {
+                obj.expected = error.args[0].args[0].id;
+                obj.found = error.args[1].args[1].args[1].args[0];
+                obj.found = obj.found.id === "token_not_found" ? obj.found.id : obj.found.args[0].id;
+                obj.line = error.args[1].args[0].args[0].value;
+                obj.column = error.args[1].args[1].args[0].args[0].value;
+              } else {
+                obj.thrown = error.args[1].id;
+              }
+            } else if (obj.type === "permission_error") {
+              obj.found = error.args[0].args[2].toString();
+              obj.permission_operation = error.args[0].args[0].id;
+              obj.permission_type = error.args[0].args[1].id;
+            } else if (obj.type === "evaluation_error") {
+              obj.evaluation_type = error.args[0].args[0].id;
+            } else if (obj.type === "representation_error") {
+              obj.representation = error.args[0].args[0].id;
+            } else if (obj.type === "existence_error") {
+              obj.existence = error.args[0].args[1].toString();
+              obj.existence_type = error.args[0].args[0].id;
+            }
+            return obj;
+          },
+          create: function(limit) {
+            return new pl3.type.Session(limit);
+          }
+        };
+        if (typeof module !== "undefined") {
+          module.exports = pl3;
+        } else {
+          window.pl = pl3;
+        }
+      })();
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isArray.js
+  var require_isArray = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isArray.js"(exports, module) {
+      var isArray = Array.isArray;
+      module.exports = isArray;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_freeGlobal.js
+  var require_freeGlobal = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_freeGlobal.js"(exports, module) {
+      var freeGlobal = typeof global == "object" && global && global.Object === Object && global;
+      module.exports = freeGlobal;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_root.js
+  var require_root = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_root.js"(exports, module) {
+      var freeGlobal = require_freeGlobal();
+      var freeSelf = typeof self == "object" && self && self.Object === Object && self;
+      var root = freeGlobal || freeSelf || Function("return this")();
+      module.exports = root;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Symbol.js
+  var require_Symbol = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Symbol.js"(exports, module) {
+      var root = require_root();
+      var Symbol = root.Symbol;
+      module.exports = Symbol;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getRawTag.js
+  var require_getRawTag = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getRawTag.js"(exports, module) {
+      var Symbol = require_Symbol();
+      var objectProto = Object.prototype;
+      var hasOwnProperty = objectProto.hasOwnProperty;
+      var nativeObjectToString = objectProto.toString;
+      var symToStringTag = Symbol ? Symbol.toStringTag : void 0;
+      function getRawTag(value) {
+        var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
+        try {
+          value[symToStringTag] = void 0;
+          var unmasked = true;
+        } catch (e) {
+        }
+        var result = nativeObjectToString.call(value);
+        if (unmasked) {
+          if (isOwn) {
+            value[symToStringTag] = tag;
+          } else {
+            delete value[symToStringTag];
+          }
+        }
+        return result;
+      }
+      module.exports = getRawTag;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_objectToString.js
+  var require_objectToString = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_objectToString.js"(exports, module) {
+      var objectProto = Object.prototype;
+      var nativeObjectToString = objectProto.toString;
+      function objectToString(value) {
+        return nativeObjectToString.call(value);
+      }
+      module.exports = objectToString;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseGetTag.js
+  var require_baseGetTag = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseGetTag.js"(exports, module) {
+      var Symbol = require_Symbol();
+      var getRawTag = require_getRawTag();
+      var objectToString = require_objectToString();
+      var nullTag = "[object Null]";
+      var undefinedTag = "[object Undefined]";
+      var symToStringTag = Symbol ? Symbol.toStringTag : void 0;
+      function baseGetTag(value) {
+        if (value == null) {
+          return value === void 0 ? undefinedTag : nullTag;
+        }
+        return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
+      }
+      module.exports = baseGetTag;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isObjectLike.js
+  var require_isObjectLike = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isObjectLike.js"(exports, module) {
+      function isObjectLike(value) {
+        return value != null && typeof value == "object";
+      }
+      module.exports = isObjectLike;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isSymbol.js
+  var require_isSymbol = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isSymbol.js"(exports, module) {
+      var baseGetTag = require_baseGetTag();
+      var isObjectLike = require_isObjectLike();
+      var symbolTag = "[object Symbol]";
+      function isSymbol(value) {
+        return typeof value == "symbol" || isObjectLike(value) && baseGetTag(value) == symbolTag;
+      }
+      module.exports = isSymbol;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isKey.js
+  var require_isKey = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isKey.js"(exports, module) {
+      var isArray = require_isArray();
+      var isSymbol = require_isSymbol();
+      var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
+      var reIsPlainProp = /^\w*$/;
+      function isKey(value, object) {
+        if (isArray(value)) {
+          return false;
+        }
+        var type = typeof value;
+        if (type == "number" || type == "symbol" || type == "boolean" || value == null || isSymbol(value)) {
+          return true;
+        }
+        return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+      }
+      module.exports = isKey;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isObject.js
+  var require_isObject = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isObject.js"(exports, module) {
+      function isObject(value) {
+        var type = typeof value;
+        return value != null && (type == "object" || type == "function");
+      }
+      module.exports = isObject;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isFunction.js
+  var require_isFunction = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/isFunction.js"(exports, module) {
+      var baseGetTag = require_baseGetTag();
+      var isObject = require_isObject();
+      var asyncTag = "[object AsyncFunction]";
+      var funcTag = "[object Function]";
+      var genTag = "[object GeneratorFunction]";
+      var proxyTag = "[object Proxy]";
+      function isFunction(value) {
+        if (!isObject(value)) {
+          return false;
+        }
+        var tag = baseGetTag(value);
+        return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+      }
+      module.exports = isFunction;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_coreJsData.js
+  var require_coreJsData = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_coreJsData.js"(exports, module) {
+      var root = require_root();
+      var coreJsData = root["__core-js_shared__"];
+      module.exports = coreJsData;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isMasked.js
+  var require_isMasked = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isMasked.js"(exports, module) {
+      var coreJsData = require_coreJsData();
+      var maskSrcKey = function() {
+        var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || "");
+        return uid ? "Symbol(src)_1." + uid : "";
+      }();
+      function isMasked(func) {
+        return !!maskSrcKey && maskSrcKey in func;
+      }
+      module.exports = isMasked;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_toSource.js
+  var require_toSource = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_toSource.js"(exports, module) {
+      var funcProto = Function.prototype;
+      var funcToString = funcProto.toString;
+      function toSource(func) {
+        if (func != null) {
+          try {
+            return funcToString.call(func);
+          } catch (e) {
+          }
+          try {
+            return func + "";
+          } catch (e) {
+          }
+        }
+        return "";
+      }
+      module.exports = toSource;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseIsNative.js
+  var require_baseIsNative = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseIsNative.js"(exports, module) {
+      var isFunction = require_isFunction();
+      var isMasked = require_isMasked();
+      var isObject = require_isObject();
+      var toSource = require_toSource();
+      var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+      var reIsHostCtor = /^\[object .+?Constructor\]$/;
+      var funcProto = Function.prototype;
+      var objectProto = Object.prototype;
+      var funcToString = funcProto.toString;
+      var hasOwnProperty = objectProto.hasOwnProperty;
+      var reIsNative = RegExp("^" + funcToString.call(hasOwnProperty).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
+      function baseIsNative(value) {
+        if (!isObject(value) || isMasked(value)) {
+          return false;
+        }
+        var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+        return pattern.test(toSource(value));
+      }
+      module.exports = baseIsNative;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getValue.js
+  var require_getValue = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getValue.js"(exports, module) {
+      function getValue(object, key2) {
+        return object == null ? void 0 : object[key2];
+      }
+      module.exports = getValue;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getNative.js
+  var require_getNative = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getNative.js"(exports, module) {
+      var baseIsNative = require_baseIsNative();
+      var getValue = require_getValue();
+      function getNative(object, key2) {
+        var value = getValue(object, key2);
+        return baseIsNative(value) ? value : void 0;
+      }
+      module.exports = getNative;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_nativeCreate.js
+  var require_nativeCreate = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_nativeCreate.js"(exports, module) {
+      var getNative = require_getNative();
+      var nativeCreate = getNative(Object, "create");
+      module.exports = nativeCreate;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashClear.js
+  var require_hashClear = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashClear.js"(exports, module) {
+      var nativeCreate = require_nativeCreate();
+      function hashClear() {
+        this.__data__ = nativeCreate ? nativeCreate(null) : {};
+        this.size = 0;
+      }
+      module.exports = hashClear;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashDelete.js
+  var require_hashDelete = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashDelete.js"(exports, module) {
+      function hashDelete(key2) {
+        var result = this.has(key2) && delete this.__data__[key2];
+        this.size -= result ? 1 : 0;
+        return result;
+      }
+      module.exports = hashDelete;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashGet.js
+  var require_hashGet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashGet.js"(exports, module) {
+      var nativeCreate = require_nativeCreate();
+      var HASH_UNDEFINED = "__lodash_hash_undefined__";
+      var objectProto = Object.prototype;
+      var hasOwnProperty = objectProto.hasOwnProperty;
+      function hashGet(key2) {
+        var data = this.__data__;
+        if (nativeCreate) {
+          var result = data[key2];
+          return result === HASH_UNDEFINED ? void 0 : result;
+        }
+        return hasOwnProperty.call(data, key2) ? data[key2] : void 0;
+      }
+      module.exports = hashGet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashHas.js
+  var require_hashHas = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashHas.js"(exports, module) {
+      var nativeCreate = require_nativeCreate();
+      var objectProto = Object.prototype;
+      var hasOwnProperty = objectProto.hasOwnProperty;
+      function hashHas(key2) {
+        var data = this.__data__;
+        return nativeCreate ? data[key2] !== void 0 : hasOwnProperty.call(data, key2);
+      }
+      module.exports = hashHas;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashSet.js
+  var require_hashSet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_hashSet.js"(exports, module) {
+      var nativeCreate = require_nativeCreate();
+      var HASH_UNDEFINED = "__lodash_hash_undefined__";
+      function hashSet(key2, value) {
+        var data = this.__data__;
+        this.size += this.has(key2) ? 0 : 1;
+        data[key2] = nativeCreate && value === void 0 ? HASH_UNDEFINED : value;
+        return this;
+      }
+      module.exports = hashSet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Hash.js
+  var require_Hash = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Hash.js"(exports, module) {
+      var hashClear = require_hashClear();
+      var hashDelete = require_hashDelete();
+      var hashGet = require_hashGet();
+      var hashHas = require_hashHas();
+      var hashSet = require_hashSet();
+      function Hash(entries) {
+        var index = -1, length = entries == null ? 0 : entries.length;
+        this.clear();
+        while (++index < length) {
+          var entry = entries[index];
+          this.set(entry[0], entry[1]);
+        }
+      }
+      Hash.prototype.clear = hashClear;
+      Hash.prototype["delete"] = hashDelete;
+      Hash.prototype.get = hashGet;
+      Hash.prototype.has = hashHas;
+      Hash.prototype.set = hashSet;
+      module.exports = Hash;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheClear.js
+  var require_listCacheClear = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheClear.js"(exports, module) {
+      function listCacheClear() {
+        this.__data__ = [];
+        this.size = 0;
+      }
+      module.exports = listCacheClear;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/eq.js
+  var require_eq = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/eq.js"(exports, module) {
+      function eq(value, other) {
+        return value === other || value !== value && other !== other;
+      }
+      module.exports = eq;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_assocIndexOf.js
+  var require_assocIndexOf = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_assocIndexOf.js"(exports, module) {
+      var eq = require_eq();
+      function assocIndexOf(array, key2) {
+        var length = array.length;
+        while (length--) {
+          if (eq(array[length][0], key2)) {
+            return length;
+          }
+        }
+        return -1;
+      }
+      module.exports = assocIndexOf;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheDelete.js
+  var require_listCacheDelete = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheDelete.js"(exports, module) {
+      var assocIndexOf = require_assocIndexOf();
+      var arrayProto = Array.prototype;
+      var splice = arrayProto.splice;
+      function listCacheDelete(key2) {
+        var data = this.__data__, index = assocIndexOf(data, key2);
+        if (index < 0) {
+          return false;
+        }
+        var lastIndex = data.length - 1;
+        if (index == lastIndex) {
+          data.pop();
+        } else {
+          splice.call(data, index, 1);
+        }
+        --this.size;
+        return true;
+      }
+      module.exports = listCacheDelete;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheGet.js
+  var require_listCacheGet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheGet.js"(exports, module) {
+      var assocIndexOf = require_assocIndexOf();
+      function listCacheGet(key2) {
+        var data = this.__data__, index = assocIndexOf(data, key2);
+        return index < 0 ? void 0 : data[index][1];
+      }
+      module.exports = listCacheGet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheHas.js
+  var require_listCacheHas = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheHas.js"(exports, module) {
+      var assocIndexOf = require_assocIndexOf();
+      function listCacheHas(key2) {
+        return assocIndexOf(this.__data__, key2) > -1;
+      }
+      module.exports = listCacheHas;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheSet.js
+  var require_listCacheSet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_listCacheSet.js"(exports, module) {
+      var assocIndexOf = require_assocIndexOf();
+      function listCacheSet(key2, value) {
+        var data = this.__data__, index = assocIndexOf(data, key2);
+        if (index < 0) {
+          ++this.size;
+          data.push([key2, value]);
+        } else {
+          data[index][1] = value;
+        }
+        return this;
+      }
+      module.exports = listCacheSet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_ListCache.js
+  var require_ListCache = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_ListCache.js"(exports, module) {
+      var listCacheClear = require_listCacheClear();
+      var listCacheDelete = require_listCacheDelete();
+      var listCacheGet = require_listCacheGet();
+      var listCacheHas = require_listCacheHas();
+      var listCacheSet = require_listCacheSet();
+      function ListCache(entries) {
+        var index = -1, length = entries == null ? 0 : entries.length;
+        this.clear();
+        while (++index < length) {
+          var entry = entries[index];
+          this.set(entry[0], entry[1]);
+        }
+      }
+      ListCache.prototype.clear = listCacheClear;
+      ListCache.prototype["delete"] = listCacheDelete;
+      ListCache.prototype.get = listCacheGet;
+      ListCache.prototype.has = listCacheHas;
+      ListCache.prototype.set = listCacheSet;
+      module.exports = ListCache;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Map.js
+  var require_Map = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_Map.js"(exports, module) {
+      var getNative = require_getNative();
+      var root = require_root();
+      var Map2 = getNative(root, "Map");
+      module.exports = Map2;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheClear.js
+  var require_mapCacheClear = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheClear.js"(exports, module) {
+      var Hash = require_Hash();
+      var ListCache = require_ListCache();
+      var Map2 = require_Map();
+      function mapCacheClear() {
+        this.size = 0;
+        this.__data__ = {
+          "hash": new Hash(),
+          "map": new (Map2 || ListCache)(),
+          "string": new Hash()
+        };
+      }
+      module.exports = mapCacheClear;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isKeyable.js
+  var require_isKeyable = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isKeyable.js"(exports, module) {
+      function isKeyable(value) {
+        var type = typeof value;
+        return type == "string" || type == "number" || type == "symbol" || type == "boolean" ? value !== "__proto__" : value === null;
+      }
+      module.exports = isKeyable;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getMapData.js
+  var require_getMapData = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_getMapData.js"(exports, module) {
+      var isKeyable = require_isKeyable();
+      function getMapData(map, key2) {
+        var data = map.__data__;
+        return isKeyable(key2) ? data[typeof key2 == "string" ? "string" : "hash"] : data.map;
+      }
+      module.exports = getMapData;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheDelete.js
+  var require_mapCacheDelete = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheDelete.js"(exports, module) {
+      var getMapData = require_getMapData();
+      function mapCacheDelete(key2) {
+        var result = getMapData(this, key2)["delete"](key2);
+        this.size -= result ? 1 : 0;
+        return result;
+      }
+      module.exports = mapCacheDelete;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheGet.js
+  var require_mapCacheGet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheGet.js"(exports, module) {
+      var getMapData = require_getMapData();
+      function mapCacheGet(key2) {
+        return getMapData(this, key2).get(key2);
+      }
+      module.exports = mapCacheGet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheHas.js
+  var require_mapCacheHas = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheHas.js"(exports, module) {
+      var getMapData = require_getMapData();
+      function mapCacheHas(key2) {
+        return getMapData(this, key2).has(key2);
+      }
+      module.exports = mapCacheHas;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheSet.js
+  var require_mapCacheSet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_mapCacheSet.js"(exports, module) {
+      var getMapData = require_getMapData();
+      function mapCacheSet(key2, value) {
+        var data = getMapData(this, key2), size = data.size;
+        data.set(key2, value);
+        this.size += data.size == size ? 0 : 1;
+        return this;
+      }
+      module.exports = mapCacheSet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_MapCache.js
+  var require_MapCache = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_MapCache.js"(exports, module) {
+      var mapCacheClear = require_mapCacheClear();
+      var mapCacheDelete = require_mapCacheDelete();
+      var mapCacheGet = require_mapCacheGet();
+      var mapCacheHas = require_mapCacheHas();
+      var mapCacheSet = require_mapCacheSet();
+      function MapCache(entries) {
+        var index = -1, length = entries == null ? 0 : entries.length;
+        this.clear();
+        while (++index < length) {
+          var entry = entries[index];
+          this.set(entry[0], entry[1]);
+        }
+      }
+      MapCache.prototype.clear = mapCacheClear;
+      MapCache.prototype["delete"] = mapCacheDelete;
+      MapCache.prototype.get = mapCacheGet;
+      MapCache.prototype.has = mapCacheHas;
+      MapCache.prototype.set = mapCacheSet;
+      module.exports = MapCache;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/memoize.js
+  var require_memoize = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/memoize.js"(exports, module) {
+      var MapCache = require_MapCache();
+      var FUNC_ERROR_TEXT = "Expected a function";
+      function memoize(func, resolver) {
+        if (typeof func != "function" || resolver != null && typeof resolver != "function") {
+          throw new TypeError(FUNC_ERROR_TEXT);
+        }
+        var memoized = function() {
+          var args = arguments, key2 = resolver ? resolver.apply(this, args) : args[0], cache = memoized.cache;
+          if (cache.has(key2)) {
+            return cache.get(key2);
+          }
+          var result = func.apply(this, args);
+          memoized.cache = cache.set(key2, result) || cache;
+          return result;
+        };
+        memoized.cache = new (memoize.Cache || MapCache)();
+        return memoized;
+      }
+      memoize.Cache = MapCache;
+      module.exports = memoize;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_memoizeCapped.js
+  var require_memoizeCapped = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_memoizeCapped.js"(exports, module) {
+      var memoize = require_memoize();
+      var MAX_MEMOIZE_SIZE = 500;
+      function memoizeCapped(func) {
+        var result = memoize(func, function(key2) {
+          if (cache.size === MAX_MEMOIZE_SIZE) {
+            cache.clear();
+          }
+          return key2;
+        });
+        var cache = result.cache;
+        return result;
+      }
+      module.exports = memoizeCapped;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_stringToPath.js
+  var require_stringToPath = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_stringToPath.js"(exports, module) {
+      var memoizeCapped = require_memoizeCapped();
+      var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+      var reEscapeChar = /\\(\\)?/g;
+      var stringToPath = memoizeCapped(function(string) {
+        var result = [];
+        if (string.charCodeAt(0) === 46) {
+          result.push("");
+        }
+        string.replace(rePropName, function(match, number, quote, subString) {
+          result.push(quote ? subString.replace(reEscapeChar, "$1") : number || match);
+        });
+        return result;
+      });
+      module.exports = stringToPath;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_arrayMap.js
+  var require_arrayMap = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_arrayMap.js"(exports, module) {
+      function arrayMap(array, iteratee) {
+        var index = -1, length = array == null ? 0 : array.length, result = Array(length);
+        while (++index < length) {
+          result[index] = iteratee(array[index], index, array);
+        }
+        return result;
+      }
+      module.exports = arrayMap;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseToString.js
+  var require_baseToString = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseToString.js"(exports, module) {
+      var Symbol = require_Symbol();
+      var arrayMap = require_arrayMap();
+      var isArray = require_isArray();
+      var isSymbol = require_isSymbol();
+      var INFINITY = 1 / 0;
+      var symbolProto = Symbol ? Symbol.prototype : void 0;
+      var symbolToString = symbolProto ? symbolProto.toString : void 0;
+      function baseToString(value) {
+        if (typeof value == "string") {
+          return value;
+        }
+        if (isArray(value)) {
+          return arrayMap(value, baseToString) + "";
+        }
+        if (isSymbol(value)) {
+          return symbolToString ? symbolToString.call(value) : "";
+        }
+        var result = value + "";
+        return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+      }
+      module.exports = baseToString;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/toString.js
+  var require_toString = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/toString.js"(exports, module) {
+      var baseToString = require_baseToString();
+      function toString(value) {
+        return value == null ? "" : baseToString(value);
+      }
+      module.exports = toString;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_castPath.js
+  var require_castPath = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_castPath.js"(exports, module) {
+      var isArray = require_isArray();
+      var isKey = require_isKey();
+      var stringToPath = require_stringToPath();
+      var toString = require_toString();
+      function castPath(value, object) {
+        if (isArray(value)) {
+          return value;
+        }
+        return isKey(value, object) ? [value] : stringToPath(toString(value));
+      }
+      module.exports = castPath;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_toKey.js
+  var require_toKey = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_toKey.js"(exports, module) {
+      var isSymbol = require_isSymbol();
+      var INFINITY = 1 / 0;
+      function toKey(value) {
+        if (typeof value == "string" || isSymbol(value)) {
+          return value;
+        }
+        var result = value + "";
+        return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+      }
+      module.exports = toKey;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseGet.js
+  var require_baseGet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseGet.js"(exports, module) {
+      var castPath = require_castPath();
+      var toKey = require_toKey();
+      function baseGet(object, path) {
+        path = castPath(path, object);
+        var index = 0, length = path.length;
+        while (object != null && index < length) {
+          object = object[toKey(path[index++])];
+        }
+        return index && index == length ? object : void 0;
+      }
+      module.exports = baseGet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/get.js
+  var require_get = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/get.js"(exports, module) {
+      var baseGet = require_baseGet();
+      function get(object, path, defaultValue) {
+        var result = object == null ? void 0 : baseGet(object, path);
+        return result === void 0 ? defaultValue : result;
+      }
+      module.exports = get;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_defineProperty.js
+  var require_defineProperty = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_defineProperty.js"(exports, module) {
+      var getNative = require_getNative();
+      var defineProperty = function() {
+        try {
+          var func = getNative(Object, "defineProperty");
+          func({}, "", {});
+          return func;
+        } catch (e) {
+        }
+      }();
+      module.exports = defineProperty;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseAssignValue.js
+  var require_baseAssignValue = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseAssignValue.js"(exports, module) {
+      var defineProperty = require_defineProperty();
+      function baseAssignValue(object, key2, value) {
+        if (key2 == "__proto__" && defineProperty) {
+          defineProperty(object, key2, {
+            "configurable": true,
+            "enumerable": true,
+            "value": value,
+            "writable": true
+          });
+        } else {
+          object[key2] = value;
+        }
+      }
+      module.exports = baseAssignValue;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_assignValue.js
+  var require_assignValue = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_assignValue.js"(exports, module) {
+      var baseAssignValue = require_baseAssignValue();
+      var eq = require_eq();
+      var objectProto = Object.prototype;
+      var hasOwnProperty = objectProto.hasOwnProperty;
+      function assignValue(object, key2, value) {
+        var objValue = object[key2];
+        if (!(hasOwnProperty.call(object, key2) && eq(objValue, value)) || value === void 0 && !(key2 in object)) {
+          baseAssignValue(object, key2, value);
+        }
+      }
+      module.exports = assignValue;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isIndex.js
+  var require_isIndex = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_isIndex.js"(exports, module) {
+      var MAX_SAFE_INTEGER = 9007199254740991;
+      var reIsUint = /^(?:0|[1-9]\d*)$/;
+      function isIndex(value, length) {
+        var type = typeof value;
+        length = length == null ? MAX_SAFE_INTEGER : length;
+        return !!length && (type == "number" || type != "symbol" && reIsUint.test(value)) && (value > -1 && value % 1 == 0 && value < length);
+      }
+      module.exports = isIndex;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseSet.js
+  var require_baseSet = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseSet.js"(exports, module) {
+      var assignValue = require_assignValue();
+      var castPath = require_castPath();
+      var isIndex = require_isIndex();
+      var isObject = require_isObject();
+      var toKey = require_toKey();
+      function baseSet(object, path, value, customizer) {
+        if (!isObject(object)) {
+          return object;
+        }
+        path = castPath(path, object);
+        var index = -1, length = path.length, lastIndex = length - 1, nested = object;
+        while (nested != null && ++index < length) {
+          var key2 = toKey(path[index]), newValue = value;
+          if (key2 === "__proto__" || key2 === "constructor" || key2 === "prototype") {
+            return object;
+          }
+          if (index != lastIndex) {
+            var objValue = nested[key2];
+            newValue = customizer ? customizer(objValue, key2, nested) : void 0;
+            if (newValue === void 0) {
+              newValue = isObject(objValue) ? objValue : isIndex(path[index + 1]) ? [] : {};
+            }
+          }
+          assignValue(nested, key2, newValue);
+          nested = nested[key2];
+        }
+        return object;
+      }
+      module.exports = baseSet;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/set.js
+  var require_set = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/set.js"(exports, module) {
+      var baseSet = require_baseSet();
+      function set(object, path, value) {
+        return object == null ? object : baseSet(object, path, value);
+      }
+      module.exports = set;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/last.js
+  var require_last = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/last.js"(exports, module) {
+      function last(array) {
+        var length = array == null ? 0 : array.length;
+        return length ? array[length - 1] : void 0;
+      }
+      module.exports = last;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseSlice.js
+  var require_baseSlice = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseSlice.js"(exports, module) {
+      function baseSlice(array, start, end) {
+        var index = -1, length = array.length;
+        if (start < 0) {
+          start = -start > length ? 0 : length + start;
+        }
+        end = end > length ? length : end;
+        if (end < 0) {
+          end += length;
+        }
+        length = start > end ? 0 : end - start >>> 0;
+        start >>>= 0;
+        var result = Array(length);
+        while (++index < length) {
+          result[index] = array[index + start];
+        }
+        return result;
+      }
+      module.exports = baseSlice;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_parent.js
+  var require_parent = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_parent.js"(exports, module) {
+      var baseGet = require_baseGet();
+      var baseSlice = require_baseSlice();
+      function parent(object, path) {
+        return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
+      }
+      module.exports = parent;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseUnset.js
+  var require_baseUnset = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/_baseUnset.js"(exports, module) {
+      var castPath = require_castPath();
+      var last = require_last();
+      var parent = require_parent();
+      var toKey = require_toKey();
+      function baseUnset(object, path) {
+        path = castPath(path, object);
+        object = parent(object, path);
+        return object == null || delete object[toKey(last(path))];
+      }
+      module.exports = baseUnset;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/unset.js
+  var require_unset = __commonJS({
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/unset.js"(exports, module) {
+      var baseUnset = require_baseUnset();
+      function unset(object, path) {
+        return object == null ? true : baseUnset(object, path);
+      }
+      module.exports = unset;
+    }
+  });
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/index.ts
+  var sources_exports = {};
+  __export(sources_exports, {
+    default: () => sources_default
+  });
+  var import_core10 = __toModule(require("@yarnpkg/core"));
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/commands/constraints/query.ts
+  var import_cli = __toModule(require("@yarnpkg/cli"));
+  var import_core4 = __toModule(require("@yarnpkg/core"));
+  var import_core5 = __toModule(require("@yarnpkg/core"));
+  var import_clipanion = __toModule(require("clipanion"));
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/Constraints.ts
+  var import_core2 = __toModule(require("@yarnpkg/core"));
+  var import_core3 = __toModule(require("@yarnpkg/core"));
+  var import_fslib = __toModule(require("@yarnpkg/fslib"));
+  var import_lists = __toModule(require_lists());
+  var import_tau_prolog2 = __toModule(require_core());
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/tauModule.ts
+  var import_core = __toModule(require("@yarnpkg/core"));
+  var import_get = __toModule(require_get());
+  var import_tau_prolog = __toModule(require_core());
+  var import_vm = __toModule(require("vm"));
+  var {is_atom: isAtom, is_variable: isVariable, is_instantiated_list: isInstantiatedList} = import_tau_prolog.default.type;
+  function prependGoals(thread, point, goals) {
+    thread.prepend(goals.map((goal) => new import_tau_prolog.default.type.State(point.goal.replace(goal), point.substitution, point)));
+  }
+  var projects = new WeakMap();
+  function getProject(thread) {
+    const project = projects.get(thread.session);
+    if (project == null)
+      throw new Error(`Assertion failed: A project should have been registered for the active session`);
+    return project;
+  }
+  var tauModule = new import_tau_prolog.default.type.Module(`constraints`, {
+    [`project_workspaces_by_descriptor/3`]: (thread, point, atom) => {
+      const [descriptorIdent, descriptorRange, workspaceCwd] = atom.args;
+      if (!isAtom(descriptorIdent) || !isAtom(descriptorRange)) {
+        thread.throwError(import_tau_prolog.default.error.instantiation(atom.indicator));
+        return;
+      }
+      const ident = import_core.structUtils.parseIdent(descriptorIdent.id);
+      const descriptor = import_core.structUtils.makeDescriptor(ident, descriptorRange.id);
+      const project = getProject(thread);
+      const workspace = project.tryWorkspaceByDescriptor(descriptor);
+      if (isVariable(workspaceCwd)) {
+        if (workspace !== null) {
+          prependGoals(thread, point, [new import_tau_prolog.default.type.Term(`=`, [
+            workspaceCwd,
+            new import_tau_prolog.default.type.Term(String(workspace.relativeCwd))
+          ])]);
+        }
+      }
+      if (isAtom(workspaceCwd)) {
+        if (workspace !== null && workspace.relativeCwd === workspaceCwd.id) {
+          thread.success(point);
+        }
+      }
+    },
+    [`workspace_field/3`]: (thread, point, atom) => {
+      const [workspaceCwd, fieldName, fieldValue] = atom.args;
+      if (!isAtom(workspaceCwd) || !isAtom(fieldName)) {
+        thread.throwError(import_tau_prolog.default.error.instantiation(atom.indicator));
+        return;
+      }
+      const project = getProject(thread);
+      const workspace = project.tryWorkspaceByCwd(workspaceCwd.id);
+      if (workspace == null)
+        return;
+      const value = (0, import_get.default)(workspace.manifest.raw, fieldName.id);
+      if (typeof value === `undefined`)
+        return;
+      prependGoals(thread, point, [new import_tau_prolog.default.type.Term(`=`, [
+        fieldValue,
+        new import_tau_prolog.default.type.Term(String(value))
+      ])]);
+    },
+    [`workspace_field_test/3`]: (thread, point, atom) => {
+      const [workspaceCwd, fieldName, checkCode] = atom.args;
+      thread.prepend([new import_tau_prolog.default.type.State(point.goal.replace(new import_tau_prolog.default.type.Term(`workspace_field_test`, [
+        workspaceCwd,
+        fieldName,
+        checkCode,
+        new import_tau_prolog.default.type.Term(`[]`, [])
+      ])), point.substitution, point)]);
+    },
+    [`workspace_field_test/4`]: (thread, point, atom) => {
+      const [workspaceCwd, fieldName, checkCode, checkArgv] = atom.args;
+      if (!isAtom(workspaceCwd) || !isAtom(fieldName) || !isAtom(checkCode) || !isInstantiatedList(checkArgv)) {
+        thread.throwError(import_tau_prolog.default.error.instantiation(atom.indicator));
+        return;
+      }
+      const project = getProject(thread);
+      const workspace = project.tryWorkspaceByCwd(workspaceCwd.id);
+      if (workspace == null)
+        return;
+      const value = (0, import_get.default)(workspace.manifest.raw, fieldName.id);
+      if (typeof value === `undefined`)
+        return;
+      const vars = {$$: value};
+      for (const [index, value2] of checkArgv.toJavaScript().entries())
+        vars[`$${index}`] = value2;
+      const result = import_vm.default.runInNewContext(checkCode.id, vars);
+      if (result) {
+        thread.success(point);
+      }
+    }
+  }, [
+    `project_workspaces_by_descriptor/3`,
+    `workspace_field/3`,
+    `workspace_field_test/3`,
+    `workspace_field_test/4`
+  ]);
+  function linkProjectToSession(session, project) {
+    projects.set(session, project);
+    session.consult(`:- use_module(library(${tauModule.id})).`);
+  }
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/Constraints.ts
+  (0, import_lists.default)(import_tau_prolog2.default);
+  var DependencyType;
+  (function(DependencyType2) {
+    DependencyType2["Dependencies"] = `dependencies`;
+    DependencyType2["DevDependencies"] = `devDependencies`;
+    DependencyType2["PeerDependencies"] = `peerDependencies`;
+  })(DependencyType || (DependencyType = {}));
+  var DEPENDENCY_TYPES = [
+    DependencyType.Dependencies,
+    DependencyType.DevDependencies,
+    DependencyType.PeerDependencies
+  ];
+  function extractErrorImpl(value) {
+    if (value instanceof import_tau_prolog2.default.type.Num)
+      return value.value;
+    if (value instanceof import_tau_prolog2.default.type.Term) {
+      if (value.args.length === 0)
+        return value.id;
+      switch (value.indicator) {
+        case `throw/1`:
+          return extractErrorImpl(value.args[0]);
+        case `error/1`:
+          return extractErrorImpl(value.args[0]);
+        case `error/2`:
+          return Object.assign(extractErrorImpl(value.args[0]), ...extractErrorImpl(value.args[1]));
+        case `syntax_error/1`:
+          return new import_core2.ReportError(import_core2.MessageName.PROLOG_SYNTAX_ERROR, `Syntax error: ${extractErrorImpl(value.args[0])}`);
+        case `existence_error/2`:
+          return new import_core2.ReportError(import_core2.MessageName.PROLOG_EXISTENCE_ERROR, `Existence error: ${extractErrorImpl(value.args[0])} ${extractErrorImpl(value.args[1])} not found`);
+        case `line/1`:
+          return {line: extractErrorImpl(value.args[0])};
+        case `column/1`:
+          return {column: extractErrorImpl(value.args[0])};
+        case `found/1`:
+          return {found: extractErrorImpl(value.args[0])};
+        case `./2`:
+          return [extractErrorImpl(value.args[0])].concat(extractErrorImpl(value.args[1]));
+        case `//2`:
+          return `${extractErrorImpl(value.args[0])}/${extractErrorImpl(value.args[1])}`;
+      }
+    }
+    throw `couldn't pretty print because of unsupported node ${value}`;
+  }
+  function extractError(val) {
+    let err;
+    try {
+      err = extractErrorImpl(val);
+    } catch (caught) {
+      if (typeof caught === `string`) {
+        throw new import_core2.ReportError(import_core2.MessageName.PROLOG_UNKNOWN_ERROR, `Unknown error: ${val} (note: ${caught})`);
+      } else {
+        throw caught;
+      }
+    }
+    if (typeof err.line !== `undefined` && typeof err.column !== `undefined`)
+      err.message += ` at line ${err.line}, column ${err.column}`;
+    return err;
+  }
+  var Session = class {
+    constructor(project, source) {
+      this.session = import_tau_prolog2.default.create();
+      linkProjectToSession(this.session, project);
+      this.session.consult(`:- use_module(library(lists)).`);
+      this.session.consult(source);
+    }
+    fetchNextAnswer() {
+      return new Promise((resolve) => {
+        this.session.answer((result) => {
+          resolve(result);
+        });
+      });
+    }
+    async *makeQuery(query) {
+      const parsed = this.session.query(query);
+      if (parsed !== true)
+        throw extractError(parsed);
+      while (true) {
+        const answer = await this.fetchNextAnswer();
+        if (!answer)
+          break;
+        if (answer.id === `throw`)
+          throw extractError(answer);
+        yield answer;
+      }
+    }
+  };
+  function parseLink(link) {
+    if (link.id === `null`) {
+      return null;
+    } else {
+      return `${link.toJavaScript()}`;
+    }
+  }
+  function parseLinkToJson(link) {
+    if (link.id === `null`) {
+      return null;
+    } else {
+      const val = link.toJavaScript();
+      if (typeof val !== `string`)
+        return JSON.stringify(val);
+      try {
+        return JSON.stringify(JSON.parse(val));
+      } catch {
+        return JSON.stringify(val);
+      }
+    }
+  }
+  var Constraints = class {
+    constructor(project) {
+      this.source = ``;
+      this.project = project;
+      const constraintsPath = project.configuration.get(`constraintsPath`);
+      if (import_fslib.xfs.existsSync(constraintsPath)) {
+        this.source = import_fslib.xfs.readFileSync(constraintsPath, `utf8`);
+      }
+    }
+    static async find(project) {
+      return new Constraints(project);
+    }
+    getProjectDatabase() {
+      let database = ``;
+      for (const dependencyType of DEPENDENCY_TYPES)
+        database += `dependency_type(${dependencyType}).
+`;
+      for (const workspace of this.project.workspacesByCwd.values()) {
+        const relativeCwd = workspace.relativeCwd;
+        database += `workspace(${escape(relativeCwd)}).
+`;
+        database += `workspace_ident(${escape(relativeCwd)}, ${escape(import_core3.structUtils.stringifyIdent(workspace.locator))}).
+`;
+        database += `workspace_version(${escape(relativeCwd)}, ${escape(workspace.manifest.version)}).
+`;
+        for (const dependencyType of DEPENDENCY_TYPES) {
+          for (const dependency of workspace.manifest[dependencyType].values()) {
+            database += `workspace_has_dependency(${escape(relativeCwd)}, ${escape(import_core3.structUtils.stringifyIdent(dependency))}, ${escape(dependency.range)}, ${dependencyType}).
+`;
+          }
+        }
+      }
+      database += `workspace(_) :- false.
+`;
+      database += `workspace_ident(_, _) :- false.
+`;
+      database += `workspace_version(_, _) :- false.
+`;
+      database += `workspace_has_dependency(_, _, _, _) :- false.
+`;
+      return database;
+    }
+    getDeclarations() {
+      let declarations = ``;
+      declarations += `gen_enforced_dependency(_, _, _, _) :- false.
+`;
+      declarations += `gen_enforced_field(_, _, _) :- false.
+`;
+      return declarations;
+    }
+    get fullSource() {
+      return `${this.getProjectDatabase()}
+${this.source}
+${this.getDeclarations()}`;
+    }
+    createSession() {
+      return new Session(this.project, this.fullSource);
+    }
+    async process() {
+      const session = this.createSession();
+      return {
+        enforcedDependencies: await this.genEnforcedDependencies(session),
+        enforcedFields: await this.genEnforcedFields(session)
+      };
+    }
+    async genEnforcedDependencies(session) {
+      const enforcedDependencies = [];
+      for await (const answer of session.makeQuery(`workspace(WorkspaceCwd), dependency_type(DependencyType), gen_enforced_dependency(WorkspaceCwd, DependencyIdent, DependencyRange, DependencyType).`)) {
+        const workspaceCwd = import_fslib.ppath.resolve(this.project.cwd, parseLink(answer.links.WorkspaceCwd));
+        const dependencyRawIdent = parseLink(answer.links.DependencyIdent);
+        const dependencyRange = parseLink(answer.links.DependencyRange);
+        const dependencyType = parseLink(answer.links.DependencyType);
+        if (workspaceCwd === null || dependencyRawIdent === null)
+          throw new Error(`Invalid rule`);
+        const workspace = this.project.getWorkspaceByCwd(workspaceCwd);
+        const dependencyIdent = import_core3.structUtils.parseIdent(dependencyRawIdent);
+        enforcedDependencies.push({workspace, dependencyIdent, dependencyRange, dependencyType});
+      }
+      return import_core3.miscUtils.sortMap(enforcedDependencies, [
+        ({dependencyRange}) => dependencyRange !== null ? `0` : `1`,
+        ({workspace}) => import_core3.structUtils.stringifyIdent(workspace.locator),
+        ({dependencyIdent}) => import_core3.structUtils.stringifyIdent(dependencyIdent)
+      ]);
+    }
+    async genEnforcedFields(session) {
+      const enforcedFields = [];
+      for await (const answer of session.makeQuery(`workspace(WorkspaceCwd), gen_enforced_field(WorkspaceCwd, FieldPath, FieldValue).`)) {
+        const workspaceCwd = import_fslib.ppath.resolve(this.project.cwd, parseLink(answer.links.WorkspaceCwd));
+        const fieldPath = parseLink(answer.links.FieldPath);
+        const fieldValue = parseLinkToJson(answer.links.FieldValue);
+        if (workspaceCwd === null || fieldPath === null)
+          throw new Error(`Invalid rule`);
+        const workspace = this.project.getWorkspaceByCwd(workspaceCwd);
+        enforcedFields.push({workspace, fieldPath, fieldValue});
+      }
+      return import_core3.miscUtils.sortMap(enforcedFields, [
+        ({workspace}) => import_core3.structUtils.stringifyIdent(workspace.locator),
+        ({fieldPath}) => fieldPath
+      ]);
+    }
+    async *query(query) {
+      const session = this.createSession();
+      for await (const answer of session.makeQuery(query)) {
+        const parsedLinks = {};
+        for (const [variable, value] of Object.entries(answer.links)) {
+          if (variable !== `_`) {
+            parsedLinks[variable] = parseLink(value);
+          }
+        }
+        yield parsedLinks;
+      }
+    }
+  };
+  function escape(what) {
+    if (typeof what === `string`) {
+      return `'${what}'`;
+    } else {
+      return `[]`;
+    }
+  }
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/commands/constraints/query.ts
+  var ConstraintsQueryCommand = class extends import_cli.BaseCommand {
+    constructor() {
+      super(...arguments);
+      this.json = import_clipanion.Option.Boolean(`--json`, false, {
+        description: `Format the output as an NDJSON stream`
+      });
+      this.query = import_clipanion.Option.String();
+    }
+    async execute() {
+      const configuration = await import_core4.Configuration.find(this.context.cwd, this.context.plugins);
+      const {project} = await import_core4.Project.find(configuration, this.context.cwd);
+      const constraints = await Constraints.find(project);
+      let query = this.query;
+      if (!query.endsWith(`.`))
+        query = `${query}.`;
+      const report = await import_core5.StreamReport.start({
+        configuration,
+        json: this.json,
+        stdout: this.context.stdout
+      }, async (report2) => {
+        for await (const result of constraints.query(query)) {
+          const lines = Array.from(Object.entries(result));
+          const lineCount = lines.length;
+          const maxVariableNameLength = lines.reduce((max, [variableName]) => Math.max(max, variableName.length), 0);
+          for (let i = 0; i < lineCount; i++) {
+            const [variableName, value] = lines[i];
+            report2.reportInfo(null, `${getLinePrefix(i, lineCount)}${variableName.padEnd(maxVariableNameLength, ` `)} = ${valueToString(value)}`);
+          }
+          report2.reportJson(result);
+        }
+      });
+      return report.exitCode();
+    }
+  };
+  ConstraintsQueryCommand.paths = [
+    [`constraints`, `query`]
+  ];
+  ConstraintsQueryCommand.usage = import_clipanion.Command.Usage({
+    category: `Constraints-related commands`,
+    description: `query the constraints fact database`,
+    details: `
+      This command will output all matches to the given prolog query.
+    `,
+    examples: [[
+      `List all dependencies throughout the workspace`,
+      `yarn constraints query 'workspace_has_dependency(_, DependencyName, _, _).'`
+    ]]
+  });
+  var query_default = ConstraintsQueryCommand;
+  function valueToString(value) {
+    if (typeof value !== `string`)
+      return `${value}`;
+    if (value.match(/^[a-zA-Z][a-zA-Z0-9_]+$/))
+      return value;
+    return `'${value}'`;
+  }
+  function getLinePrefix(index, count) {
+    const isFirst = index === 0;
+    const isLast = index === count - 1;
+    if (isFirst && isLast)
+      return ``;
+    if (isFirst)
+      return `\u250C `;
+    if (isLast)
+      return `\u2514 `;
+    return `\u2502 `;
+  }
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/commands/constraints/source.ts
+  var import_cli2 = __toModule(require("@yarnpkg/cli"));
+  var import_core6 = __toModule(require("@yarnpkg/core"));
+  var import_clipanion2 = __toModule(require("clipanion"));
+  var ConstraintsSourceCommand = class extends import_cli2.BaseCommand {
+    constructor() {
+      super(...arguments);
+      this.verbose = import_clipanion2.Option.Boolean(`-v,--verbose`, false, {
+        description: `Also print the fact database automatically compiled from the workspace manifests`
+      });
+    }
+    async execute() {
+      const configuration = await import_core6.Configuration.find(this.context.cwd, this.context.plugins);
+      const {project} = await import_core6.Project.find(configuration, this.context.cwd);
+      const constraints = await Constraints.find(project);
+      this.context.stdout.write(this.verbose ? constraints.fullSource : constraints.source);
+    }
+  };
+  ConstraintsSourceCommand.paths = [
+    [`constraints`, `source`]
+  ];
+  ConstraintsSourceCommand.usage = import_clipanion2.Command.Usage({
+    category: `Constraints-related commands`,
+    description: `print the source code for the constraints`,
+    details: `
+      This command will print the Prolog source code used by the constraints engine. Adding the \`-v,--verbose\` flag will print the *full* source code, including the fact database automatically compiled from the workspace manifests.
+    `,
+    examples: [[
+      `Prints the source code`,
+      `yarn constraints source`
+    ], [
+      `Print the source code and the fact database`,
+      `yarn constraints source -v`
+    ]]
+  });
+  var source_default = ConstraintsSourceCommand;
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/commands/constraints.ts
+  var import_cli3 = __toModule(require("@yarnpkg/cli"));
+  var import_core7 = __toModule(require("@yarnpkg/core"));
+  var import_core8 = __toModule(require("@yarnpkg/core"));
+  var import_core9 = __toModule(require("@yarnpkg/core"));
+  var import_clipanion3 = __toModule(require("clipanion"));
+  var import_get2 = __toModule(require_get());
+  var import_set = __toModule(require_set());
+  var import_unset = __toModule(require_unset());
+  var ConstraintsCheckCommand = class extends import_cli3.BaseCommand {
+    constructor() {
+      super(...arguments);
+      this.fix = import_clipanion3.Option.Boolean(`--fix`, false, {
+        description: `Attempt to automatically fix unambiguous issues, following a multi-pass process`
+      });
+    }
+    async execute() {
+      const configuration = await import_core7.Configuration.find(this.context.cwd, this.context.plugins);
+      const {project} = await import_core7.Project.find(configuration, this.context.cwd);
+      const constraints = await Constraints.find(project);
+      const report = await import_core8.StreamReport.start({
+        configuration,
+        stdout: this.context.stdout
+      }, async (report2) => {
+        let allSaves = new Set();
+        let errors = [];
+        for (let t = 0, T = this.fix ? 10 : 1; t < T; ++t) {
+          errors = [];
+          const result = await constraints.process();
+          const modifiedDependencies = new Set();
+          await processDependencyConstraints(modifiedDependencies, errors, result.enforcedDependencies, {
+            fix: this.fix,
+            configuration
+          });
+          for (const {manifest} of modifiedDependencies) {
+            const newManifest = {};
+            manifest.exportTo(newManifest);
+            manifest.raw = newManifest;
+          }
+          const modifiedFields = new Set();
+          await processFieldConstraints(modifiedFields, errors, result.enforcedFields, {
+            fix: this.fix,
+            configuration
+          });
+          for (const {manifest} of modifiedFields)
+            manifest.load(manifest.raw);
+          allSaves = new Set([
+            ...allSaves,
+            ...modifiedDependencies,
+            ...modifiedFields
+          ]);
+          if (modifiedDependencies.size === 0 && modifiedFields.size === 0) {
+            break;
+          }
+        }
+        await Promise.all([...allSaves].map(async (workspace) => {
+          await workspace.persistManifest();
+        }));
+        for (const [messageName, message] of errors) {
+          report2.reportError(messageName, message);
+        }
+      });
+      if (report.hasErrors())
+        return report.exitCode();
+      return 0;
+    }
+  };
+  ConstraintsCheckCommand.paths = [
+    [`constraints`]
+  ];
+  ConstraintsCheckCommand.usage = import_clipanion3.Command.Usage({
+    category: `Constraints-related commands`,
+    description: `check that the project constraints are met`,
+    details: `
+      This command will run constraints on your project and emit errors for each one that is found but isn't met. If any error is emitted the process will exit with a non-zero exit code.
+
+      If the \`--fix\` flag is used, Yarn will attempt to automatically fix the issues the best it can, following a multi-pass process (with a maximum of 10 iterations). Some ambiguous patterns cannot be autofixed, in which case you'll have to manually specify the right resolution.
+
+      For more information as to how to write constraints, please consult our dedicated page on our website: https://yarnpkg.com/features/constraints.
+    `,
+    examples: [[
+      `Check that all constraints are satisfied`,
+      `yarn constraints`
+    ], [
+      `Autofix all unmet constraints`,
+      `yarn constraints --fix`
+    ]]
+  });
+  var constraints_default = ConstraintsCheckCommand;
+  async function processDependencyConstraints(toSave, errors, enforcedDependencies, {configuration, fix}) {
+    const allIdents = new Map();
+    const byWorkspaces = new Map();
+    for (const {workspace, dependencyIdent, dependencyRange, dependencyType} of enforcedDependencies) {
+      let byWorkspacesStore = byWorkspaces.get(workspace);
+      if (typeof byWorkspacesStore === `undefined`)
+        byWorkspaces.set(workspace, byWorkspacesStore = new Map());
+      let byIdentStore = byWorkspacesStore.get(dependencyIdent.identHash);
+      if (typeof byIdentStore === `undefined`)
+        byWorkspacesStore.set(dependencyIdent.identHash, byIdentStore = new Map());
+      let byDependencyTypeStore = byIdentStore.get(dependencyType);
+      if (typeof byDependencyTypeStore === `undefined`)
+        byIdentStore.set(dependencyType, byDependencyTypeStore = new Set());
+      allIdents.set(dependencyIdent.identHash, dependencyIdent);
+      byDependencyTypeStore.add(dependencyRange);
+    }
+    for (const [workspace, byWorkspacesStore] of byWorkspaces) {
+      for (const [identHash, byIdentStore] of byWorkspacesStore) {
+        const dependencyIdent = allIdents.get(identHash);
+        if (typeof dependencyIdent === `undefined`)
+          throw new Error(`Assertion failed: The ident should have been registered`);
+        for (const [dependencyType, byDependencyTypeStore] of byIdentStore) {
+          const expectedRanges = byDependencyTypeStore.has(null) ? [null] : [...byDependencyTypeStore];
+          if (expectedRanges.length > 2) {
+            errors.push([import_core8.MessageName.CONSTRAINTS_AMBIGUITY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must depend on ${import_core9.structUtils.prettyIdent(configuration, dependencyIdent)} via conflicting ranges ${expectedRanges.slice(0, -1).map((expectedRange) => import_core9.structUtils.prettyRange(configuration, String(expectedRange))).join(`, `)}, and ${import_core9.structUtils.prettyRange(configuration, String(expectedRanges[expectedRanges.length - 1]))} (in ${dependencyType})`]);
+          } else if (expectedRanges.length > 1) {
+            errors.push([import_core8.MessageName.CONSTRAINTS_AMBIGUITY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must depend on ${import_core9.structUtils.prettyIdent(configuration, dependencyIdent)} via conflicting ranges ${import_core9.structUtils.prettyRange(configuration, String(expectedRanges[0]))} and ${import_core9.structUtils.prettyRange(configuration, String(expectedRanges[1]))} (in ${dependencyType})`]);
+          } else {
+            const dependencyDescriptor = workspace.manifest[dependencyType].get(dependencyIdent.identHash);
+            const [expectedRange] = expectedRanges;
+            if (expectedRange !== null) {
+              if (!dependencyDescriptor) {
+                if (fix) {
+                  workspace.manifest[dependencyType].set(dependencyIdent.identHash, import_core9.structUtils.makeDescriptor(dependencyIdent, expectedRange));
+                  toSave.add(workspace);
+                } else {
+                  errors.push([import_core8.MessageName.CONSTRAINTS_MISSING_DEPENDENCY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must depend on ${import_core9.structUtils.prettyIdent(configuration, dependencyIdent)} (via ${import_core9.structUtils.prettyRange(configuration, expectedRange)}), but doesn't (in ${dependencyType})`]);
+                }
+              } else if (dependencyDescriptor.range !== expectedRange) {
+                if (fix) {
+                  workspace.manifest[dependencyType].set(dependencyIdent.identHash, import_core9.structUtils.makeDescriptor(dependencyIdent, expectedRange));
+                  toSave.add(workspace);
+                } else {
+                  errors.push([import_core8.MessageName.CONSTRAINTS_INCOMPATIBLE_DEPENDENCY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must depend on ${import_core9.structUtils.prettyIdent(configuration, dependencyIdent)} via ${import_core9.structUtils.prettyRange(configuration, expectedRange)}, but uses ${import_core9.structUtils.prettyRange(configuration, dependencyDescriptor.range)} instead (in ${dependencyType})`]);
+                }
+              }
+            } else {
+              if (dependencyDescriptor) {
+                if (fix) {
+                  workspace.manifest[dependencyType].delete(dependencyIdent.identHash);
+                  toSave.add(workspace);
+                } else {
+                  errors.push([import_core8.MessageName.CONSTRAINTS_EXTRANEOUS_DEPENDENCY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} has an extraneous dependency on ${import_core9.structUtils.prettyIdent(configuration, dependencyIdent)} (in ${dependencyType})`]);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  async function processFieldConstraints(toSave, errors, enforcedFields, {configuration, fix}) {
+    const byWorkspaces = new Map();
+    for (const {workspace, fieldPath, fieldValue} of enforcedFields) {
+      const byWorkspacesStore = import_core7.miscUtils.getMapWithDefault(byWorkspaces, workspace);
+      const byPathStore = import_core7.miscUtils.getSetWithDefault(byWorkspacesStore, fieldPath);
+      byPathStore.add(fieldValue);
+    }
+    for (const [workspace, byWorkspacesStore] of byWorkspaces) {
+      for (const [fieldPath, byPathStore] of byWorkspacesStore) {
+        const expectedValues = [...byPathStore];
+        if (expectedValues.length > 2) {
+          errors.push([import_core8.MessageName.CONSTRAINTS_AMBIGUITY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must have a field ${import_core9.formatUtils.pretty(configuration, fieldPath, `cyan`)} set to conflicting values ${expectedValues.slice(0, -1).map((expectedValue) => import_core9.formatUtils.pretty(configuration, String(expectedValue), `magenta`)).join(`, `)}, or ${import_core9.formatUtils.pretty(configuration, String(expectedValues[expectedValues.length - 1]), `magenta`)}`]);
+        } else if (expectedValues.length > 1) {
+          errors.push([import_core8.MessageName.CONSTRAINTS_AMBIGUITY, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must have a field ${import_core9.formatUtils.pretty(configuration, fieldPath, `cyan`)} set to conflicting values ${import_core9.formatUtils.pretty(configuration, String(expectedValues[0]), `magenta`)} or ${import_core9.formatUtils.pretty(configuration, String(expectedValues[1]), `magenta`)}`]);
+        } else {
+          const actualValue = (0, import_get2.default)(workspace.manifest.raw, fieldPath);
+          const [expectedValue] = expectedValues;
+          if (expectedValue !== null) {
+            if (actualValue === void 0) {
+              if (fix) {
+                await setWorkspaceField(workspace, fieldPath, expectedValue);
+                toSave.add(workspace);
+              } else {
+                errors.push([import_core8.MessageName.CONSTRAINTS_MISSING_FIELD, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must have a field ${import_core9.formatUtils.pretty(configuration, fieldPath, `cyan`)} set to ${import_core9.formatUtils.pretty(configuration, String(expectedValue), `magenta`)}, but doesn't`]);
+              }
+            } else if (JSON.stringify(actualValue) !== expectedValue) {
+              if (fix) {
+                await setWorkspaceField(workspace, fieldPath, expectedValue);
+                toSave.add(workspace);
+              } else {
+                errors.push([import_core8.MessageName.CONSTRAINTS_INCOMPATIBLE_FIELD, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} must have a field ${import_core9.formatUtils.pretty(configuration, fieldPath, `cyan`)} set to ${import_core9.formatUtils.pretty(configuration, String(expectedValue), `magenta`)}, but is set to ${import_core9.formatUtils.pretty(configuration, JSON.stringify(actualValue), `magenta`)} instead`]);
+              }
+            }
+          } else {
+            if (actualValue !== void 0 && actualValue !== null) {
+              if (fix) {
+                await setWorkspaceField(workspace, fieldPath, null);
+                toSave.add(workspace);
+              } else {
+                errors.push([import_core8.MessageName.CONSTRAINTS_EXTRANEOUS_FIELD, `${import_core9.structUtils.prettyWorkspace(configuration, workspace)} has an extraneous field ${import_core9.formatUtils.pretty(configuration, fieldPath, `cyan`)} set to ${import_core9.formatUtils.pretty(configuration, JSON.stringify(actualValue), `magenta`)}`]);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  async function setWorkspaceField(workspace, fieldPath, value) {
+    if (value === null) {
+      (0, import_unset.default)(workspace.manifest.raw, fieldPath);
+    } else {
+      (0, import_set.default)(workspace.manifest.raw, fieldPath, JSON.parse(value));
+    }
+  }
+
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/packages/plugin-constraints/sources/index.ts
+  var plugin = {
+    configuration: {
+      constraintsPath: {
+        description: `The path of the constraints file.`,
+        type: import_core10.SettingsType.ABSOLUTE_PATH,
+        default: `./constraints.pro`
+      }
+    },
+    commands: [
+      query_default,
+      source_default,
+      constraints_default
+    ]
+  };
+  var sources_default = plugin;
+  return sources_exports;
+})();
 return plugin;
 }
 };
