@@ -1,1 +1,1 @@
-export default "dolor";
+export default `dolor`;

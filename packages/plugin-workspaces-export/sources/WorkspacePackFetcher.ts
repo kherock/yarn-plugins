@@ -1,17 +1,17 @@
 import {WorkspaceFetcher} from '@yarnpkg/core/lib/WorkspaceFetcher';
+import {PortablePath}     from '@yarnpkg/fslib';
+
+import {genPackZip}       from './exportUtils';
+
 import {
   Locator,
   Fetcher,
   FetchOptions,
-  MinimalFetchOptions,
-  WorkspaceResolver,
-  structUtils,
-  Project,
   FetchResult,
+  MinimalFetchOptions,
+  Project,
+  WorkspaceResolver,
 } from '@yarnpkg/core';
-import {PortablePath} from '@yarnpkg/fslib';
-
-import {genPackZip}   from './exportUtils';
 
 /**
  * Fetcher that packs workspaces as cacheable packages

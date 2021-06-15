@@ -48,7 +48,7 @@ export class ExportCache extends Cache {
     const baseFs = new NodeFS();
 
     const loadWorkspaceThroughMutex = async () => {
-      const cachePath = ppath.resolve(this.cwd, `../workspaces` as PortablePath, structUtils.requirableIdent(locator) as PortablePath);
+      const cachePath = ppath.resolve(this.cwd, `../workspaces` as PortablePath, structUtils.stringifyIdent(locator) as PortablePath);
 
       const mutexedLoad = async () => {
         const cacheExists = await baseFs.existsPromise(cachePath);

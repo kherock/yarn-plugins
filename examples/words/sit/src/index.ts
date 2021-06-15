@@ -1,1 +1,1 @@
-export default "sit";
+export default `sit`;

@@ -1746,8 +1746,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/plugin-workspaces-export/",
           "packageDependencies": [
             ["@kherock/yarn-plugin-workspaces-export", "workspace:packages/plugin-workspaces-export"],
+            ["@types/semver", "npm:7.3.6"],
             ["@types/tar-stream", "npm:2.2.0"],
-            ["@yarnpkg/builder", "virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.5"],
+            ["@yarnpkg/builder", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A."],
             ["@yarnpkg/cli", "virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.5"],
             ["@yarnpkg/core", "npm:3.0.0-rc.5"],
             ["@yarnpkg/fslib", "npm:2.5.0-rc.5"],
@@ -1755,6 +1756,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pack", "virtual:1204e7945622d605c54cbd2388c2b40e209b6867347741d9695d487474a98664eaa3f752e31ba825f9ec633797ce65e1ff87e45227a4902da4665c1711fea58e#npm:3.0.0-rc.5"],
             ["@yarnpkg/plugin-pnp", "virtual:1204e7945622d605c54cbd2388c2b40e209b6867347741d9695d487474a98664eaa3f752e31ba825f9ec633797ce65e1ff87e45227a4902da4665c1711fea58e#npm:3.0.0-rc.5"],
             ["clipanion", "virtual:7678ab02e40d97629b6493eec8a6c2183b3e5ad6e71c739f4b1312ef4626fd3e9c5bd854b8bf262b29088c6a80e73bfcad7b4cffed928db2d71138ad9af6b2b1#npm:3.0.0-rc.12"],
+            ["semver", "npm:7.3.5"],
             ["tar-stream", "npm:2.2.0"],
             ["tslib", "npm:2.3.0"],
             ["typescript", "patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=d8b4e7"]
@@ -2171,6 +2173,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@types/semver", "npm:7.1.0"],
             ["@types/node", "npm:14.11.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:7.3.6", {
+          "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.6-4add0df8f9-933b115a59.zip/node_modules/@types/semver/",
+          "packageDependencies": [
+            ["@types/semver", "npm:7.3.6"]
           ],
           "linkType": "HARD",
         }]
@@ -2594,6 +2603,45 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/builder", "npm:3.0.0-rc.5"]
           ],
           "linkType": "SOFT",
+        }],
+        ["patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A.", {
+          "packageLocation": "./.yarn/cache/@yarnpkg-builder-patch-89357f6851-3216a22219.zip/node_modules/@yarnpkg/builder/",
+          "packageDependencies": [
+            ["@yarnpkg/builder", "patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A."]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A.", {
+          "packageLocation": "./.yarn/__virtual__/@yarnpkg-builder-virtual-08703c12cf/0/cache/@yarnpkg-builder-patch-89357f6851-3216a22219.zip/node_modules/@yarnpkg/builder/",
+          "packageDependencies": [
+            ["@yarnpkg/builder", "virtual:0a2944ca3dd09ead5c394e2c7a30b62c53f2ce3b131eb642284bb5dca5024da9498b1af429851e17581700f81f8fb9693284d782cd68b5aac76b5103ac7789e9#patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A."],
+            ["@babel/core", "npm:7.11.6"],
+            ["@types/typescript", null],
+            ["@yarnpkg/cli", "virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.5"],
+            ["@yarnpkg/core", "npm:3.0.0-rc.5"],
+            ["@yarnpkg/esbuild-plugin-pnp", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:1.0.0-rc.5"],
+            ["@yarnpkg/fslib", "npm:2.5.0-rc.5"],
+            ["@yarnpkg/pnpify", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:3.0.0-rc.6"],
+            ["babel-loader", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:8.1.0"],
+            ["chalk", "npm:3.0.0"],
+            ["clipanion", "virtual:7678ab02e40d97629b6493eec8a6c2183b3e5ad6e71c739f4b1312ef4626fd3e9c5bd854b8bf262b29088c6a80e73bfcad7b4cffed928db2d71138ad9af6b2b1#npm:3.0.0-rc.12"],
+            ["esbuild-wasm", "npm:0.11.23"],
+            ["filesize", "npm:4.2.1"],
+            ["fork-ts-checker-webpack-plugin", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:5.2.0"],
+            ["semver", "npm:7.3.2"],
+            ["terser-webpack-plugin", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:3.1.0"],
+            ["ts-loader", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:7.0.5"],
+            ["tslib", "npm:1.13.0"],
+            ["typescript", "patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=d8b4e7"],
+            ["val-loader", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:2.1.2"],
+            ["webpack", "virtual:1b731eda6d259a51b909f423c846293514308e142e85135d9d3771ae4736f336bd0498b022881e13d9ff9ae9fec8ff06e506374f8924c5ec59c6c7f8f6a0ef2c#npm:5.38.1"],
+            ["webpack-merge", "npm:4.2.2"]
+          ],
+          "packagePeers": [
+            "@types/typescript",
+            "typescript"
+          ],
+          "linkType": "HARD",
         }],
         ["virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.5", {
           "packageLocation": "./.yarn/__virtual__/@yarnpkg-builder-virtual-1b731eda6d/0/cache/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975-23205f6b4e.zip/node_modules/@yarnpkg/builder/",

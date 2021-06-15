@@ -1,1 +1,1 @@
-export default "amet";
+export default `amet`;

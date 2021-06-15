@@ -1053,8 +1053,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kherock/yarn-plugin-workspaces-export@workspace:packages/plugin-workspaces-export"
   dependencies:
+    "@types/semver": ^7.3.6
     "@types/tar-stream": ^2.2.0
-    "@yarnpkg/builder": ^3.0.0-rc.5
+    "@yarnpkg/builder": 3.0.0-rc.5
     "@yarnpkg/cli": ^3.0.0-rc.5
     "@yarnpkg/core": ^3.0.0-rc.5
     "@yarnpkg/fslib": ^2.5.0-rc.5
@@ -1062,6 +1063,7 @@ __metadata:
     "@yarnpkg/plugin-pack": ^3.0.0-rc.5
     "@yarnpkg/plugin-pnp": ^3.0.0-rc.5
     clipanion: ^3.0.0-rc.12
+    semver: ^7.3.5
     tar-stream: ^2.2.0
     tslib: ^2.3.0
     typescript: ~4.3.2
@@ -1430,6 +1432,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/semver@npm:^7.3.6":
+  version: 7.3.6
+  resolution: "@types/semver@npm:7.3.6"
+  checksum: 933b115a59b1665b4418f48264cc8e497fa8c72425554e97dad07a4fbad09ba3744a726a58fb11c739a944ac868ba4aef926697ad1facedf7858be3410c10d6f
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/stack-utils@npm:2.0.0"
@@ -1743,7 +1752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/builder@npm:^3.0.0-rc.5":
+"@yarnpkg/builder@npm:3.0.0-rc.5, @yarnpkg/builder@npm:^3.0.0-rc.5":
   version: 3.0.0-rc.5
   resolution: "@yarnpkg/builder@npm:3.0.0-rc.5"
   dependencies:
@@ -1771,6 +1780,37 @@ __metadata:
   bin:
     builder: ./lib/cli.js
   checksum: 23205f6b4e0908798bd76e50a096195071c7f83e1046ae95a5222b0a4884c6163924802d200569c1db48997b23f738bad94554dbf6f19721aa5538de5724bb14
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/builder@patch:@yarnpkg/builder@npm:3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::locator=%40kherock%2Fyarn-plugins%40workspace%3A.":
+  version: 3.0.0-rc.5
+  resolution: "@yarnpkg/builder@patch:@yarnpkg/builder@npm%3A3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975::version=3.0.0-rc.5&hash=ce2c48&locator=%40kherock%2Fyarn-plugins%40workspace%3A."
+  dependencies:
+    "@babel/core": ^7.10.2
+    "@yarnpkg/cli": ^3.0.0-rc.5
+    "@yarnpkg/core": ^3.0.0-rc.5
+    "@yarnpkg/esbuild-plugin-pnp": 1.0.0-rc.5
+    "@yarnpkg/fslib": ^2.5.0-rc.5
+    "@yarnpkg/pnpify": ^3.0.0-rc.6
+    babel-loader: ^8.1.0
+    chalk: ^3.0.0
+    clipanion: ^3.0.0-rc.10
+    esbuild-wasm: ^0.11.20
+    filesize: ^4.1.2
+    fork-ts-checker-webpack-plugin: ^5.0.0
+    semver: ^7.1.2
+    terser-webpack-plugin: ^3.0.4
+    ts-loader: ^7.0.5
+    tslib: ^1.13.0
+    val-loader: ^2.1.1
+    webpack: ^5.1.1
+    webpack-merge: ^4.2.2
+  peerDependencies:
+    typescript: "*"
+  bin:
+    builder: ./lib/cli.js
+  checksum: 3216a22219b97b783d52b1f4ba591018049820a272bdecd4c6acebbcb29fea7b0df11b696a705033913f1d68d668599a528f3f768af875dd04338cad0de18662
   languageName: node
   linkType: hard
 

@@ -1,1 +1,1 @@
-export default "elit";
+export default `elit`;

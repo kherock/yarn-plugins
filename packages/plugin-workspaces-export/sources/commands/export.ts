@@ -1,5 +1,12 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
-import {BaseCommand, WorkspaceRequiredError} from "@yarnpkg/cli";
+import {BaseCommand, WorkspaceRequiredError}                                         from "@yarnpkg/cli";
+import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
+import {packUtils}                                                                   from "@yarnpkg/plugin-pack";
+import {Command, Usage, Option}                                                      from "clipanion";
+
+import {ExportCache}                                                                 from '../ExportCache';
+import {genPackTgz, makeExportDir, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
+
 import {
   DEFAULT_LOCK_FILENAME,
   Cache,
@@ -23,38 +30,43 @@ import {
   ppath,
   xfs,
 } from "@yarnpkg/fslib";
-import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
-import {packUtils}                                                                   from "@yarnpkg/plugin-pack";
-import {Command, Usage}                                                              from "clipanion";
-
-import {ExportCache}                                                                 from '../ExportCache';
-import {genPackTgz, makeExportDir, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
 
 // eslint-disable-next-line arca/no-default-export
 export default class WorkspacesExportCommand extends BaseCommand {
-  @Command.Rest()
-  workspaces: Array<string> = [];
+  workspaces: Array<string> = Option.Rest();
 
-  @Command.Boolean(`--json`, {description: `Format the output as an NDJSON stream`})
-  json: boolean = false;
+  json: boolean = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
 
-  @Command.Boolean(`--production`, {description: `Only install regular dependencies by omitting dev dependencies`})
-  production: boolean = false;
+  production: boolean = Option.Boolean(
+    `--production`,
+    false,
+    {description: `Only install regular dependencies by omitting dev dependencies`}
+  );
 
-  @Command.Boolean(`--no-cache`, {description: `Do not cache archive contents in the configured \`exportCacheFolder\``})
-  noCache: boolean = false;
+  noCache: boolean = Option.Boolean(
+    `--no-cache`,
+    false,
+    {description: `Do not cache archive contents in the configured \`exportCacheFolder\``}
+  );
 
-  @Command.Boolean(`--install-if-needed`, {description: `Run a preliminary \`yarn install\` if a package contains build scripts`})
-  installIfNeeded: boolean = false;
+  installIfNeeded: boolean = Option.Boolean(
+    `--install-if-needed`,
+    false,
+    {description: `Run a preliminary \`yarn install\` if a package contains build scripts`}
+  );
 
-  @Command.Boolean(`--skip-pack-lifecycle`, {description: `Skip running \`yarn pack\` lifecycle scripts`})
-  skipPackLifecycle: boolean = false;
+  skipPackLifecycle: boolean = Option.Boolean(
+    `--skip-pack-lifecycle`,
+    false,
+    {description: `Skip running \`yarn pack\` lifecycle scripts`}
+  );
 
-  @Command.String(`--node-linker`, {description: `Override the project's nodeLinker option in the exported archive`})
-  nodeLinker?: string;
+  nodeLinker?: string = Option.String(
+    `--node-linker`,
+    {description: `Override the project's nodeLinker option in the exported archive`}
+  );
 
-  @Command.String(`-o,--out`, {description: `Create the archive at the specified path`})
-  out?: string;
+  out?: string = Option.String(`-o,--out`, {description: `Create the archive at the specified path`});
 
   static usage: Usage = Command.Usage({
     category: `Workspace-related commands`,
@@ -84,7 +96,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
     ],
   });
 
-  @Command.Path(`workspaces`, `export`)
+  static paths = [[`workspaces`, `export`]];
+
   async execute() {
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
     const {project, workspace} = await Project.find(configuration, this.context.cwd);
@@ -116,7 +129,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           requiredWorkspaces.add(matchingWorkspace);
         }
       }
-      if (!await packUtils.hasPackScripts(workspace)) {
+      if (!(await packUtils.hasPackScripts(workspace))) {
         requiredWorkspaces.delete(workspace);
       }
     }
@@ -196,7 +209,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             persistProject: false,
           });
           await baseFs.removePromise(DEFAULT_LOCK_FILENAME);
-          await baseFs.removePromise(tmpConfiguration.get(`bstatePath`));
+          await baseFs.removePromise(tmpConfiguration.get(`installStatePath`));
 
           if (target.endsWith(`.zip`)) {
             report.reportJson({output: target, format: `zip`});

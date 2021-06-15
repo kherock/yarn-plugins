@@ -1,1 +1,1 @@
-export default "ipsum";
+export default `ipsum`;

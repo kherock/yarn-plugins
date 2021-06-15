@@ -1,14 +1,15 @@
+import {PortablePath} from '@yarnpkg/fslib';
+
 import {
+  Descriptor,
   LinkType,
   Locator,
+  MinimalResolveOptions,
   Project,
   Resolver,
   ResolveOptions,
   WorkspaceResolver,
-  Descriptor,
-  MinimalResolveOptions,
 } from '@yarnpkg/core';
-import {PortablePath} from '@yarnpkg/fslib';
 
 /**
  * Resolver that resolves workspace packages with a hard link reference and without

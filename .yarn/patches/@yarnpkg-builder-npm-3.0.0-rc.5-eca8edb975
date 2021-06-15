@@ -1,0 +1,13 @@
+diff --git a/lib/commands/build/plugin.js b/lib/commands/build/plugin.js
+index f9dab43edb5549fedd9723a265aa381a61a5678b..3c5c4e309274fe3a7b41c3aa7b13fecb502ab061 100644
+--- a/lib/commands/build/plugin.js
++++ b/lib/commands/build/plugin.js
+@@ -55,7 +55,7 @@ class BuildPluginCommand extends clipanion_1.Command {
+                             if (dependencyNameMatch === null)
+                                 return undefined;
+                             const [, dependencyName] = dependencyNameMatch;
+-                            if (dependencyName === name || !isDynamicLib_1.isDynamicLib(dependencyName))
++                            if (dependencyName === name || !isDynamicLib_1.isDynamicLib(args.path))
+                                 return undefined;
+                             return {
+                                 path: args.path,

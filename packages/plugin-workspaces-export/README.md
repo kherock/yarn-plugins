@@ -1,7 +1,7 @@
 # `@yarnpkg/plugin-workspaces-export`
 
-This plugin adds support exporting workspaces into a deployable archive with a
-PnP runtime.
+This plugin adds support for exporting workspaces into a deployable archive with
+a PnP runtime.
 
 ## Install
 

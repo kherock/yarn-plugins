@@ -35,5 +35,8 @@
   },
   "engines": {
     "node": ">=12.13.0"
+  },
+  "resolutions": {
+    "@yarnpkg/builder@3.0.0-rc.5": "patch:@yarnpkg/builder@npm:3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975"
   }
 }

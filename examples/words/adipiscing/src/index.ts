@@ -1,1 +1,1 @@
-export default "adipiscing";
+export default `adipiscing`;

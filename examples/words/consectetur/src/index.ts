@@ -1,1 +1,1 @@
-export default "consectetur";
+export default `consectetur`;
