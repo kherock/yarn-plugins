@@ -1,5 +1,6 @@
 {
   "name": "@kherock/yarn-plugins",
+  "version": "21.6.0",
   "private": true,
   "license": "BSD-2-Clause",
   "workspaces": [
@@ -15,6 +16,11 @@
     "@yarnpkg/eslint-config": "^0.3.0-rc.5",
     "@yarnpkg/pnpify": "^3.0.0-rc.6",
     "babel-jest": "^27.0.2",
+    "conventional-changelog": "^3.1.24",
+    "conventional-changelog-conventionalcommits": "^4.6.0",
+    "conventional-changelog-preset-loader": "^2.3.4",
+    "conventional-changelog-writer": "^5.0.0",
+    "conventional-recommended-bump": "^6.1.0",
     "eslint": "^7.28.0",
     "eslint-plugin-arca": "^0.10.1",
     "eslint-plugin-react": "^7.24.0",
@@ -37,6 +43,7 @@
     "node": ">=12.13.0"
   },
   "resolutions": {
-    "@yarnpkg/builder@3.0.0-rc.5": "patch:@yarnpkg/builder@npm:3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975"
+    "@yarnpkg/builder@3.0.0-rc.5": "patch:@yarnpkg/builder@npm:3.0.0-rc.5#.yarn/patches/@yarnpkg-builder-npm-3.0.0-rc.5-eca8edb975",
+    "conventional-changelog-core@^4.2.1": "kherock/conventional-changelog#workspace=conventional-changelog-core"
   }
 }

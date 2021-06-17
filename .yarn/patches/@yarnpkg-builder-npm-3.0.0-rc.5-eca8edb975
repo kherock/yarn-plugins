@@ -11,3 +11,16 @@ index f9dab43edb5549fedd9723a265aa381a61a5678b..3c5c4e309274fe3a7b41c3aa7b13fecb
                                  return undefined;
                              return {
                                  path: args.path,
+diff --git a/lib/tools/isDynamicLib.js b/lib/tools/isDynamicLib.js
+index db735f057c13b3145b83323b63aab5bda732570d..846cc404d1797f1bfcba7f0676f60ce436eedea3 100644
+--- a/lib/tools/isDynamicLib.js
++++ b/lib/tools/isDynamicLib.js
+@@ -5,7 +5,7 @@ const cli_1 = require("@yarnpkg/cli");
+ const isDynamicLib = (request) => {
+     if (cli_1.getDynamicLibs().has(request))
+         return true;
+-    if (request.match(/^@yarnpkg\/plugin-/))
++    if (request.match(/^@yarnpkg\/plugin-[^/]*$/))
+         return true;
+     return false;
+ };

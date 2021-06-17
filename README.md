@@ -10,5 +10,8 @@
 
 - [plugin-dotenv](packages/plugin-dotenv) adds support for loading
 environment variables from .env files at the project root
+- [plugin-release](packages/plugin-release) adds support for generating
+changelogs and bumping workspace versions according to the conventional commits
+standard
 - [plugin-workspaces-export](packages/plugin-workspaces-export) adds support for
 exporting workspaces into a deployable archive with a PnP runtime
