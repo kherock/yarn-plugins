@@ -1,6 +1,6 @@
 {
   "name": "@kherock/yarn-plugins",
-  "version": "21.6.0",
+  "version": "21.6.1",
   "private": true,
   "license": "BSD-2-Clause",
   "workspaces": [
@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/kherock/yarn-plugins.git"
+    "url": "git+ssh://git@github.com/kherock/yarn-plugins.git"
   },
   "engines": {
     "node": ">=12.13.0"

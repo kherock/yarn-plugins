@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/kherock/yarn-plugins.git",
+    "url": "git+ssh://git@github.com/kherock/yarn-plugins.git",
     "directory": "packages/plugin-dotenv"
   },
   "files": [
