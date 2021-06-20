@@ -76,9 +76,13 @@ export async function recommendedBump(workspace: Workspace) {
       config,
       path: cwd,
       lernaPackage: structUtils.stringifyIdent(workspace.locator),
-      whatBump: commits => commits.length && recommendedBumpOpts?.whatBump
-        ? recommendedBumpOpts.whatBump(commits)
-        : {},
+      whatBump: commits => {
+        const codeChanges = new Set([`feat`, `fix`, `perf`, `refactor`, `revert`]);
+        const shouldBump = commits.some(commit => codeChanges.has(commit.type!));
+        return recommendedBumpOpts?.whatBump && shouldBump
+          ? recommendedBumpOpts.whatBump(commits)
+          : {};
+      },
     });
     return bump.releaseType;
   }

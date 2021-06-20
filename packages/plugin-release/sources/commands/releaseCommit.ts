@@ -1,6 +1,6 @@
-import {BaseCommand}                                                  from "@yarnpkg/cli";
-import {Configuration, execUtils, Project, StreamReport, structUtils} from "@yarnpkg/core";
-import {Command, Option, UsageError}                                  from "clipanion";
+import {BaseCommand}                                                                            from "@yarnpkg/cli";
+import {Configuration, execUtils, MessageName, Project, scriptUtils, StreamReport, structUtils} from "@yarnpkg/core";
+import {Command, Option, UsageError}                                                            from "clipanion";
 
 // eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommand extends BaseCommand {
@@ -54,16 +54,20 @@ export default class ReleaseCommand extends BaseCommand {
       stdout: this.context.stdout,
       json: this.json,
     }, async report => {
+      const taggableWorkspaces = project.topLevelWorkspace.getRecursiveWorkspaceChildren()
+        .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.locator)));
+
+      if (!taggableWorkspaces.length) {
+        report.reportWarning(MessageName.UNNAMED, `There are no releases to tag`);
+        return;
+      }
+
       await execUtils.execvp(`git`, [`commit`, `-m`, `chore: release ${projectTagName}`], {
         cwd: project.cwd,
         strict: true,
       });
-      report.reportJson({base: project.cwd, tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, projectTagName], {
-        cwd: project.cwd,
-        strict: true,
-      });
-      for (const workspace of project.topLevelWorkspace.getRecursiveWorkspaceChildren()) {
+
+      for (const workspace of taggableWorkspaces) {
         if (workspace.manifest.private === true) continue;
         const tagName = structUtils.stringifyLocator(workspace.locator);
         if (tagList.has(tagName)) continue;
@@ -71,8 +75,14 @@ export default class ReleaseCommand extends BaseCommand {
           cwd: project.cwd,
           strict: true,
         });
-        report.reportJson({base: workspace.cwd, tagName});
+        report.reportJson({ident: structUtils.stringifyIdent(workspace.locator), tagName});
       }
+
+      report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
+      await execUtils.execvp(`git`, [`tag`, projectTagName], {
+        cwd: project.cwd,
+        strict: true,
+      });
     });
     return report.exitCode();
   }
