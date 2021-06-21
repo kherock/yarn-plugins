@@ -3545,15 +3545,6 @@ var plugin = (() => {
       this.dryRun = import_clipanion.Option.Boolean(`--dry-run`, false, {
         description: `Prints the recommended version bump to stdout`
       });
-      this.firstRelease = import_clipanion.Option.Boolean(`--first-release`, false, {
-        description: `Skips bumping the version`
-      });
-      this.prerelease = import_clipanion.Option.Boolean(`--prerelease`, false, {
-        description: `Add a prerelease identifier to new versions`
-      });
-      this.prereleaseId = import_clipanion.Option.String(`--preid`, {
-        description: `Add a prerelease identifier to new versions`
-      });
     }
     async execute() {
       const configuration = await import_core2.Configuration.find(this.context.cwd, this.context.plugins);

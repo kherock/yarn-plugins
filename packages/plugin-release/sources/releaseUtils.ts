@@ -1,10 +1,10 @@
-import {Project, structUtils, Workspace}         from "@yarnpkg/core";
-import {PortablePath, xfs}                       from "@yarnpkg/fslib";
-import {getPnpPath}                              from "@yarnpkg/plugin-pnp";
-import calver                                    from "calver";
-import {Options as ConventionalChangelogOptions} from "conventional-changelog";
-import {createRequire}                           from "module";
-import {promisify}                               from "util";
+import {Project, structUtils, Workspace}              from "@yarnpkg/core";
+import {PortablePath, xfs}                            from "@yarnpkg/fslib";
+import {getPnpPath}                                   from "@yarnpkg/plugin-pnp";
+import calver                                         from "calver";
+import type {Options as ConventionalChangelogOptions} from "conventional-changelog";
+import {createRequire}                                from "module";
+import {promisify}                                    from "util";
 
 import type {
   Callback as ConventionalRecommendedBumpCallback,

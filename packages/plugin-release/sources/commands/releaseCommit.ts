@@ -1,8 +1,6 @@
 import {BaseCommand}                                                               from "@yarnpkg/cli";
 import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from "@yarnpkg/core";
 import {Command, Option, UsageError}                                               from "clipanion";
-import {pipeline, Transform}                                                       from "stream";
-import {promisify}                                                                 from "util";
 
 import {changelogStream}                                                           from "../releaseUtils";
 
@@ -28,18 +26,6 @@ export default class ReleaseCommand extends BaseCommand {
 
   dryRun = Option.Boolean(`--dry-run`, false, {
     description: `Prints the recommended version bump to stdout`,
-  });
-
-  firstRelease = Option.Boolean(`--first-release`, false, {
-    description: `Skips bumping the version`,
-  });
-
-  prerelease = Option.Boolean(`--prerelease`, false, {
-    description: `Add a prerelease identifier to new versions`,
-  });
-
-  prereleaseId = Option.String(`--preid`, {
-    description: `Add a prerelease identifier to new versions`,
   });
 
   async execute() {
