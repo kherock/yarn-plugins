@@ -3483,16 +3483,16 @@ var plugin = (() => {
   var import_module = __toModule(__require("module"));
   var import_util = __toModule(__require("util"));
   async function changelogStream(workspace, options) {
-    const {cwd, manifest, project} = workspace;
+    const {cwd, locator, manifest, project} = workspace;
     const require2 = absoluteRequire(project.cwd);
     const conventionalChangelog = require2(`conventional-changelog`);
     return conventionalChangelog(__spreadValues({
       preset: project.configuration.get(`conventionalChangelogPreset`),
-      pkg: {transform: () => manifest.exportTo({})},
+      pkg: {transform: () => manifest.exportTo({version: locator.reference})},
       lernaPackage: workspace === project.topLevelWorkspace ? void 0 : import_core.structUtils.stringifyIdent(workspace.locator),
       tagPrefix: workspace === project.topLevelWorkspace ? void 0 : `${import_core.structUtils.stringifyIdent(workspace.locator)}@`,
       outputUnreleased: true
-    }, options), void 0, {path: cwd});
+    }, options), {version: workspace === project.topLevelWorkspace || !manifest.private ? void 0 : `Unreleased`}, {path: cwd});
   }
   async function recommendedBump(workspace) {
     const {cwd, manifest, project} = workspace;
@@ -3649,15 +3649,14 @@ ${newWorkspaceVersions}`], {
         stdout: this.context.stdout,
         json: this.json
       }, async (report2) => {
-        if (!workspace.manifest.version)
-          throw new import_clipanion2.UsageError(`Can't bump the version if there wasn't a version to begin with - use 0.0.0 as initial version then run the command again.`);
-        if (!this.firstRelease) {
+        const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
+        if (requiresVersion && !this.firstRelease) {
           const recommendedStrategy = await recommendedBump(workspace);
           if (!recommendedStrategy) {
             report2.reportWarning(import_core3.MessageName.UNNAMED, `No commits since last release`);
             return;
           }
-          let version = new import_semver.SemVer(workspace.manifest.version);
+          let version = new import_semver.SemVer(workspace.locator.reference);
           if (import_semver.default.valid(recommendedStrategy)) {
             version = new import_semver.SemVer(recommendedStrategy);
             if (this.prerelease || this.prereleaseId)
@@ -3677,12 +3676,17 @@ ${newWorkspaceVersions}`], {
           }
         }
         const changelogPath = import_fslib2.ppath.join(workspace.cwd, CHANGELOG);
-        const existingChangelog = import_fslib2.xfs.createReadStream(changelogPath).on(`error`, function(err) {
-          if (err.code !== `ENOENT`)
-            throw err;
-          this.unpipe(existingChangelog);
+        const existingChangelog = new import_stream.PassThrough();
+        if (requiresVersion && !this.firstRelease) {
+          import_fslib2.xfs.createReadStream(changelogPath).on(`error`, function(err) {
+            if (err.code !== `ENOENT`)
+              throw err;
+            this.unpipe(existingChangelog);
+            existingChangelog.push(null);
+          }).pipe(existingChangelog);
+        } else {
           existingChangelog.push(null);
-        }).pipe(new import_stream.PassThrough());
+        }
         const changelog = new import_multistream.default([
           await changelogStream(workspace, {
             releaseCount: this.firstRelease ? 0 : 1
@@ -3719,7 +3723,9 @@ ${newWorkspaceVersions}`], {
           });
           await import_core3.scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report: report2});
         }
-        report2.reportInfo(import_core3.MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
+        if (requiresVersion) {
+          report2.reportInfo(import_core3.MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
+        }
       });
       return report.exitCode();
     }

@@ -1,7 +1,7 @@
 import {BaseCommand, WorkspaceRequiredError}                                                                        from "@yarnpkg/cli";
 import {Cache, Configuration, execUtils, MessageName, Project, scriptUtils, StreamReport, structUtils, ThrowReport} from "@yarnpkg/core";
 import {Filename, ppath, xfs}                                                                                       from "@yarnpkg/fslib";
-import {Command, Option, UsageError}                                                                                from "clipanion";
+import {Command, Option}                                                                                            from "clipanion";
 import MultiStream                                                                                                  from "multistream";
 import semver, {SemVer, ReleaseType}                                                                                from "semver";
 import {Transform, pipeline, PassThrough}                                                                           from "stream";
@@ -61,16 +61,15 @@ export default class ReleaseCommand extends BaseCommand {
       stdout: this.context.stdout,
       json: this.json,
     }, async report => {
-      if (!workspace.manifest.version)
-        throw new UsageError(`Can't bump the version if there wasn't a version to begin with - use 0.0.0 as initial version then run the command again.`);
+      const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
 
-      if (!this.firstRelease) {
+      if (requiresVersion && !this.firstRelease) {
         const recommendedStrategy = await recommendedBump(workspace);
         if (!recommendedStrategy) {
           report.reportWarning(MessageName.UNNAMED, `No commits since last release`);
           return;
         }
-        let version = new SemVer(workspace.manifest.version);
+        let version = new SemVer(workspace.locator.reference);
         if (semver.valid(recommendedStrategy)) {
           version = new SemVer(recommendedStrategy);
           if (this.prerelease || this.prereleaseId)
@@ -95,13 +94,18 @@ export default class ReleaseCommand extends BaseCommand {
       }
 
       const changelogPath = ppath.join(workspace.cwd, CHANGELOG);
-      const existingChangelog = xfs.createReadStream(changelogPath)
-        .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
-          if (err.code !== `ENOENT`) throw err;
-          this.unpipe(existingChangelog);
-          existingChangelog.push(null);
-        })
-        .pipe(new PassThrough());
+      const existingChangelog = new PassThrough();
+      if (requiresVersion && !this.firstRelease) {
+        xfs.createReadStream(changelogPath)
+          .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
+            if (err.code !== `ENOENT`) throw err;
+            this.unpipe(existingChangelog);
+            existingChangelog.push(null);
+          })
+          .pipe(existingChangelog);
+      } else {
+        existingChangelog.push(null);
+      }
 
       const changelog = new MultiStream([
         await changelogStream(workspace, {
@@ -141,7 +145,9 @@ export default class ReleaseCommand extends BaseCommand {
         });
         await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report});
       }
-      report.reportInfo(MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
+      if (requiresVersion) {
+        report.reportInfo(MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
+      }
     });
     return report.exitCode();
   }

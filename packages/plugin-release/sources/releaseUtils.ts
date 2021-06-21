@@ -12,14 +12,14 @@ import type {
 } from 'conventional-recommended-bump';
 
 export async function changelogStream(workspace: Workspace, options?: ConventionalChangelogOptions): Promise<NodeJS.ReadableStream> {
-  const {cwd, manifest, project} = workspace;
+  const {cwd, locator, manifest, project} = workspace;
   const require = absoluteRequire(project.cwd);
   const conventionalChangelog = require(`conventional-changelog`) as typeof import("conventional-changelog");
 
   return conventionalChangelog(
     {
       preset: project.configuration.get(`conventionalChangelogPreset`),
-      pkg: {transform: () => manifest.exportTo({})},
+      pkg: {transform: () => manifest.exportTo({version: locator.reference})},
       lernaPackage: workspace === project.topLevelWorkspace
         ? undefined
         : structUtils.stringifyIdent(workspace.locator),
@@ -29,7 +29,7 @@ export async function changelogStream(workspace: Workspace, options?: Convention
       outputUnreleased: true,
       ...options,
     },
-    undefined,
+    {version: workspace === project.topLevelWorkspace || !manifest.private ? undefined : `Unreleased`},
     {path: cwd},
   );
 }
