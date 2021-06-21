@@ -1,6 +1,10 @@
-import {BaseCommand}                                                                            from "@yarnpkg/cli";
-import {Configuration, execUtils, MessageName, Project, scriptUtils, StreamReport, structUtils} from "@yarnpkg/core";
-import {Command, Option, UsageError}                                                            from "clipanion";
+import {BaseCommand}                                                               from "@yarnpkg/cli";
+import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from "@yarnpkg/core";
+import {Command, Option, UsageError}                                               from "clipanion";
+import {pipeline, Transform}                                                       from "stream";
+import {promisify}                                                                 from "util";
+
+import {changelogStream}                                                           from "../releaseUtils";
 
 // eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommand extends BaseCommand {
@@ -58,7 +62,7 @@ export default class ReleaseCommand extends BaseCommand {
         .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.locator)));
 
       if (!taggableWorkspaces.length) {
-        report.reportWarning(MessageName.UNNAMED, `There are no releases to tag`);
+        report.reportWarning(MessageName.UNNAMED, `There are no workspaces to tag`);
         return;
       }
 
@@ -80,11 +84,33 @@ export default class ReleaseCommand extends BaseCommand {
         report.reportJson({ident: structUtils.stringifyIdent(locator), tagName});
       }
 
+      const changelog = await changelogStream(project.topLevelWorkspace);
+      let changelogText = ``;
+      await promisify(pipeline)([
+        changelog,
+        new Transform({
+          transform(chunk, encoding, callback) {
+            changelogText += chunk.toString();
+            callback(chunk);
+          },
+        }),
+      ]);
+
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, newWorkspaceVersions], {
-        cwd: project.cwd,
-        strict: true,
-      });
+      await execUtils.execvp(
+        `git`,
+        [
+          `tag`,
+          `-a`,
+          projectTagName,
+          `-m`,
+          changelogText.split(`\n`).slice(1).join(`\n`).trim(),
+        ],
+        {
+          cwd: project.cwd,
+          strict: true,
+        }
+      );
     });
     return report.exitCode();
   }

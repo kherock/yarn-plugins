@@ -1,11 +1,9 @@
 import {Project, structUtils, Workspace}         from "@yarnpkg/core";
-import {Filename, PortablePath, xfs}             from "@yarnpkg/fslib";
+import {PortablePath, xfs}                       from "@yarnpkg/fslib";
 import {getPnpPath}                              from "@yarnpkg/plugin-pnp";
 import calver                                    from "calver";
 import {Options as ConventionalChangelogOptions} from "conventional-changelog";
 import {createRequire}                           from "module";
-import MultiStream                               from "multistream";
-import {PassThrough}                             from "stream";
 import {promisify}                               from "util";
 
 import type {
@@ -13,42 +11,27 @@ import type {
   Options as ConventionalRecommendedBumpOptions,
 } from 'conventional-recommended-bump';
 
-export const CHANGELOG = `CHANGELOG.md` as Filename;
-
-export async function changelogStream(workspace: Workspace, inPath: PortablePath, options?: ConventionalChangelogOptions): Promise<NodeJS.ReadableStream> {
+export async function changelogStream(workspace: Workspace, options?: ConventionalChangelogOptions): Promise<NodeJS.ReadableStream> {
   const {cwd, manifest, project} = workspace;
   const require = absoluteRequire(project.cwd);
   const conventionalChangelog = require(`conventional-changelog`) as typeof import("conventional-changelog");
 
-  const conventionalChangelogPreset = project.configuration.get(`conventionalChangelogPreset`);
-
-  const inStream = xfs.createReadStream(inPath)
-    .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
-      if (err.code !== `ENOENT`) throw err;
-      this.unpipe(inStream);
-      inStream.push(null);
-    })
-    .pipe(new PassThrough());
-
-  return new MultiStream([
-    conventionalChangelog(
-      {
-        preset: conventionalChangelogPreset,
-        pkg: {transform: () => manifest.exportTo({})},
-        lernaPackage: workspace === project.topLevelWorkspace
-          ? undefined
-          : structUtils.stringifyIdent(workspace.locator),
-        tagPrefix: workspace === project.topLevelWorkspace
-          ? undefined
-          : `${structUtils.stringifyIdent(workspace.locator)}@`,
-        outputUnreleased: true,
-        ...options,
-      },
-      undefined,
-      {path: cwd},
-    ),
-    inStream,
-  ]);
+  return conventionalChangelog(
+    {
+      preset: project.configuration.get(`conventionalChangelogPreset`),
+      pkg: {transform: () => manifest.exportTo({})},
+      lernaPackage: workspace === project.topLevelWorkspace
+        ? undefined
+        : structUtils.stringifyIdent(workspace.locator),
+      tagPrefix: workspace === project.topLevelWorkspace
+        ? undefined
+        : `${structUtils.stringifyIdent(workspace.locator)}@`,
+      outputUnreleased: true,
+      ...options,
+    },
+    undefined,
+    {path: cwd},
+  );
 }
 
 export async function recommendedBump(workspace: Workspace) {

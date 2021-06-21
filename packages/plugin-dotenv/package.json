@@ -21,6 +21,7 @@
     "build:plugin-dotenv": "builder build plugin",
     "update-local": "yarn build:plugin-dotenv",
     "postpack": "rm -rf lib",
+    "postrelease": "run build:plugin-dotenv",
     "prepack": "run build:compile"
   },
   "publishConfig": {

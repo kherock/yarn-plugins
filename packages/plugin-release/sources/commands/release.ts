@@ -2,11 +2,14 @@ import {BaseCommand, WorkspaceRequiredError}                                    
 import {Cache, Configuration, execUtils, MessageName, Project, scriptUtils, StreamReport, structUtils, ThrowReport} from "@yarnpkg/core";
 import {Filename, ppath, xfs}                                                                                       from "@yarnpkg/fslib";
 import {Command, Option, UsageError}                                                                                from "clipanion";
+import MultiStream                                                                                                  from "multistream";
 import semver, {SemVer, ReleaseType}                                                                                from "semver";
-import {Transform, pipeline}                                                                                        from "stream";
+import {Transform, pipeline, PassThrough}                                                                           from "stream";
 import {promisify}                                                                                                  from "util";
 
-import {CHANGELOG, changelogStream, recommendedBump}                                                                from "../releaseUtils";
+import {changelogStream, recommendedBump}                                                                           from "../releaseUtils";
+
+export const CHANGELOG = `CHANGELOG.md` as Filename;
 
 // eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommand extends BaseCommand {
@@ -90,11 +93,22 @@ export default class ReleaseCommand extends BaseCommand {
           await workspace.persistManifest();
         }
       }
-      const changelogPath = ppath.join(workspace.cwd, CHANGELOG);
 
-      const changelog = await changelogStream(workspace, changelogPath, {
-        releaseCount: this.firstRelease ? 0 : 1,
-      });
+      const changelogPath = ppath.join(workspace.cwd, CHANGELOG);
+      const existingChangelog = xfs.createReadStream(changelogPath)
+        .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
+          if (err.code !== `ENOENT`) throw err;
+          this.unpipe(existingChangelog);
+          existingChangelog.push(null);
+        })
+        .pipe(new PassThrough());
+
+      const changelog = new MultiStream([
+        await changelogStream(workspace, {
+          releaseCount: this.firstRelease ? 0 : 1,
+        }),
+        existingChangelog,
+      ]);
       let text = ``;
       const getText = new Transform({
         transform(chunk, encoding, callback) {

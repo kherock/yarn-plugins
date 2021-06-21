@@ -35,6 +35,7 @@
     "build:plugin-release": "builder build plugin",
     "update-local": "yarn build:plugin-release",
     "postpack": "rm -rf lib",
+    "postrelease": "run build:plugin-release",
     "prepack": "run build:compile"
   },
   "publishConfig": {
