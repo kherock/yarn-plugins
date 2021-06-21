@@ -1,3 +1,10 @@
+### [21.6.3](https://github.com/kherock/yarn-plugins/compare/v21.6.2...v21.6.3) (2021-06-21)
+
+
+### Features
+
+* **plugin-release:** support generating changelogs for unversioned private packages ([c03b436](https://github.com/kherock/yarn-plugins/commit/c03b43679edddb3accdb70209bc157fdb0afa771))
+
 ### [21.6.2](https://github.com/kherock/yarn-plugins/compare/v21.6.1...v21.6.2) (2021-06-21)
 
 
