@@ -1,0 +1,37 @@
+on:
+  workflow_dispatch:
+
+name: "[Manual] Create release"
+
+jobs:
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set committer to github-actions
+        run: |
+          git config --local user.name github-actions[bot]
+          git config --local user.email 41898282+github-actions[bot]@users.noreply.github.com
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 14.x
+      - name: Create release
+        run: yarn workspaces foreach -pv --exclude '@example/*' --topological-dev release
+      - name: Push release
+        run: |
+          yarn release-commit
+          git push
+          git push --tags
+      - name: Create GitHub release
+        run: |
+          TAG=$(git describe --match 'v*' HEAD)
+          gh release create "$TAG" packages/plugin-*/bundles/@yarnpkg/* \
+            --title "$TAG" \
+            --notes "$(git show -s --format='%N' "$TAG" | tail -n +4)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
