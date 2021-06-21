@@ -62,24 +62,26 @@ export default class ReleaseCommand extends BaseCommand {
         return;
       }
 
-      await execUtils.execvp(`git`, [`commit`, `-m`, `chore: release ${projectTagName}`], {
+      const newWorkspaceVersions = taggableWorkspaces
+        .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
+        .join(`\n`);
+
+      await execUtils.execvp(`git`, [`commit`, `-m`, `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`], {
         cwd: project.cwd,
         strict: true,
       });
 
-      for (const workspace of taggableWorkspaces) {
-        if (workspace.manifest.private === true) continue;
-        const tagName = structUtils.stringifyLocator(workspace.locator);
-        if (tagList.has(tagName)) continue;
+      for (const {locator} of taggableWorkspaces) {
+        const tagName = structUtils.stringifyLocator(locator);
         await execUtils.execvp(`git`, [`tag`, tagName], {
           cwd: project.cwd,
           strict: true,
         });
-        report.reportJson({ident: structUtils.stringifyIdent(workspace.locator), tagName});
+        report.reportJson({ident: structUtils.stringifyIdent(locator), tagName});
       }
 
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, projectTagName], {
+      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, newWorkspaceVersions], {
         cwd: project.cwd,
         strict: true,
       });
