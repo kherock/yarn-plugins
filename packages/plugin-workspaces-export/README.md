@@ -6,7 +6,7 @@ a PnP runtime.
 ## Install
 
 ```
-yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/release/<release>/plugin-workspaces-export.js
+yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/<release>/plugin-workspaces-export.js
 ```
 
 ## Commands

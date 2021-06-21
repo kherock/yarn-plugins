@@ -12,7 +12,7 @@
 * **plugin-release:** avoid race condition created by persisting project on install ([d18d434](https://github.com/kherock/yarn-plugins/commit/d18d434360e29da488912502ad6b7ef377672381))
 * **plugin-release:** fix fetching changelog for annotated tag message ([ac6ddb5](https://github.com/kherock/yarn-plugins/commit/ac6ddb5196fbd5d0a624a6b1b527db3aedeac8fb))
 
-## [21.6.1](https://github.com/kherock/yarn-plugins/compare/v21.6.0...71548276a03e03f581d268026e0d4ee9b73a8e08) (2021-06-20)
+### [21.6.1](https://github.com/kherock/yarn-plugins/compare/v21.6.0...71548276a03e03f581d268026e0d4ee9b73a8e08) (2021-06-20)
 
 
 ### Features

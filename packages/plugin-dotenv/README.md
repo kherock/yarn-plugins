@@ -9,5 +9,5 @@ strategy.
 ## Install
 
 ```
-yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/release/<release>/plugin-dotenv.js
+yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/<release>/plugin-dotenv.js
 ```
