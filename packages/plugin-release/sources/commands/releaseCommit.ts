@@ -84,33 +84,16 @@ export default class ReleaseCommand extends BaseCommand {
         report.reportJson({ident: structUtils.stringifyIdent(locator), tagName});
       }
 
-      const changelog = await changelogStream(project.topLevelWorkspace);
       let changelogText = ``;
-      await promisify(pipeline)([
-        changelog,
-        new Transform({
-          transform(chunk, encoding, callback) {
-            changelogText += chunk.toString();
-            callback(chunk);
-          },
-        }),
-      ]);
+      for await (const chunk of await changelogStream(project.topLevelWorkspace))
+        changelogText += chunk.toString();
+      changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
 
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(
-        `git`,
-        [
-          `tag`,
-          `-a`,
-          projectTagName,
-          `-m`,
-          changelogText.split(`\n`).slice(1).join(`\n`).trim(),
-        ],
-        {
-          cwd: project.cwd,
-          strict: true,
-        }
-      );
+      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, changelogText, `--cleanup=whitespace`], {
+        cwd: project.cwd,
+        strict: true,
+      });
     });
     return report.exitCode();
   }

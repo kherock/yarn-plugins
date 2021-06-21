@@ -2994,14 +2994,14 @@ var plugin = (() => {
   var require_stream_transform = __commonJS({
     "pnp:/Users/herockk/Workspaces/yarn-plugins/.yarn/cache/readable-stream-npm-3.6.0-23a4a5eb56-d4ea81502d.zip/node_modules/readable-stream/lib/_stream_transform.js"(exports, module) {
       "use strict";
-      module.exports = Transform3;
+      module.exports = Transform2;
       var _require$codes = require_errors().codes;
       var ERR_METHOD_NOT_IMPLEMENTED = _require$codes.ERR_METHOD_NOT_IMPLEMENTED;
       var ERR_MULTIPLE_CALLBACK = _require$codes.ERR_MULTIPLE_CALLBACK;
       var ERR_TRANSFORM_ALREADY_TRANSFORMING = _require$codes.ERR_TRANSFORM_ALREADY_TRANSFORMING;
       var ERR_TRANSFORM_WITH_LENGTH_0 = _require$codes.ERR_TRANSFORM_WITH_LENGTH_0;
       var Duplex = require_stream_duplex();
-      require_inherits()(Transform3, Duplex);
+      require_inherits()(Transform2, Duplex);
       function afterTransform(er, data) {
         var ts = this._transformState;
         ts.transforming = false;
@@ -3020,9 +3020,9 @@ var plugin = (() => {
           this._read(rs.highWaterMark);
         }
       }
-      function Transform3(options) {
-        if (!(this instanceof Transform3))
-          return new Transform3(options);
+      function Transform2(options) {
+        if (!(this instanceof Transform2))
+          return new Transform2(options);
         Duplex.call(this, options);
         this._transformState = {
           afterTransform: afterTransform.bind(this),
@@ -3052,14 +3052,14 @@ var plugin = (() => {
           done(this, null, null);
         }
       }
-      Transform3.prototype.push = function(chunk, encoding) {
+      Transform2.prototype.push = function(chunk, encoding) {
         this._transformState.needTransform = false;
         return Duplex.prototype.push.call(this, chunk, encoding);
       };
-      Transform3.prototype._transform = function(chunk, encoding, cb) {
+      Transform2.prototype._transform = function(chunk, encoding, cb) {
         cb(new ERR_METHOD_NOT_IMPLEMENTED("_transform()"));
       };
-      Transform3.prototype._write = function(chunk, encoding, cb) {
+      Transform2.prototype._write = function(chunk, encoding, cb) {
         var ts = this._transformState;
         ts.writecb = cb;
         ts.writechunk = chunk;
@@ -3070,7 +3070,7 @@ var plugin = (() => {
             this._read(rs.highWaterMark);
         }
       };
-      Transform3.prototype._read = function(n) {
+      Transform2.prototype._read = function(n) {
         var ts = this._transformState;
         if (ts.writechunk !== null && !ts.transforming) {
           ts.transforming = true;
@@ -3079,7 +3079,7 @@ var plugin = (() => {
           ts.needTransform = true;
         }
       };
-      Transform3.prototype._destroy = function(err, cb) {
+      Transform2.prototype._destroy = function(err, cb) {
         Duplex.prototype._destroy.call(this, err, function(err2) {
           cb(err2);
         });
@@ -3103,12 +3103,12 @@ var plugin = (() => {
     "pnp:/Users/herockk/Workspaces/yarn-plugins/.yarn/cache/readable-stream-npm-3.6.0-23a4a5eb56-d4ea81502d.zip/node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module) {
       "use strict";
       module.exports = PassThrough2;
-      var Transform3 = require_stream_transform();
-      require_inherits()(PassThrough2, Transform3);
+      var Transform2 = require_stream_transform();
+      require_inherits()(PassThrough2, Transform2);
       function PassThrough2(options) {
         if (!(this instanceof PassThrough2))
           return new PassThrough2(options);
-        Transform3.call(this, options);
+        Transform2.call(this, options);
       }
       PassThrough2.prototype._transform = function(chunk, encoding, cb) {
         cb(null, chunk);
@@ -3184,7 +3184,7 @@ var plugin = (() => {
           return noop;
         return streams.pop();
       }
-      function pipeline3() {
+      function pipeline2() {
         for (var _len = arguments.length, streams = new Array(_len), _key = 0; _key < _len; _key++) {
           streams[_key] = arguments[_key];
         }
@@ -3211,7 +3211,7 @@ var plugin = (() => {
         });
         return streams.reduce(pipe);
       }
-      module.exports = pipeline3;
+      module.exports = pipeline2;
     }
   });
 
@@ -3469,8 +3469,6 @@ var plugin = (() => {
   var import_cli = __toModule(__require("@yarnpkg/cli"));
   var import_core2 = __toModule(__require("@yarnpkg/core"));
   var import_clipanion = __toModule(__require("clipanion"));
-  var import_stream = __toModule(__require("stream"));
-  var import_util2 = __toModule(__require("util"));
 
   // pnp:/Users/herockk/Workspaces/yarn-plugins/packages/plugin-release/sources/releaseUtils.ts
   var releaseUtils_exports = {};
@@ -3591,27 +3589,14 @@ ${newWorkspaceVersions}`], {
           });
           report2.reportJson({ident: import_core2.structUtils.stringifyIdent(locator), tagName});
         }
-        const changelog = await changelogStream(project.topLevelWorkspace);
         let changelogText = ``;
-        await (0, import_util2.promisify)(import_stream.pipeline)([
-          changelog,
-          new import_stream.Transform({
-            transform(chunk, encoding, callback) {
-              changelogText += chunk.toString();
-              callback(chunk);
-            }
-          })
-        ]);
+        for await (const chunk of await changelogStream(project.topLevelWorkspace))
+          changelogText += chunk.toString();
+        changelogText = changelogText.split(`
+`).slice(2).join(`
+`);
         report2.reportJson({ident: import_core2.structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-        await import_core2.execUtils.execvp(`git`, [
-          `tag`,
-          `-a`,
-          projectTagName,
-          `-m`,
-          changelogText.split(`
-`).slice(1).join(`
-`).trim()
-        ], {
+        await import_core2.execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, changelogText, `--cleanup=whitespace`], {
           cwd: project.cwd,
           strict: true
         });
@@ -3642,8 +3627,8 @@ ${newWorkspaceVersions}`], {
   var import_clipanion2 = __toModule(__require("clipanion"));
   var import_multistream = __toModule(require_multistream());
   var import_semver = __toModule(__require("semver"));
-  var import_stream2 = __toModule(__require("stream"));
-  var import_util3 = __toModule(__require("util"));
+  var import_stream = __toModule(__require("stream"));
+  var import_util2 = __toModule(__require("util"));
   var CHANGELOG = `CHANGELOG.md`;
   var ReleaseCommand2 = class extends import_cli2.BaseCommand {
     constructor() {
@@ -3706,7 +3691,7 @@ ${newWorkspaceVersions}`], {
             throw err;
           this.unpipe(existingChangelog);
           existingChangelog.push(null);
-        }).pipe(new import_stream2.PassThrough());
+        }).pipe(new import_stream.PassThrough());
         const changelog = new import_multistream.default([
           await changelogStream(workspace, {
             releaseCount: this.firstRelease ? 0 : 1
@@ -3714,7 +3699,7 @@ ${newWorkspaceVersions}`], {
           existingChangelog
         ]);
         let text = ``;
-        const getText = new import_stream2.Transform({
+        const getText = new import_stream.Transform({
           transform(chunk, encoding, callback) {
             text += chunk.toString();
             callback(null, chunk);
@@ -3723,11 +3708,11 @@ ${newWorkspaceVersions}`], {
         const streams = [changelog, getText];
         if (this.dryRun) {
           streams.push(report2.createStreamReporter());
-          await (0, import_util3.promisify)(import_stream2.pipeline)(streams);
+          await (0, import_util2.promisify)(import_stream.pipeline)(streams);
         } else {
           const outPath = import_fslib2.ppath.join(await import_fslib2.xfs.mktempPromise(), CHANGELOG);
           streams.push(import_fslib2.xfs.createWriteStream(outPath));
-          await (0, import_util3.promisify)(import_stream2.pipeline)(streams);
+          await (0, import_util2.promisify)(import_stream.pipeline)(streams);
           await import_fslib2.xfs.copyFilePromise(outPath, changelogPath);
         }
         report2.reportJson({ident, changelogPath, changelog: text});
