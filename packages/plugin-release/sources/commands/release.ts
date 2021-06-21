@@ -137,6 +137,7 @@ export default class ReleaseCommand extends BaseCommand {
         await project.install({
           cache: await Cache.find(configuration),
           report: new ThrowReport(),
+          persistProject: false,
         });
         await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report});
       }

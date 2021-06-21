@@ -3738,7 +3738,8 @@ ${newWorkspaceVersions}`], {
           });
           await project.install({
             cache: await import_core3.Cache.find(configuration),
-            report: new import_core3.ThrowReport()
+            report: new import_core3.ThrowReport(),
+            persistProject: false
           });
           await import_core3.scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report: report2});
         }
