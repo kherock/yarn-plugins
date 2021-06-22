@@ -175,7 +175,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           // remove references to Yarn in the target archive, PnP's runtime does not depend on Yarn
           tmpConfiguration.values.set(`cacheFolder`, ppath.join(exportDir, `.pnp/packages` as PortablePath));
           tmpConfiguration.values.set(`pnpUnpluggedFolder`, ppath.join(exportDir, `.pnp/unplugged` as PortablePath));
-          tmpConfiguration.values.set(`virtualFolder`, ppath.join(exportDir, `.pnp/$$virtual` as PortablePath));
+          tmpConfiguration.values.set(`virtualFolder`, ppath.join(exportDir, `.pnp/__virtual__` as PortablePath));
 
           switch (nodeLinker) {
             case `pnp`:
