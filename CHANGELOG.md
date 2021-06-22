@@ -1,3 +1,10 @@
+### [21.6.4](https://github.com/kherock/yarn-plugins/compare/v21.6.3...v21.6.4) (2021-06-22)
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** fix exported virtualFolder path ([d59ca83](https://github.com/kherock/yarn-plugins/commit/d59ca83ba096bbc1398f66a559376faacd32134d))
+
 ### [21.6.3](https://github.com/kherock/yarn-plugins/compare/v21.6.2...v21.6.3) (2021-06-21)
 
 
