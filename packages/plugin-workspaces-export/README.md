@@ -12,3 +12,9 @@ yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/<re
 ## Commands
 
 - `yarn workspaces export`
+
+## Configuration
+
+| Property | Description | Default value |
+| -------- | ----------- | ------------- |
+| exportCacheFolder | Folder where the contents of exported workspace archives are cached | `./.yarn/export-cache` |
