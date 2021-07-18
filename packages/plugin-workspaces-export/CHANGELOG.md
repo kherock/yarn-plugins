@@ -5,9 +5,7 @@
 
 * **plugin-workspaces-export:** fix exported virtualFolder path ([d59ca83](https://github.com/kherock/yarn-plugins/commit/d59ca83ba096bbc1398f66a559376faacd32134d))
 
-## [2.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@2.0.0...@kherock/yarn-plugin-workspaces-export@2.0.0) (2021-06-20)
-
-## 2.0.0 (2021-06-16)
+## [2.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@1.2.0...@kherock/yarn-plugin-workspaces-export@2.0.0) (2021-06-16)
 
 
 ### Features
