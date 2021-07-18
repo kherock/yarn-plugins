@@ -55,7 +55,7 @@ gen_enforced_field(WorkspaceCwd, 'engines.node', '>=12.13.0').
 gen_enforced_field(WorkspaceCwd, 'repository.type', 'git') :-
   % Exclude example packages
     \+ atom_concat('examples/', _, WorkspaceCwd).
-gen_enforced_field(WorkspaceCwd, 'repository.url', 'ssh://git@github.com/kherock/yarn-plugins.git') :-
+gen_enforced_field(WorkspaceCwd, 'repository.url', 'git+ssh://git@github.com/kherock/yarn-plugins.git') :-
   % Exclude example packages
     \+ atom_concat('examples/', _, WorkspaceCwd).
 gen_enforced_field(WorkspaceCwd, 'repository.directory', WorkspaceCwd) :-

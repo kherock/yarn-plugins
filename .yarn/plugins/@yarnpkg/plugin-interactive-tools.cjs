@@ -1422,14 +1422,14 @@ var plugin = (() => {
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/lodash.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/lodash.js
   var require_lodash = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.20-c0db62021c-b31afa0973.zip/node_modules/lodash/lodash.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/lodash.js"(exports2, module2) {
       (function() {
         var undefined2;
-        var VERSION = "4.17.20";
+        var VERSION = "4.17.21";
         var LARGE_ARRAY_SIZE = 200;
-        var CORE_ERROR_TEXT = "Unsupported core-js use. Try https://npms.io/search?q=ponyfill.", FUNC_ERROR_TEXT = "Expected a function";
+        var CORE_ERROR_TEXT = "Unsupported core-js use. Try https://npms.io/search?q=ponyfill.", FUNC_ERROR_TEXT = "Expected a function", INVALID_TEMPL_VAR_ERROR_TEXT = "Invalid `variable` option passed into `_.template`";
         var HASH_UNDEFINED = "__lodash_hash_undefined__";
         var MAX_MEMOIZE_SIZE = 500;
         var PLACEHOLDER = "__lodash_placeholder__";
@@ -1459,9 +1459,11 @@ var plugin = (() => {
         var reEscape = /<%-([\s\S]+?)%>/g, reEvaluate = /<%([\s\S]+?)%>/g, reInterpolate = /<%=([\s\S]+?)%>/g;
         var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/, reIsPlainProp = /^\w*$/, rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
         var reRegExpChar = /[\\^$.*+?()[\]{}|]/g, reHasRegExpChar = RegExp(reRegExpChar.source);
-        var reTrim = /^\s+|\s+$/g, reTrimStart = /^\s+/, reTrimEnd = /\s+$/;
+        var reTrimStart = /^\s+/;
+        var reWhitespace = /\s/;
         var reWrapComment = /\{(?:\n\/\* \[wrapped with .+\] \*\/)?\n?/, reWrapDetails = /\{\n\/\* \[wrapped with (.+)\] \*/, reSplitDetails = /,? & /;
         var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
+        var reForbiddenIdentifierChars = /[()=,{}\[\]\/\s]/;
         var reEscapeChar = /\\(\\)?/g;
         var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
         var reFlags = /\w*$/;
@@ -1968,6 +1970,9 @@ var plugin = (() => {
             return [key, object[key]];
           });
         }
+        function baseTrim(string) {
+          return string ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, "") : string;
+        }
         function baseUnary(func) {
           return function(value) {
             return func(value);
@@ -2083,6 +2088,12 @@ var plugin = (() => {
         }
         function stringToArray(string) {
           return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
+        }
+        function trimmedEndIndex(string) {
+          var index = string.length;
+          while (index-- && reWhitespace.test(string.charAt(index))) {
+          }
+          return index;
         }
         var unescapeHtmlChar = basePropertyOf(htmlUnescapes);
         function unicodeSize(string) {
@@ -5573,7 +5584,7 @@ var plugin = (() => {
             if (typeof value != "string") {
               return value === 0 ? value : +value;
             }
-            value = value.replace(reTrim, "");
+            value = baseTrim(value);
             var isBinary = reIsBinary.test(value);
             return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
           }
@@ -6016,6 +6027,8 @@ var plugin = (() => {
             var variable = hasOwnProperty2.call(options, "variable") && options.variable;
             if (!variable) {
               source = "with (obj) {\n" + source + "\n}\n";
+            } else if (reForbiddenIdentifierChars.test(variable)) {
+              throw new Error2(INVALID_TEMPL_VAR_ERROR_TEXT);
             }
             source = (isEvaluating ? source.replace(reEmptyStringLeading, "") : source).replace(reEmptyStringMiddle, "$1").replace(reEmptyStringTrailing, "$1;");
             source = "function(" + (variable || "obj") + ") {\n" + (variable ? "" : "obj || (obj = {});\n") + "var __t, __p = ''" + (isEscaping ? ", __e = _.escape" : "") + (isEvaluating ? ", __j = Array.prototype.join;\nfunction print() { __p += __j.call(arguments, '') }\n" : ";\n") + source + "return __p\n}";
@@ -6037,7 +6050,7 @@ var plugin = (() => {
           function trim(string, chars, guard) {
             string = toString(string);
             if (string && (guard || chars === undefined2)) {
-              return string.replace(reTrim, "");
+              return baseTrim(string);
             }
             if (!string || !(chars = baseToString(chars))) {
               return string;
@@ -6048,7 +6061,7 @@ var plugin = (() => {
           function trimEnd(string, chars, guard) {
             string = toString(string);
             if (string && (guard || chars === undefined2)) {
-              return string.replace(reTrimEnd, "");
+              return string.slice(0, trimmedEndIndex(string) + 1);
             }
             if (!string || !(chars = baseToString(chars))) {
               return string;
@@ -8488,9 +8501,9 @@ var plugin = (() => {
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-d114f7dd7d/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/cjs/react-reconciler.development.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-8af4018701/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/cjs/react-reconciler.development.js
   var require_react_reconciler_development = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-d114f7dd7d/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/cjs/react-reconciler.development.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-8af4018701/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/cjs/react-reconciler.development.js"(exports2, module2) {
       "use strict";
       if (true) {
         module2.exports = function $$$reconciler($$$hostConfig) {
@@ -20295,9 +20308,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-d114f7dd7d/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/index.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-8af4018701/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/index.js
   var require_react_reconciler = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-d114f7dd7d/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/index.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/react-reconciler-virtual-8af4018701/0/cache/react-reconciler-npm-0.24.0-eaeed763d0-c9c7420832.zip/node_modules/react-reconciler/index.js"(exports2, module2) {
       "use strict";
       if (false) {
         module2.exports = null;
@@ -50135,9 +50148,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/constants.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/constants.js
   var require_constants = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/constants.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/constants.js"(exports2, module2) {
       "use strict";
       module2.exports = {
         BINARY_TYPES: ["nodebuffer", "arraybuffer", "fragments"],
@@ -50151,9 +50164,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/buffer-util.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/buffer-util.js
   var require_buffer_util = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/buffer-util.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/buffer-util.js"(exports2, module2) {
       "use strict";
       var {EMPTY_BUFFER} = require_constants();
       function concat(list, totalLength) {
@@ -50236,9 +50249,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/limiter.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/limiter.js
   var require_limiter = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/limiter.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/limiter.js"(exports2, module2) {
       "use strict";
       var kDone = Symbol("kDone");
       var kRun = Symbol("kRun");
@@ -50270,9 +50283,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/permessage-deflate.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/permessage-deflate.js
   var require_permessage_deflate = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/permessage-deflate.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/permessage-deflate.js"(exports2, module2) {
       "use strict";
       var zlib = require("zlib");
       var bufferUtil = require_buffer_util();
@@ -50459,12 +50472,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
               return;
             }
             const data2 = bufferUtil.concat(this._inflate[kBuffers], this._inflate[kTotalLength]);
-            if (fin && this.params[`${endpoint}_no_context_takeover`]) {
+            if (this._inflate._readableState.endEmitted) {
               this._inflate.close();
               this._inflate = null;
             } else {
               this._inflate[kTotalLength] = 0;
               this._inflate[kBuffers] = [];
+              if (fin && this.params[`${endpoint}_no_context_takeover`]) {
+                this._inflate.reset();
+              }
             }
             callback(null, data2);
           });
@@ -50492,12 +50508,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             if (fin)
               data2 = data2.slice(0, data2.length - 4);
             this._deflate[kCallback] = null;
+            this._deflate[kTotalLength] = 0;
+            this._deflate[kBuffers] = [];
             if (fin && this.params[`${endpoint}_no_context_takeover`]) {
-              this._deflate.close();
-              this._deflate = null;
-            } else {
-              this._deflate[kTotalLength] = 0;
-              this._deflate[kBuffers] = [];
+              this._deflate.reset();
             }
             callback(null, data2);
           });
@@ -50527,25 +50541,63 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/validation.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/validation.js
   var require_validation = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/validation.js"(exports2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/validation.js"(exports2, module2) {
       "use strict";
-      try {
-        const isValidUTF8 = require("utf-8-validate");
-        exports2.isValidUTF8 = typeof isValidUTF8 === "object" ? isValidUTF8.Validation.isValidUTF8 : isValidUTF8;
-      } catch (e) {
-        exports2.isValidUTF8 = () => true;
-      }
-      exports2.isValidStatusCode = (code) => {
+      function isValidStatusCode(code) {
         return code >= 1e3 && code <= 1014 && code !== 1004 && code !== 1005 && code !== 1006 || code >= 3e3 && code <= 4999;
-      };
+      }
+      function _isValidUTF8(buf) {
+        const len = buf.length;
+        let i = 0;
+        while (i < len) {
+          if ((buf[i] & 128) === 0) {
+            i++;
+          } else if ((buf[i] & 224) === 192) {
+            if (i + 1 === len || (buf[i + 1] & 192) !== 128 || (buf[i] & 254) === 192) {
+              return false;
+            }
+            i += 2;
+          } else if ((buf[i] & 240) === 224) {
+            if (i + 2 >= len || (buf[i + 1] & 192) !== 128 || (buf[i + 2] & 192) !== 128 || buf[i] === 224 && (buf[i + 1] & 224) === 128 || buf[i] === 237 && (buf[i + 1] & 224) === 160) {
+              return false;
+            }
+            i += 3;
+          } else if ((buf[i] & 248) === 240) {
+            if (i + 3 >= len || (buf[i + 1] & 192) !== 128 || (buf[i + 2] & 192) !== 128 || (buf[i + 3] & 192) !== 128 || buf[i] === 240 && (buf[i + 1] & 240) === 128 || buf[i] === 244 && buf[i + 1] > 143 || buf[i] > 244) {
+              return false;
+            }
+            i += 4;
+          } else {
+            return false;
+          }
+        }
+        return true;
+      }
+      try {
+        let isValidUTF8 = require("utf-8-validate");
+        if (typeof isValidUTF8 === "object") {
+          isValidUTF8 = isValidUTF8.Validation.isValidUTF8;
+        }
+        module2.exports = {
+          isValidStatusCode,
+          isValidUTF8(buf) {
+            return buf.length < 150 ? _isValidUTF8(buf) : isValidUTF8(buf);
+          }
+        };
+      } catch (e) {
+        module2.exports = {
+          isValidStatusCode,
+          isValidUTF8: _isValidUTF8
+        };
+      }
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/receiver.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/receiver.js
   var require_receiver = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/receiver.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/receiver.js"(exports2, module2) {
       "use strict";
       var {Writable} = require("stream");
       var PerMessageDeflate = require_permessage_deflate();
@@ -50865,9 +50917,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/sender.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/sender.js
   var require_sender = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/sender.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/sender.js"(exports2, module2) {
       "use strict";
       var {randomFillSync} = require("crypto");
       var PerMessageDeflate = require_permessage_deflate();
@@ -51088,9 +51140,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/event-target.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/event-target.js
   var require_event_target = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/event-target.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/event-target.js"(exports2, module2) {
       "use strict";
       var Event = class {
         constructor(type, target) {
@@ -51170,9 +51222,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/extension.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/extension.js
   var require_extension = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/extension.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/extension.js"(exports2, module2) {
       "use strict";
       var tokenChars = [
         0,
@@ -51468,9 +51520,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/websocket.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/websocket.js
   var require_websocket = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/websocket.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/websocket.js"(exports2, module2) {
       "use strict";
       var EventEmitter = require("events");
       var https = require("https");
@@ -51499,15 +51551,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       var WebSocket = class extends EventEmitter {
         constructor(address, protocols, options) {
           super();
-          this.readyState = WebSocket.CONNECTING;
-          this.protocol = "";
           this._binaryType = BINARY_TYPES[0];
+          this._closeCode = 1006;
           this._closeFrameReceived = false;
           this._closeFrameSent = false;
           this._closeMessage = "";
           this._closeTimer = null;
-          this._closeCode = 1006;
           this._extensions = {};
+          this._protocol = "";
+          this._readyState = WebSocket.CONNECTING;
           this._receiver = null;
           this._sender = null;
           this._socket = null;
@@ -51525,18 +51577,6 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           } else {
             this._isServer = true;
           }
-        }
-        get CONNECTING() {
-          return WebSocket.CONNECTING;
-        }
-        get CLOSING() {
-          return WebSocket.CLOSING;
-        }
-        get CLOSED() {
-          return WebSocket.CLOSED;
-        }
-        get OPEN() {
-          return WebSocket.OPEN;
         }
         get binaryType() {
           return this._binaryType;
@@ -51556,8 +51596,17 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         get extensions() {
           return Object.keys(this._extensions).join();
         }
+        get protocol() {
+          return this._protocol;
+        }
+        get readyState() {
+          return this._readyState;
+        }
+        get url() {
+          return this._url;
+        }
         setSocket(socket, head, maxPayload) {
-          const receiver = new Receiver(this._binaryType, this._extensions, this._isServer, maxPayload);
+          const receiver = new Receiver(this.binaryType, this._extensions, this._isServer, maxPayload);
           this._sender = new Sender(socket, this._extensions);
           this._receiver = receiver;
           this._socket = socket;
@@ -51577,12 +51626,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           socket.on("data", socketOnData);
           socket.on("end", socketOnEnd);
           socket.on("error", socketOnError);
-          this.readyState = WebSocket.OPEN;
+          this._readyState = WebSocket.OPEN;
           this.emit("open");
         }
         emitClose() {
           if (!this._socket) {
-            this.readyState = WebSocket.CLOSED;
+            this._readyState = WebSocket.CLOSED;
             this.emit("close", this._closeCode, this._closeMessage);
             return;
           }
@@ -51590,7 +51639,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             this._extensions[PerMessageDeflate.extensionName].cleanup();
           }
           this._receiver.removeAllListeners();
-          this.readyState = WebSocket.CLOSED;
+          this._readyState = WebSocket.CLOSED;
           this.emit("close", this._closeCode, this._closeMessage);
         }
         close(code, data) {
@@ -51605,7 +51654,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
               this._socket.end();
             return;
           }
-          this.readyState = WebSocket.CLOSING;
+          this._readyState = WebSocket.CLOSING;
           this._sender.close(code, data, !this._isServer, (err) => {
             if (err)
               return;
@@ -51690,16 +51739,30 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             return abortHandshake(this, this._req, msg);
           }
           if (this._socket) {
-            this.readyState = WebSocket.CLOSING;
+            this._readyState = WebSocket.CLOSING;
             this._socket.destroy();
           }
         }
       };
       readyStates.forEach((readyState, i) => {
-        WebSocket[readyState] = i;
+        const descriptor = {enumerable: true, value: i};
+        Object.defineProperty(WebSocket.prototype, readyState, descriptor);
+        Object.defineProperty(WebSocket, readyState, descriptor);
+      });
+      [
+        "binaryType",
+        "bufferedAmount",
+        "extensions",
+        "protocol",
+        "readyState",
+        "url"
+      ].forEach((property) => {
+        Object.defineProperty(WebSocket.prototype, property, {enumerable: true});
       });
       ["open", "error", "close", "message"].forEach((method) => {
         Object.defineProperty(WebSocket.prototype, `on${method}`, {
+          configurable: true,
+          enumerable: true,
           get() {
             const listeners = this.listeners(method);
             for (let i = 0; i < listeners.length; i++) {
@@ -51745,10 +51808,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         let parsedUrl;
         if (address instanceof URL) {
           parsedUrl = address;
-          websocket.url = address.href;
+          websocket._url = address.href;
         } else {
           parsedUrl = new URL(address);
-          websocket.url = address;
+          websocket._url = address;
         }
         const isUnixSocket = parsedUrl.protocol === "ws+unix:";
         if (!parsedUrl.host && (!isUnixSocket || !parsedUrl.pathname)) {
@@ -51802,10 +51865,10 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           });
         }
         req.on("error", (err) => {
-          if (websocket._req.aborted)
+          if (req === null || req.aborted)
             return;
           req = websocket._req = null;
-          websocket.readyState = WebSocket.CLOSING;
+          websocket._readyState = WebSocket.CLOSING;
           websocket.emit("error", err);
           websocket.emitClose();
         });
@@ -51849,7 +51912,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             return;
           }
           if (serverProt)
-            websocket.protocol = serverProt;
+            websocket._protocol = serverProt;
           if (perMessageDeflate) {
             try {
               const extensions = parse(res.headers["sec-websocket-extensions"]);
@@ -51872,16 +51935,19 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       function tlsConnect(options) {
         options.path = void 0;
         if (!options.servername && options.servername !== "") {
-          options.servername = options.host;
+          options.servername = net.isIP(options.host) ? "" : options.host;
         }
         return tls.connect(options);
       }
       function abortHandshake(websocket, stream, message) {
-        websocket.readyState = WebSocket.CLOSING;
+        websocket._readyState = WebSocket.CLOSING;
         const err = new Error(message);
         Error.captureStackTrace(err, abortHandshake);
         if (stream.setHeader) {
           stream.abort();
+          if (stream.socket && !stream.socket.destroyed) {
+            stream.socket.destroy();
+          }
           stream.once("abort", websocket.emitClose.bind(websocket));
           websocket.emit("error", err);
         } else {
@@ -51921,7 +51987,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       function receiverOnError(err) {
         const websocket = this[kWebSocket];
         websocket._socket.removeListener("data", socketOnData);
-        websocket.readyState = WebSocket.CLOSING;
+        websocket._readyState = WebSocket.CLOSING;
         websocket._closeCode = err[kStatusCode];
         websocket.emit("error", err);
         websocket._socket.destroy();
@@ -51944,7 +52010,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         const websocket = this[kWebSocket];
         this.removeListener("close", socketOnClose);
         this.removeListener("end", socketOnEnd);
-        websocket.readyState = WebSocket.CLOSING;
+        websocket._readyState = WebSocket.CLOSING;
         websocket._socket.read();
         websocket._receiver.end();
         this.removeListener("data", socketOnData);
@@ -51964,7 +52030,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
       }
       function socketOnEnd() {
         const websocket = this[kWebSocket];
-        websocket.readyState = WebSocket.CLOSING;
+        websocket._readyState = WebSocket.CLOSING;
         websocket._receiver.end();
         this.end();
       }
@@ -51973,16 +52039,16 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         this.removeListener("error", socketOnError);
         this.on("error", NOOP);
         if (websocket) {
-          websocket.readyState = WebSocket.CLOSING;
+          websocket._readyState = WebSocket.CLOSING;
           this.destroy();
         }
       }
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/stream.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/stream.js
   var require_stream = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/stream.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/stream.js"(exports2, module2) {
       "use strict";
       var {Duplex} = require("stream");
       function emitClose(stream) {
@@ -52099,9 +52165,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/websocket-server.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/websocket-server.js
   var require_websocket_server = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/lib/websocket-server.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/lib/websocket-server.js"(exports2, module2) {
       "use strict";
       var EventEmitter = require("events");
       var {createHash} = require("crypto");
@@ -52144,13 +52210,12 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             this._server = options.server;
           }
           if (this._server) {
+            const emitConnection = this.emit.bind(this, "connection");
             this._removeListeners = addListeners(this._server, {
               listening: this.emit.bind(this, "listening"),
               error: this.emit.bind(this, "error"),
               upgrade: (req, socket, head) => {
-                this.handleUpgrade(req, socket, head, (ws) => {
-                  this.emit("connection", ws, req);
-                });
+                this.handleUpgrade(req, socket, head, emitConnection);
               }
             });
           }
@@ -52218,7 +52283,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           if (this.options.verifyClient) {
             const info = {
               origin: req.headers[`${version === 8 ? "sec-websocket-origin" : "origin"}`],
-              secure: !!(req.connection.authorized || req.connection.encrypted),
+              secure: !!(req.socket.authorized || req.socket.encrypted),
               req
             };
             if (this.options.verifyClient.length === 2) {
@@ -52251,7 +52316,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
           const ws = new WebSocket(null);
           let protocol = req.headers["sec-websocket-protocol"];
           if (protocol) {
-            protocol = protocol.trim().split(/ *, */);
+            protocol = protocol.split(",").map(trim);
             if (this.options.handleProtocols) {
               protocol = this.options.handleProtocols(protocol, req);
             } else {
@@ -52259,7 +52324,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             }
             if (protocol) {
               headers.push(`Sec-WebSocket-Protocol: ${protocol}`);
-              ws.protocol = protocol;
+              ws._protocol = protocol;
             }
           }
           if (extensions[PerMessageDeflate.extensionName]) {
@@ -52278,7 +52343,7 @@ For more info, visit https://fb.me/react-mock-scheduler`);
             this.clients.add(ws);
             ws.on("close", () => this.clients.delete(ws));
           }
-          cb(ws);
+          cb(ws, req);
         }
       };
       module2.exports = WebSocketServer;
@@ -52311,12 +52376,15 @@ For more info, visit https://fb.me/react-mock-scheduler`);
         socket.removeListener("error", socketOnError);
         socket.destroy();
       }
+      function trim(str) {
+        return str.trim();
+      }
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/index.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/index.js
   var require_ws = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-f78601f76e/0/cache/ws-npm-7.3.1-0fa30fe373-4dc06da118.zip/node_modules/ws/index.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/__virtual__/ws-virtual-2134e7b120/0/cache/ws-npm-7.4.6-9c9a725604-3a990b32ed.zip/node_modules/ws/index.js"(exports2, module2) {
       "use strict";
       var WebSocket = require_websocket();
       WebSocket.createWebSocketStream = require_stream();
@@ -58014,9 +58082,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.0-d10e4d5632-720560248b.zip/node_modules/cli-boxes/boxes.json
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.1-7125a5ba44-be79f8ec23.zip/node_modules/cli-boxes/boxes.json
   var require_boxes = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.0-d10e4d5632-720560248b.zip/node_modules/cli-boxes/boxes.json"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.1-7125a5ba44-be79f8ec23.zip/node_modules/cli-boxes/boxes.json"(exports2, module2) {
       module2.exports = {
         single: {
           topLeft: "\u250C",
@@ -58078,9 +58146,9 @@ For more info, visit https://fb.me/react-mock-scheduler`);
     }
   });
 
-  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.0-d10e4d5632-720560248b.zip/node_modules/cli-boxes/index.js
+  // pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.1-7125a5ba44-be79f8ec23.zip/node_modules/cli-boxes/index.js
   var require_cli_boxes = __commonJS({
-    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.0-d10e4d5632-720560248b.zip/node_modules/cli-boxes/index.js"(exports2, module2) {
+    "pnp:/private/var/folders/9f/kl_c86q5651fqmhmzf63jb0x5t_d9j/T/yarnpkg-sources/d0a670/.yarn/cache/cli-boxes-npm-2.2.1-7125a5ba44-be79f8ec23.zip/node_modules/cli-boxes/index.js"(exports2, module2) {
       "use strict";
       var cliBoxes = require_boxes();
       module2.exports = cliBoxes;
