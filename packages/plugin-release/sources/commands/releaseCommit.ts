@@ -47,10 +47,9 @@ export default class ReleaseCommand extends BaseCommand {
       const taggableWorkspaces = project.topLevelWorkspace.getRecursiveWorkspaceChildren()
         .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.locator)));
 
-      if (!taggableWorkspaces.length) {
+      if (!taggableWorkspaces.length)
         report.reportWarning(MessageName.UNNAMED, `There are no workspaces to tag`);
-        return;
-      }
+
 
       const newWorkspaceVersions = taggableWorkspaces
         .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
