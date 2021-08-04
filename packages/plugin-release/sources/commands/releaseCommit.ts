@@ -37,7 +37,7 @@ export default class ReleaseCommand extends BaseCommand {
 
     const projectTagName = `v${project.topLevelWorkspace.locator.reference}`;
     if (tagList.has(projectTagName))
-      throw new UsageError(`${projectTagName} has already been releeased`);
+      throw new UsageError(`${projectTagName} has already been released`);
 
     const report = await StreamReport.start({
       configuration,
