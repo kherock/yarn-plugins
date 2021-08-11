@@ -41,5 +41,8 @@
   },
   "engines": {
     "node": ">=12.13.0"
+  },
+  "resolutions": {
+    "calver@21.1.4": "patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49"
   }
 }

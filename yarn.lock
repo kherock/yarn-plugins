@@ -2728,6 +2728,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"calver@patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49::locator=%40kherock%2Fyarn-plugins%40workspace%3A.":
+  version: 21.1.4
+  resolution: "calver@patch:calver@npm%3A21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49::version=21.1.4&hash=d6009c&locator=%40kherock%2Fyarn-plugins%40workspace%3A."
+  checksum: f1ad9c29fd48b093d08ef076707651aad2d12e77b48e65b411ea043b339ce410b6e877e302f146cf0f5414227523915391b394bc9608adfa0fe1c17d62688162
+  languageName: node
+  linkType: hard
+
 "camelcase-keys@npm:^6.2.2":
   version: 6.2.2
   resolution: "camelcase-keys@npm:6.2.2"

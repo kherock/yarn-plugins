@@ -95,9 +95,14 @@ function absoluteRequire(cwd: PortablePath) {
   return absRequire;
 }
 
-function incrementCalendarPatch(format: string, version: string, {prerelease}: {prerelease?: boolean | string} = {}) {
+function incrementCalendarPatch(format: string, version: string, {prerelease}: { prerelease?: boolean | string } = {}) {
+  const prereleaseId = typeof prerelease === `string` ? prerelease : undefined;
+  // let semver handle prerelease increments
+  if (semver.prerelease(version))
+    return semver.inc(version, prerelease ? `prerelease` : `patch`, prereleaseId);
+
   const newVersion = new SemVer(calver.inc(format, version, `calendar.micro`));
   if (prerelease)
-    newVersion.prerelease = typeof prerelease === `string` ? [prerelease, 0] : [0];
+    newVersion.prerelease = prereleaseId ? [prereleaseId, 0] : [0];
   return newVersion.format();
 }
