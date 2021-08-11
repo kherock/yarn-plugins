@@ -3,13 +3,18 @@ import {PortablePath, xfs}                            from "@yarnpkg/fslib";
 import {getPnpPath}                                   from "@yarnpkg/plugin-pnp";
 import calver                                         from "calver";
 import type {Options as ConventionalChangelogOptions} from "conventional-changelog";
+import type conventionalRecommendedBump               from 'conventional-recommended-bump';
+import gitSemverTags                                  from "git-semver-tags";
 import {createRequire}                                from "module";
+import semver, {SemVer}                               from "semver";
 import {promisify}                                    from "util";
 
-import type {
-  Callback as ConventionalRecommendedBumpCallback,
-  Options as ConventionalRecommendedBumpOptions,
-} from 'conventional-recommended-bump';
+const releaseTypes: Record<
+  conventionalRecommendedBump.Callback.Recommendation.ReleaseType,
+  number
+> = {patch: 1, minor: 2, major: 3};
+
+const gitSemverTagsPromise = promisify<gitSemverTags.Options, Array<string>>(gitSemverTags);
 
 export async function changelogStream(workspace: Workspace, options?: ConventionalChangelogOptions): Promise<NodeJS.ReadableStream> {
   const {cwd, locator, manifest, project} = workspace;
@@ -34,7 +39,7 @@ export async function changelogStream(workspace: Workspace, options?: Convention
   );
 }
 
-export async function recommendedBump(workspace: Workspace) {
+export async function recommendedBump(workspace: Workspace, {prerelease}: {prerelease?: boolean | string} = {}) {
   const {cwd, manifest, project} = workspace;
   const require = absoluteRequire(project.cwd);
   const conventionalRecommendedBump = require(`conventional-recommended-bump`) as typeof import("conventional-recommended-bump");
@@ -44,13 +49,13 @@ export async function recommendedBump(workspace: Workspace) {
   const releaseCalverFormat = project.configuration.get(`releaseCalverFormat`);
 
   const conventionalRecommendedBumpPromise = promisify<
-    ConventionalRecommendedBumpOptions & { path?: string },
-    ConventionalRecommendedBumpCallback.Recommendation
+    conventionalRecommendedBump.Options & { path?: string, skipUnstable?: boolean },
+    conventionalRecommendedBump.Callback.Recommendation
   >(conventionalRecommendedBump);
 
   if (workspace === project.topLevelWorkspace) {
     return manifest.version
-      ? incrementCalendarPatch(releaseCalverFormat, manifest.version)
+      ? incrementCalendarPatch(releaseCalverFormat, manifest.version, {prerelease})
       : undefined;
   } else {
     const config = await conventionalChangelogPresetLoader(conventionalChangelogPreset);
@@ -67,7 +72,17 @@ export async function recommendedBump(workspace: Workspace) {
           : {};
       },
     });
-    return bump.releaseType;
+    if (!prerelease || !bump.releaseType)
+      return bump.releaseType;
+
+    const [stableTag] = await gitSemverTagsPromise({skipUnstable: true});
+    const [unstableTag] = await gitSemverTagsPromise({skipUnstable: false});
+    const unstableDiff = semver.diff(stableTag, unstableTag);
+    if (!unstableDiff?.startsWith(`pre`)) return prerelease ? `pre${bump.releaseType}` : bump.releaseType;
+
+    // check if the release scope has widened since the last prerelease
+    const previousStableBump = unstableDiff.slice(`pre`.length) as keyof typeof releaseTypes;
+    return releaseTypes[previousStableBump] < releaseTypes[bump.releaseType] ? `pre${bump.releaseType}` : `prerelease`;
   }
 }
 
@@ -80,11 +95,9 @@ function absoluteRequire(cwd: PortablePath) {
   return absRequire;
 }
 
-function incrementCalendarPatch(format: string, version: string) {
-  try {
-    return calver.inc(format, version, `calendar`);
-  } catch (err) {
-    if (!err.message.startsWith(`There is no change in the version`)) throw err;
-    return `patch`;
-  }
+function incrementCalendarPatch(format: string, version: string, {prerelease}: {prerelease?: boolean | string} = {}) {
+  const newVersion = new SemVer(calver.inc(format, version, `calendar.micro`));
+  if (prerelease)
+    newVersion.prerelease = typeof prerelease === `string` ? [prerelease, 0] : [0];
+  return newVersion.format();
 }

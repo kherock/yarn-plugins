@@ -24,6 +24,10 @@ export default class ReleaseCommand extends BaseCommand {
         `Creates a release for the current workspace`,
         `yarn release`,
       ],
+      [
+        `Creates a release candidate for the current workspace`,
+        `yarn release --prerelease=rc`,
+      ],
     ],
   });
 
@@ -39,12 +43,9 @@ export default class ReleaseCommand extends BaseCommand {
     description: `Skips bumping the version`,
   });
 
-  prerelease = Option.Boolean(`--prerelease`, false, {
+  prerelease = Option.String(`--prerelease`, false, {
     description: `Add a prerelease identifier to new versions`,
-  });
-
-  prereleaseId = Option.String(`--preid`, {
-    description: `Add a prerelease identifier to new versions`,
+    tolerateBoolean: true,
   });
 
   async execute() {
@@ -62,30 +63,23 @@ export default class ReleaseCommand extends BaseCommand {
       json: this.json,
     }, async report => {
       const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
+      const prereleaseId = typeof this.prerelease === `string` ? this.prerelease : undefined;
 
       if (requiresVersion && !this.firstRelease) {
-        const recommendedStrategy = await recommendedBump(workspace);
+        const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease});
         if (!recommendedStrategy) {
           report.reportWarning(MessageName.UNNAMED, `No commits since last release`);
           return;
         }
-        let version = new SemVer(workspace.locator.reference);
+        const version = new SemVer(workspace.locator.reference);
         if (semver.valid(recommendedStrategy)) {
-          version = new SemVer(recommendedStrategy);
-          if (this.prerelease || this.prereleaseId)
-            version.prerelease = this.prereleaseId ? [this.prereleaseId, 0] : [0];
-          workspace.manifest.version = version.format();
+          workspace.manifest.version = recommendedStrategy;
           report.reportJson({ident, newVersion: workspace.manifest.version});
         } else {
-          const strategy = (this.prerelease
-            ? `prerelease`
-            : this.prereleaseId
-              ? `pre${recommendedStrategy}`
-              : recommendedStrategy) as ReleaseType;
-          version.inc(strategy, this.prereleaseId);
+          version.inc(recommendedStrategy as ReleaseType, prereleaseId);
           version.format();
           workspace.manifest.version = version.format();
-          report.reportJson({ident, strategy, newVersion: workspace.manifest.version});
+          report.reportJson({ident, strategy: recommendedStrategy, newVersion: workspace.manifest.version});
         }
         report.reportInfo(MessageName.UNNAMED, `Recommended version bump: ${recommendedStrategy}`);
         if (!this.dryRun) {

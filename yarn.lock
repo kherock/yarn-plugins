@@ -861,14 +861,16 @@ __metadata:
     "@types/conventional-changelog-core": ^4.1.2
     "@types/conventional-changelog-preset-loader": ^2.3.1
     "@types/conventional-recommended-bump": ^6.0.1
+    "@types/git-semver-tags": ^4.1.1
     "@types/semver": ^7.3.7
     "@yarnpkg/builder": ^3.0.0-rc.9
     "@yarnpkg/cli": ^3.0.0-rc.9
     "@yarnpkg/core": ^3.0.0-rc.9
     "@yarnpkg/fslib": ^2.5.0-rc.9
     "@yarnpkg/plugin-pnp": ^3.0.0-rc.9
-    calver: ^21.1.4
+    calver: 21.1.4
     clipanion: ^3.0.0
+    git-semver-tags: ^4.1.1
     multistream: ^4.1.0
     semver: ^7.3.5
     tslib: ^2.3.0
@@ -1182,6 +1184,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: b5d41433a5201b8fbd475d29d08df77d60a402acfdba9703125eab96449a7040721d698e8bad8debbb3377338e08c3d75faab409e2e2b47b6f0a66f535d1594f
+  languageName: node
+  linkType: hard
+
+"@types/git-semver-tags@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "@types/git-semver-tags@npm:4.1.1"
+  checksum: d8fc8316b20b298ea92a81bd3c076fbcdd2f9ef82f3a318431eb363670e351d9317ac6d964fa39d8bec04fbf248056f9ca27d21dca1641621f3da760ae0ff2fd
   languageName: node
   linkType: hard
 
@@ -2712,7 +2721,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"calver@npm:^21.1.4":
+"calver@npm:21.1.4":
   version: 21.1.4
   resolution: "calver@npm:21.1.4"
   checksum: 2586523c485195cccb0efb505da52025e74477f3204a04d2e72e020469f557b3fd028d37df338a3748b59383dfb6f799783583bb6d7d6271e77e24e2eacc630b

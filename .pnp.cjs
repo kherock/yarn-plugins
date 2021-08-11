@@ -1419,6 +1419,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/conventional-changelog-core", "npm:4.1.2"],
             ["@types/conventional-changelog-preset-loader", "npm:2.3.1"],
             ["@types/conventional-recommended-bump", "npm:6.0.1"],
+            ["@types/git-semver-tags", "npm:4.1.1"],
             ["@types/semver", "npm:7.3.7"],
             ["@yarnpkg/builder", "virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.9"],
             ["@yarnpkg/cli", "virtual:3e4c24915c012f86cb43d4a51e727774dc329aafc80bc98a9bcf2181f63971d188c66faf16bcb219705050ef0d2d2955f3106ff667498805562baef96cd0aedb#npm:3.0.0-rc.9"],
@@ -1427,6 +1428,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pnp", "virtual:29ab93868c99e344b11a03fcc3c6ab7754717b4b4196307e16002e3e93780f5a8020f42c2a332bac11c72171c18e9afe86d62c66448192886517bd6b8819229c#npm:3.0.0-rc.9"],
             ["calver", "npm:21.1.4"],
             ["clipanion", "virtual:dd9623e71e3eeb15a689c95b6d5c0d1b35084bb956c50614ae1683ad805b4e07a5926c742281a5b41ba7ee43588be1b6a5354b3d0790aef13d423313907e9b04#npm:3.0.0"],
+            ["git-semver-tags", "npm:4.1.1"],
             ["multistream", "npm:4.1.0"],
             ["semver", "npm:7.3.5"],
             ["tslib", "npm:2.3.0"],
@@ -1773,6 +1775,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@types/git-raw-commits", "npm:2.0.1"],
             ["@types/node", "npm:16.3.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/git-semver-tags", [
+        ["npm:4.1.1", {
+          "packageLocation": "./.yarn/cache/@types-git-semver-tags-npm-4.1.1-4e290608c5-d8fc8316b2.zip/node_modules/@types/git-semver-tags/",
+          "packageDependencies": [
+            ["@types/git-semver-tags", "npm:4.1.1"]
           ],
           "linkType": "HARD",
         }]
