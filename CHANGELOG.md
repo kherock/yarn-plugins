@@ -1,3 +1,16 @@
+## [21.8.0](https://github.com/kherock/yarn-plugins/compare/v21.6.4...v21.8.0) (2021-08-11)
+
+
+### Features
+
+* **plugin-release:** add args for controlling commit and tagging behavior ([86e2637](https://github.com/kherock/yarn-plugins/commit/86e2637a9ff54042816e57812d94b4ec126ed053))
+
+
+### Bug Fixes
+
+* **plugin-release:** don't return early when there are no workspaces to tag ([e24c129](https://github.com/kherock/yarn-plugins/commit/e24c1296f7c3bf3fd5136ff5320c0190441809d8))
+* **plugin-release:** error message typo ([f687f76](https://github.com/kherock/yarn-plugins/commit/f687f76cd955d71d378848971548bb8330829fb2))
+
 ### [21.6.4](https://github.com/kherock/yarn-plugins/compare/v21.6.3...v21.6.4) (2021-06-22)
 
 
