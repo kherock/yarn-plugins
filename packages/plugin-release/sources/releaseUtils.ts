@@ -1,13 +1,12 @@
-import {Project, structUtils, Workspace}              from "@yarnpkg/core";
-import {PortablePath, xfs}                            from "@yarnpkg/fslib";
-import {getPnpPath}                                   from "@yarnpkg/plugin-pnp";
-import calver                                         from "calver";
-import type {Options as ConventionalChangelogOptions} from "conventional-changelog";
-import type conventionalRecommendedBump               from 'conventional-recommended-bump';
-import gitSemverTags                                  from "git-semver-tags";
-import {createRequire}                                from "module";
-import semver, {SemVer}                               from "semver";
-import {promisify}                                    from "util";
+import {Project, structUtils, Workspace} from "@yarnpkg/core";
+import {PortablePath, xfs}               from "@yarnpkg/fslib";
+import {getPnpPath}                      from "@yarnpkg/plugin-pnp";
+import calver                            from "calver";
+import type conventionalRecommendedBump  from "conventional-recommended-bump";
+import gitSemverTags                     from "git-semver-tags";
+import {createRequire}                   from "module";
+import semver, {SemVer}                  from "semver";
+import {promisify}                       from "util";
 
 const releaseTypes: Record<
   conventionalRecommendedBump.Callback.Recommendation.ReleaseType,
@@ -16,8 +15,9 @@ const releaseTypes: Record<
 
 const gitSemverTagsPromise = promisify<gitSemverTags.Options, Array<string>>(gitSemverTags);
 
-export async function changelogStream(workspace: Workspace, options?: ConventionalChangelogOptions): Promise<NodeJS.ReadableStream> {
+export async function changelogStream(workspace: Workspace, ...args: Parameters<typeof import("conventional-changelog")>): Promise<NodeJS.ReadableStream> {
   const {cwd, locator, manifest, project} = workspace;
+  const [options, context, gitRawCommitsOpts] = args;
   const require = absoluteRequire(project.cwd);
   const conventionalChangelog = require(`conventional-changelog`) as typeof import("conventional-changelog");
 
@@ -34,8 +34,8 @@ export async function changelogStream(workspace: Workspace, options?: Convention
       outputUnreleased: true,
       ...options,
     },
-    {version: workspace === project.topLevelWorkspace || !manifest.private ? undefined : `Unreleased`},
-    {path: cwd},
+    {version: workspace === project.topLevelWorkspace || !manifest.private ? undefined : `Unreleased`, ...context},
+    {path: cwd, ...gitRawCommitsOpts},
   );
 }
 

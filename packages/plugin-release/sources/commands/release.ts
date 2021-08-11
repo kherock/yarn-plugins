@@ -43,6 +43,10 @@ export default class ReleaseCommand extends BaseCommand {
     description: `Skips bumping the version`,
   });
 
+  date = Option.String(`--date`, {
+    description: `Override the release date in the changelog with the provided string`,
+  });
+
   prerelease = Option.String(`--prerelease`, false, {
     description: `Add a prerelease identifier to new versions`,
     tolerateBoolean: true,
@@ -102,9 +106,11 @@ export default class ReleaseCommand extends BaseCommand {
       }
 
       const changelog = new MultiStream([
-        await changelogStream(workspace, {
-          releaseCount: this.firstRelease ? 0 : 1,
-        }),
+        await changelogStream(
+          workspace,
+          {releaseCount: this.firstRelease ? 0 : 1},
+          {date: this.date}
+        ),
         existingChangelog,
       ]);
       let text = ``;
