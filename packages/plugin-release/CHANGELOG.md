@@ -1,3 +1,11 @@
+## [1.4.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.3.0...@kherock/yarn-plugin-release@1.4.0) (2021-08-11)
+
+
+### Features
+
+* **plugin-release:** improve prerelease flow ([aab08ec](https://github.com/kherock/yarn-plugins/commit/aab08ecff25a9b0dde43a290d5561a126eec75aa))
+* **plugin-release:** support overriding the changelog release date ([5191847](https://github.com/kherock/yarn-plugins/commit/5191847b170b2a299a8b7617821421ccbd542432))
+
 ## [1.3.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.2.0...@kherock/yarn-plugin-release@1.3.0) (2021-08-11)
 
 
