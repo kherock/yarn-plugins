@@ -28,6 +28,10 @@ export default class ReleaseCommand extends BaseCommand {
     description: `Prints the recommended version bump to stdout`,
   });
 
+  amend = Option.Boolean(`--amend`, false, {description: `Amend the previous commit instead of creating a new one`});
+
+  tagHead = Option.String(`--tag-head`, `HEAD`, {description: `Specify an alternative commit-ish to tag`});
+
   async execute() {
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
     const {project} = await Project.find(configuration, this.context.cwd);
@@ -55,14 +59,17 @@ export default class ReleaseCommand extends BaseCommand {
         .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
         .join(`\n`);
 
-      await execUtils.execvp(`git`, [`commit`, `-m`, `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`], {
+      const commitArgs = [`commit`, `-m`, `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`];
+      if (this.amend)
+        commitArgs.push(`--amend`);
+      await execUtils.execvp(`git`, commitArgs, {
         cwd: project.cwd,
         strict: true,
       });
 
       for (const {locator} of taggableWorkspaces) {
         const tagName = structUtils.stringifyLocator(locator);
-        await execUtils.execvp(`git`, [`tag`, tagName], {
+        await execUtils.execvp(`git`, [`tag`, tagName, this.tagHead], {
           cwd: project.cwd,
           strict: true,
         });
@@ -75,7 +82,7 @@ export default class ReleaseCommand extends BaseCommand {
       changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
 
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, changelogText, `--cleanup=whitespace`], {
+      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, changelogText, `--cleanup=whitespace`, this.tagHead], {
         cwd: project.cwd,
         strict: true,
       });
