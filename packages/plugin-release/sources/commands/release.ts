@@ -109,7 +109,7 @@ export default class ReleaseCommand extends BaseCommand {
         await changelogStream(
           workspace,
           {releaseCount: this.firstRelease ? 0 : 1},
-          {date: this.date}
+          {date: this.date ?? new Date().toISOString().split(`T`)[0]}
         ),
         existingChangelog,
       ]);
