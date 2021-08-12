@@ -13,13 +13,13 @@
     "@yarnpkg/fslib": "^2.5.1-rc.1",
     "@yarnpkg/libzip": "^2.2.2",
     "@yarnpkg/plugin-pack": "^3.0.0",
-    "clipanion": "^3.0.0",
+    "clipanion": "^3.0.1",
     "semver": "^7.3.5",
     "tar-stream": "^2.2.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/semver": "^7.3.7",
+    "@types/semver": "^7.3.8",
     "@types/tar-stream": "^2.2.1",
     "@yarnpkg/builder": "^3.0.2-rc.1",
     "@yarnpkg/plugin-pnp": "^3.0.1-rc.1",

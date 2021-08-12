@@ -12,7 +12,7 @@
     "lib/"
   ],
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "typescript": "~4.3.5"
