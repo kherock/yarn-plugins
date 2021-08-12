@@ -83,7 +83,7 @@ export default class ReleaseCommand extends BaseCommand {
       changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
 
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, changelogText, `--cleanup=whitespace`, this.tagHead], {
+      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, this.tagHead], {
         cwd: project.cwd,
         strict: true,
       });

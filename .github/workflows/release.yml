@@ -1,7 +1,7 @@
+name: "[Manual] Create release"
+
 on:
   workflow_dispatch:
-
-name: "[Manual] Create release"
 
 jobs:
   release:
@@ -32,6 +32,6 @@ jobs:
           TAG=$(git describe --match 'v*' HEAD)
           gh release create "$TAG" packages/plugin-*/bundles/@yarnpkg/* \
             --title "$TAG" \
-            --notes "$(git show -s --format='%N' "$TAG" | tail -n +4)"
+            --notes "$(git show -s --format='%N' "$TAG" | tail -n +6)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
