@@ -1,3 +1,10 @@
+### [1.5.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.5.0...@kherock/yarn-plugin-release@1.5.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* **plugin-release:** packages would receive an incorrect prerelease bump if they don't yet have a stable release ([06c72ce](https://github.com/kherock/yarn-plugins/commit/06c72cee52f7e85e0a5246bb38ac3662e4b76ecb))
+
 ## [1.5.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.4.1...@kherock/yarn-plugin-release@1.5.0) (2021-08-12)
 
 
