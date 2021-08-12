@@ -63,6 +63,7 @@ export async function recommendedBump(workspace: Workspace, {prerelease}: {prere
     const bump = await conventionalRecommendedBumpPromise({
       config,
       path: cwd,
+      skipUnstable: !prerelease,
       lernaPackage: structUtils.stringifyIdent(workspace.locator),
       whatBump: commits => {
         const codeChanges = new Set([`feat`, `fix`, `perf`, `refactor`, `revert`]);

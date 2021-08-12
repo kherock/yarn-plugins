@@ -108,7 +108,11 @@ export default class ReleaseCommand extends BaseCommand {
       const changelog = new MultiStream([
         await changelogStream(
           workspace,
-          {releaseCount: this.firstRelease ? 0 : 1},
+          {
+            releaseCount: this.firstRelease ? 0 : 1,
+            // @ts-expect-error
+            skipUnstable: !this.prerelease,
+          },
           {date: this.date ?? new Date().toISOString().split(`T`)[0]}
         ),
         existingChangelog,
