@@ -1,3 +1,17 @@
+### [1.4.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.4.0...@kherock/yarn-plugin-release@1.4.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* **plugin-release:** add back a default date for changelogs ([f79d01d](https://github.com/kherock/yarn-plugins/commit/f79d01d87e36b4d4645948e169d802bfd4ebd57e))
+* **plugin-release:** fix prerelease CalVer logic ([88729af](https://github.com/kherock/yarn-plugins/commit/88729af3210fef0b86e12ba13c2b389cba222e7c))
+* **plugin-release:** give the annotated tag a proper subject line ([6034b22](https://github.com/kherock/yarn-plugins/commit/6034b2242e9eeace1fccc7c6d1ecae61dcfb0665))
+
+
+### Reverts
+
+* Revert "fix(plugin-release): don't return early when there are no workspaces to tag" ([63be8d4](https://github.com/kherock/yarn-plugins/commit/63be8d4e5c63d2f0db88ff9ffc941a6f1331ad0a))
+
 ## [1.4.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.3.0...@kherock/yarn-plugin-release@1.4.0) (2021-08-11)
 
 
