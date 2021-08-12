@@ -1,3 +1,10 @@
+### [21.8.3](https://github.com/kherock/yarn-plugins/compare/v21.8.2...v21.8.3) (2021-08-12)
+
+
+### Features
+
+* **plugin-release:** skip unstable tags when creating a stable release ([0da6538](https://github.com/kherock/yarn-plugins/commit/0da65388cb0adfbb209741177bf3f7f24312df65))
+
 ### [21.8.2](https://github.com/kherock/yarn-plugins/compare/v21.8.1...v21.8.2) (2021-08-12)
 
 

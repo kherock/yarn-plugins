@@ -1,3 +1,10 @@
+## [1.5.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.4.1...@kherock/yarn-plugin-release@1.5.0) (2021-08-12)
+
+
+### Features
+
+* **plugin-release:** skip unstable tags when creating a stable release ([0da6538](https://github.com/kherock/yarn-plugins/commit/0da65388cb0adfbb209741177bf3f7f24312df65))
+
 ### [1.4.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.4.0...@kherock/yarn-plugin-release@1.4.1) (2021-08-12)
 
 
