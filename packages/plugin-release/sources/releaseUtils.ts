@@ -76,10 +76,15 @@ export async function recommendedBump(workspace: Workspace, {prerelease}: {prere
     if (!prerelease || !bump.releaseType)
       return bump.releaseType;
 
-    const [stableTag] = await gitSemverTagsPromise({skipUnstable: true});
-    const [unstableTag] = await gitSemverTagsPromise({skipUnstable: false});
-    const unstableDiff = semver.diff(stableTag, unstableTag);
-    if (!unstableDiff?.startsWith(`pre`)) return prerelease ? `pre${bump.releaseType}` : bump.releaseType;
+    const [stableTag] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
+    const [unstableTag] = await gitSemverTagsPromise({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
+    if (!stableTag) return `prerelease`;
+    if (!unstableTag) return `pre${bump.releaseType}`;
+
+    const stableVersion = structUtils.parseLocator(stableTag).reference;
+    const unstableVersion = structUtils.parseLocator(unstableTag).reference;
+    const unstableDiff = semver.diff(stableVersion, unstableVersion);
+    if (!unstableDiff?.startsWith(`pre`)) return `pre${bump.releaseType}`;
 
     // check if the release scope has widened since the last prerelease
     const previousStableBump = unstableDiff.slice(`pre`.length) as keyof typeof releaseTypes;
