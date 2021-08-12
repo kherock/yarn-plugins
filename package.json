@@ -13,8 +13,8 @@
     "@types/node": "^14.17.5",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
-    "@yarnpkg/eslint-config": "^0.3.0-rc.9",
-    "@yarnpkg/pnpify": "^3.0.0-rc.10",
+    "@yarnpkg/eslint-config": "^0.3.0",
+    "@yarnpkg/sdks": "^2.4.1-rc.4",
     "babel-jest": "^27.0.6",
     "conventional-changelog": "^3.1.24",
     "conventional-changelog-conventionalcommits": "^4.6.0",
@@ -30,6 +30,9 @@
     "tslib": "^2.3.0",
     "typescript": "~4.3.5"
   },
+  "resolutions": {
+    "calver@21.1.4": "patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49"
+  },
   "scripts": {
     "test:lint": "eslint --max-warnings 0 \"packages/**/@(sources|tests)/**/*.@(tsx|ts|js)\"",
     "test:unit": "jest",
@@ -42,7 +45,5 @@
   "engines": {
     "node": ">=12.13.0"
   },
-  "resolutions": {
-    "calver@21.1.4": "patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49"
-  }
+  "packageManager": "yarn@3.0.0"
 }
