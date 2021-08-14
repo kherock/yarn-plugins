@@ -40,7 +40,7 @@ export default class ReleaseCommand extends BaseCommand {
   });
 
   firstRelease = Option.Boolean(`--first-release`, false, {
-    description: `Skips bumping the version`,
+    description: `Skips bumping the version and regenerates the changelog from scratch`,
   });
 
   date = Option.String(`--date`, {
@@ -52,7 +52,12 @@ export default class ReleaseCommand extends BaseCommand {
     tolerateBoolean: true,
   });
 
+  includeUnstable = Option.Boolean(`--include-unstable`, false, {
+    description: `Create sections for unstable tags in the generated changelog. Implied by the --prerelease option`,
+  });
+
   async execute() {
+    this.includeUnstable ||= this.prerelease !== false;
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
     const {project, workspace} = await Project.find(configuration, this.context.cwd);
 
@@ -67,10 +72,12 @@ export default class ReleaseCommand extends BaseCommand {
       json: this.json,
     }, async report => {
       const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
-      const prereleaseId = typeof this.prerelease === `string` ? this.prerelease : undefined;
+      const preid = typeof this.prerelease === `string`
+        ? this.prerelease
+        : undefined;
 
       if (requiresVersion && !this.firstRelease) {
-        const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease});
+        const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease !== false, preid});
         if (!recommendedStrategy) {
           report.reportWarning(MessageName.UNNAMED, `No commits since last release`);
           return;
@@ -80,7 +87,7 @@ export default class ReleaseCommand extends BaseCommand {
           workspace.manifest.version = recommendedStrategy;
           report.reportJson({ident, newVersion: workspace.manifest.version});
         } else {
-          version.inc(recommendedStrategy as ReleaseType, prereleaseId);
+          version.inc(recommendedStrategy as ReleaseType, preid);
           version.format();
           workspace.manifest.version = version.format();
           report.reportJson({ident, strategy: recommendedStrategy, newVersion: workspace.manifest.version});
@@ -111,9 +118,17 @@ export default class ReleaseCommand extends BaseCommand {
           {
             releaseCount: this.firstRelease ? 0 : 1,
             // @ts-expect-error
-            skipUnstable: !this.prerelease,
+            skipUnstable: !this.includeUnstable,
           },
-          {date: this.date ?? new Date().toISOString().split(`T`)[0]}
+          this.date == null ? undefined : {date: this.date},
+          undefined,
+          undefined,
+          {
+            generateOn: commit => {
+              const version = semver.valid(commit.version);
+              return version && (this.includeUnstable || !semver.prerelease(version));
+            },
+          }
         ),
         existingChangelog,
       ]);

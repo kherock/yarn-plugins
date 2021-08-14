@@ -17,9 +17,10 @@ const gitSemverTagsPromise = promisify<gitSemverTags.Options, Array<string>>(git
 
 export async function changelogStream(workspace: Workspace, ...args: Parameters<typeof import("conventional-changelog")>): Promise<NodeJS.ReadableStream> {
   const {cwd, locator, manifest, project} = workspace;
-  const [options, context, gitRawCommitsOpts] = args;
+  const [options, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
   const require = absoluteRequire(project.cwd);
   const conventionalChangelog = require(`conventional-changelog`) as typeof import("conventional-changelog");
+  const isReleaseable = workspace === project.topLevelWorkspace || !manifest.private;
 
   return conventionalChangelog(
     {
@@ -34,12 +35,21 @@ export async function changelogStream(workspace: Workspace, ...args: Parameters<
       outputUnreleased: true,
       ...options,
     },
-    {version: workspace === project.topLevelWorkspace || !manifest.private ? undefined : `Unreleased`, ...context},
+    {
+      isPatch: false,
+      version: isReleaseable ? undefined : `Unreleased`,
+      ...context,
+      date: isReleaseable
+        ? context?.date ?? new Date().toISOString().split(`T`)[0]
+        : undefined,
+    },
     {path: cwd, ...gitRawCommitsOpts},
+    parserOpts,
+    writerOpts,
   );
 }
 
-export async function recommendedBump(workspace: Workspace, {prerelease}: {prerelease?: boolean | string} = {}) {
+export async function recommendedBump(workspace: Workspace, {prerelease, preid}: {prerelease?: boolean, preid?: string} = {}) {
   const {cwd, manifest, project} = workspace;
   const require = absoluteRequire(project.cwd);
   const conventionalRecommendedBump = require(`conventional-recommended-bump`) as typeof import("conventional-recommended-bump");
@@ -49,19 +59,20 @@ export async function recommendedBump(workspace: Workspace, {prerelease}: {prere
   const releaseCalverFormat = project.configuration.get(`releaseCalverFormat`);
 
   const conventionalRecommendedBumpPromise = promisify<
-    conventionalRecommendedBump.Options & { path?: string, skipUnstable?: boolean },
+    conventionalRecommendedBump.Options,
     conventionalRecommendedBump.Callback.Recommendation
   >(conventionalRecommendedBump);
 
   if (workspace === project.topLevelWorkspace) {
     return manifest.version
-      ? incrementCalendarPatch(releaseCalverFormat, manifest.version, {prerelease})
+      ? incrementCalendarPatch(releaseCalverFormat, manifest.version, {prerelease, preid})
       : undefined;
   } else {
     const config = await conventionalChangelogPresetLoader(conventionalChangelogPreset);
     const {recommendedBumpOpts} = typeof config === `function` ? await promisify(config)() : config;
     const bump = await conventionalRecommendedBumpPromise({
       config,
+      // @ts-expect-error
       path: cwd,
       skipUnstable: !prerelease,
       lernaPackage: structUtils.stringifyIdent(workspace.locator),
@@ -101,14 +112,13 @@ function absoluteRequire(cwd: PortablePath) {
   return absRequire;
 }
 
-function incrementCalendarPatch(format: string, version: string, {prerelease}: { prerelease?: boolean | string } = {}) {
-  const prereleaseId = typeof prerelease === `string` ? prerelease : undefined;
+function incrementCalendarPatch(format: string, version: string, {prerelease, preid}: { prerelease?: boolean, preid?: string } = {}) {
   // let semver handle prerelease increments
   if (semver.prerelease(version))
-    return semver.inc(version, prerelease ? `prerelease` : `patch`, prereleaseId);
+    return semver.inc(version, prerelease ? `prerelease` : `patch`, preid);
 
   const newVersion = new SemVer(calver.inc(format, version, `calendar.micro`));
   if (prerelease)
-    newVersion.prerelease = prereleaseId ? [prereleaseId, 0] : [0];
+    newVersion.prerelease = preid ? [preid, 0] : [0];
   return newVersion.format();
 }
