@@ -1,3 +1,11 @@
+## [1.6.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.5.1...@kherock/yarn-plugin-release@1.6.0) (2021-08-14)
+
+
+### Features
+
+* **plugin-release:** support configuring commit types that count as code changes ([5d130e1](https://github.com/kherock/yarn-plugins/commit/5d130e1f619f11112fb97caee28c9e60109b9e51))
+* **plugin-release:** support rolling up commits with unstable releases in a stable release's changelog ([b8c22fd](https://github.com/kherock/yarn-plugins/commit/b8c22fdf12c91091d7c3a34fb322005097cf1c6f))
+
 ### [1.5.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.5.0...@kherock/yarn-plugin-release@1.5.1) (2021-08-12)
 
 

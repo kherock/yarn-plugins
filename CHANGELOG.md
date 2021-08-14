@@ -1,3 +1,11 @@
+## [21.8.5](https://github.com/kherock/yarn-plugins/compare/v21.8.4...v21.8.5) (2021-08-14)
+
+
+### Features
+
+* **plugin-release:** support configuring commit types that count as code changes ([5d130e1](https://github.com/kherock/yarn-plugins/commit/5d130e1f619f11112fb97caee28c9e60109b9e51))
+* **plugin-release:** support rolling up commits with unstable releases in a stable release's changelog ([b8c22fd](https://github.com/kherock/yarn-plugins/commit/b8c22fdf12c91091d7c3a34fb322005097cf1c6f))
+
 ### [21.8.4](https://github.com/kherock/yarn-plugins/compare/v21.8.3...v21.8.4) (2021-08-12)
 
 
