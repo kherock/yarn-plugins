@@ -57,6 +57,7 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
 
   const conventionalChangelogPreset = project.configuration.get(`conventionalChangelogPreset`);
   const releaseCalverFormat = project.configuration.get(`releaseCalverFormat`);
+  const releaseCodeChangeTypes = new Set(project.configuration.get(`releaseCodeChangeTypes`));
 
   const conventionalRecommendedBumpPromise = promisify<
     conventionalRecommendedBump.Options,
@@ -77,8 +78,7 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
       skipUnstable: !prerelease,
       lernaPackage: structUtils.stringifyIdent(workspace.locator),
       whatBump: commits => {
-        const codeChanges = new Set([`feat`, `fix`, `perf`, `refactor`, `revert`]);
-        const shouldBump = commits.some(commit => codeChanges.has(commit.type!));
+        const shouldBump = commits.some(commit => releaseCodeChangeTypes.has(commit.type!));
         return recommendedBumpOpts?.whatBump && shouldBump
           ? recommendedBumpOpts.whatBump(commits)
           : {};

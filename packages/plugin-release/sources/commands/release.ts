@@ -79,7 +79,7 @@ export default class ReleaseCommand extends BaseCommand {
       if (requiresVersion && !this.firstRelease) {
         const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease !== false, preid});
         if (!recommendedStrategy) {
-          report.reportWarning(MessageName.UNNAMED, `No commits since last release`);
+          report.reportWarning(MessageName.UNNAMED, `No code changes since last release`);
           return;
         }
         const version = new SemVer(workspace.locator.reference);
