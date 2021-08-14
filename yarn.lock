@@ -857,7 +857,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kherock/yarn-plugin-release@workspace:packages/plugin-release"
   dependencies:
-    "@types/conventional-changelog": ^3.1.1
     "@types/conventional-changelog-core": ^4.1.2
     "@types/conventional-changelog-preset-loader": ^2.3.1
     "@types/conventional-recommended-bump": ^6.0.1
@@ -870,16 +869,16 @@ __metadata:
     "@yarnpkg/plugin-pnp": ^3.0.1-rc.1
     calver: 21.1.4
     clipanion: ^3.0.1
+    conventional-changelog-core: ^4.2.3
+    conventional-changelog-preset-loader: ^2.3.4
+    conventional-recommended-bump: ^6.1.0
     git-semver-tags: ^4.1.1
     multistream: ^4.1.0
     semver: ^7.3.5
     tslib: ^2.3.1
     typescript: ~4.3.5
   peerDependencies:
-    conventional-changelog: "*"
     conventional-changelog-conventionalcommits: "*"
-    conventional-changelog-preset-loader: "*"
-    conventional-recommended-bump: "*"
   languageName: unknown
   linkType: soft
 
@@ -916,11 +915,7 @@ __metadata:
     "@yarnpkg/eslint-config": ^0.3.0
     "@yarnpkg/sdks": ^2.4.1-rc.4
     babel-jest: ^27.0.6
-    conventional-changelog: ^3.1.24
     conventional-changelog-conventionalcommits: ^4.6.0
-    conventional-changelog-preset-loader: ^2.3.4
-    conventional-changelog-writer: ^5.0.0
-    conventional-recommended-bump: ^6.1.0
     eslint: ^7.32.0
     eslint-plugin-arca: ^0.10.1
     eslint-plugin-react: ^7.24.0
@@ -1102,18 +1097,6 @@ __metadata:
     "@types/conventional-commits-parser": "*"
     "@types/node": "*"
   checksum: 1e029327a97406de0be4df76ee98a183a0c67a6d90d518e7b72a922e3e4f66e56e4c4c829f1bce02a80946ed474389742708739dd0ecb3e144ec0e421140ae48
-  languageName: node
-  linkType: hard
-
-"@types/conventional-changelog@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "@types/conventional-changelog@npm:3.1.1"
-  dependencies:
-    "@types/conventional-changelog-core": "*"
-    "@types/conventional-changelog-writer": "*"
-    "@types/conventional-commits-parser": "*"
-    "@types/node": "*"
-  checksum: 9278f6603fd5594ede86d1c48bdd12f5871564a9070e4c3df6e60f83a723e55e2fb878e572648e92ccb99bea21074090633562240cebb6106c93f930a6cbd442
   languageName: node
   linkType: hard
 
@@ -3108,35 +3091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-angular@npm:^5.0.12":
-  version: 5.0.12
-  resolution: "conventional-changelog-angular@npm:5.0.12"
-  dependencies:
-    compare-func: ^2.0.0
-    q: ^1.5.1
-  checksum: 552db8762d210a5172b1ad8cd95312e2e2a0483ba43f8d30b075a56ccf05231fdca1d4d5843028d43bec6bc7f903f480005efc5386587321a15a1fc4d2b73016
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-atom@npm:^2.0.8":
-  version: 2.0.8
-  resolution: "conventional-changelog-atom@npm:2.0.8"
-  dependencies:
-    q: ^1.5.1
-  checksum: 12ecbd928f8c261f9afaac067fcc0cf10ff6ac8505e4285dc3d9959ee072a8937ac942d505e850dce27c4527046009adb22b498ba0b10802916d2c7d2dc1f7bc
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-codemirror@npm:^2.0.8":
-  version: 2.0.8
-  resolution: "conventional-changelog-codemirror@npm:2.0.8"
-  dependencies:
-    q: ^1.5.1
-  checksum: cf331db40cc54c2353b0189aba26a2b959cb08b059bf2a81245272027371519c9acc90d574295782985829c50f0c52da60c952c70ec6dbd70e9e17affeb61453
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-conventionalcommits@npm:^4.5.0, conventional-changelog-conventionalcommits@npm:^4.6.0":
+"conventional-changelog-conventionalcommits@npm:^4.6.0":
   version: 4.6.0
   resolution: "conventional-changelog-conventionalcommits@npm:4.6.0"
   dependencies:
@@ -3147,9 +3102,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-core@npm:^4.2.1":
+"conventional-changelog-core@kherock/conventional-changelog#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3":
   version: 4.2.3
-  resolution: "conventional-changelog-core@npm:4.2.3"
+  resolution: "conventional-changelog-core@https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"
   dependencies:
     add-stream: ^1.0.0
     conventional-changelog-writer: ^5.0.0
@@ -3161,57 +3116,10 @@ __metadata:
     git-semver-tags: ^4.1.1
     lodash: ^4.17.15
     normalize-package-data: ^3.0.0
-    q: ^1.5.1
     read-pkg: ^3.0.0
     read-pkg-up: ^3.0.0
     through2: ^4.0.0
-  checksum: 0e174d17c638e5977f31bb23464614701a57925e4dc5ce099872e442317f2a3c4eb7f4c8e1ef06ac2e1863673efde3f1ffa10adc33301bda26a8dc30a717df40
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-ember@npm:^2.0.9":
-  version: 2.0.9
-  resolution: "conventional-changelog-ember@npm:2.0.9"
-  dependencies:
-    q: ^1.5.1
-  checksum: 30c7bd48ce995e39fc91bcd8c719b2bee10cb408c246a6a7de6cec44a3ca12afe5a86f57f55aa1fd2c64beb484c68013d16658047e6273f130c1c80e7dad38e9
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-eslint@npm:^3.0.9":
-  version: 3.0.9
-  resolution: "conventional-changelog-eslint@npm:3.0.9"
-  dependencies:
-    q: ^1.5.1
-  checksum: 402ae73a8c5390405d4f902819f630f56fa7dfa8f6bef77b3b5f2fb7c8bd17f64ad83edbacc030cfef5b84400ab722d4f166dd906296a4d286e66205c1bd8a3f
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-express@npm:^2.0.6":
-  version: 2.0.6
-  resolution: "conventional-changelog-express@npm:2.0.6"
-  dependencies:
-    q: ^1.5.1
-  checksum: c139fa9878971455cce9904a195d92f770679d24a88ef07a016a6954e28f0f237ec59e45f2591b2fc9b8e10fd46c30150ddf0ce50a2cb03be85cae0ee64d4cdd
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-jquery@npm:^3.0.11":
-  version: 3.0.11
-  resolution: "conventional-changelog-jquery@npm:3.0.11"
-  dependencies:
-    q: ^1.5.1
-  checksum: df1145467c75e8e61f35ed24d7539e8b7dcdc810b86267b0173420c8955590cca139eb51f89ac255d70c632433d996b0ed227cb1acdf59537f3d2f4ad9c770d3
-  languageName: node
-  linkType: hard
-
-"conventional-changelog-jshint@npm:^2.0.9":
-  version: 2.0.9
-  resolution: "conventional-changelog-jshint@npm:2.0.9"
-  dependencies:
-    compare-func: ^2.0.0
-    q: ^1.5.1
-  checksum: ec96144b75fdb84c4a6f7db9b671dc258d964cd7aa35f9b00539e42bbe05601a9127c17cf0dcc315ae81a0dd20fe795d9d41dd90373928d24b33f065728eb2e2
+  checksum: aba448975ac8a27cc4dfa7e1fad7e168d398fb4dafa3738c1efacbb601732829e15954d8460be7dd7da5621889145965e488faba6a748a17c343d003a63cd819
   languageName: node
   linkType: hard
 
@@ -3222,9 +3130,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-writer@npm:^5.0.0":
+"conventional-changelog-writer@kherock/conventional-changelog#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3":
   version: 5.0.0
-  resolution: "conventional-changelog-writer@npm:5.0.0"
+  resolution: "conventional-changelog-writer@https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"
   dependencies:
     conventional-commits-filter: ^2.0.7
     dateformat: ^3.0.0
@@ -3237,26 +3145,7 @@ __metadata:
     through2: ^4.0.0
   bin:
     conventional-changelog-writer: cli.js
-  checksum: c310b949d354688b971f576c92cac77f11540fee56dccb990169e94e4fc42e40245d2c381f826b7d781deb04d4f7e01701cc29bdd1c3d3cdf8817e8b7a80ea18
-  languageName: node
-  linkType: hard
-
-"conventional-changelog@npm:^3.1.24":
-  version: 3.1.24
-  resolution: "conventional-changelog@npm:3.1.24"
-  dependencies:
-    conventional-changelog-angular: ^5.0.12
-    conventional-changelog-atom: ^2.0.8
-    conventional-changelog-codemirror: ^2.0.8
-    conventional-changelog-conventionalcommits: ^4.5.0
-    conventional-changelog-core: ^4.2.1
-    conventional-changelog-ember: ^2.0.9
-    conventional-changelog-eslint: ^3.0.9
-    conventional-changelog-express: ^2.0.6
-    conventional-changelog-jquery: ^3.0.11
-    conventional-changelog-jshint: ^2.0.9
-    conventional-changelog-preset-loader: ^2.3.4
-  checksum: 54253a3e3761369a8c68ec1ea57f3847b323a0104503dfccfd305553f77e83636132406d463dfa60ad3851dba42d84a528e8cb685943e8d6d7ae3eb37aaa19bb
+  checksum: 3d30c41c4b4f67f40067d3a9bad71534151bf3ed30f2a06183615bfdefb5fb7df1cc2707bccc5d3faa1ad83ada1256cff6a857d8f5d79173b973e8c21a36ee47
   languageName: node
   linkType: hard
 
@@ -8388,11 +8277,11 @@ typescript@~4.3.5:
   linkType: hard
 
 "uglify-js@npm:^3.1.4":
-  version: 3.13.10
-  resolution: "uglify-js@npm:3.13.10"
+  version: 3.14.1
+  resolution: "uglify-js@npm:3.14.1"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: e5e51fc9b27c19745cc64cc3bd83e6e4d515e7a0cc1842e2bc92df9d687728b336a8276d46e85a588e434397e97032e95e006f91f2b3b9fdf599ced65790e236
+  checksum: 2685f53baeddd4c370329352e0bf9b458918d6e422e8c97b59335196427ab08d972a69202e763bffec9ff0d9bd4fc477b0a60788b1e709a4530fc40f47290b34
   languageName: node
   linkType: hard
 

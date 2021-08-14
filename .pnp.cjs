@@ -118,11 +118,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/eslint-config", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:0.3.0"],
             ["@yarnpkg/sdks", "npm:2.4.1-rc.4"],
             ["babel-jest", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:27.0.6"],
-            ["conventional-changelog", "npm:3.1.24"],
             ["conventional-changelog-conventionalcommits", "npm:4.6.0"],
-            ["conventional-changelog-preset-loader", "npm:2.3.4"],
-            ["conventional-changelog-writer", "npm:5.0.0"],
-            ["conventional-recommended-bump", "npm:6.1.0"],
             ["eslint", "npm:7.32.0"],
             ["eslint-plugin-arca", "npm:0.10.1"],
             ["eslint-plugin-react", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:7.24.0"],
@@ -1415,7 +1411,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/plugin-release/",
           "packageDependencies": [
             ["@kherock/yarn-plugin-release", "workspace:packages/plugin-release"],
-            ["@types/conventional-changelog", "npm:3.1.1"],
             ["@types/conventional-changelog-core", "npm:4.1.2"],
             ["@types/conventional-changelog-preset-loader", "npm:2.3.1"],
             ["@types/conventional-recommended-bump", "npm:6.0.1"],
@@ -1428,6 +1423,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pnp", "virtual:e7b33d727dfe85c02c2083ea992b1a54bfdaa0d0f7cbb9621464204de309935050398850f41c09406f2fe48498dbeaf10bbf8fa6c3da184fcd49981a0270e25c#npm:3.0.1-rc.1"],
             ["calver", "patch:calver@npm%3A21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49::version=21.1.4&hash=d6009c&locator=%40kherock%2Fyarn-plugins%40workspace%3A."],
             ["clipanion", "virtual:b644898db9d00f9f37d5eb44e36f20e9479b44afd1de161232b42c49fdda6d24ee83083e27e52420bf3b4985c46a47d2bef42581f5a599abf04e801793aa0916#npm:3.0.1"],
+            ["conventional-changelog-core", "https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"],
+            ["conventional-changelog-preset-loader", "npm:2.3.4"],
+            ["conventional-recommended-bump", "npm:6.1.0"],
             ["git-semver-tags", "npm:4.1.1"],
             ["multistream", "npm:4.1.0"],
             ["semver", "npm:7.3.5"],
@@ -1473,11 +1471,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/eslint-config", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:0.3.0"],
             ["@yarnpkg/sdks", "npm:2.4.1-rc.4"],
             ["babel-jest", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:27.0.6"],
-            ["conventional-changelog", "npm:3.1.24"],
             ["conventional-changelog-conventionalcommits", "npm:4.6.0"],
-            ["conventional-changelog-preset-loader", "npm:2.3.4"],
-            ["conventional-changelog-writer", "npm:5.0.0"],
-            ["conventional-recommended-bump", "npm:6.1.0"],
             ["eslint", "npm:7.32.0"],
             ["eslint-plugin-arca", "npm:0.10.1"],
             ["eslint-plugin-react", "virtual:eea04e6551e7dd1d2848e9bd0ade8847a045220049e1edd2340556f65686691724d711ab2e805cccb47febc2587072183bf14036849b120f23a421973bfef416#npm:7.24.0"],
@@ -1643,19 +1637,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/keyv", "npm:3.1.2"],
             ["@types/node", "npm:16.3.3"],
             ["@types/responselike", "npm:1.0.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@types/conventional-changelog", [
-        ["npm:3.1.1", {
-          "packageLocation": "./.yarn/cache/@types-conventional-changelog-npm-3.1.1-ea1bab2ff4-9278f6603f.zip/node_modules/@types/conventional-changelog/",
-          "packageDependencies": [
-            ["@types/conventional-changelog", "npm:3.1.1"],
-            ["@types/conventional-changelog-core", "npm:4.1.2"],
-            ["@types/conventional-changelog-writer", "npm:4.0.1"],
-            ["@types/conventional-commits-parser", "npm:3.0.2"],
-            ["@types/node", "npm:16.3.3"]
           ],
           "linkType": "HARD",
         }]
@@ -4316,57 +4297,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["conventional-changelog", [
-        ["npm:3.1.24", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-npm-3.1.24-11de891016-54253a3e37.zip/node_modules/conventional-changelog/",
-          "packageDependencies": [
-            ["conventional-changelog", "npm:3.1.24"],
-            ["conventional-changelog-angular", "npm:5.0.12"],
-            ["conventional-changelog-atom", "npm:2.0.8"],
-            ["conventional-changelog-codemirror", "npm:2.0.8"],
-            ["conventional-changelog-conventionalcommits", "npm:4.6.0"],
-            ["conventional-changelog-core", "npm:4.2.3"],
-            ["conventional-changelog-ember", "npm:2.0.9"],
-            ["conventional-changelog-eslint", "npm:3.0.9"],
-            ["conventional-changelog-express", "npm:2.0.6"],
-            ["conventional-changelog-jquery", "npm:3.0.11"],
-            ["conventional-changelog-jshint", "npm:2.0.9"],
-            ["conventional-changelog-preset-loader", "npm:2.3.4"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-angular", [
-        ["npm:5.0.12", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-angular-npm-5.0.12-0dd88eb3f8-552db8762d.zip/node_modules/conventional-changelog-angular/",
-          "packageDependencies": [
-            ["conventional-changelog-angular", "npm:5.0.12"],
-            ["compare-func", "npm:2.0.0"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-atom", [
-        ["npm:2.0.8", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-atom-npm-2.0.8-ab61571c15-12ecbd928f.zip/node_modules/conventional-changelog-atom/",
-          "packageDependencies": [
-            ["conventional-changelog-atom", "npm:2.0.8"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-codemirror", [
-        ["npm:2.0.8", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-codemirror-npm-2.0.8-342d72f6a3-cf331db40c.zip/node_modules/conventional-changelog-codemirror/",
-          "packageDependencies": [
-            ["conventional-changelog-codemirror", "npm:2.0.8"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["conventional-changelog-conventionalcommits", [
         ["npm:4.6.0", {
           "packageLocation": "./.yarn/cache/conventional-changelog-conventionalcommits-npm-4.6.0-d399b251bd-b7dccba3e9.zip/node_modules/conventional-changelog-conventionalcommits/",
@@ -4380,12 +4310,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["conventional-changelog-core", [
-        ["npm:4.2.3", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-core-npm-4.2.3-3347f58b12-0e174d17c6.zip/node_modules/conventional-changelog-core/",
+        ["https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3", {
+          "packageLocation": "./.yarn/cache/conventional-changelog-core-https-436cf60713-aba448975a.zip/node_modules/conventional-changelog-core/",
           "packageDependencies": [
-            ["conventional-changelog-core", "npm:4.2.3"],
+            ["conventional-changelog-core", "https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"],
             ["add-stream", "npm:1.0.0"],
-            ["conventional-changelog-writer", "npm:5.0.0"],
+            ["conventional-changelog-writer", "https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"],
             ["conventional-commits-parser", "npm:3.2.1"],
             ["dateformat", "npm:3.0.3"],
             ["get-pkg-repo", "npm:4.1.2"],
@@ -4394,61 +4324,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["git-semver-tags", "npm:4.1.1"],
             ["lodash", "npm:4.17.21"],
             ["normalize-package-data", "npm:3.0.2"],
-            ["q", "npm:1.5.1"],
             ["read-pkg", "npm:3.0.0"],
             ["read-pkg-up", "npm:3.0.0"],
             ["through2", "npm:4.0.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-ember", [
-        ["npm:2.0.9", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-ember-npm-2.0.9-2276834930-30c7bd48ce.zip/node_modules/conventional-changelog-ember/",
-          "packageDependencies": [
-            ["conventional-changelog-ember", "npm:2.0.9"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-eslint", [
-        ["npm:3.0.9", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-eslint-npm-3.0.9-62c523a901-402ae73a8c.zip/node_modules/conventional-changelog-eslint/",
-          "packageDependencies": [
-            ["conventional-changelog-eslint", "npm:3.0.9"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-express", [
-        ["npm:2.0.6", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-express-npm-2.0.6-8a37ff0369-c139fa9878.zip/node_modules/conventional-changelog-express/",
-          "packageDependencies": [
-            ["conventional-changelog-express", "npm:2.0.6"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-jquery", [
-        ["npm:3.0.11", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-jquery-npm-3.0.11-d4ff10c6e2-df1145467c.zip/node_modules/conventional-changelog-jquery/",
-          "packageDependencies": [
-            ["conventional-changelog-jquery", "npm:3.0.11"],
-            ["q", "npm:1.5.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["conventional-changelog-jshint", [
-        ["npm:2.0.9", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-jshint-npm-2.0.9-ef6b791bee-ec96144b75.zip/node_modules/conventional-changelog-jshint/",
-          "packageDependencies": [
-            ["conventional-changelog-jshint", "npm:2.0.9"],
-            ["compare-func", "npm:2.0.0"],
-            ["q", "npm:1.5.1"]
           ],
           "linkType": "HARD",
         }]
@@ -4463,10 +4341,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["conventional-changelog-writer", [
-        ["npm:5.0.0", {
-          "packageLocation": "./.yarn/cache/conventional-changelog-writer-npm-5.0.0-acebc38f2a-c310b949d3.zip/node_modules/conventional-changelog-writer/",
+        ["https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3", {
+          "packageLocation": "./.yarn/cache/conventional-changelog-writer-https-74e1fb692e-3d30c41c4b.zip/node_modules/conventional-changelog-writer/",
           "packageDependencies": [
-            ["conventional-changelog-writer", "npm:5.0.0"],
+            ["conventional-changelog-writer", "https://github.com/kherock/conventional-changelog.git#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"],
             ["conventional-commits-filter", "npm:2.0.7"],
             ["dateformat", "npm:3.0.3"],
             ["handlebars", "npm:4.7.7"],
@@ -5990,7 +5868,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimist", "npm:1.2.5"],
             ["neo-async", "npm:2.6.2"],
             ["source-map", "npm:0.6.1"],
-            ["uglify-js", "npm:3.13.10"],
+            ["uglify-js", "npm:3.14.1"],
             ["wordwrap", "npm:1.0.0"]
           ],
           "linkType": "HARD",
@@ -10299,10 +10177,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["uglify-js", [
-        ["npm:3.13.10", {
-          "packageLocation": "./.yarn/cache/uglify-js-npm-3.13.10-d945783f38-e5e51fc9b2.zip/node_modules/uglify-js/",
+        ["npm:3.14.1", {
+          "packageLocation": "./.yarn/cache/uglify-js-npm-3.14.1-f667b63dfd-2685f53bae.zip/node_modules/uglify-js/",
           "packageDependencies": [
-            ["uglify-js", "npm:3.13.10"]
+            ["uglify-js", "npm:3.14.1"]
           ],
           "linkType": "HARD",
         }]

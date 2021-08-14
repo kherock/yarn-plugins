@@ -16,11 +16,7 @@
     "@yarnpkg/eslint-config": "^0.3.0",
     "@yarnpkg/sdks": "^2.4.1-rc.4",
     "babel-jest": "^27.0.6",
-    "conventional-changelog": "^3.1.24",
     "conventional-changelog-conventionalcommits": "^4.6.0",
-    "conventional-changelog-preset-loader": "^2.3.4",
-    "conventional-changelog-writer": "^5.0.0",
-    "conventional-recommended-bump": "^6.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-arca": "^0.10.1",
     "eslint-plugin-react": "^7.24.0",
@@ -31,7 +27,9 @@
     "typescript": "~4.3.5"
   },
   "resolutions": {
-    "calver@21.1.4": "patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49"
+    "calver@21.1.4": "patch:calver@npm:21.1.4#.yarn/patches/calver-npm-21.1.4-6372a4bc49",
+    "conventional-changelog-core": "kherock/conventional-changelog#workspace=conventional-changelog-core&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3",
+    "conventional-changelog-writer": "kherock/conventional-changelog#workspace=conventional-changelog-writer&commit=4c2fb8ec236f8a0c212fcf5152b0336fbf938cf3"
   },
   "scripts": {
     "test:lint": "eslint --max-warnings 0 \"packages/**/@(sources|tests)/**/*.@(tsx|ts|js)\"",
