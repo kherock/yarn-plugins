@@ -1,3 +1,12 @@
+## [21.8.6](https://github.com/kherock/yarn-plugins/compare/v21.8.5...v21.8.6) (2021-08-23)
+
+
+### Bug Fixes
+
+* **plugin-release:** compatibility with Node 12, changelogs in stable release tags ([82c5385](https://github.com/kherock/yarn-plugins/commit/82c53850b4ce40e1461344e6388dea34318f61a9))
+* **plugin-release:** make --dry-run actually have an effect for release-commit ([ea0555d](https://github.com/kherock/yarn-plugins/commit/ea0555d88a9283c2e09a722f221f4998b5cd3bf3))
+* **plugin-release:** only output new changelog text with --dry-run ([1150d53](https://github.com/kherock/yarn-plugins/commit/1150d53c1eceef05f3218d395ef930c04c9e4f14))
+
 ## [21.8.5](https://github.com/kherock/yarn-plugins/compare/v21.8.4...v21.8.5) (2021-08-14)
 
 
