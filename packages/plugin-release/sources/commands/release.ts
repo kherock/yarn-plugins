@@ -116,14 +116,6 @@ export default class ReleaseCommand extends BaseCommand {
           skipUnstable: !this.includeUnstable,
         },
         this.date == null ? undefined : {date: this.date},
-        undefined,
-        undefined,
-        {
-          generateOn: commit => {
-            const version = semver.valid(commit.version);
-            return version && (this.includeUnstable || !semver.prerelease(version));
-          },
-        }
       );
 
       const streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream> = [changelog, getText];

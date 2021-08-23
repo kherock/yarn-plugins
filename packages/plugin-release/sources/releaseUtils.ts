@@ -49,7 +49,13 @@ export async function changelogStream(
     },
     {path: cwd, ...gitRawCommitsOpts},
     parserOpts,
-    writerOpts,
+    {
+      generateOn: commit => {
+        const version = semver.valid(commit.version);
+        return version && (!(options as any).skipUnstable || !semver.prerelease(version));
+      },
+      ...writerOpts,
+    },
   );
 }
 

@@ -1,11 +1,14 @@
 import {BaseCommand}                                                               from "@yarnpkg/cli";
 import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from "@yarnpkg/core";
 import {Command, Option, UsageError}                                               from "clipanion";
+import semver                                                                      from 'semver';
+import {pipeline, Transform}                                                       from "stream";
+import {promisify}                                                                 from "util";
 
 import {changelogStream}                                                           from "../releaseUtils";
 
 // eslint-disable-next-line arca/no-default-export
-export default class ReleaseCommand extends BaseCommand {
+export default class ReleaseCommitCommand extends BaseCommand {
   static usage = Command.Usage({
     category: `Release-related commands`,
     description: `Commits and tags releases`,
@@ -43,6 +46,8 @@ export default class ReleaseCommand extends BaseCommand {
     if (tagList.has(projectTagName))
       throw new UsageError(`${projectTagName} has already been released`);
 
+    const prerelease = semver.prerelease(project.topLevelWorkspace.locator.reference);
+
     const report = await StreamReport.start({
       configuration,
       stdout: this.context.stdout,
@@ -77,13 +82,23 @@ export default class ReleaseCommand extends BaseCommand {
         report.reportJson({ident: structUtils.stringifyIdent(locator), tagName});
       }
 
-      let changelogText = ``;
-      for await (const chunk of await changelogStream(project.topLevelWorkspace))
-        changelogText += chunk.toString();
-      changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
-
+      let text = ``;
+      const getText = new Transform({
+        transform(chunk, encoding, callback) {
+          text += chunk.toString();
+          callback(null, chunk);
+        },
+      });
+      await promisify(pipeline)([
+        await changelogStream(project.topLevelWorkspace, {
+          releaseCount: 1,
+          // @ts-expect-error
+          skipUnstable: !prerelease,
+        }),
+        getText,
+      ]);
       report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, this.tagHead], {
+      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, `${projectTagName}\n${text}`, `--cleanup=verbatim`, this.tagHead], {
         cwd: project.cwd,
         strict: true,
       });
