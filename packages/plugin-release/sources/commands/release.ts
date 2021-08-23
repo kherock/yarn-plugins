@@ -99,39 +99,7 @@ export default class ReleaseCommand extends BaseCommand {
       }
 
       const changelogPath = ppath.join(workspace.cwd, CHANGELOG);
-      const existingChangelog = new PassThrough();
-      if (requiresVersion && !this.firstRelease) {
-        xfs.createReadStream(changelogPath)
-          .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
-            if (err.code !== `ENOENT`) throw err;
-            this.unpipe(existingChangelog);
-            existingChangelog.push(null);
-          })
-          .pipe(existingChangelog);
-      } else {
-        existingChangelog.push(null);
-      }
 
-      const changelog = new MultiStream([
-        await changelogStream(
-          workspace,
-          {
-            releaseCount: this.firstRelease ? 0 : 1,
-            // @ts-expect-error
-            skipUnstable: !this.includeUnstable,
-          },
-          this.date == null ? undefined : {date: this.date},
-          undefined,
-          undefined,
-          {
-            generateOn: commit => {
-              const version = semver.valid(commit.version);
-              return version && (this.includeUnstable || !semver.prerelease(version));
-            },
-          }
-        ),
-        existingChangelog,
-      ]);
       let text = ``;
       const getText = new Transform({
         transform(chunk, encoding, callback) {
@@ -140,14 +108,55 @@ export default class ReleaseCommand extends BaseCommand {
         },
       });
 
+      const changelog = await changelogStream(
+        workspace,
+        {
+          releaseCount: this.firstRelease ? 0 : 1,
+          // @ts-expect-error
+          skipUnstable: !this.includeUnstable,
+        },
+        this.date == null ? undefined : {date: this.date},
+        undefined,
+        undefined,
+        {
+          generateOn: commit => {
+            const version = semver.valid(commit.version);
+            return version && (this.includeUnstable || !semver.prerelease(version));
+          },
+        }
+      );
+
       const streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream> = [changelog, getText];
       if (this.dryRun) {
         streams.push(report.createStreamReporter());
         await promisify(pipeline)(streams);
       } else {
         const outPath = ppath.join(await xfs.mktempPromise(), CHANGELOG);
-        streams.push(xfs.createWriteStream(outPath));
-        await promisify(pipeline)(streams);
+        const existingChangelog = new PassThrough();
+        if (requiresVersion && !this.firstRelease) {
+          xfs.createReadStream(changelogPath)
+            .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
+              if (err.code !== `ENOENT`) throw err;
+              this.unpipe(existingChangelog);
+              existingChangelog.push(null);
+            })
+            .pipe(existingChangelog);
+        } else {
+          existingChangelog.push(null);
+        }
+
+        const newChangelog = new PassThrough();
+        streams.push(newChangelog);
+        await Promise.all([
+          promisify(pipeline)(
+            new MultiStream([
+              newChangelog,
+              existingChangelog,
+            ]),
+            xfs.createWriteStream(outPath)
+          ),
+          promisify(pipeline)(streams),
+        ]);
         await xfs.copyFilePromise(outPath, changelogPath);
       }
       report.reportJson({ident, changelogPath, changelog: text});
