@@ -7,6 +7,13 @@ import {promisify}                                                              
 
 import {changelogStream}                                                           from "../releaseUtils";
 
+const cliEscape = (str: string): string => {
+  const specialChars = ` \t\n$|&><\`"'`;
+  return specialChars.split(``).some(char => str.includes(char))
+    ? `'${str.replace(/'/g, `\\'`)}'`
+    : str;
+};
+
 // eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommitCommand extends BaseCommand {
   static usage = Command.Usage({
@@ -65,21 +72,38 @@ export default class ReleaseCommitCommand extends BaseCommand {
         .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
         .join(`\n`);
 
-      const commitArgs = [`commit`, `-m`, `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`];
+      const commitMessage = `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`;
+      const commitArgs = [`commit`, `-m`, commitMessage];
       if (this.amend)
         commitArgs.push(`--amend`);
-      await execUtils.execvp(`git`, commitArgs, {
-        cwd: project.cwd,
-        strict: true,
+      report.reportJson({
+        gitOpt: `commit`,
+        commitMessage,
       });
-
-      for (const {locator} of taggableWorkspaces) {
-        const tagName = structUtils.stringifyLocator(locator);
-        await execUtils.execvp(`git`, [`tag`, tagName, this.tagHead], {
+      if (this.dryRun) {
+        report.reportInfo(MessageName.UNNAMED, `git ${commitArgs.map(cliEscape).join(` `)}`);
+      } else {
+        await execUtils.execvp(`git`, commitArgs, {
           cwd: project.cwd,
           strict: true,
         });
-        report.reportJson({ident: structUtils.stringifyIdent(locator), tagName});
+      }
+
+      for (const {locator} of taggableWorkspaces) {
+        const tagName = structUtils.stringifyLocator(locator);
+        const tagArgs = [`tag`, tagName, this.tagHead];
+        report.reportJson({
+          gitOp: `tag`,
+          tagName,
+        });
+        if (this.dryRun) {
+          report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
+        } else {
+          await execUtils.execvp(`git`, tagArgs, {
+            cwd: project.cwd,
+            strict: true,
+          });
+        }
       }
 
       let text = ``;
@@ -97,11 +121,19 @@ export default class ReleaseCommitCommand extends BaseCommand {
         }),
         getText,
       ]);
-      report.reportJson({ident: structUtils.stringifyIdent(project.topLevelWorkspace.locator), tagName: projectTagName});
-      await execUtils.execvp(`git`, [`tag`, `-a`, projectTagName, `-m`, `${projectTagName}\n${text}`, `--cleanup=verbatim`, this.tagHead], {
-        cwd: project.cwd,
-        strict: true,
+      const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${text}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
+      report.reportJson({
+        tagName: projectTagName,
+        tagMessage: text,
       });
+      if (this.dryRun) {
+        report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
+      } else {
+        await execUtils.execvp(`git`, tagArgs, {
+          cwd: project.cwd,
+          strict: true,
+        });
+      }
     });
     return report.exitCode();
   }
