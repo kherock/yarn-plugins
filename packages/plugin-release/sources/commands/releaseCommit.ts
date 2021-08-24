@@ -106,10 +106,10 @@ export default class ReleaseCommitCommand extends BaseCommand {
         }
       }
 
-      let text = ``;
+      let changelogText = ``;
       const getText = new Transform({
         transform(chunk, encoding, callback) {
-          text += chunk.toString();
+          changelogText += chunk.toString();
           callback(null, chunk);
         },
       });
@@ -121,10 +121,11 @@ export default class ReleaseCommitCommand extends BaseCommand {
         }),
         getText,
       ]);
-      const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${text}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
+      changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
+      const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
       report.reportJson({
         tagName: projectTagName,
-        tagMessage: text,
+        tagMessage: changelogText,
       });
       if (this.dryRun) {
         report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
