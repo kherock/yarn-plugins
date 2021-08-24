@@ -1,3 +1,10 @@
+## [21.8.7](https://github.com/kherock/yarn-plugins/compare/v21.8.6...v21.8.7) (2021-08-24)
+
+
+### Bug Fixes
+
+* **plugin-release:** remove hyperlink from annotated tag message ([6c9beaa](https://github.com/kherock/yarn-plugins/commit/6c9beaa535d04a11d0a90d3d07ce279d7e96f814))
+
 ## [21.8.6](https://github.com/kherock/yarn-plugins/compare/v21.8.5...v21.8.6) (2021-08-23)
 
 

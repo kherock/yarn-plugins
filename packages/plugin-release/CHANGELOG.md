@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.6.1...@kherock/yarn-plugin-release@1.6.2) (2021-08-24)
+
+
+### Bug Fixes
+
+* **plugin-release:** remove hyperlink from annotated tag message ([6c9beaa](https://github.com/kherock/yarn-plugins/commit/6c9beaa535d04a11d0a90d3d07ce279d7e96f814))
+
 ## [1.6.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.6.0...@kherock/yarn-plugin-release@1.6.1) (2021-08-23)
 
 
