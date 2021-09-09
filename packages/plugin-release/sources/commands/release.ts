@@ -11,7 +11,6 @@ import {changelogStream, recommendedBump}                                       
 
 export const CHANGELOG = `CHANGELOG.md` as Filename;
 
-// eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommand extends BaseCommand {
   static usage = Command.Usage({
     category: `Release-related commands`,
@@ -112,7 +111,6 @@ export default class ReleaseCommand extends BaseCommand {
         workspace,
         {
           releaseCount: this.firstRelease ? 0 : 1,
-          // @ts-expect-error
           skipUnstable: !this.includeUnstable,
         },
         this.date == null ? undefined : {date: this.date},

@@ -1,0 +1,3 @@
+extends: '@yarnpkg'
+rules:
+  arca/no-default-export: 'off'

@@ -13,7 +13,8 @@
     "target": "ES2018",
     "declaration": true,
     "importHelpers": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "examples/**/lib",

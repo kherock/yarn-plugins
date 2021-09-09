@@ -22,7 +22,7 @@ export async function changelogStream(
   ...args: Parameters<typeof conventionalChangelog>
 ): Promise<NodeJS.ReadableStream> {
   const {cwd, locator, manifest, project} = workspace;
-  const [options, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
+  const [options = {}, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
   const require = absoluteRequire(project.cwd);
   const isReleaseable = workspace === project.topLevelWorkspace || !manifest.private;
 
@@ -52,7 +52,7 @@ export async function changelogStream(
     {
       generateOn: commit => {
         const version = semver.valid(commit.version);
-        return version && (!(options as any).skipUnstable || !semver.prerelease(version));
+        return version && (!options.skipUnstable || !semver.prerelease(version));
       },
       ...writerOpts,
     },
@@ -79,7 +79,6 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
     const config = await loadConventionalChangelogPreset(absoluteRequire(project.cwd), conventionalChangelogPreset);
     const bump = await conventionalRecommendedBumpPromise({
       config,
-      // @ts-expect-error
       path: cwd,
       skipUnstable: !prerelease,
       lernaPackage: structUtils.stringifyIdent(workspace.locator),

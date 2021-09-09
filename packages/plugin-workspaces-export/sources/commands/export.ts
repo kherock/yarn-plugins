@@ -31,7 +31,6 @@ import {
   xfs,
 } from "@yarnpkg/fslib";
 
-// eslint-disable-next-line arca/no-default-export
 export default class WorkspacesExportCommand extends BaseCommand {
   workspaces: Array<string> = Option.Rest();
 

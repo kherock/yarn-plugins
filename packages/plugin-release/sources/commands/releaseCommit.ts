@@ -14,7 +14,6 @@ const cliEscape = (str: string): string => {
     : str;
 };
 
-// eslint-disable-next-line arca/no-default-export
 export default class ReleaseCommitCommand extends BaseCommand {
   static usage = Command.Usage({
     category: `Release-related commands`,
@@ -116,7 +115,6 @@ export default class ReleaseCommitCommand extends BaseCommand {
       await promisify(pipeline)([
         await changelogStream(project.topLevelWorkspace, {
           releaseCount: 1,
-          // @ts-expect-error
           skipUnstable: !prerelease,
         }),
         getText,

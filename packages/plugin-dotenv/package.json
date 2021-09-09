@@ -5,16 +5,16 @@
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
   "dependencies": {
-    "@yarnpkg/cli": "^3.0.1-rc.2",
-    "@yarnpkg/core": "^3.1.0-rc.1",
-    "@yarnpkg/fslib": "^2.5.1-rc.1",
+    "@yarnpkg/cli": "^3.0.2",
+    "@yarnpkg/core": "^3.0.0",
+    "@yarnpkg/fslib": "^2.5.2",
     "dotenv-flow": "^3.2.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/dotenv-flow": "^3.1.1",
-    "@yarnpkg/builder": "^3.0.2-rc.1",
-    "typescript": "~4.3.5"
+    "@types/dotenv-flow": "^3.2.0",
+    "@yarnpkg/builder": "^3.0.1",
+    "typescript": "~4.4.2"
   },
   "scripts": {
     "build:compile": "tsc --build",
