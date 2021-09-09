@@ -21,7 +21,9 @@ jobs:
         with:
           node-version: 14.x
       - name: Create release
-        run: yarn workspaces foreach -pv --exclude '@example/*' --topological-dev release
+        run: |
+          yarn workspaces foreach -pv --include '@kherock/yarn-plugin-*' --topological-dev run update-local
+          yarn workspaces foreach -pv --exclude '@example/*' --topological-dev release
       - name: Push release
         run: |
           yarn release-commit

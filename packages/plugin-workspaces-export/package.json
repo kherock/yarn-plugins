@@ -30,7 +30,6 @@
     "build:plugin-workspaces-export": "builder build plugin",
     "update-local": "yarn build:plugin-workspaces-export",
     "postpack": "rm -rf lib",
-    "postrelease": "run build:plugin-workspaces-export",
     "prepack": "run build:compile"
   },
   "publishConfig": {
