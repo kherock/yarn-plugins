@@ -92,10 +92,9 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
     if (!prerelease || !bump.releaseType)
       return bump.releaseType;
 
-    const [stableTag] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
     const [unstableTag] = await gitSemverTagsPromise({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
-    if (!stableTag) return `prerelease`;
     if (!unstableTag) return `pre${bump.releaseType}`;
+    const [stableTag = `${structUtils.stringifyIdent(workspace.locator)}@0.0.0`] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
 
     const stableVersion = structUtils.parseLocator(stableTag).reference;
     const unstableVersion = structUtils.parseLocator(unstableTag).reference;
