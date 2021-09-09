@@ -23,6 +23,7 @@
     "github-api": "^3.4.0",
     "jest": "^27.1.1",
     "jest-environment-node": "^27.1.1",
+    "nodemon": "^2.0.12",
     "tslib": "^2.3.1",
     "typescript": "~4.4.2"
   },
@@ -35,6 +36,7 @@
     "conventional-recommended-bump": "kherock/conventional-changelog#workspace=conventional-recommended-bump&commit=a9d01064b3f2a07f9d4f5f3c5d1508975a91f887"
   },
   "scripts": {
+    "run:watch": "nodemon --watch \"$INIT_CWD\" --ext ts --exec \"cd '$INIT_CWD' && yarn run $@\"",
     "test:lint": "eslint --max-warnings 0 \"packages/**/@(sources|tests)/**/*.@(tsx|ts|js)\"",
     "test:unit": "jest",
     "typecheck:all": "tsc --noEmit"
