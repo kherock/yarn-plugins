@@ -1,6 +1,6 @@
 {
   "name": "@kherock/yarn-plugin-release",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "license": "BSD-2-Clause",
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",

@@ -1,6 +1,6 @@
 {
   "name": "@kherock/yarn-plugins",
-  "version": "21.8.7",
+  "version": "21.9.0",
   "private": true,
   "license": "BSD-2-Clause",
   "workspaces": [

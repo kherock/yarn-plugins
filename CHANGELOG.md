@@ -1,3 +1,10 @@
+## [21.9.0](https://github.com/kherock/yarn-plugins/compare/v21.8.7...v21.9.0) (2021-09-09)
+
+
+### Bug Fixes
+
+* **plugin-release:** correct the initial prerelease bump for packages without stable tags ([48a93a4](https://github.com/kherock/yarn-plugins/commit/48a93a489e5cf6d68e7660b41128912e58b61c0c))
+
 ## [21.8.7](https://github.com/kherock/yarn-plugins/compare/v21.8.6...v21.8.7) (2021-08-24)
 
 

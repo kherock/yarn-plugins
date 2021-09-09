@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.6.2...@kherock/yarn-plugin-release@1.6.3) (2021-09-09)
+
+
+### Bug Fixes
+
+* **plugin-release:** correct the initial prerelease bump for packages without stable tags ([48a93a4](https://github.com/kherock/yarn-plugins/commit/48a93a489e5cf6d68e7660b41128912e58b61c0c))
+
 ## [1.6.2](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.6.1...@kherock/yarn-plugin-release@1.6.2) (2021-08-24)
 
 
