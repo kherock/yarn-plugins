@@ -112,13 +112,13 @@ export default class ReleaseCommitCommand extends BaseCommand {
           callback(null, chunk);
         },
       });
-      await promisify(pipeline)([
+      await promisify(pipeline)(
         await changelogStream(project.topLevelWorkspace, {
           releaseCount: 1,
           skipUnstable: !prerelease,
         }),
         getText,
-      ]);
+      );
       changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
       const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
       report.reportJson({

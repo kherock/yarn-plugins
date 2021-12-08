@@ -116,10 +116,10 @@ export default class ReleaseCommand extends BaseCommand {
         this.date == null ? undefined : {date: this.date},
       );
 
-      const streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream> = [changelog, getText];
+      const additionalStreams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream> = [];
       if (this.dryRun) {
-        streams.push(report.createStreamReporter());
-        await promisify(pipeline)(streams);
+        additionalStreams.push(report.createStreamReporter());
+        await promisify(pipeline)(changelog, getText, ...additionalStreams);
       } else {
         const outPath = ppath.join(await xfs.mktempPromise(), CHANGELOG);
         const existingChangelog = new PassThrough();
@@ -136,16 +136,16 @@ export default class ReleaseCommand extends BaseCommand {
         }
 
         const newChangelog = new PassThrough();
-        streams.push(newChangelog);
+        additionalStreams.push(newChangelog);
         await Promise.all([
           promisify(pipeline)(
             new MultiStream([
               newChangelog,
               existingChangelog,
             ]),
-            xfs.createWriteStream(outPath)
+            xfs.createWriteStream(outPath),
           ),
-          promisify(pipeline)(streams),
+          promisify(pipeline)(changelog, getText, ...additionalStreams),
         ]);
         await xfs.copyFilePromise(outPath, changelogPath);
       }
