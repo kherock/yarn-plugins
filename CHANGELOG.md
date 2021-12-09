@@ -1,3 +1,10 @@
+## [21.12.0](https://github.com/kherock/yarn-plugins/compare/v21.9.0...v21.12.0) (2021-12-09)
+
+
+### Bug Fixes
+
+* **plugin-release:** work around stream.pipeline bug present Node 16.10-16.13.0 ([29f3b28](https://github.com/kherock/yarn-plugins/commit/29f3b2838c63d419b0d269c5b6f1679977252fd5))
+
 ## [21.9.0](https://github.com/kherock/yarn-plugins/compare/v21.8.7...v21.9.0) (2021-09-09)
 
 
