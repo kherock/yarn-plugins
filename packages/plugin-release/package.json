@@ -11,7 +11,7 @@
     "@yarnpkg/plugin-pnp": "^3.1.1",
     "calver": "21.1.5",
     "clipanion": "^3.1.0",
-    "conventional-changelog-core": "^4.2.3",
+    "conventional-changelog-core": "^4.2.4",
     "conventional-changelog-preset-loader": "^2.3.4",
     "conventional-recommended-bump": "^6.1.0",
     "git-semver-tags": "^4.1.1",
@@ -24,9 +24,9 @@
     "@types/conventional-changelog-preset-loader": "^2.3.1",
     "@types/conventional-recommended-bump": "^6.1.0",
     "@types/git-semver-tags": "^4.1.1",
-    "@types/semver": "^7.3.8",
-    "@yarnpkg/builder": "^3.0.1",
-    "typescript": "~4.4.2"
+    "@types/semver": "^7.3.9",
+    "@yarnpkg/builder": "^3.1.0",
+    "typescript": "~4.5.2"
   },
   "peerDependencies": {
     "conventional-changelog-conventionalcommits": "*"

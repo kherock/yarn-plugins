@@ -1,8 +1,8 @@
-import {Plugin, SettingsType} from "@yarnpkg/core";
+import {Plugin, SettingsType} from '@yarnpkg/core';
 
-import releaseCommit          from "./commands/releaseCommit";
-import release                from "./commands/release";
-import * as releaseUtils      from "./releaseUtils";
+import releaseCommit          from './commands/releaseCommit';
+import release                from './commands/release';
+import * as releaseUtils      from './releaseUtils';
 
 export {releaseUtils};
 

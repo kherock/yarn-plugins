@@ -1,8 +1,8 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
-import {BaseCommand, WorkspaceRequiredError}                                         from "@yarnpkg/cli";
+import {BaseCommand, WorkspaceRequiredError}                                         from '@yarnpkg/cli';
 import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
-import {packUtils}                                                                   from "@yarnpkg/plugin-pack";
-import {Command, Usage, Option}                                                      from "clipanion";
+import {packUtils}                                                                   from '@yarnpkg/plugin-pack';
+import {Command, Usage, Option}                                                      from 'clipanion';
 
 import {ExportCache}                                                                 from '../ExportCache';
 import {genPackTgz, makeExportDir, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
@@ -20,7 +20,7 @@ import {
   formatUtils,
   structUtils,
   tgzUtils,
-} from "@yarnpkg/core";
+} from '@yarnpkg/core';
 import {
   CwdFS,
   Filename,
@@ -29,7 +29,7 @@ import {
   npath,
   ppath,
   xfs,
-} from "@yarnpkg/fslib";
+} from '@yarnpkg/fslib';
 
 export default class WorkspacesExportCommand extends BaseCommand {
   workspaces: Array<string> = Option.Rest();
@@ -39,30 +39,30 @@ export default class WorkspacesExportCommand extends BaseCommand {
   production: boolean = Option.Boolean(
     `--production`,
     false,
-    {description: `Only install regular dependencies by omitting dev dependencies`}
+    {description: `Only install regular dependencies by omitting dev dependencies`},
   );
 
   noCache: boolean = Option.Boolean(
     `--no-cache`,
     false,
-    {description: `Do not cache archive contents in the configured \`exportCacheFolder\``}
+    {description: `Do not cache archive contents in the configured \`exportCacheFolder\``},
   );
 
   installIfNeeded: boolean = Option.Boolean(
     `--install-if-needed`,
     false,
-    {description: `Run a preliminary \`yarn install\` if a package contains build scripts`}
+    {description: `Run a preliminary \`yarn install\` if a package contains build scripts`},
   );
 
   skipPackLifecycle: boolean = Option.Boolean(
     `--skip-pack-lifecycle`,
     false,
-    {description: `Skip running \`yarn pack\` lifecycle scripts`}
+    {description: `Skip running \`yarn pack\` lifecycle scripts`},
   );
 
   nodeLinker?: string = Option.String(
     `--node-linker`,
-    {description: `Override the project's nodeLinker option in the exported archive`}
+    {description: `Override the project's nodeLinker option in the exported archive`},
   );
 
   out?: string = Option.String(`-o,--out`, {description: `Create the archive at the specified path`});
@@ -231,7 +231,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(configuration, target, `magenta`)}`);
           report.reportJson({output: target});
-        }
+        },
       );
       await cb();
     });

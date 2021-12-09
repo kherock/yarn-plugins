@@ -1,11 +1,11 @@
-import {BaseCommand}                                                               from "@yarnpkg/cli";
-import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from "@yarnpkg/core";
-import {Command, Option, UsageError}                                               from "clipanion";
+import {BaseCommand}                                                               from '@yarnpkg/cli';
+import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from '@yarnpkg/core';
+import {Command, Option, UsageError}                                               from 'clipanion';
 import semver                                                                      from 'semver';
-import {pipeline, Transform}                                                       from "stream";
-import {promisify}                                                                 from "util";
+import {pipeline, Transform}                                                       from 'stream';
+import {promisify}                                                                 from 'util';
 
-import {changelogStream}                                                           from "../releaseUtils";
+import {changelogStream}                                                           from '../releaseUtils';
 
 const cliEscape = (str: string): string => {
   const specialChars = ` \t\n$|&><\`"'`;
