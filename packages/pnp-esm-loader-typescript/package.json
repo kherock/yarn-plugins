@@ -1,0 +1,43 @@
+{
+  "name": "@kherock/pnp-esm-loader-typescript",
+  "private": true,
+  "license": "BSD-2-Clause",
+  "main": "./sources/index.ts",
+  "dependencies": {
+    "@types/node": "^14.18.9",
+    "@yarnpkg/fslib": "^2.6.1-rc.6",
+    "@yarnpkg/pnp": "exec:yarnpkg-pnp-esm-loader.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@yarnpkg/libzip": "^2.2.3-rc.6",
+    "esbuild": "npm:esbuild-wasm@^0.14.11",
+    "resolve.exports": "^1.1.0",
+    "rollup": "2.59.0",
+    "rollup-plugin-esbuild": "^3.0.2",
+    "tslib": "^2.3.1"
+  },
+  "scripts": {
+    "build:pnp-esm-loader-typescript": "rollup -c",
+    "postpack": "rm -rf lib",
+    "prepack": "run build:compile",
+    "release": "yarn npm publish",
+    "update-local": "run build:pnp-esm-loader-typescript"
+  },
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts"
+  },
+  "files": [
+    "/lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kherock/yarn-plugins.git",
+    "directory": "packages/pnp-esm-loader-typescript"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  }
+}

@@ -12,7 +12,10 @@ gen_enforced_dependency(WorkspaceCwd, DependencyIdent, DependencyRange2, Depende
     workspace_has_dependency(OtherWorkspaceCwd, DependencyIdent, DependencyRange2, DependencyType2),
   % Ignore peer dependencies
     DependencyType \= 'peerDependencies',
-    DependencyType2 \= 'peerDependencies'.
+    DependencyType2 \= 'peerDependencies',
+  % Ignore exec dependencies
+    \+ atom_concat('exec:', _, DependencyRange),
+    \+ atom_concat('exec:', _, DependencyRange2).
 
 % This rule will prevent workspaces from depending on non-workspace versions of available workspaces
 gen_enforced_dependency(WorkspaceCwd, DependencyIdent, WorkspaceRange, DependencyType) :-

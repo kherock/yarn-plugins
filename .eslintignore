@@ -5,3 +5,5 @@
 examples/**/lib
 packages/*/bundles
 packages/*/lib
+
+/packages/pnp-esm-loader-typescript/sources/built-loader.js
