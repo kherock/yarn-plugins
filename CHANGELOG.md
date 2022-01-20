@@ -1,3 +1,10 @@
+## [22.1.0](https://github.com/kherock/yarn-plugins/compare/v21.12.0...v22.1.0) (2022-01-20)
+
+
+### Features
+
+* **plugin-esm-loader-typescript:** initial experimental version ([ffe88a2](https://github.com/kherock/yarn-plugins/commit/ffe88a210151396decebf7c797323eaa4c834819))
+
 ## [21.12.0](https://github.com/kherock/yarn-plugins/compare/v21.9.0...v21.12.0) (2021-12-09)
 
 
