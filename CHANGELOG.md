@@ -1,3 +1,10 @@
+## [22.1.1](https://github.com/kherock/yarn-plugins/compare/v22.1.0...v22.1.1) (2022-01-24)
+
+
+### Features
+
+* **plugin-esm-loader-typescript:** support resolving .js and .mjs specifiers ([95a72f3](https://github.com/kherock/yarn-plugins/commit/95a72f37c27f17782d6a96a86d9f18200e8c89b8))
+
 ## [22.1.0](https://github.com/kherock/yarn-plugins/compare/v21.12.0...v22.1.0) (2022-01-20)
 
 
