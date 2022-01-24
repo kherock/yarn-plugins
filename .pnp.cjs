@@ -1387,13 +1387,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/plugin-node-resolve", "virtual:02882022c243449dd4c01e8eb860963b86db3b2eab87643bd10ca16e1db090a34a327be966ccb321b02cfc0accf189b9bce8ad4860413f785ce43880dcc1b408#npm:11.2.1"],
             ["@types/node", "npm:14.18.9"],
             ["@yarnpkg/fslib", "npm:2.6.1-rc.6"],
-            ["@yarnpkg/libzip", "npm:2.2.3-rc.6"],
             ["@yarnpkg/pnp", "exec:yarnpkg-pnp-esm-loader.js#yarnpkg-pnp-esm-loader.js::hash=3173b6&locator=%40kherock%2Fpnp-esm-loader-typescript%40workspace%3Apackages%2Fpnp-esm-loader-typescript"],
             ["esbuild", [
               "esbuild-wasm",
               "npm:0.14.11"
             ]],
-            ["resolve.exports", "npm:1.1.0"],
             ["rollup", "npm:2.59.0"],
             ["rollup-plugin-esbuild", "virtual:02882022c243449dd4c01e8eb860963b86db3b2eab87643bd10ca16e1db090a34a327be966ccb321b02cfc0accf189b9bce8ad4860413f785ce43880dcc1b408#npm:3.0.4"],
             ["tslib", "npm:2.3.1"]
@@ -1429,7 +1427,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/core", "npm:3.2.0-rc.11"],
             ["@yarnpkg/fslib", "npm:2.6.1-rc.6"],
             ["@yarnpkg/plugin-pnp", "virtual:a05bbffeb336339de192190423002c54eafdd8aca1880ac81e7afe996d4bf9e529fceacf02f43a100bc2d3d3b824e45d5a2b4ac3d1c8db17a7f6b59ee7214269#npm:3.2.0-rc.1"],
-            ["@yarnpkg/pnp", "npm:3.1.1-rc.11"],
             ["tslib", "npm:2.3.1"],
             ["typescript", "patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=de8f8a"]
           ],

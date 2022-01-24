@@ -11,9 +11,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^11.0.1",
-    "@yarnpkg/libzip": "^2.2.3-rc.6",
     "esbuild": "npm:esbuild-wasm@^0.14.11",
-    "resolve.exports": "^1.1.0",
     "rollup": "2.59.0",
     "rollup-plugin-esbuild": "^3.0.2",
     "tslib": "^2.3.1"

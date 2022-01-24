@@ -5,7 +5,7 @@ import {getPnpPath}                 from '@yarnpkg/plugin-pnp';
 
 const plugin: Plugin<CoreHooks> = {
   hooks: {
-    async afterAllInstalled(project, options) {
+    async afterAllInstalled(project) {
       const {esmLoader} = getPnpPath(project);
       if (await xfs.existsPromise(esmLoader)) {
         await xfs.changeFilePromise(esmLoader, getESMLoaderTemplate(), {
