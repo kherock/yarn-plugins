@@ -44,7 +44,7 @@ export class ExportCache extends Cache {
     }
   }
 
-  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader}: {loader?: () => Promise<ZipFS>}): Promise<[FakeFS<PortablePath>, () => void, string]> {
+  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader}: {loader?: () => Promise<ZipFS>}): Promise<[FakeFS<PortablePath>, () => void, string | null]> {
     const baseFs = new NodeFS();
 
     const loadWorkspaceThroughMutex = async () => {
@@ -71,19 +71,19 @@ export class ExportCache extends Cache {
       }
     };
 
-    if (this.nodeLinker === `node-modules`) {
+    if (this.nodeLinker !== `pnp`)
       return locator.reference.startsWith(WorkspaceResolver.protocol)
         ? await super.fetchPackageFromCache(locator, expectedChecksum, {loader})
         : await this.parentCache.fetchPackageFromCache(locator, expectedChecksum, {loader});
-    } else if (!locator.reference.startsWith(WorkspaceResolver.protocol)) {
+
+    if (!locator.reference.startsWith(WorkspaceResolver.protocol))
       return await super.fetchPackageFromCache(locator, expectedChecksum, {loader});
-    } else {
-      for (let mutex; (mutex = this.workspaceMutexes.get(locator.locatorHash));)
-        await mutex;
 
-      const cachePath = await loadWorkspaceThroughMutex();
+    for (let mutex; (mutex = this.workspaceMutexes.get(locator.locatorHash));)
+      await mutex;
 
-      return [new JailFS(cachePath, {baseFs}), () => {}, null as unknown as string];
-    }
+    const cachePath = await loadWorkspaceThroughMutex();
+
+    return [new JailFS(cachePath, {baseFs}), () => {}, null as unknown as string];
   }
 }

@@ -62,6 +62,8 @@ export class WorkspacePackResolver extends WorkspaceResolver implements Resolver
       languageName: `unknown`,
       linkType: path === `.` ? LinkType.SOFT : LinkType.HARD,
 
+      conditions: null,
+
       dependencies: workspace.manifest.dependencies,
       peerDependencies: workspace.manifest.peerDependencies,
 
