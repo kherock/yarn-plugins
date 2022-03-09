@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.0.0...@kherock/yarn-plugin-workspaces-export@3.0.1) (2022-03-09)
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** include packageManager field in exported project ([45a232d](https://github.com/kherock/yarn-plugins/commit/45a232d430d0b85cfb787fb58edd6b020c56c3e7))
+* **plugin-workspaces-export:** respect publishConfig during export ([2b67654](https://github.com/kherock/yarn-plugins/commit/2b6765499846a8aa22e769c5a15d4fe269f6eb4a))
+* **plugin-workspaces-export:** use relative path for cacheFolder in exported .yarnrc.yml ([4b6cce8](https://github.com/kherock/yarn-plugins/commit/4b6cce885e4a93af2312d2ed406fcbf31851de3d))
+
 ## [3.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@2.0.1...@kherock/yarn-plugin-workspaces-export@3.0.0) (2022-03-09)
 
 
