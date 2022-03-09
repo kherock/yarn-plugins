@@ -103,9 +103,13 @@ export default class WorkspacesExportCommand extends BaseCommand {
       hooks: {
         beforeWorkspacePacking: (workspace, rawManifest: Record<string, any>) => {
           // preserve workspace: descriptors
-          workspace.manifest.exportTo(rawManifest);
+          const originalManifest: Record<string, any> = {};
+          workspace.manifest.exportTo(originalManifest);
+          rawManifest.dependencies = originalManifest.dependencies;
           if (this.production) {
             delete rawManifest.devDependencies;
+          } else {
+            rawManifest.devDependencies = originalManifest.devDependencies;
           }
         },
       },
