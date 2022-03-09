@@ -4,9 +4,6 @@
   "license": "BSD-2-Clause",
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
-  "contributors": [
-    "Owen Kelly <owen@owenkelly.com.au>"
-  ],
   "dependencies": {
     "@yarnpkg/cli": "^3.2.0",
     "@yarnpkg/core": "^3.2.0",

@@ -1,7 +1,8 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
 import {BaseCommand, WorkspaceRequiredError}                                         from '@yarnpkg/cli';
-import {StreamReportOptions}                                                         from '@yarnpkg/core/lib/StreamReport';
+import type {StreamReportOptions}                                                    from '@yarnpkg/core/lib/StreamReport';
 import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
+import {Hooks as PackHooks}                                                          from '@yarnpkg/plugin-pack';
 import {Command, Usage, Option}                                                      from 'clipanion';
 
 import {ExportCache}                                                                 from '../ExportCache';
@@ -21,6 +22,10 @@ import {
   CommandContext,
   scriptUtils,
   ReportError,
+  InstallMode,
+  Plugin,
+  Manifest,
+  WorkspaceResolver,
 } from '@yarnpkg/core';
 import {
   CwdFS,
@@ -42,12 +47,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
     `--production`,
     false,
     {description: `Only install regular dependencies by omitting dev dependencies`},
-  );
-
-  noCache: boolean = Option.Boolean(
-    `--no-cache`,
-    false,
-    {description: `Do not cache archive contents in the configured \`exportCacheFolder\``},
   );
 
   skipPackLifecycle: boolean = Option.Boolean(
@@ -99,6 +98,19 @@ export default class WorkspacesExportCommand extends BaseCommand {
     const {[MAIN_CONTEXT]: mainContext, [EXPORT_PHASE]: exportPhase} = this.context as any;
 
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
+
+    configuration.activatePlugin(`@yarnpkg/plugin-workspaces-export/fix-dependencies`, {
+      hooks: {
+        beforeWorkspacePacking: (workspace, rawManifest: Record<string, any>) => {
+          // preserve workspace: descriptors
+          workspace.manifest.exportTo(rawManifest);
+          if (this.production) {
+            delete rawManifest.devDependencies;
+          }
+        },
+      },
+    } as Plugin<PackHooks>);
+
     const {project, workspace} = await Project.find(configuration, this.context.cwd);
 
     if (!workspace)
@@ -126,7 +138,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
         if (this.json) exportCommand.push(`--json`);
         if (this.production) exportCommand.push(`--production`);
-        if (this.noCache) exportCommand.push(`--no-cache`);
         if (this.skipPackLifecycle)
           exportCommand.push(`--skip-pack-lifecycle`);
         else
@@ -179,16 +190,21 @@ export default class WorkspacesExportCommand extends BaseCommand {
           if (!exportWorkspaces.includes(structUtils.stringifyIdent(workspace.locator)))
             return;
 
-          const cacheDir = this.noCache ? await xfs.mktempPromise() : await makeExportDir(workspace);
+          const cacheDir = await makeExportDir(workspace);
           report.reportJson({base: workspace.cwd, cacheDir});
           const baseFs = new CwdFS(cacheDir);
 
-          // remove files generated during pack
-          const preservePaths = nodeLinker === `pnp` ? [Filename.pnpCjs, `.pnp`] : [Filename.nodeModules];
+          // remove files generated during the previous run
+          const pathsToRemove: Set<PortablePath> = new Set(await baseFs.readdirPromise(PortablePath.dot));
+          pathsToRemove.delete(`.yarn` as PortablePath);
+          pathsToRemove.delete(Filename.nodeModules);
+          // workspaces artifacts should never be cached
+          pathsToRemove.add(`.yarn/bundled` as PortablePath);
+          // node-modules linker only re-links workspaces when their locator hashes change
+          // so we must invalidate its install state every time
+          pathsToRemove.add(`${Filename.nodeModules}/.yarn-state.yml` as Filename);
           await Promise.all(
-            (await baseFs.readdirPromise(PortablePath.dot))
-              .filter(pathname => !preservePaths.includes(pathname))
-              .map(pathname => xfs.removePromise(baseFs.resolve(pathname))),
+            [...pathsToRemove].map(pathname => xfs.removePromise(baseFs.resolve(pathname), {recursive: true})),
           );
 
           const tgz = await genPackTgz(workspace);
@@ -198,22 +214,21 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           const tmpConfiguration = Configuration.create(cacheDir, cacheDir, configuration.plugins);
 
+          tmpConfiguration.values.set(`compressionLevel`, configuration.get(`compressionLevel`));
           tmpConfiguration.values.set(`enableNetwork`, false);
           tmpConfiguration.values.set(`enableMirror`, false);
           tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
           tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
+          tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.yarn/packages` as PortablePath));
 
-          if (nodeLinker === `pnp`) {
-            // remove references to Yarn in the target archive as PnP's runtime does not depend on Yarn
-            tmpConfiguration.values.set(`installStatePath`, ppath.join(cacheDir, `.pnp/install-state.gz` as Filename));
-            tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.pnp/packages` as PortablePath));
-            tmpConfiguration.values.set(`pnpUnpluggedFolder`, ppath.join(cacheDir, `.pnp/unplugged` as PortablePath));
-            tmpConfiguration.values.set(`virtualFolder`, ppath.join(cacheDir, `.pnp/${Filename.virtual}` as PortablePath));
-          } else {
-            tmpConfiguration.values.set(`installStatePath`, ppath.join(cacheDir, `${Filename.nodeModules}/.yarn-install-state.gz` as Filename));
-            tmpConfiguration.values.set(`cacheFolder`, await xfs.mktempPromise());
-          }
+          await Configuration.updateConfiguration(cacheDir, {
+            cacheFolder: tmpConfiguration.get(`cacheFolder`),
+            enableNetwork: tmpConfiguration.get(`enableNetwork`),
+            enableMirror: tmpConfiguration.get(`enableMirror`),
+            nodeLinker,
+            packageExtensions: tmpConfiguration.get(`packageExtensions`),
+          });
 
           await tmpConfiguration.refreshPackageExtensions();
 
@@ -222,34 +237,39 @@ export default class WorkspacesExportCommand extends BaseCommand {
           if (!tmpWorkspace)
             throw new WorkspaceRequiredError(tmpProject.cwd, cacheDir);
 
-          // restore original `workspace:` references stripped by plugin-pack
-          tmpWorkspace.manifest.dependencies = workspace.manifest.dependencies;
-          tmpWorkspace.manifest.peerDependencies = workspace.manifest.peerDependencies;
-          if (this.production)
-            workspace.manifest.devDependencies.clear();
-          else
-            tmpWorkspace.manifest.devDependencies = workspace.manifest.devDependencies;
           tmpWorkspace.manifest.resolutions = project.topLevelWorkspace.manifest.resolutions;
+          tmpWorkspace.manifest.workspaceDefinitions = [{pattern: `.yarn/bundled/*`}];
 
+          for (const dependency of workspace.getRecursiveWorkspaceDependencies({
+            dependencies: this.production ? [`dependencies`] : Manifest.hardDependencies,
+          })) {
+            // The following is rather hacky. This overwrites the relative cwd
+            // for workspace dependencies to the new location in the exported
+            // project. The absolute cwd is preserved so that the fetcher is
+            // still able to pack the workspace.
+
+            // @ts-expect-error
+            dependency.relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.locator)}` as PortablePath;
+            // @ts-expect-error
+            dependency.anchoredDescriptor = structUtils.makeDescriptor(dependency.locator, `${WorkspaceResolver.protocol}${dependency.relativeCwd}`);
+            // @ts-expect-error
+            dependency.anchoredLocator = structUtils.makeLocator(dependency.locator, `${WorkspaceResolver.protocol}${dependency.relativeCwd}`);
+            tmpProject.workspaces.push(dependency);
+            tmpProject.workspacesByCwd.set(ppath.resolve(tmpProject.cwd, dependency.relativeCwd), dependency);
+            tmpProject.workspacesByIdent.set(dependency.locator.identHash, dependency);
+          }
           await tmpProject.restoreInstallState({restoreResolutions: false});
+
           report.reportInfo(MessageName.UNNAMED, `Linking the exported workspace`);
+
           await tmpProject.install({
             cache: await ExportCache.find(tmpConfiguration, cache),
+            mode: InstallMode.SkipBuild,
             fetcher: makeFetcher(project),
             resolver: makeResolver(project),
             report,
-            persistProject: false,
+            persistProject: true,
           });
-          await baseFs.removePromise(DEFAULT_LOCK_FILENAME);
-
-          if (nodeLinker !== `pnp`) {
-            // node-modules linker only monitors workspaces for locator hash changes
-            // so we must invalidate the install state after build
-            await Promise.all([
-              baseFs.removePromise(`${Filename.nodeModules}/.yarn-state.yml` as Filename),
-              baseFs.removePromise(`${Filename.nodeModules}/.yarn-install-state.gz` as Filename),
-            ]);
-          }
 
           const extname = ppath.basename(target).split(`.`).slice(1).join(`.`);
           switch (extname) {

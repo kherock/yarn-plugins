@@ -25,7 +25,7 @@ export const makeFetcher = (project: Project) => {
 
   return new MultiFetcher([
     new VirtualFetcher(),
-    new WorkspacePackFetcher(project),
+    new WorkspacePackFetcher(),
 
     ...pluginFetchers,
   ]);
@@ -45,7 +45,7 @@ export const makeResolver = (project: Project) => {
 
   return new MultiResolver([
     new VirtualResolver(),
-    new WorkspacePackResolver(project),
+    new WorkspacePackResolver(),
     new ProtocolResolver(),
 
     ...pluginResolvers,

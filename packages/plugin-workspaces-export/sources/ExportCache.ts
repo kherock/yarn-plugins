@@ -2,32 +2,24 @@ import {Cache, Configuration, Locator, LocatorHash, structUtils, WorkspaceResolv
 import {FakeFS, JailFS, NodeFS, PortablePath, ppath, xfs, ZipFS}                    from '@yarnpkg/fslib';
 
 export class ExportCache extends Cache {
-  private nodeLinker: string;
   private parentCache: Cache;
   private parentMirror: Map<string, PortablePath> = new Map();
   private workspaceMutexes: Map<LocatorHash, Promise<PortablePath>> = new Map();
 
   static async find(configuration: Configuration, parentCache: Cache) {
-    const nodeLinker = configuration.get(`nodeLinker`);
-    const cache = new ExportCache(configuration.get(`cacheFolder`), {configuration, nodeLinker, parentCache});
+    const cache = new ExportCache(configuration.get(`cacheFolder`), {configuration, parentCache});
     await cache.setup();
 
     return cache;
   }
 
-  constructor(cacheCwd: PortablePath, {configuration, nodeLinker, parentCache}: {
+  constructor(cacheCwd: PortablePath, {configuration, parentCache}: {
     configuration: Configuration;
-    nodeLinker: string;
     parentCache: Cache;
   }) {
     super(cacheCwd, {configuration});
-    this.nodeLinker = nodeLinker;
     this.parentCache = parentCache;
   }
-
-  // get mirrorCwd() {
-  //   return this.nodeLinker === `node-modules` ? null : this.parentCache.cwd;
-  // }
 
   getLocatorMirrorPath(locator: Locator) {
     return this.parentMirror.get(structUtils.slugifyLocator(locator)) ?? null;
@@ -48,7 +40,7 @@ export class ExportCache extends Cache {
     const baseFs = new NodeFS();
 
     const loadWorkspaceThroughMutex = async () => {
-      const cachePath = ppath.resolve(this.cwd, `../workspaces` as PortablePath, structUtils.stringifyIdent(locator) as PortablePath);
+      const cachePath = ppath.resolve(this.cwd, `../bundled` as PortablePath, structUtils.slugifyLocator(locator) as PortablePath);
 
       const mutexedLoad = async () => {
         const cacheExists = await baseFs.existsPromise(cachePath);
@@ -70,11 +62,6 @@ export class ExportCache extends Cache {
         this.workspaceMutexes.delete(locator.locatorHash);
       }
     };
-
-    if (this.nodeLinker !== `pnp`)
-      return locator.reference.startsWith(WorkspaceResolver.protocol)
-        ? await super.fetchPackageFromCache(locator, expectedChecksum, {loader})
-        : await this.parentCache.fetchPackageFromCache(locator, expectedChecksum, {loader});
 
     if (!locator.reference.startsWith(WorkspaceResolver.protocol))
       return await super.fetchPackageFromCache(locator, expectedChecksum, {loader});
