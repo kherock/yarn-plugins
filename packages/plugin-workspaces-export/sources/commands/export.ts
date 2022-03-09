@@ -229,6 +229,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             nodeLinker,
             packageExtensions: tmpConfiguration.get(`packageExtensions`),
           });
+          await this.cli.run([`set`, `version`, `self`], {...mainContext, cwd: cacheDir, quiet: true});
 
           await tmpConfiguration.refreshPackageExtensions();
 
@@ -237,6 +238,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           if (!tmpWorkspace)
             throw new WorkspaceRequiredError(tmpProject.cwd, cacheDir);
 
+          tmpWorkspace.manifest.packageManager = project.topLevelWorkspace.manifest.packageManager;
           tmpWorkspace.manifest.resolutions = project.topLevelWorkspace.manifest.resolutions;
           tmpWorkspace.manifest.workspaceDefinitions = [{pattern: `.yarn/bundled/*`}];
 
