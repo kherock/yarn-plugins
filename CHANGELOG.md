@@ -1,3 +1,15 @@
+## [22.3.0](https://github.com/kherock/yarn-plugins/compare/v22.1.1...v22.3.0) (2022-03-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **plugin-workspaces-export:** skip build scripts during export and support running yarn commands on the exported project
+
+### Features
+
+* **plugin-workspaces-export:** skip build scripts during export and support running yarn commands on the exported project ([0793282](https://github.com/kherock/yarn-plugins/commit/0793282dcce69b9053e53545af20d69dbf2e5233))
+* **plugin-workspaces-export:** support exporting multiple workspaces at once ([0196600](https://github.com/kherock/yarn-plugins/commit/01966000a6969b94044983994f3f4fda81ca0206))
+
 ## [22.1.1](https://github.com/kherock/yarn-plugins/compare/v22.1.0...v22.1.1) (2022-01-24)
 
 
