@@ -223,7 +223,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.yarn/packages` as PortablePath));
 
           await Configuration.updateConfiguration(cacheDir, {
-            cacheFolder: tmpConfiguration.get(`cacheFolder`),
+            cacheFolder: `.yarn/packages` as PortablePath,
             enableNetwork: tmpConfiguration.get(`enableNetwork`),
             enableMirror: tmpConfiguration.get(`enableMirror`),
             nodeLinker,
