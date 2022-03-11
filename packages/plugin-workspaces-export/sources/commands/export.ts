@@ -255,7 +255,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             // still able to pack the workspace.
 
             // @ts-expect-error
-            dependency.relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.locator)}` as PortablePath;
+            dependency.relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.anchoredLocator)}` as PortablePath;
             // @ts-expect-error
             dependency.anchoredDescriptor = structUtils.makeDescriptor(dependency.locator, `${WorkspaceResolver.protocol}${dependency.relativeCwd}`);
             // @ts-expect-error
