@@ -1,3 +1,10 @@
+## [22.3.2](https://github.com/kherock/yarn-plugins/compare/v22.3.1...v22.3.2) (2022-03-11)
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** fix resolved bundled workspace path in exported yarn.lock ([a2ede53](https://github.com/kherock/yarn-plugins/commit/a2ede536b9f86f441498c5487f9febd5c4e89094))
+
 ## [22.3.1](https://github.com/kherock/yarn-plugins/compare/v22.3.0...v22.3.1) (2022-03-09)
 
 
