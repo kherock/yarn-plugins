@@ -14,7 +14,7 @@
   "devDependencies": {
     "@kherock/pnp-esm-loader-typescript": "workspace:*",
     "@yarnpkg/builder": "^3.2.0",
-    "typescript": "~4.5.5"
+    "typescript": "~4.6.3"
   },
   "peerDependencies": {
     "esbuild": "*"
