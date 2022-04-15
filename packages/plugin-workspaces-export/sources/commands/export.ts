@@ -1,5 +1,6 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
 import {BaseCommand, WorkspaceRequiredError}                                         from '@yarnpkg/cli';
+import type {SupportedArchitectures}                                                 from '@yarnpkg/core/lib/Configuration';
 import type {StreamReportOptions}                                                    from '@yarnpkg/core/lib/StreamReport';
 import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
 import {Hooks as PackHooks}                                                          from '@yarnpkg/plugin-pack';
@@ -26,6 +27,9 @@ import {
   Plugin,
   Manifest,
   WorkspaceResolver,
+  stringifyMessageName,
+  miscUtils,
+  ConfigurationValueMap,
 } from '@yarnpkg/core';
 import {
   CwdFS,
@@ -39,6 +43,8 @@ import {
 
 const MAIN_CONTEXT = Symbol(`MAIN_CONTEXT`);
 const EXPORT_PHASE = Symbol(`EXPORT_PHASE`);
+
+type LogFilter = miscUtils.MapValueToObjectValue<ConfigurationValueMap['logFilters'][number]>;
 
 export default class WorkspacesExportCommand extends BaseCommand {
   json: boolean = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
@@ -98,6 +104,11 @@ export default class WorkspacesExportCommand extends BaseCommand {
     const {[MAIN_CONTEXT]: mainContext, [EXPORT_PHASE]: exportPhase} = this.context as any;
 
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
+    const ghostArchitectureFilter = new Map(Object.entries({
+      code: stringifyMessageName(MessageName.GHOST_ARCHITECTURE),
+      level: formatUtils.LogLevel.Discard,
+    } as LogFilter));
+    configuration.get(`logFilters`).push(ghostArchitectureFilter as any);
 
     configuration.activatePlugin(`@yarnpkg/plugin-workspaces-export/fix-dependencies`, {
       hooks: {
@@ -215,7 +226,14 @@ export default class WorkspacesExportCommand extends BaseCommand {
           await tgzUtils.extractArchiveTo(tgz, baseFs, {stripComponents: 1});
           const lockfilePath = ppath.join(project.cwd, configuration.get(`lockfileFilename`));
           await baseFs.copyPromise(DEFAULT_LOCK_FILENAME, lockfilePath);
-
+          const supportedArchitectures = miscUtils.convertMapsToIndexableObjects(configuration.get(`supportedArchitectures`));
+          const exportedArchitectures = configuration.get(`exportedArchitectures`);
+          for (const key of (Object.keys(supportedArchitectures) as Array<keyof SupportedArchitectures>)) {
+            const value = exportedArchitectures.get(key);
+            if (value) {
+              supportedArchitectures[key] = value;
+            }
+          }
           const tmpConfiguration = Configuration.create(cacheDir, cacheDir, configuration.plugins);
 
           tmpConfiguration.values.set(`compressionLevel`, configuration.get(`compressionLevel`));
@@ -224,6 +242,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
           tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
+          tmpConfiguration.values.set(`supportedArchitectures`, new Map(Object.entries(supportedArchitectures)));
           tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.yarn/packages` as PortablePath));
 
           await Configuration.updateConfiguration(cacheDir, {
@@ -232,6 +251,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             enableMirror: tmpConfiguration.get(`enableMirror`),
             nodeLinker,
             packageExtensions: tmpConfiguration.get(`packageExtensions`),
+            supportedArchitectures,
           });
           await this.cli.run([`set`, `version`, `self`], {...mainContext, cwd: cacheDir, quiet: true});
 

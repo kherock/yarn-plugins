@@ -1,3 +1,4 @@
+import type {CacheOptions}                                                          from '@yarnpkg/core/lib/Cache';
 import {Cache, Configuration, Locator, LocatorHash, structUtils, WorkspaceResolver} from '@yarnpkg/core';
 import {FakeFS, JailFS, NodeFS, PortablePath, ppath, xfs, ZipFS}                    from '@yarnpkg/fslib';
 
@@ -36,7 +37,7 @@ export class ExportCache extends Cache {
     }
   }
 
-  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader}: {loader?: () => Promise<ZipFS>}): Promise<[FakeFS<PortablePath>, () => void, string | null]> {
+  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader, ...opts}: {loader?: () => Promise<ZipFS>} & CacheOptions): Promise<[FakeFS<PortablePath>, () => void, string | null]> {
     const baseFs = new NodeFS();
 
     const loadWorkspaceThroughMutex = async () => {
@@ -64,13 +65,13 @@ export class ExportCache extends Cache {
     };
 
     if (!locator.reference.startsWith(WorkspaceResolver.protocol))
-      return await super.fetchPackageFromCache(locator, expectedChecksum, {loader});
+      return await super.fetchPackageFromCache(locator, expectedChecksum, {loader, ...opts, skipIntegrityCheck: true});
 
     for (let mutex; (mutex = this.workspaceMutexes.get(locator.locatorHash));)
       await mutex;
 
     const cachePath = await loadWorkspaceThroughMutex();
 
-    return [new JailFS(cachePath, {baseFs}), () => {}, null as unknown as string];
+    return [new JailFS(cachePath, {baseFs}), () => {}, null];
   }
 }
