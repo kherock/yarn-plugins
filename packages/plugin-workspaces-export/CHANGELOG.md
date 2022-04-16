@@ -1,3 +1,15 @@
+## [3.1.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.0.2...@kherock/yarn-plugin-workspaces-export@3.1.0) (2022-04-16)
+
+
+### Features
+
+* **plugin-workspaces-export:** support Yarn 3.2's conditional dependency fetching ([dc77c53](https://github.com/kherock/yarn-plugins/commit/dc77c5314dccfed2830f37df097357af26114e43))
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** clean up logging output when exporting multiple workspaces with inline builds ([df9224f](https://github.com/kherock/yarn-plugins/commit/df9224f1342a6df2369b0c50a2c13cf1d6ac2812))
+
 ## [3.0.2](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.0.1...@kherock/yarn-plugin-workspaces-export@3.0.2) (2022-03-11)
 
 
