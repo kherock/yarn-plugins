@@ -1,7 +1,6 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
 import {BaseCommand, WorkspaceRequiredError}                                         from '@yarnpkg/cli';
 import type {SupportedArchitectures}                                                 from '@yarnpkg/core/lib/Configuration';
-import type {StreamReportOptions}                                                    from '@yarnpkg/core/lib/StreamReport';
 import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
 import {Hooks as PackHooks}                                                          from '@yarnpkg/plugin-pack';
 import {Command, Usage, Option}                                                      from 'clipanion';
@@ -30,6 +29,7 @@ import {
   stringifyMessageName,
   miscUtils,
   ConfigurationValueMap,
+  LightReport,
 } from '@yarnpkg/core';
 import {
   CwdFS,
@@ -41,10 +41,9 @@ import {
   xfs,
 } from '@yarnpkg/fslib';
 
-const MAIN_CONTEXT = Symbol(`MAIN_CONTEXT`);
-const EXPORT_PHASE = Symbol(`EXPORT_PHASE`);
-
 type LogFilter = miscUtils.MapValueToObjectValue<ConfigurationValueMap['logFilters'][number]>;
+
+const EXPORT_PHASE = Symbol(`EXPORT_PHASE`);
 
 export default class WorkspacesExportCommand extends BaseCommand {
   json: boolean = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
@@ -101,14 +100,15 @@ export default class WorkspacesExportCommand extends BaseCommand {
   static paths = [[`workspaces`, `export`]];
 
   async execute() {
-    const {[MAIN_CONTEXT]: mainContext, [EXPORT_PHASE]: exportPhase} = this.context as any;
+    const {[EXPORT_PHASE]: exportPhase} = this.context as any;
 
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
-    const ghostArchitectureFilter = new Map(Object.entries({
+    configuration.values.set(`preferAggregateCacheInfo`, true);
+    const ghostArchitectureFilter = {
       code: stringifyMessageName(MessageName.GHOST_ARCHITECTURE),
       level: formatUtils.LogLevel.Discard,
-    } as LogFilter));
-    configuration.get(`logFilters`).push(ghostArchitectureFilter as any);
+    } as LogFilter;
+    configuration.get(`logFilters`).push(new Map(Object.entries(ghostArchitectureFilter)) as any);
 
     configuration.activatePlugin(`@yarnpkg/plugin-workspaces-export/fix-dependencies`, {
       hooks: {
@@ -132,22 +132,12 @@ export default class WorkspacesExportCommand extends BaseCommand {
       throw new WorkspaceRequiredError(project.cwd, this.context.cwd);
 
     const exportWorkspaces = this.workspaces.length ? this.workspaces : [structUtils.stringifyIdent(workspace.locator)];
-    if (!mainContext) {
+    if (!exportPhase) {
       const report = await StreamReport.start({
         configuration,
         stdout: this.context.stdout,
         json: this.json,
       }, async report => {
-        let commandIndex = 0;
-        const commandIndexes: Record<string, number> = {};
-        const mainContext = {
-          ...this.context,
-          getCommandIndex: (workspace: Workspace) => {
-            commandIndexes[workspace.locator.identHash] ??= commandIndex++;
-            return commandIndexes[workspace.locator.identHash];
-          },
-        };
-
         const foreachCommand = [`workspaces`, `foreach`, `--parallel`];
         const exportCommand = [`workspaces`, `export`];
 
@@ -163,19 +153,21 @@ export default class WorkspacesExportCommand extends BaseCommand {
         foreachCommand.push(...exportWorkspaces.flatMap(name => [`--from`, name])),
         exportCommand.push(...exportWorkspaces);
         try {
+          monkeyPatchNextStreamReport();
           const exitCode = await this.cli.run([
             ...foreachCommand,
             ...exportCommand,
-          ], {...this.context, [MAIN_CONTEXT]: mainContext, [EXPORT_PHASE]: `main`} as CommandContext);
+          ], {...this.context, [EXPORT_PHASE]: `main`} as CommandContext);
           if (exitCode !== 0) {
             report.reportError(MessageName.EXCEPTION, `Export failed (please check the logs above for details)`);
           }
         } finally {
           if (!this.skipPackLifecycle) {
+            monkeyPatchNextStreamReport();
             await this.cli.run([
               ...foreachCommand,
               ...exportCommand,
-            ], {...this.context, [MAIN_CONTEXT]: mainContext, [EXPORT_PHASE]: `post`} as CommandContext);
+            ], {...this.context, [EXPORT_PHASE]: `post`} as CommandContext);
           }
         }
       });
@@ -191,22 +183,22 @@ export default class WorkspacesExportCommand extends BaseCommand {
     const cache = await Cache.find(configuration, {immutable: true});
     await project.restoreInstallState();
 
-    const report = await PrefixReport.start({
+    const report = await StreamReport.start({
       configuration,
-      stdout: mainContext.stdout,
+      stdout: this.context.stdout,
       json: this.json,
-      prefix: getPrefix(workspace, {configuration, commandIndex: mainContext.getCommandIndex(workspace)}),
-      includeFooter: false,
     }, async report => {
       switch (exportPhase) {
         case `main`: {
+          const shouldExport = exportWorkspaces.includes(structUtils.stringifyIdent(workspace.locator));
+          if (shouldExport || !this.skipPackLifecycle)
+            report.reportInfo(null, `Processing ${formatUtils.pretty(configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
           if (!this.skipPackLifecycle)
             await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `prepack`, {report});
-          if (!exportWorkspaces.includes(structUtils.stringifyIdent(workspace.locator)))
+          if (!shouldExport)
             return;
 
           const cacheDir = await makeExportDir(workspace);
-          report.reportJson({base: workspace.cwd, cacheDir});
           const baseFs = new CwdFS(cacheDir);
 
           // remove files generated during the previous run
@@ -244,6 +236,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
           tmpConfiguration.values.set(`supportedArchitectures`, new Map(Object.entries(supportedArchitectures)));
           tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.yarn/packages` as PortablePath));
+          tmpConfiguration.values.set(`preferAggregateCacheInfo`, true);
 
           await Configuration.updateConfiguration(cacheDir, {
             cacheFolder: `.yarn/packages` as PortablePath,
@@ -253,7 +246,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
             packageExtensions: tmpConfiguration.get(`packageExtensions`),
             supportedArchitectures,
           });
-          await this.cli.run([`set`, `version`, `self`], {...mainContext, cwd: cacheDir, quiet: true});
 
           await tmpConfiguration.refreshPackageExtensions();
 
@@ -296,6 +288,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
             report,
             persistProject: true,
           });
+          if (configuration.get(`yarnPath`))
+            await this.cli.run([`set`, `version`, `self`], {...this.context, cwd: cacheDir, quiet: true});
 
           const extname = ppath.basename(target).split(`.`).slice(1).join(`.`);
           switch (extname) {
@@ -334,13 +328,14 @@ export default class WorkspacesExportCommand extends BaseCommand {
               break;
             }
             default:
-              throw new ReportError(MessageName.EXCEPTION, `Unsupported output format '.${extname}'`);
+              throw new ReportError(MessageName.EXCEPTION, `Unexpected output format '.${extname}'`);
           }
 
           report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(configuration, target, `magenta`)}`);
           break;
         }
         case `post`:
+          report.reportInfo(null, `Cleaning ${formatUtils.pretty(configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
           await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postpack`, {report});
           break;
       }
@@ -373,47 +368,17 @@ function prettyWorkspaceVersion(workspace: Workspace) {
   }
 }
 
-interface PrefixReportOptions extends StreamReportOptions {
-  prefix: string;
-}
-
-// @ts-expect-error
-class PrefixReport extends StreamReport {
-  static async start(opts: PrefixReportOptions, cb: (report: StreamReport) => Promise<void>) {
-    return super.start(opts, cb);
-  }
-
-  private prefix: string;
-
-  constructor({prefix, ...opts}: PrefixReportOptions) {
-    super(opts);
-
-    this.prefix = prefix;
-  }
-
-  protected formatNameWithHyperlink(name: MessageName | null) {
+class LightInfoReport extends LightReport {
+  reportInfo(name: MessageName | null, text: string): void {
     // eslint-disable-next-line dot-notation
-    const formattedName = super[`formatNameWithHyperlink`](name);
-    if (!formattedName)
-      return null;
-
-    return `${formattedName}: ${this.prefix}`;
+    this[`stdout`].write(`${text}\n`);
   }
 }
 
-type GetPrefixOptions = {
-  configuration: Configuration;
-  commandIndex: number;
-};
-
-function getPrefix(workspace: Workspace, {configuration, commandIndex}: GetPrefixOptions) {
-  const ident = structUtils.convertToIdent(workspace.locator);
-  const name = structUtils.stringifyIdent(ident);
-
-  const prefix = `[${name}]`;
-
-  const colors = [`#2E86AB`, `#A23B72`, `#F18F01`, `#C73E1D`, `#CCE2A3`];
-  const colorName = colors[commandIndex % colors.length];
-
-  return formatUtils.pretty(configuration, prefix, colorName);
+function monkeyPatchNextStreamReport() {
+  const {start} = StreamReport;
+  StreamReport.start = function (opts, cb: any) {
+    this.start = start;
+    return LightInfoReport.start(opts, cb) as any;
+  };
 }
