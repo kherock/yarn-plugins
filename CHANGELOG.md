@@ -1,3 +1,11 @@
+## [22.4.1](https://github.com/kherock/yarn-plugins/compare/v22.4.0...v22.4.1) (2022-04-18)
+
+
+### Performance Improvements
+
+* **plugin-workspaces-export:** share parsed project context for all exported workspaces ([26310dd](https://github.com/kherock/yarn-plugins/commit/26310ddac9f8c5037716305fe1c9c9418beb41dc))
+* **plugin-workspaces-export:** support skipping the cache when the output is a folder ([715fca0](https://github.com/kherock/yarn-plugins/commit/715fca02cb3372ccfd3bc039c027ac7030a1f847))
+
 ## [22.4.0](https://github.com/kherock/yarn-plugins/compare/v22.3.2...v22.4.0) (2022-04-16)
 
 
