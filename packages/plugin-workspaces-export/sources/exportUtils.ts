@@ -52,11 +52,11 @@ export const makeResolver = (project: Project) => {
   ]);
 };
 
-export const makeExportDir = async ({locator, project}: Workspace) => {
+export const makeExportFs = async ({locator, project}: Workspace) => {
   const exportCacheFolder = project.configuration.get(`exportCacheFolder`);
   const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(locator) as PortablePath);
   await xfs.mkdirPromise(exportDir, {recursive: true});
-  return exportDir;
+  return new CwdFS(exportDir);
 };
 
 export const genPackTgz = async (workspace: Workspace) => {

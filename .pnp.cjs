@@ -1504,6 +1504,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/plugin-workspaces-export/",\
           "packageDependencies": [\
             ["@kherock/yarn-plugin-workspaces-export", "workspace:packages/plugin-workspaces-export"],\
+            ["@types/micromatch", "npm:4.0.2"],\
             ["@types/semver", "npm:7.3.9"],\
             ["@types/tar-stream", "npm:2.2.2"],\
             ["@yarnpkg/builder", "npm:3.2.0"],\
@@ -1514,6 +1515,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/plugin-pack", "virtual:cb4ab4bbc3a3da4942d7b53811e3571b1b931131991391f068b15233e176bc3da2411a0ce8682885f4ccd3d34d45c1e346d1dae9ac057a581560d179f5b27d76#npm:3.1.1"],\
             ["@yarnpkg/plugin-pnp", "virtual:cb4ab4bbc3a3da4942d7b53811e3571b1b931131991391f068b15233e176bc3da2411a0ce8682885f4ccd3d34d45c1e346d1dae9ac057a581560d179f5b27d76#npm:3.2.0"],\
             ["clipanion", "virtual:3ba8593abadce1936da431326f0d41b91577243ea86de8a41b0ee8992a0fde2d6baa997ca11931a9f32085a95cb3b4fb967bdb5fd31e1140ec5259ac3f242348#npm:3.2.0-rc.10"],\
+            ["micromatch", "npm:4.0.5"],\
             ["semver", "npm:7.3.7"],\
             ["tar-stream", "npm:2.2.0"],\
             ["tslib", "npm:2.3.1"],\
@@ -1821,6 +1823,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/braces", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-braces-npm-3.0.1-0c7465c9fb-3749f7673a.zip/node_modules/@types/braces/",\
+          "packageDependencies": [\
+            ["@types/braces", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/cacheable-request", [\
         ["npm:6.0.2", {\
           "packageLocation": "./.yarn/cache/@types-cacheable-request-npm-6.0.2-894b6992d5-667d25808d.zip/node_modules/@types/cacheable-request/",\
@@ -2039,6 +2050,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.181-a4e20bcfaf-0d1863d838.zip/node_modules/@types/lodash/",\
           "packageDependencies": [\
             ["@types/lodash", "npm:4.14.181"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/micromatch", [\
+        ["npm:4.0.2", {\
+          "packageLocation": "./.yarn/cache/@types-micromatch-npm-4.0.2-f1717d74e1-6c678e9c62.zip/node_modules/@types/micromatch/",\
+          "packageDependencies": [\
+            ["@types/micromatch", "npm:4.0.2"],\
+            ["@types/braces", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\

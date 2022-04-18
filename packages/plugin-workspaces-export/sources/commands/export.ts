@@ -1,12 +1,13 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
-import {BaseCommand, WorkspaceRequiredError}                                         from '@yarnpkg/cli';
-import type {SupportedArchitectures}                                                 from '@yarnpkg/core/lib/Configuration';
-import {getLibzipPromise}                                                            from '@yarnpkg/libzip';
-import {Hooks as PackHooks}                                                          from '@yarnpkg/plugin-pack';
-import {Command, Usage, Option}                                                      from 'clipanion';
+import {BaseCommand, WorkspaceRequiredError}                                        from '@yarnpkg/cli';
+import type {SupportedArchitectures}                                                from '@yarnpkg/core/lib/Configuration';
+import {getLibzipPromise}                                                           from '@yarnpkg/libzip';
+import {Hooks as PackHooks}                                                         from '@yarnpkg/plugin-pack';
+import {Command, Usage, Option}                                                     from 'clipanion';
+import micromatch                                                                   from 'micromatch';
 
-import {ExportCache}                                                                 from '../ExportCache';
-import {genPackTgz, makeExportDir, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
+import {ExportCache}                                                                from '../ExportCache';
+import {genPackTgz, makeExportFs, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
 
 import {
   DEFAULT_LOCK_FILENAME,
@@ -32,7 +33,6 @@ import {
   LightReport,
 } from '@yarnpkg/core';
 import {
-  CwdFS,
   Filename,
   PortablePath,
   ZipFS,
@@ -43,7 +43,15 @@ import {
 
 type LogFilter = miscUtils.MapValueToObjectValue<ConfigurationValueMap['logFilters'][number]>;
 
-const EXPORT_PHASE = Symbol(`EXPORT_PHASE`);
+const EXPORT_CONTEXT = Symbol(`EXPORT_CONTEXT`);
+
+interface ExportContext {
+  phase: 'main' | 'post';
+  format: 'zip' | 'tarball' | 'dir';
+  project: Project;
+  cache: Cache;
+  exportWorkspaces: Set<Workspace>;
+}
 
 export default class WorkspacesExportCommand extends BaseCommand {
   json: boolean = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
@@ -65,9 +73,9 @@ export default class WorkspacesExportCommand extends BaseCommand {
     {description: `Override the project's nodeLinker option in the exported archive`},
   );
 
-  out?: string = Option.String(`-o,--out`, {description: `Create the archive at the specified path`});
+  out: string = Option.String(`-o,--out`, `workspace.zip`, {description: `Create the archive at the specified path`});
 
-  workspaces: Array<string> = Option.Rest();
+  from: Array<string> = Option.Rest();
 
   static usage: Usage = Command.Usage({
     category: `Workspace-related commands`,
@@ -100,44 +108,72 @@ export default class WorkspacesExportCommand extends BaseCommand {
   static paths = [[`workspaces`, `export`]];
 
   async execute() {
-    const {[EXPORT_PHASE]: exportPhase} = this.context as any;
+    const {[EXPORT_CONTEXT]: exportContext} = this.context as CommandContext & { [EXPORT_CONTEXT]: ExportContext};
 
-    const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
-    configuration.values.set(`preferAggregateCacheInfo`, true);
-    const ghostArchitectureFilter = {
-      code: stringifyMessageName(MessageName.GHOST_ARCHITECTURE),
-      level: formatUtils.LogLevel.Discard,
-    } as LogFilter;
-    configuration.get(`logFilters`).push(new Map(Object.entries(ghostArchitectureFilter)) as any);
+    if (!exportContext) {
+      const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
+      configuration.values.set(`preferAggregateCacheInfo`, true);
+      const ghostArchitectureFilter = {
+        code: stringifyMessageName(MessageName.GHOST_ARCHITECTURE),
+        level: formatUtils.LogLevel.Discard,
+      } as LogFilter;
+      configuration.get(`logFilters`).push(new Map(Object.entries(ghostArchitectureFilter)) as any);
 
-    configuration.activatePlugin(`@yarnpkg/plugin-workspaces-export/fix-dependencies`, {
-      hooks: {
-        beforeWorkspacePacking: (workspace, rawManifest: Record<string, any>) => {
-          // preserve workspace: descriptors
-          const originalManifest: Record<string, any> = {};
-          workspace.manifest.exportTo(originalManifest);
-          rawManifest.dependencies = originalManifest.dependencies;
-          if (this.production) {
-            delete rawManifest.devDependencies;
-          } else {
-            rawManifest.devDependencies = originalManifest.devDependencies;
-          }
+      configuration.activatePlugin(`@yarnpkg/plugin-workspaces-export/fix-dependencies`, {
+        hooks: {
+          beforeWorkspacePacking: (workspace, rawManifest: Record<string, any>) => {
+            // preserve workspace: descriptors
+            const originalManifest: Record<string, any> = {};
+            workspace.manifest.exportTo(originalManifest);
+            rawManifest.dependencies = originalManifest.dependencies;
+            if (this.production) {
+              delete rawManifest.devDependencies;
+            } else {
+              rawManifest.devDependencies = originalManifest.devDependencies;
+            }
+          },
         },
-      },
-    } as Plugin<PackHooks>);
+      } as Plugin<PackHooks>);
 
-    const {project, workspace} = await Project.find(configuration, this.context.cwd);
+      const {project, workspace} = await Project.find(configuration, this.context.cwd);
 
-    if (!workspace)
-      throw new WorkspaceRequiredError(project.cwd, this.context.cwd);
+      if (!workspace)
+        throw new WorkspaceRequiredError(project.cwd, this.context.cwd);
 
-    const exportWorkspaces = this.workspaces.length ? this.workspaces : [structUtils.stringifyIdent(workspace.locator)];
-    if (!exportPhase) {
+      if (!this.skipPackLifecycle)
+        await project.restoreInstallState();
+
       const report = await StreamReport.start({
         configuration,
         stdout: this.context.stdout,
         json: this.json,
       }, async report => {
+        const [extname] = /(\..*)?$/.exec(ppath.basename(this.out as Filename))!;
+        let format: ExportContext['format'];
+        switch (extname) {
+          case `.zip`:
+            format = `zip`;
+            break;
+          case `.tgz`:
+          case `.tar.gz`:
+            format = `tarball`;
+            break;
+          case ``:
+            format = `dir`;
+            break;
+          default:
+            throw new ReportError(MessageName.EXCEPTION, `Unexpected output format '${extname}'`);
+        }
+        const exportCandidates = [workspace, ...(this.from.length > 0 ? workspace.getRecursiveWorkspaceChildren() : [])];
+        const fromPredicate = (workspace: Workspace) => micromatch.isMatch(structUtils.stringifyIdent(workspace.locator), this.from);
+        const exportContext: ExportContext = {
+          phase: `main`,
+          format,
+          project,
+          cache: await Cache.find(configuration, {immutable: true}),
+          exportWorkspaces: new Set(this.from.length > 0 ? exportCandidates.filter(fromPredicate) : exportCandidates),
+        };
+
         const foreachCommand = [`workspaces`, `foreach`, `--parallel`];
         const exportCommand = [`workspaces`, `export`];
 
@@ -150,56 +186,52 @@ export default class WorkspacesExportCommand extends BaseCommand {
         if (this.nodeLinker) exportCommand.push(`--node-linker`, this.nodeLinker);
         if (this.out) exportCommand.push(`--out`, this.out);
 
-        foreachCommand.push(...exportWorkspaces.flatMap(name => [`--from`, name])),
-        exportCommand.push(...exportWorkspaces);
+        foreachCommand.push(...this.from.flatMap(pattern => [`--from`, pattern]));
         try {
           monkeyPatchNextStreamReport();
           const exitCode = await this.cli.run([
             ...foreachCommand,
             ...exportCommand,
-          ], {...this.context, [EXPORT_PHASE]: `main`} as CommandContext);
+          ], {...this.context, [EXPORT_CONTEXT]: exportContext} as CommandContext);
           if (exitCode !== 0) {
             report.reportError(MessageName.EXCEPTION, `Export failed (please check the logs above for details)`);
           }
         } finally {
+          exportContext.phase = `post`;
           if (!this.skipPackLifecycle) {
             monkeyPatchNextStreamReport();
             await this.cli.run([
               ...foreachCommand,
               ...exportCommand,
-            ], {...this.context, [EXPORT_PHASE]: `post`} as CommandContext);
+            ], {...this.context, [EXPORT_CONTEXT]: exportContext} as CommandContext);
           }
         }
       });
       return report.exitCode();
     }
 
-    const nodeLinker = this.nodeLinker ?? configuration.get(`nodeLinker`) ?? `pnp`;
+    const {cache, exportWorkspaces, format, phase, project} = exportContext;
+    const workspace = project.getWorkspaceByCwd(this.context.cwd);
+    const nodeLinker = this.nodeLinker ?? project.configuration.get(`nodeLinker`);
 
-    const target = typeof this.out !== `undefined`
-      ? ppath.resolve(this.context.cwd, interpolateOutputName(this.out, {workspace}))
-      : ppath.resolve(workspace.cwd, `workspace.zip` as Filename);
-
-    const cache = await Cache.find(configuration, {immutable: true});
-    await project.restoreInstallState();
+    const target = ppath.resolve(this.context.cwd, interpolateOutputName(this.out, {workspace}));
 
     const report = await StreamReport.start({
-      configuration,
+      configuration: project.configuration,
       stdout: this.context.stdout,
       json: this.json,
     }, async report => {
-      switch (exportPhase) {
+      switch (phase) {
         case `main`: {
-          const shouldExport = exportWorkspaces.includes(structUtils.stringifyIdent(workspace.locator));
-          if (shouldExport || !this.skipPackLifecycle)
-            report.reportInfo(null, `Processing ${formatUtils.pretty(configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
+          if (exportWorkspaces.has(workspace) || !this.skipPackLifecycle)
+            report.reportInfo(null, `Processing ${formatUtils.pretty(project.configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
           if (!this.skipPackLifecycle)
             await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `prepack`, {report});
-          if (!shouldExport)
+          if (!exportWorkspaces.has(workspace))
             return;
 
-          const cacheDir = await makeExportDir(workspace);
-          const baseFs = new CwdFS(cacheDir);
+          const baseFs = await makeExportFs(workspace);
+          const stagingDir = baseFs.getRealPath();
 
           // remove files generated during the previous run
           const pathsToRemove: Set<PortablePath> = new Set(await baseFs.readdirPromise(PortablePath.dot));
@@ -216,29 +248,29 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           const tgz = await genPackTgz(workspace);
           await tgzUtils.extractArchiveTo(tgz, baseFs, {stripComponents: 1});
-          const lockfilePath = ppath.join(project.cwd, configuration.get(`lockfileFilename`));
+          const lockfilePath = ppath.join(project.cwd, project.configuration.get(`lockfileFilename`));
           await baseFs.copyPromise(DEFAULT_LOCK_FILENAME, lockfilePath);
-          const supportedArchitectures = miscUtils.convertMapsToIndexableObjects(configuration.get(`supportedArchitectures`));
-          const exportedArchitectures = configuration.get(`exportedArchitectures`);
+          const supportedArchitectures = miscUtils.convertMapsToIndexableObjects(project.configuration.get(`supportedArchitectures`));
+          const exportedArchitectures = project.configuration.get(`exportedArchitectures`);
           for (const key of (Object.keys(supportedArchitectures) as Array<keyof SupportedArchitectures>)) {
             const value = exportedArchitectures.get(key);
             if (value) {
               supportedArchitectures[key] = value;
             }
           }
-          const tmpConfiguration = Configuration.create(cacheDir, cacheDir, configuration.plugins);
+          const tmpConfiguration = Configuration.create(stagingDir, stagingDir, project.configuration.plugins);
 
-          tmpConfiguration.values.set(`compressionLevel`, configuration.get(`compressionLevel`));
+          tmpConfiguration.values.set(`compressionLevel`, project.configuration.get(`compressionLevel`));
           tmpConfiguration.values.set(`enableNetwork`, false);
           tmpConfiguration.values.set(`enableMirror`, false);
-          tmpConfiguration.values.set(`globalFolder`, configuration.get(`globalFolder`));
+          tmpConfiguration.values.set(`globalFolder`, project.configuration.get(`globalFolder`));
           tmpConfiguration.values.set(`nodeLinker`, nodeLinker);
-          tmpConfiguration.values.set(`packageExtensions`, configuration.get(`packageExtensions`));
+          tmpConfiguration.values.set(`packageExtensions`, project.configuration.get(`packageExtensions`));
           tmpConfiguration.values.set(`supportedArchitectures`, new Map(Object.entries(supportedArchitectures)));
-          tmpConfiguration.values.set(`cacheFolder`, ppath.join(cacheDir, `.yarn/packages` as PortablePath));
+          tmpConfiguration.values.set(`cacheFolder`, ppath.join(stagingDir, `.yarn/packages` as PortablePath));
           tmpConfiguration.values.set(`preferAggregateCacheInfo`, true);
 
-          await Configuration.updateConfiguration(cacheDir, {
+          await Configuration.updateConfiguration(stagingDir, {
             cacheFolder: `.yarn/packages` as PortablePath,
             enableNetwork: tmpConfiguration.get(`enableNetwork`),
             enableMirror: tmpConfiguration.get(`enableMirror`),
@@ -249,10 +281,10 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           await tmpConfiguration.refreshPackageExtensions();
 
-          const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, cacheDir);
+          const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, stagingDir);
 
           if (!tmpWorkspace)
-            throw new WorkspaceRequiredError(tmpProject.cwd, cacheDir);
+            throw new WorkspaceRequiredError(tmpProject.cwd, stagingDir);
 
           tmpWorkspace.manifest.packageManager = project.topLevelWorkspace.manifest.packageManager;
           tmpWorkspace.manifest.resolutions = project.topLevelWorkspace.manifest.resolutions;
@@ -261,22 +293,21 @@ export default class WorkspacesExportCommand extends BaseCommand {
           for (const dependency of workspace.getRecursiveWorkspaceDependencies({
             dependencies: this.production ? [`dependencies`] : Manifest.hardDependencies,
           })) {
-            // The following is rather hacky. This overwrites the relative cwd
+            // Here be dragons - This overwrites the relative cwd
             // for workspace dependencies to the new location in the exported
             // project. The absolute cwd is preserved so that the fetcher is
             // still able to pack the workspace.
-
-            // @ts-expect-error
-            dependency.relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.anchoredLocator)}` as PortablePath;
-            // @ts-expect-error
-            dependency.anchoredDescriptor = structUtils.makeDescriptor(dependency.locator, `${WorkspaceResolver.protocol}${dependency.relativeCwd}`);
-            // @ts-expect-error
-            dependency.anchoredLocator = structUtils.makeLocator(dependency.locator, `${WorkspaceResolver.protocol}${dependency.relativeCwd}`);
-            tmpProject.workspaces.push(dependency);
-            tmpProject.workspacesByCwd.set(ppath.resolve(tmpProject.cwd, dependency.relativeCwd), dependency);
-            tmpProject.workspacesByIdent.set(dependency.locator.identHash, dependency);
+            const relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.anchoredLocator)}` as PortablePath;
+            const anchoredDescriptor = structUtils.makeDescriptor(dependency.locator, `${WorkspaceResolver.protocol}${relativeCwd}`);
+            const anchoredLocator = structUtils.makeLocator(dependency.locator, `${WorkspaceResolver.protocol}${relativeCwd}`);
+            const properties: Partial<Workspace> = {relativeCwd, anchoredDescriptor, anchoredLocator};
+            const proxy = new Proxy(dependency, {
+              get: (target, prop: keyof Workspace) => properties[prop] ?? target[prop],
+            });
+            tmpProject.workspaces.push(proxy);
+            tmpProject.workspacesByCwd.set(ppath.resolve(tmpProject.cwd, proxy.relativeCwd), proxy);
+            tmpProject.workspacesByIdent.set(proxy.locator.identHash, proxy);
           }
-          await tmpProject.restoreInstallState({restoreResolutions: false});
 
           report.reportInfo(MessageName.UNNAMED, `Linking the exported workspace`);
 
@@ -288,11 +319,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
             report,
             persistProject: true,
           });
-          if (configuration.get(`yarnPath`))
-            await this.cli.run([`set`, `version`, `self`], {...this.context, cwd: cacheDir, quiet: true});
 
-          const extname = ppath.basename(target).split(`.`).slice(1).join(`.`);
-          switch (extname) {
+          switch (format) {
             case `zip`: {
               report.reportInfo(MessageName.UNNAMED, `Zipping archive`);
               report.reportJson({output: target, format: `zip`});
@@ -303,10 +331,9 @@ export default class WorkspacesExportCommand extends BaseCommand {
               await zipFs.saveAndClose();
               break;
             }
-            case `tgz`:
-            case `tar.gz`: {
+            case `tarball`: {
               report.reportInfo(MessageName.UNNAMED, `Gzipping archive`);
-              const gzip = await makeGzipFromDirectory(cacheDir);
+              const gzip = await makeGzipFromDirectory(stagingDir);
               const write = xfs.createWriteStream(target);
 
               gzip.pipe(write);
@@ -317,7 +344,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
               report.reportJson({output: target, format: `gzip`});
               break;
             }
-            case ``: {
+            case `dir`: {
               report.reportInfo(MessageName.UNNAMED, `Copying output`);
               await xfs.mkdirpPromise(target);
               const existing = await xfs.readdirPromise(target);
@@ -327,15 +354,13 @@ export default class WorkspacesExportCommand extends BaseCommand {
               report.reportJson({output: target, format: `dir`});
               break;
             }
-            default:
-              throw new ReportError(MessageName.EXCEPTION, `Unexpected output format '.${extname}'`);
           }
 
-          report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(configuration, target, `magenta`)}`);
+          report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(project.configuration, target, `magenta`)}`);
           break;
         }
         case `post`:
-          report.reportInfo(null, `Cleaning ${formatUtils.pretty(configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
+          report.reportInfo(null, `Cleaning ${formatUtils.pretty(project.configuration, workspace.anchoredLocator, formatUtils.Type.LOCATOR)}`);
           await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postpack`, {report});
           break;
       }
