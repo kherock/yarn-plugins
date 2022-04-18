@@ -1,15 +1,16 @@
-import {MultiFetcher}                                              from '@yarnpkg/core/lib/MultiFetcher';
-import {MultiResolver}                                             from '@yarnpkg/core/lib/MultiResolver';
-import {ProtocolResolver}                                          from '@yarnpkg/core/lib/ProtocolResolver';
-import {VirtualResolver}                                           from '@yarnpkg/core/lib/VirtualResolver';
-import {Project, structUtils, tgzUtils, VirtualFetcher, Workspace} from '@yarnpkg/core';
-import {CwdFS, Filename, PortablePath, ppath, xfs, ZipCompression} from '@yarnpkg/fslib';
-import {packUtils}                                                 from '@yarnpkg/plugin-pack';
-import tar                                                         from 'tar-stream';
-import {createGzip}                                                from 'zlib';
+import {MultiFetcher}                                                                                from '@yarnpkg/core/lib/MultiFetcher';
+import {MultiResolver}                                                                               from '@yarnpkg/core/lib/MultiResolver';
+import {ProtocolResolver}                                                                            from '@yarnpkg/core/lib/ProtocolResolver';
+import {VirtualResolver}                                                                             from '@yarnpkg/core/lib/VirtualResolver';
+import {MessageName, Project, Report, ReportError, structUtils, tgzUtils, VirtualFetcher, Workspace} from '@yarnpkg/core';
+import {CwdFS, Filename, PortablePath, ppath, xfs, ZipCompression, ZipFS}                            from '@yarnpkg/fslib';
+import {getLibzipPromise}                                                                            from '@yarnpkg/libzip';
+import {packUtils}                                                                                   from '@yarnpkg/plugin-pack';
+import tar                                                                                           from 'tar-stream';
+import {createGzip}                                                                                  from 'zlib';
 
-import {WorkspacePackFetcher}                                      from './WorkspacePackFetcher';
-import {WorkspacePackResolver}                                     from './WorkspacePackResolver';
+import {WorkspacePackFetcher}                                                                        from './WorkspacePackFetcher';
+import {WorkspacePackResolver}                                                                       from './WorkspacePackResolver';
 
 /**
  * Make a MultiFetcher that resolves workspaces using WorkspacePackFetcher
@@ -52,11 +53,63 @@ export const makeResolver = (project: Project) => {
   ]);
 };
 
-export const makeExportFs = async ({locator, project}: Workspace) => {
-  const exportCacheFolder = project.configuration.get(`exportCacheFolder`);
-  const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(locator) as PortablePath);
+export const makeExportFs = async (workspace: Workspace, {format, noCache, report, target}: { format: string, noCache: boolean, report: Report, target: PortablePath }) => {
+  if (noCache) {
+    if (format !== `dir`)
+      throw new Error(`Only directory exports may be built without an intermediate cache`);
+
+    await xfs.mkdirpPromise(target);
+    const existing = await xfs.readdirPromise(target);
+    if (existing.length) throw new ReportError(MessageName.EXCEPTION, `Output directory must be empty: ${target}`);
+
+    return {baseFs: new CwdFS(target), finalize: () => { }};
+  }
+  const exportCacheFolder = workspace.project.configuration.get(`exportCacheFolder`);
+  const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(workspace.locator) as PortablePath);
   await xfs.mkdirPromise(exportDir, {recursive: true});
-  return new CwdFS(exportDir);
+  const baseFs = new CwdFS(exportDir);
+  switch (format) {
+    case `zip`:
+      return {
+        baseFs,
+        async finalize() {
+          report.reportInfo(MessageName.UNNAMED, `Zipping archive`);
+          const libzip = await getLibzipPromise();
+          const zipFs = new ZipFS(target, {create: true, libzip});
+
+          await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
+          await zipFs.saveAndClose();
+        },
+      };
+    case `tarball`: {
+      return {
+        baseFs,
+        async finalize() {
+          report.reportInfo(MessageName.UNNAMED, `Gzipping archive`);
+          const gzip = await makeGzipFromDirectory(exportDir);
+          const write = xfs.createWriteStream(target);
+
+          gzip.pipe(write);
+
+          await new Promise(resolve => {
+            write.on(`finish`, resolve);
+          });
+        },
+      };
+    }
+    default:
+      return {
+        baseFs,
+        async finalize() {
+          report.reportInfo(MessageName.UNNAMED, `Copying output`);
+          await xfs.mkdirpPromise(target);
+          const existing = await xfs.readdirPromise(target);
+          if (existing.length) throw new ReportError(MessageName.EXCEPTION, `Output directory must be empty: ${target}`);
+
+          await xfs.copyPromise(target, PortablePath.dot, {baseFs});
+        },
+      };
+  }
 };
 
 export const genPackTgz = async (workspace: Workspace) => {

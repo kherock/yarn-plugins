@@ -73,6 +73,11 @@ export default class WorkspacesExportCommand extends BaseCommand {
     {description: `Override the project's nodeLinker option in the exported archive`},
   );
 
+  noCache: boolean = Option.Boolean(
+    `--no-cache`,
+    false,
+    {description: `Skip storing exported artifacts in an intermediate cached folder`},
+  );
   out: string = Option.String(`-o,--out`, `workspace.zip`, {description: `Create the archive at the specified path`});
 
   from: Array<string> = Option.Rest();
@@ -179,6 +184,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
         if (this.json) exportCommand.push(`--json`);
         if (this.production) exportCommand.push(`--production`);
+        if (this.noCache) exportCommand.push(`--no-cache`);
         if (this.skipPackLifecycle)
           exportCommand.push(`--skip-pack-lifecycle`);
         else
@@ -230,7 +236,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           if (!exportWorkspaces.has(workspace))
             return;
 
-          const baseFs = await makeExportFs(workspace);
+          const {baseFs, finalize} = await makeExportFs(workspace, {format, noCache: this.noCache, report, target});
           const stagingDir = baseFs.getRealPath();
 
           // remove files generated during the previous run
@@ -320,41 +326,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
             persistProject: true,
           });
 
-          switch (format) {
-            case `zip`: {
-              report.reportInfo(MessageName.UNNAMED, `Zipping archive`);
-              report.reportJson({output: target, format: `zip`});
-              const libzip = await getLibzipPromise();
-              const zipFs = new ZipFS(target, {create: true, libzip});
-
-              await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
-              await zipFs.saveAndClose();
-              break;
-            }
-            case `tarball`: {
-              report.reportInfo(MessageName.UNNAMED, `Gzipping archive`);
-              const gzip = await makeGzipFromDirectory(stagingDir);
-              const write = xfs.createWriteStream(target);
-
-              gzip.pipe(write);
-
-              await new Promise(resolve => {
-                write.on(`finish`, resolve);
-              });
-              report.reportJson({output: target, format: `gzip`});
-              break;
-            }
-            case `dir`: {
-              report.reportInfo(MessageName.UNNAMED, `Copying output`);
-              await xfs.mkdirpPromise(target);
-              const existing = await xfs.readdirPromise(target);
-              if (existing.length) throw new ReportError(MessageName.EXCEPTION, `Output directory must be empty: ${target}`);
-
-              await xfs.copyPromise(target, PortablePath.dot, {baseFs});
-              report.reportJson({output: target, format: `dir`});
-              break;
-            }
-          }
+          await finalize();
+          report.reportJson({output: target, format});
 
           report.reportInfo(MessageName.UNNAMED, `Workspace exported to ${formatUtils.pretty(project.configuration, target, `magenta`)}`);
           break;
