@@ -84,7 +84,7 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
       lernaPackage: structUtils.stringifyIdent(workspace.locator),
       whatBump: commits => {
         const shouldBump = commits.some(commit => releaseCodeChangeTypes.has(commit.type!));
-        return config.recommendedBumpOpts?.whatBump && shouldBump
+        return shouldBump && config.recommendedBumpOpts?.whatBump
           ? config.recommendedBumpOpts.whatBump(commits)
           : {};
       },
@@ -92,14 +92,16 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
     if (!prerelease || !bump.releaseType)
       return bump.releaseType;
 
-    const [unstableTag] = await gitSemverTagsPromise({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
-    if (!unstableTag) return `pre${bump.releaseType}`;
+    const [latestTag] = await gitSemverTagsPromise({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
+    if (!latestTag) return `pre${bump.releaseType}`;
     const [stableTag = `${structUtils.stringifyIdent(workspace.locator)}@0.0.0`] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
 
     const stableVersion = structUtils.parseLocator(stableTag).reference;
-    const unstableVersion = structUtils.parseLocator(unstableTag).reference;
-    const unstableDiff = semver.diff(stableVersion, unstableVersion);
-    if (!unstableDiff?.startsWith(`pre`)) return `pre${bump.releaseType}`;
+    const latestVersion = structUtils.parseLocator(latestTag).reference;
+    const unstableDiff = semver.diff(stableVersion, workspace.locator.reference) ?? semver.diff(stableVersion, latestVersion);
+    if (!unstableDiff) return `pre${bump.releaseType}`;
+    // this should only happen when a workspace's version was manually incremented to a prerelease
+    if (unstableDiff === `prerelease`) return `prerelease`;
 
     // check if the release scope has widened since the last prerelease
     const previousStableBump = unstableDiff.slice(`pre`.length) as keyof typeof releaseTypes;
