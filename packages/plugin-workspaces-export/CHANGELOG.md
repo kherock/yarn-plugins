@@ -1,3 +1,10 @@
+## [3.2.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.1.1...@kherock/yarn-plugin-workspaces-export@3.2.0) (2022-08-12)
+
+
+### Features
+
+* **plugin-workspaces-export:** support interlaced output ([9afd062](https://github.com/kherock/yarn-plugins/commit/9afd062855681c557ee2c466031d7730e661bc80))
+
 ## [3.1.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.1.0...@kherock/yarn-plugin-workspaces-export@3.1.1) (2022-04-18)
 
 

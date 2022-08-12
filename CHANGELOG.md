@@ -1,3 +1,11 @@
+## [22.8.0](https://github.com/kherock/yarn-plugins/compare/v22.4.1...v22.8.0) (2022-08-12)
+
+
+### Features
+
+* **plugin-release:** support manually bumping to prerelease versions ([d6cd5d1](https://github.com/kherock/yarn-plugins/commit/d6cd5d1050c93a74e2ed196b1536675a2f59536c))
+* **plugin-workspaces-export:** support interlaced output ([9afd062](https://github.com/kherock/yarn-plugins/commit/9afd062855681c557ee2c466031d7730e661bc80))
+
 ## [22.4.1](https://github.com/kherock/yarn-plugins/compare/v22.4.0...v22.4.1) (2022-04-18)
 
 

@@ -1,3 +1,5 @@
+## [1.0.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-dotenv@1.0.0...@kherock/yarn-plugin-dotenv@1.0.1) (2022-08-12)
+
 ## 1.0.0 (2020-10-28)
 
 

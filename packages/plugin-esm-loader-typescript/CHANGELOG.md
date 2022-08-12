@@ -1,3 +1,5 @@
+## [0.2.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-esm-loader-typescript@0.2.0...@kherock/yarn-plugin-esm-loader-typescript@0.2.1) (2022-08-12)
+
 ## [0.2.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-esm-loader-typescript@0.1.0...@kherock/yarn-plugin-esm-loader-typescript@0.2.0) (2022-01-24)
 
 
