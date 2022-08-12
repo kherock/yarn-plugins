@@ -40,7 +40,7 @@ export async function changelogStream(
       ...options,
     },
     {
-      isPatch: false,
+      isPatch: false, // prevent patch release headers from rendering smaller
       version: isReleaseable ? undefined : `Unreleased`,
       ...context,
       date: isReleaseable
