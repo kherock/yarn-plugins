@@ -1,13 +1,12 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
-import {BaseCommand, WorkspaceRequiredError}                                        from '@yarnpkg/cli';
-import type {SupportedArchitectures}                                                from '@yarnpkg/core/lib/Configuration';
-import {getLibzipPromise}                                                           from '@yarnpkg/libzip';
-import {Hooks as PackHooks}                                                         from '@yarnpkg/plugin-pack';
-import {Command, Usage, Option}                                                     from 'clipanion';
-import micromatch                                                                   from 'micromatch';
+import {BaseCommand, WorkspaceRequiredError}                 from '@yarnpkg/cli';
+import type {SupportedArchitectures}                         from '@yarnpkg/core/lib/Configuration';
+import {Hooks as PackHooks}                                  from '@yarnpkg/plugin-pack';
+import {Command, Usage, Option}                              from 'clipanion';
+import micromatch                                            from 'micromatch';
 
-import {ExportCache}                                                                from '../ExportCache';
-import {genPackTgz, makeExportFs, makeFetcher, makeGzipFromDirectory, makeResolver} from '../exportUtils';
+import {ExportCache}                                         from '../ExportCache';
+import {genPackTgz, makeExportFs, makeFetcher, makeResolver} from '../exportUtils';
 
 import {
   DEFAULT_LOCK_FILENAME,
@@ -35,7 +34,6 @@ import {
 import {
   Filename,
   PortablePath,
-  ZipFS,
   npath,
   ppath,
   xfs,

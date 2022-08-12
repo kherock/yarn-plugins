@@ -5,7 +5,7 @@ const {buildDir, tempDir} = execEnv;
 
 const [ident] = process.argv.slice(2);
 
-const pnpVersion = `3.2.0`;
+const pnpVersion = `3.2.2`;
 
 const repoDir = path.join(tempDir, `berry`);
 
