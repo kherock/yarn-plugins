@@ -86,9 +86,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
     details: `
       This command will export the active workspace and its dependencies into a deployable archive. It calls \`pack\` on each workspace dependency and installs them into the generated project's cache.
 
-      This is designed to be used for deployment, not for publishing, so everything to run except for a runtime (i.e. node) is bundled into the archive.
-
-      Why not just compile like we do on the front-end? Some dependencies may use require in interesting ways, or be or call binaries. It's safest not to transpile them.
+      This is designed to be used for deployment, not for publishing, so everything required to run except for a runtime (i.e. node) is bundled into the archive.
 
       If the \`-o,---out\` is set the archive will be created at the specified path. The \`%s\` and \`%v\` variables can be used within the path and will be respectively replaced by the package name and version.
     `,

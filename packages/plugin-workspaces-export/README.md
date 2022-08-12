@@ -18,3 +18,4 @@ yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/<re
 | Property | Description | Default value |
 | -------- | ----------- | ------------- |
 | exportCacheFolder | Folder where the contents of exported workspace archives are cached | `./.yarn/export-cache` |
+| exportedArchitectures | Architectures that Yarn will fetch and inject into the resolver for exported workspaces | (inherited from project) |
