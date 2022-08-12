@@ -52,26 +52,27 @@ interface ExportContext {
 }
 
 export default class WorkspacesExportCommand extends BaseCommand {
-  json: boolean = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
+  json = Option.Boolean(`--json`, false, {description: `Format the output as an NDJSON stream`});
+  interlaced = Option.Boolean(`-i,--interlaced`, {description: `Print the output of commands in real-time instead of buffering it`});
 
-  production: boolean = Option.Boolean(
+  production = Option.Boolean(
     `--production`,
     false,
     {description: `Only install regular dependencies by omitting dev dependencies`},
   );
 
-  skipPackLifecycle: boolean = Option.Boolean(
+  skipPackLifecycle = Option.Boolean(
     `--skip-pack-lifecycle`,
     false,
     {description: `Skip running \`yarn pack\` lifecycle scripts`},
   );
 
-  nodeLinker?: string = Option.String(
+  nodeLinker = Option.String(
     `--node-linker`,
     {description: `Override the project's nodeLinker option in the exported archive`},
   );
 
-  noCache: boolean = Option.Boolean(
+  noCache = Option.Boolean(
     `--no-cache`,
     false,
     {description: `Skip storing exported artifacts in an intermediate cached folder`},
@@ -179,6 +180,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
         const exportCommand = [`workspaces`, `export`];
 
         if (this.json) exportCommand.push(`--json`);
+        if (this.interlaced) foreachCommand.push(`--interlaced`);
         if (this.production) exportCommand.push(`--production`);
         if (this.noCache) exportCommand.push(`--no-cache`);
         if (this.skipPackLifecycle)
