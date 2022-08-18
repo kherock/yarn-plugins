@@ -1,3 +1,10 @@
+## [1.8.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.7.0...@kherock/yarn-plugin-release@1.8.0) (2022-08-18)
+
+
+### Features
+
+* **plugin-release:** support manually bumping to prerelease versions ([d6cd5d1](https://github.com/kherock/yarn-plugins/commit/d6cd5d1050c93a74e2ed196b1536675a2f59536c))
+
 ## [1.7.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.7.0...@kherock/yarn-plugin-release@1.7.0) (2022-08-12)
 
 

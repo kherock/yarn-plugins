@@ -1,3 +1,10 @@
+## [22.8.1](https://github.com/kherock/yarn-plugins/compare/v22.8.0...v22.8.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* **pnp-esm-loader-typescript:** return shortCircuit from the ESM loader hooks ([97c5ea8](https://github.com/kherock/yarn-plugins/commit/97c5ea89762f670785a7a9293aa3269ba6483446))
+
 ## [22.8.0](https://github.com/kherock/yarn-plugins/compare/v22.4.1...v22.8.0) (2022-08-12)
 
 
