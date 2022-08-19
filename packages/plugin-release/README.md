@@ -18,6 +18,6 @@ yarn plugin import https://github.com/kherock/yarn-plugins/releases/download/<re
 
 | Property | Description | Default value |
 | -------- | ----------- | ------------- |
-| calverFormat | A CalVer (calendar version) format to use for monorepo versions. Must include the \<micro> semver level. | `YY.MM.micro` |
+| calverFormat | A CalVer (calendar version) format to use for monorepo versions. Must include the \<patch> semver level and conform to SemVer (no more than 3 parts). | `YY.MM.patch` |
 | releaseCodeChangeTypes | A list of commit types that correlate to code changes. Types outside of this set will not generate new releases. | `feat`, `fix`, `perf`, `refactor` |
 | conventionalChangelogPreset | A preset value to pass to conventional-changelog-preset-loader | `conventionalcommits` |

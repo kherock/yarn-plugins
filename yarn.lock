@@ -358,6 +358,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:^7.15.4":
+  version: 7.18.9
+  resolution: "@babel/runtime-corejs3@npm:7.18.9"
+  dependencies:
+    core-js-pure: ^3.20.2
+    regenerator-runtime: ^0.13.4
+  checksum: 249158b660ac996fa4f4b0d1ab5810db060af40fac4d0bb5da23f55539a151313ae254aa64afc2ab7000d95167824e21a689f74bc24b36fd0f5ca030d522133d
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.15.4":
   version: 7.17.9
   resolution: "@babel/runtime@npm:7.17.9"
@@ -963,7 +973,7 @@ __metadata:
     "@yarnpkg/core": ^3.2.3
     "@yarnpkg/fslib": ^2.7.0
     "@yarnpkg/plugin-pnp": ^3.2.2
-    calver: 21.1.5
+    calver: 22.8.4
     clipanion: ^3.2.0-rc.11
     conventional-changelog-core: ^4.2.4
     conventional-changelog-preset-loader: ^2.3.4
@@ -2740,10 +2750,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"calver@npm:21.1.5":
-  version: 21.1.5
-  resolution: "calver@npm:21.1.5"
-  checksum: 2f0b29a3c4759572f9991e0f1e8af610307e602dd6e04f611e0f06a95c313973f2a247f22275e63e016a0455f569fe1f814eb97677a4f7b0b35fafe9d7d95bd2
+"calver@npm:22.8.4":
+  version: 22.8.4
+  resolution: "calver@npm:22.8.4"
+  dependencies:
+    "@babel/runtime": ^7.15.4
+    "@babel/runtime-corejs3": ^7.15.4
+  checksum: c423ab43d853819ec215ad2ecfcc68d57c4bccc5009bad7abd73faf1b4f3fa5723ab2ab9ce784ad308c026ab96cbd483fe4bf6cb8e6733a36ba80858da4f0982
   languageName: node
   linkType: hard
 
@@ -3140,6 +3153,13 @@ __metadata:
   dependencies:
     safe-buffer: ~5.1.1
   checksum: 985d974a2d33e1a2543ada51c93e1ba2f73eaed608dc39f229afc78f71dcc4c8b7d7c684aa647e3c6a3a204027444d69e53e169ce94e8d1fa8d7dee80c9c8fed
+  languageName: node
+  linkType: hard
+
+"core-js-pure@npm:^3.20.2":
+  version: 3.24.1
+  resolution: "core-js-pure@npm:3.24.1"
+  checksum: 4b8990a65c58e2320ff607f6168656fdcbfb4f60bd4af0ce7b09f5c0e0099b0cfc2632836986cfcb11f6ffe7ea46a5b8679651bc83ca3f41690f5ef7472d6f33
   languageName: node
   linkType: hard
 

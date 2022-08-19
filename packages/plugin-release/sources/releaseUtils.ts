@@ -119,11 +119,11 @@ function absoluteRequire(cwd: PortablePath) {
 }
 
 function incrementCalendarPatch(format: string, version: string, {prerelease, preid}: { prerelease?: boolean, preid?: string } = {}) {
-  // let semver handle prerelease increments
-  if (semver.prerelease(version))
+  // let semver handle prerelease increments unless the calendar version has elapsed
+  if (semver.prerelease(version) && semver.lte(calver.inc(format, ``, `calendar`), semver.inc(version, `patch`)!))
     return semver.inc(version, prerelease ? `prerelease` : `patch`, preid);
 
-  const newVersion = new SemVer(calver.inc(format, version, `calendar.micro`));
+  const newVersion = new SemVer(calver.inc(format, version, `calendar.patch`));
   if (prerelease)
     newVersion.prerelease = preid ? [preid, 0] : [0];
   return newVersion.format();
