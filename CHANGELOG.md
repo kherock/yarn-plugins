@@ -1,3 +1,19 @@
+## [22.8.2](https://github.com/kherock/yarn-plugins/compare/v22.8.1...v22.8.2) (2022-08-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **plugin-release:** make project-level CalVer tag optional and disabled by default
+
+### Features
+
+* **plugin-release:** make project-level CalVer tag optional and disabled by default ([63af7b4](https://github.com/kherock/yarn-plugins/commit/63af7b4c933a3f7ab0914db67656b15de3043bbf))
+
+
+### Bug Fixes
+
+* **plugin-release:** reset prerelease level when the calendar version changes ([7c03312](https://github.com/kherock/yarn-plugins/commit/7c03312338e000c52e2b3b4410565fe952da3d43))
+
 ## [22.8.1](https://github.com/kherock/yarn-plugins/compare/v22.8.0...v22.8.1) (2022-08-18)
 
 
