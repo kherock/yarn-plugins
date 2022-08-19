@@ -26802,7 +26802,7 @@ var plugin = (() => {
     const {cwd, locator, manifest, project} = workspace;
     const [options = {}, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
     const require2 = absoluteRequire(project.cwd);
-    const isReleaseable = workspace === project.topLevelWorkspace || !manifest.private;
+    const isReleaseable = !manifest.private || Boolean(workspace === project.topLevelWorkspace && project.configuration.get(`releaseCalverFormat`));
     return (0, import_conventional_changelog_core.default)(__spreadValues({
       config: await loadConventionalChangelogPreset(require2, project.configuration.get(`conventionalChangelogPreset`)),
       pkg: {transform: () => manifest.exportTo({version: locator.reference})},
@@ -26822,14 +26822,14 @@ var plugin = (() => {
     }, writerOpts));
   }
   async function recommendedBump(workspace, {prerelease, preid} = {}) {
-    var _a;
+    var _a, _b;
     const {cwd, manifest, project} = workspace;
     const conventionalChangelogPreset = project.configuration.get(`conventionalChangelogPreset`);
     const releaseCalverFormat = project.configuration.get(`releaseCalverFormat`);
     const releaseCodeChangeTypes = new Set(project.configuration.get(`releaseCodeChangeTypes`));
     const conventionalRecommendedBumpPromise = (0, import_util.promisify)(import_conventional_recommended_bump.default);
     if (workspace === project.topLevelWorkspace) {
-      return manifest.version ? incrementCalendarPatch(releaseCalverFormat, manifest.version, {prerelease, preid}) : void 0;
+      return releaseCalverFormat ? incrementCalendarPatch(releaseCalverFormat, (_a = manifest.version) != null ? _a : ``, {prerelease, preid}) : void 0;
     } else {
       const config = await loadConventionalChangelogPreset(absoluteRequire(project.cwd), conventionalChangelogPreset);
       const bump = await conventionalRecommendedBumpPromise({
@@ -26851,7 +26851,7 @@ var plugin = (() => {
       const [stableTag = `${import_core.structUtils.stringifyIdent(workspace.locator)}@0.0.0`] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: import_core.structUtils.stringifyIdent(workspace.locator)});
       const stableVersion = import_core.structUtils.parseLocator(stableTag).reference;
       const latestVersion = import_core.structUtils.parseLocator(latestTag).reference;
-      const unstableDiff = (_a = import_semver.default.diff(stableVersion, workspace.locator.reference)) != null ? _a : import_semver.default.diff(stableVersion, latestVersion);
+      const unstableDiff = (_b = import_semver.default.diff(stableVersion, workspace.locator.reference)) != null ? _b : import_semver.default.diff(stableVersion, latestVersion);
       if (!unstableDiff)
         return `pre${bump.releaseType}`;
       if (unstableDiff === `prerelease`)
@@ -26905,8 +26905,8 @@ $|&><\`"'`;
       const {project} = await import_core2.Project.find(configuration, this.context.cwd);
       const {stdout: tagListOut} = await import_core2.execUtils.execvp(`git`, [`tag`, `--list`], {cwd: project.cwd, strict: true});
       const tagList = new Set(tagListOut.trim().split(/\s+/));
-      const projectTagName = `v${project.topLevelWorkspace.locator.reference}`;
-      if (tagList.has(projectTagName))
+      const projectTagName = project.topLevelWorkspace.manifest.version ? `v${project.topLevelWorkspace.manifest.version}` : null;
+      if (projectTagName && tagList.has(projectTagName))
         throw new import_clipanion.UsageError(`${projectTagName} has already been released`);
       const prerelease = import_semver2.default.prerelease(project.topLevelWorkspace.locator.reference);
       const report = await import_core2.StreamReport.start({
@@ -26921,7 +26921,7 @@ $|&><\`"'`;
         }
         const newWorkspaceVersions = taggableWorkspaces.map(({locator, manifest}) => `${import_core2.structUtils.stringifyIdent(locator)}: v${manifest.version}`).join(`
 `);
-        const commitMessage = `chore: release ${projectTagName}
+        const commitMessage = `chore: release ${projectTagName != null ? projectTagName : `${taggableWorkspaces.length} workspace(s)`}
 
 ${newWorkspaceVersions}`;
         const commitArgs = [`commit`, `-m`, commitMessage];
@@ -26941,47 +26941,49 @@ ${newWorkspaceVersions}`;
         }
         for (const {locator} of taggableWorkspaces) {
           const tagName = import_core2.structUtils.stringifyLocator(locator);
-          const tagArgs2 = [`tag`, tagName, this.tagHead];
+          const tagArgs = [`tag`, tagName, this.tagHead];
           report2.reportJson({
             gitOp: `tag`,
             tagName
           });
           if (this.dryRun) {
-            report2.reportInfo(import_core2.MessageName.UNNAMED, `git ${tagArgs2.map(cliEscape).join(` `)}`);
+            report2.reportInfo(import_core2.MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
           } else {
-            await import_core2.execUtils.execvp(`git`, tagArgs2, {
+            await import_core2.execUtils.execvp(`git`, tagArgs, {
               cwd: project.cwd,
               strict: true
             });
           }
         }
-        let changelogText = ``;
-        const getText = new import_stream.Transform({
-          transform(chunk, encoding, callback) {
-            changelogText += chunk.toString();
-            callback(null, chunk);
-          }
-        });
-        await (0, import_util2.promisify)(import_stream.pipeline)(await changelogStream(project.topLevelWorkspace, {
-          releaseCount: 1,
-          skipUnstable: !prerelease
-        }), getText);
-        changelogText = changelogText.split(`
+        if (projectTagName) {
+          let changelogText = ``;
+          const getText = new import_stream.Transform({
+            transform(chunk, encoding, callback) {
+              changelogText += chunk.toString();
+              callback(null, chunk);
+            }
+          });
+          await (0, import_util2.promisify)(import_stream.pipeline)(await changelogStream(project.topLevelWorkspace, {
+            releaseCount: 1,
+            skipUnstable: !prerelease
+          }), getText);
+          changelogText = changelogText.split(`
 `).slice(2).join(`
 `);
-        const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}
+          const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}
 ${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
-        report2.reportJson({
-          tagName: projectTagName,
-          tagMessage: changelogText
-        });
-        if (this.dryRun) {
-          report2.reportInfo(import_core2.MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
-        } else {
-          await import_core2.execUtils.execvp(`git`, tagArgs, {
-            cwd: project.cwd,
-            strict: true
+          report2.reportJson({
+            tagName: projectTagName,
+            tagMessage: changelogText
           });
+          if (this.dryRun) {
+            report2.reportInfo(import_core2.MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
+          } else {
+            await import_core2.execUtils.execvp(`git`, tagArgs, {
+              cwd: project.cwd,
+              strict: true
+            });
+          }
         }
       });
       return report.exitCode();
@@ -27046,12 +27048,12 @@ ${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
         stdout: this.context.stdout,
         json: this.json
       }, async (report2) => {
-        const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
+        const needsVersion = !workspace.manifest.private || Boolean(workspace === project.topLevelWorkspace && project.configuration.get(`releaseCalverFormat`));
         const preid = typeof this.prerelease === `string` ? this.prerelease : void 0;
-        if (requiresVersion && !this.firstRelease) {
+        if (needsVersion && !this.firstRelease) {
           const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease !== false, preid});
           if (!recommendedStrategy) {
-            report2.reportWarning(import_core3.MessageName.UNNAMED, `No code changes since last release`);
+            report2.reportWarning(import_core3.MessageName.UNNAMED, `${ident} has no code changes since last release`);
             return;
           }
           const version = new import_semver3.SemVer(workspace.locator.reference);
@@ -27088,7 +27090,7 @@ ${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
         } else {
           const outPath = import_fslib2.ppath.join(await import_fslib2.xfs.mktempPromise(), CHANGELOG);
           const existingChangelog = new import_stream2.PassThrough();
-          if (requiresVersion && !this.firstRelease) {
+          if (needsVersion && !this.firstRelease) {
             import_fslib2.xfs.createReadStream(changelogPath).on(`error`, function(err) {
               if (err.code !== `ENOENT`)
                 throw err;
@@ -27122,7 +27124,7 @@ ${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
           });
           await import_core3.scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report: report2});
         }
-        if (requiresVersion) {
+        if (needsVersion) {
           report2.reportInfo(import_core3.MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
         }
       });
@@ -27154,8 +27156,9 @@ ${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
     configuration: {
       releaseCalverFormat: {
         description: `A CalVer (calendar version) format to use for monorepo versions. Must include the <patch> semver level and conform to SemVer (no more than 3 parts).`,
+        isNullable: true,
         type: import_core4.SettingsType.STRING,
-        default: `YY.MM.patch`
+        default: null
       },
       releaseCodeChangeTypes: {
         description: `A list of commit types that correlate to code changes. Types outside of this set will not generate new releases.`,

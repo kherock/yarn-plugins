@@ -48,8 +48,8 @@ export default class ReleaseCommitCommand extends BaseCommand {
     const {stdout: tagListOut} = await execUtils.execvp(`git`, [`tag`, `--list`], {cwd: project.cwd, strict: true});
     const tagList = new Set(tagListOut.trim().split(/\s+/));
 
-    const projectTagName = `v${project.topLevelWorkspace.locator.reference}`;
-    if (tagList.has(projectTagName))
+    const projectTagName = project.topLevelWorkspace.manifest.version ? `v${project.topLevelWorkspace.manifest.version}` : null;
+    if (projectTagName && tagList.has(projectTagName))
       throw new UsageError(`${projectTagName} has already been released`);
 
     const prerelease = semver.prerelease(project.topLevelWorkspace.locator.reference);
@@ -71,7 +71,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
         .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
         .join(`\n`);
 
-      const commitMessage = `chore: release ${projectTagName}\n\n${newWorkspaceVersions}`;
+      const commitMessage = `chore: release ${projectTagName ?? `${taggableWorkspaces.length} workspace(s)`}\n\n${newWorkspaceVersions}`;
       const commitArgs = [`commit`, `-m`, commitMessage];
       if (this.amend)
         commitArgs.push(`--amend`);
@@ -104,34 +104,35 @@ export default class ReleaseCommitCommand extends BaseCommand {
           });
         }
       }
-
-      let changelogText = ``;
-      const getText = new Transform({
-        transform(chunk, encoding, callback) {
-          changelogText += chunk.toString();
-          callback(null, chunk);
-        },
-      });
-      await promisify(pipeline)(
-        await changelogStream(project.topLevelWorkspace, {
-          releaseCount: 1,
-          skipUnstable: !prerelease,
-        }),
-        getText,
-      );
-      changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
-      const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
-      report.reportJson({
-        tagName: projectTagName,
-        tagMessage: changelogText,
-      });
-      if (this.dryRun) {
-        report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
-      } else {
-        await execUtils.execvp(`git`, tagArgs, {
-          cwd: project.cwd,
-          strict: true,
+      if (projectTagName) {
+        let changelogText = ``;
+        const getText = new Transform({
+          transform(chunk, encoding, callback) {
+            changelogText += chunk.toString();
+            callback(null, chunk);
+          },
         });
+        await promisify(pipeline)(
+          await changelogStream(project.topLevelWorkspace, {
+            releaseCount: 1,
+            skipUnstable: !prerelease,
+          }),
+          getText,
+        );
+        changelogText = changelogText.split(`\n`).slice(2).join(`\n`);
+        const tagArgs = [`tag`, `-a`, `-m`, `${projectTagName}\n${changelogText}`, `--cleanup=verbatim`, projectTagName, this.tagHead];
+        report.reportJson({
+          tagName: projectTagName,
+          tagMessage: changelogText,
+        });
+        if (this.dryRun) {
+          report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
+        } else {
+          await execUtils.execvp(`git`, tagArgs, {
+            cwd: project.cwd,
+            strict: true,
+          });
+        }
       }
     });
     return report.exitCode();

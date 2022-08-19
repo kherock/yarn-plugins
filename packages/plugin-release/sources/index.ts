@@ -8,7 +8,7 @@ export {releaseUtils};
 
 declare module "@yarnpkg/core" {
   interface ConfigurationValueMap {
-    releaseCalverFormat: string;
+    releaseCalverFormat: string | null;
     releaseCodeChangeTypes: Array<string>;
     conventionalChangelogPreset: string;
   }
@@ -18,8 +18,9 @@ const plugin: Plugin = {
   configuration: {
     releaseCalverFormat: {
       description: `A CalVer (calendar version) format to use for monorepo versions. Must include the <patch> semver level and conform to SemVer (no more than 3 parts).`,
+      isNullable: true,
       type: SettingsType.STRING,
-      default: `YY.MM.patch`,
+      default: null,
     },
     releaseCodeChangeTypes: {
       description: `A list of commit types that correlate to code changes. Types outside of this set will not generate new releases.`,

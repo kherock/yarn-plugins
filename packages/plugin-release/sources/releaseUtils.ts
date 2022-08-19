@@ -24,7 +24,7 @@ export async function changelogStream(
   const {cwd, locator, manifest, project} = workspace;
   const [options = {}, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
   const require = absoluteRequire(project.cwd);
-  const isReleaseable = workspace === project.topLevelWorkspace || !manifest.private;
+  const isReleaseable = !manifest.private || Boolean(workspace === project.topLevelWorkspace && project.configuration.get(`releaseCalverFormat`));
 
   return conventionalChangelog(
     {
@@ -72,8 +72,8 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
   >(conventionalRecommendedBump);
 
   if (workspace === project.topLevelWorkspace) {
-    return manifest.version
-      ? incrementCalendarPatch(releaseCalverFormat, manifest.version, {prerelease, preid})
+    return releaseCalverFormat
+      ? incrementCalendarPatch(releaseCalverFormat, manifest.version ?? ``, {prerelease, preid})
       : undefined;
   } else {
     const config = await loadConventionalChangelogPreset(absoluteRequire(project.cwd), conventionalChangelogPreset);

@@ -70,15 +70,15 @@ export default class ReleaseCommand extends BaseCommand {
       stdout: this.context.stdout,
       json: this.json,
     }, async report => {
-      const requiresVersion = workspace === project.topLevelWorkspace || !workspace.manifest.private;
+      const needsVersion = !workspace.manifest.private || Boolean(workspace === project.topLevelWorkspace && project.configuration.get(`releaseCalverFormat`));
       const preid = typeof this.prerelease === `string`
         ? this.prerelease
         : undefined;
 
-      if (requiresVersion && !this.firstRelease) {
+      if (needsVersion && !this.firstRelease) {
         const recommendedStrategy = await recommendedBump(workspace, {prerelease: this.prerelease !== false, preid});
         if (!recommendedStrategy) {
-          report.reportWarning(MessageName.UNNAMED, `No code changes since last release`);
+          report.reportWarning(MessageName.UNNAMED, `${ident} has no code changes since last release`);
           return;
         }
         const version = new SemVer(workspace.locator.reference);
@@ -123,7 +123,7 @@ export default class ReleaseCommand extends BaseCommand {
       } else {
         const outPath = ppath.join(await xfs.mktempPromise(), CHANGELOG);
         const existingChangelog = new PassThrough();
-        if (requiresVersion && !this.firstRelease) {
+        if (needsVersion && !this.firstRelease) {
           xfs.createReadStream(changelogPath)
             .on(`error`, function (this: NodeJS.ReadableStream, err: NodeJS.ErrnoException) {
               if (err.code !== `ENOENT`) throw err;
@@ -163,7 +163,7 @@ export default class ReleaseCommand extends BaseCommand {
         });
         await scriptUtils.maybeExecuteWorkspaceLifecycleScript(workspace, `postrelease`, {report});
       }
-      if (requiresVersion) {
+      if (needsVersion) {
         report.reportInfo(MessageName.UNNAMED, `Released v${workspace.manifest.version}`);
       }
     });
