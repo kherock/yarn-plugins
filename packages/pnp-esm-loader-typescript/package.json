@@ -4,17 +4,17 @@
   "license": "BSD-2-Clause",
   "main": "./sources/index.ts",
   "dependencies": {
-    "@types/node": "^18.7.2",
-    "@yarnpkg/fslib": "^2.7.0",
+    "@types/node": "^18.14.1",
+    "@yarnpkg/fslib": "^2.10.1",
     "@yarnpkg/pnp": "exec:yarnpkg-pnp-esm-loader.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "esbuild": "npm:esbuild-wasm@^0.14.36",
-    "rollup": "2.77.3",
-    "rollup-plugin-esbuild": "^4.9.1",
-    "tslib": "^2.4.0"
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "esbuild": "^0.17.10",
+    "rollup": "3.17.3",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "tslib": "^2.5.0"
   },
   "scripts": {
     "build:pnp-esm-loader-typescript": "rollup -c",

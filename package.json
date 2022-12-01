@@ -8,25 +8,25 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@types/jest": "^28.1.6",
-    "@types/node": "^18.7.2",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
-    "@yarnpkg/eslint-config": "^1.0.0-rc.14",
-    "@yarnpkg/sdks": "^3.0.0-rc.14",
-    "babel-jest": "^28.1.3",
+    "@babel/core": "^7.21.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.1",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "@yarnpkg/eslint-config": "^1.0.0-rc.37",
+    "@yarnpkg/sdks": "^3.0.0-rc.39",
+    "babel-jest": "^29.4.3",
     "conventional-changelog-conventionalcommits": "^5.0.0",
-    "esbuild": "npm:esbuild-wasm@^0.14.54",
-    "eslint": "^8.21.0",
-    "eslint-plugin-arca": "^0.15.0",
-    "eslint-plugin-react": "^7.30.1",
+    "esbuild": "^0.17.10",
+    "eslint": "^8.34.0",
+    "eslint-plugin-arca": "^0.16.0",
+    "eslint-plugin-react": "^7.32.2",
     "github-api": "^3.4.0",
-    "jest": "^28.1.3",
-    "jest-environment-node": "^28.1.3",
-    "nodemon": "^2.0.19",
-    "tslib": "^2.4.0",
-    "typescript": "~4.7.4"
+    "jest": "^29.4.3",
+    "jest-environment-node": "^29.4.3",
+    "nodemon": "^2.0.20",
+    "tslib": "^2.5.0",
+    "typescript": "~4.9.5"
   },
   "resolutions": {
     "conventional-changelog-core": "kherock/conventional-changelog#workspace=conventional-changelog-core&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3",
@@ -34,7 +34,8 @@
     "conventional-changelog-writer": "kherock/conventional-changelog#workspace=conventional-changelog-writer&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3",
     "conventional-commits-filter": "kherock/conventional-changelog#workspace=conventional-commits-filter&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3",
     "conventional-commits-parser": "kherock/conventional-changelog#workspace=conventional-commits-parser&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3",
-    "conventional-recommended-bump": "kherock/conventional-changelog#workspace=conventional-recommended-bump&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3"
+    "conventional-recommended-bump": "kherock/conventional-changelog#workspace=conventional-recommended-bump&commit=d1ea388e19bedcc68339a5e9673c8344d27a29c3",
+    "esbuild@^0.17.10": "npm:esbuild-wasm@^0.17.10"
   },
   "scripts": {
     "run:watch": "nodemon --watch \"$INIT_CWD\" --ext ts --exec \"cd '$INIT_CWD' && yarn run $@\"",
@@ -49,5 +50,5 @@
   "engines": {
     "node": ">=12.13.0"
   },
-  "packageManager": "yarn@3.2.2"
+  "packageManager": "yarn@3.4.1"
 }
