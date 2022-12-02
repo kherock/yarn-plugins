@@ -1,6 +1,6 @@
 {
   "name": "@kherock/yarn-plugin-esm-loader-typescript",
-  "version": "0.2.2",
+  "version": "0.3.0-force",
   "license": "BSD-2-Clause",
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
