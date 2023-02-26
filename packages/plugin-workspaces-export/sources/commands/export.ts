@@ -29,7 +29,6 @@ import {
   stringifyMessageName,
   miscUtils,
   ConfigurationValueMap,
-  LightReport,
 } from '@yarnpkg/core';
 import {
   Filename,
@@ -192,7 +191,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
         foreachCommand.push(...this.from.flatMap(pattern => [`--from`, pattern]));
         try {
-          monkeyPatchNextStreamReport();
           const exitCode = await this.cli.run([
             ...foreachCommand,
             ...exportCommand,
@@ -203,7 +201,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
         } finally {
           exportContext.phase = `post`;
           if (!this.skipPackLifecycle) {
-            monkeyPatchNextStreamReport();
             await this.cli.run([
               ...foreachCommand,
               ...exportCommand,
@@ -362,19 +359,4 @@ function prettyWorkspaceVersion(workspace: Workspace) {
   } else {
     return `unknown`;
   }
-}
-
-class LightInfoReport extends LightReport {
-  reportInfo(name: MessageName | null, text: string): void {
-    // eslint-disable-next-line dot-notation
-    this[`stdout`].write(`${text}\n`);
-  }
-}
-
-function monkeyPatchNextStreamReport() {
-  const {start} = StreamReport;
-  StreamReport.start = function (opts, cb: any) {
-    this.start = start;
-    return LightInfoReport.start(opts, cb) as any;
-  };
 }
