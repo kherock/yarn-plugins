@@ -1,3 +1,5 @@
+## [3.2.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.2.0...@kherock/yarn-plugin-workspaces-export@3.2.1) (2023-02-26)
+
 ## [3.2.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.1.1...@kherock/yarn-plugin-workspaces-export@3.2.0) (2022-08-12)
 
 

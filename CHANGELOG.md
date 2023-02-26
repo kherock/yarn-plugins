@@ -1,3 +1,10 @@
+## [23.2.0](https://github.com/kherock/yarn-plugins/compare/v22.8.2...v23.2.0) (2023-02-26)
+
+
+### Features
+
+* **plugin-esm-loader-typescript:** support for Yarn 3.4 ([09deee9](https://github.com/kherock/yarn-plugins/commit/09deee9198b17f022e922c460b94a45029a8614a))
+
 ## [22.8.2](https://github.com/kherock/yarn-plugins/compare/v22.8.1...v22.8.2) (2022-08-19)
 
 
