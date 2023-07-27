@@ -1,3 +1,10 @@
+## [23.7.1](https://github.com/kherock/yarn-plugins/compare/v23.7.0...v23.7.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* **plugin-release:** avoid git concurrency issues when running with workspaces foreach ([5b8c6fb](https://github.com/kherock/yarn-plugins/commit/5b8c6fb4ee50a5ebbeaa86fa7121312e254ccd42))
+
 ## [23.7.0](https://github.com/kherock/yarn-plugins/compare/v23.2.0...v23.7.0) (2023-07-27)
 
 
