@@ -1,3 +1,10 @@
+## [23.7.0](https://github.com/kherock/yarn-plugins/compare/v23.2.0...v23.7.0) (2023-07-27)
+
+
+### Bug Fixes
+
+* **plugin-release:** render more error details when git operations fail ([9ab7d47](https://github.com/kherock/yarn-plugins/commit/9ab7d47632791ab914220bfdea0828629fff086b))
+
 ## [23.2.0](https://github.com/kherock/yarn-plugins/compare/v22.8.2...v23.2.0) (2023-02-26)
 
 

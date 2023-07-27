@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@2.0.0...@kherock/yarn-plugin-release@2.0.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* **plugin-release:** render more error details when git operations fail ([9ab7d47](https://github.com/kherock/yarn-plugins/commit/9ab7d47632791ab914220bfdea0828629fff086b))
+
 ## [2.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@1.8.0...@kherock/yarn-plugin-release@2.0.0) (2022-08-19)
 
 
