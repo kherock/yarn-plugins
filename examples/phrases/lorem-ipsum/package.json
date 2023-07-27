@@ -22,10 +22,10 @@
     "@example/phrase-in-hac": "workspace:*",
     "@example/phrase-nullam-risus": "workspace:*",
     "@example/sit": "workspace:*",
-    "tslib": "^2.5.0"
+    "tslib": "^2.6.1"
   },
   "devDependencies": {
-    "typescript": "~4.9.5"
+    "typescript": "~5.0.4"
   },
   "engines": {
     "node": ">=12.13.0"
