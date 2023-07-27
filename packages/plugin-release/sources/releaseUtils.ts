@@ -1,14 +1,14 @@
-import {MessageName, Project, ReportError, structUtils, Workspace} from '@yarnpkg/core';
-import {PortablePath, xfs}                                         from '@yarnpkg/fslib';
-import {getPnpPath}                                                from '@yarnpkg/plugin-pnp';
-import calver                                                      from 'calver';
-import conventionalChangelog                                       from 'conventional-changelog-core';
-import {presetLoader}                                              from 'conventional-changelog-preset-loader';
-import conventionalRecommendedBump                                 from 'conventional-recommended-bump';
-import gitSemverTags                                               from 'git-semver-tags';
-import {createRequire}                                             from 'module';
-import semver, {SemVer}                                            from 'semver';
-import {promisify}                                                 from 'util';
+import {Configuration, execUtils, formatUtils, MessageName, Project, ReportError, structUtils, Workspace} from '@yarnpkg/core';
+import {PortablePath, xfs}                                                                                from '@yarnpkg/fslib';
+import {getPnpPath}                                                                                       from '@yarnpkg/plugin-pnp';
+import calver                                                                                             from 'calver';
+import conventionalChangelog                                                                              from 'conventional-changelog-core';
+import {presetLoader}                                                                                     from 'conventional-changelog-preset-loader';
+import conventionalRecommendedBump                                                                        from 'conventional-recommended-bump';
+import gitSemverTags                                                                                      from 'git-semver-tags';
+import {createRequire}                                                                                    from 'module';
+import semver, {SemVer}                                                                                   from 'semver';
+import {promisify}                                                                                        from 'util';
 
 const releaseTypes: Record<
   conventionalRecommendedBump.Callback.Recommendation.ReleaseType,
@@ -135,5 +135,43 @@ async function loadConventionalChangelogPreset(require: presetLoader.RequireMeth
     return typeof config === `function` ? await promisify(config)() : config;
   } catch (err) {
     throw new ReportError(MessageName.UNNAMED, `Failed to load the conventional-changelog preset '${request}'. Does your top-level workspace list it as a dependency?`);
+  }
+}
+
+
+/** lifted from gitUtils in @yarnpkg/plugin-git */
+export async function git(message: string, args: Array<string>, opts: Omit<execUtils.ExecvpOptions, 'strict'>, {configuration}: {configuration: Configuration}) {
+  try {
+    return await execUtils.execvp(`git`, args, {
+      ...opts,
+      // The promise won't reject on non-zero exit codes unless we pass the strict option.
+      strict: true,
+    });
+  } catch (error) {
+    if (!(error instanceof execUtils.ExecError))
+      throw error;
+
+    const execErrorReportExtra = error.reportExtra;
+
+    const stderr = error.stderr.toString();
+
+    throw new ReportError(MessageName.EXCEPTION, `Failed ${message}`, report => {
+      for (const match of stderr.matchAll(/^(.+?): (.*)$/gm)) {
+        let [, errorName, errorMessage] = match;
+
+        errorName = errorName.toLowerCase();
+
+        const label = errorName === `error`
+          ? `Error`
+          : `${errorName} Error`;
+
+        report.reportError(MessageName.EXCEPTION, `  ${formatUtils.prettyField(configuration, {
+          label,
+          value: formatUtils.tuple(formatUtils.Type.NO_HINT, errorMessage),
+        })}`);
+      }
+
+      execErrorReportExtra?.(report);
+    });
   }
 }

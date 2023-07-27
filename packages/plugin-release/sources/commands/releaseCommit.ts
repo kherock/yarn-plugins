@@ -5,7 +5,7 @@ import semver                                                                   
 import {pipeline, Transform}                                                       from 'stream';
 import {promisify}                                                                 from 'util';
 
-import {changelogStream}                                                           from '../releaseUtils';
+import {changelogStream, git}                                                      from '../releaseUtils';
 
 const cliEscape = (str: string): string => {
   const specialChars = ` \t\n$|&><\`"'`;
@@ -45,7 +45,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
     const configuration = await Configuration.find(this.context.cwd, this.context.plugins);
     const {project} = await Project.find(configuration, this.context.cwd);
 
-    const {stdout: tagListOut} = await execUtils.execvp(`git`, [`tag`, `--list`], {cwd: project.cwd, strict: true});
+    const {stdout: tagListOut} = await git(`listing tags`, [`tag`, `--list`], {cwd: project.cwd}, {configuration});
     const tagList = new Set(tagListOut.trim().split(/\s+/));
 
     const projectTagName = project.topLevelWorkspace.manifest.version ? `v${project.topLevelWorkspace.manifest.version}` : null;
@@ -79,14 +79,11 @@ export default class ReleaseCommitCommand extends BaseCommand {
         gitOpt: `commit`,
         commitMessage,
       });
-      if (this.dryRun) {
+      if (this.dryRun)
         report.reportInfo(MessageName.UNNAMED, `git ${commitArgs.map(cliEscape).join(` `)}`);
-      } else {
-        await execUtils.execvp(`git`, commitArgs, {
-          cwd: project.cwd,
-          strict: true,
-        });
-      }
+      else
+        await git(`committing release`, commitArgs, {cwd: project.cwd}, {configuration});
+
 
       for (const {locator} of taggableWorkspaces) {
         const tagName = structUtils.stringifyLocator(locator);
@@ -98,10 +95,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
         if (this.dryRun) {
           report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
         } else {
-          await execUtils.execvp(`git`, tagArgs, {
-            cwd: project.cwd,
-            strict: true,
-          });
+          await git(`creating workspace tags`, tagArgs, {cwd: project.cwd}, {configuration});
         }
       }
       if (projectTagName) {
@@ -128,10 +122,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
         if (this.dryRun) {
           report.reportInfo(MessageName.UNNAMED, `git ${tagArgs.map(cliEscape).join(` `)}`);
         } else {
-          await execUtils.execvp(`git`, tagArgs, {
-            cwd: project.cwd,
-            strict: true,
-          });
+          await git(`tagging project`, tagArgs, {cwd: project.cwd}, {configuration});
         }
       }
     });

@@ -1,13 +1,13 @@
-import {BaseCommand, WorkspaceRequiredError}                                                                        from '@yarnpkg/cli';
-import {Cache, Configuration, execUtils, MessageName, Project, scriptUtils, StreamReport, structUtils, ThrowReport} from '@yarnpkg/core';
-import {Filename, ppath, xfs}                                                                                       from '@yarnpkg/fslib';
-import {Command, Option}                                                                                            from 'clipanion';
-import MultiStream                                                                                                  from 'multistream';
-import semver, {SemVer, ReleaseType}                                                                                from 'semver';
-import {Transform, pipeline, PassThrough}                                                                           from 'stream';
-import {promisify}                                                                                                  from 'util';
+import {BaseCommand, WorkspaceRequiredError}                                                             from '@yarnpkg/cli';
+import {Cache, Configuration, MessageName, Project, scriptUtils, StreamReport, structUtils, ThrowReport} from '@yarnpkg/core';
+import {Filename, ppath, xfs}                                                                            from '@yarnpkg/fslib';
+import {Command, Option}                                                                                 from 'clipanion';
+import MultiStream                                                                                       from 'multistream';
+import semver, {SemVer, ReleaseType}                                                                     from 'semver';
+import {Transform, pipeline, PassThrough}                                                                from 'stream';
+import {promisify}                                                                                       from 'util';
 
-import {changelogStream, recommendedBump}                                                                           from '../releaseUtils';
+import {changelogStream, git, recommendedBump}                                                           from '../releaseUtils';
 
 export const CHANGELOG = `CHANGELOG.md` as Filename;
 
@@ -152,10 +152,9 @@ export default class ReleaseCommand extends BaseCommand {
       report.reportJson({ident, changelogPath, changelog: text});
 
       if (!this.dryRun) {
-        await execUtils.execvp(`git`, [`add`, Filename.manifest, CHANGELOG], {
+        await git(`staging files`, [`add`, Filename.manifest, CHANGELOG], {
           cwd: workspace.cwd,
-          strict: true,
-        });
+        }, {configuration});
         await project.install({
           cache: await Cache.find(configuration),
           report: new ThrowReport(),
