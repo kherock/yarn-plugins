@@ -138,15 +138,25 @@ async function loadConventionalChangelogPreset(require: presetLoader.RequireMeth
   }
 }
 
+let lastGitTask: Promise<unknown> | undefined;
 
 /** lifted from gitUtils in @yarnpkg/plugin-git */
-export async function git(message: string, args: Array<string>, opts: Omit<execUtils.ExecvpOptions, 'strict'>, {configuration}: {configuration: Configuration}) {
+export async function git(message: string, args: Array<string>, opts: Omit<execUtils.ExecvpOptions, 'strict'>, {configuration}: { configuration: Configuration }) {
+  // avoid concurrency issues when running with workspaces foreach
   try {
-    return await execUtils.execvp(`git`, args, {
+    await lastGitTask;
+  } catch {
+    // do nothing
+  } finally {
+    lastGitTask = undefined;
+  }
+  try {
+    lastGitTask = execUtils.execvp(`git`, args, {
       ...opts,
       // The promise won't reject on non-zero exit codes unless we pass the strict option.
       strict: true,
     });
+    return await lastGitTask;
   } catch (error) {
     if (!(error instanceof execUtils.ExecError))
       throw error;
