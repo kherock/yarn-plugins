@@ -1,3 +1,14 @@
+## [24.1.0](https://github.com/kherock/yarn-plugins/compare/v23.7.1...v24.1.0) (2024-01-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* support for Yarn 4 and Conventional Changelog 7
+
+### Features
+
+* support for Yarn 4 and Conventional Changelog 7 ([f74ee7d](https://github.com/kherock/yarn-plugins/commit/f74ee7dbdc8d6cab16b562fb56ab3af73923b74f))
+
 ## [23.7.1](https://github.com/kherock/yarn-plugins/compare/v23.7.0...v23.7.1) (2023-07-27)
 
 

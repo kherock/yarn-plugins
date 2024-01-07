@@ -1,3 +1,14 @@
+## [1.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-esm-loader-typescript@0.3.1...@kherock/yarn-plugin-esm-loader-typescript@1.0.0) (2024-01-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* support for Yarn 4 and Conventional Changelog 7
+
+### Features
+
+* support for Yarn 4 and Conventional Changelog 7 ([f74ee7d](https://github.com/kherock/yarn-plugins/commit/f74ee7dbdc8d6cab16b562fb56ab3af73923b74f))
+
 ## [0.3.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-esm-loader-typescript@0.3.0...@kherock/yarn-plugin-esm-loader-typescript@0.3.1) (2023-07-27)
 
 ## [0.3.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-esm-loader-typescript@0.2.2...@kherock/yarn-plugin-esm-loader-typescript@0.3.0) (2023-02-26)
