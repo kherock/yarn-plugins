@@ -63,7 +63,7 @@ export default class ReleaseCommand extends BaseCommand {
     if (!workspace)
       throw new WorkspaceRequiredError(project.cwd, this.context.cwd);
 
-    const ident = structUtils.stringifyIdent(workspace.locator);
+    const ident = structUtils.stringifyIdent(workspace.anchoredLocator);
 
     const report = await StreamReport.start({
       configuration,
@@ -81,7 +81,7 @@ export default class ReleaseCommand extends BaseCommand {
           report.reportWarning(MessageName.UNNAMED, `${ident} has no code changes since last release`);
           return;
         }
-        const version = new SemVer(workspace.locator.reference);
+        const version = new SemVer(workspace.manifest.version ?? `0.0.0`);
         if (semver.valid(recommendedStrategy)) {
           workspace.manifest.version = recommendedStrategy;
           report.reportJson({ident, newVersion: workspace.manifest.version});

@@ -1,6 +1,7 @@
-import type {CacheOptions}                                                          from '@yarnpkg/core/lib/Cache';
 import {Cache, Configuration, Locator, LocatorHash, structUtils, WorkspaceResolver} from '@yarnpkg/core';
-import {FakeFS, JailFS, NodeFS, PortablePath, ppath, xfs, ZipFS}                    from '@yarnpkg/fslib';
+import {FakeFS, JailFS, NodeFS, PortablePath, ppath, xfs}                           from '@yarnpkg/fslib';
+
+type FectchAndCacheOptions = Parameters<Cache['fetchPackageFromCache']>[2];
 
 export class ExportCache extends Cache {
   private parentCache: Cache;
@@ -37,7 +38,7 @@ export class ExportCache extends Cache {
     }
   }
 
-  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader, ...opts}: {loader?: () => Promise<ZipFS>} & CacheOptions): Promise<[FakeFS<PortablePath>, () => void, string | null]> {
+  async fetchPackageFromCache(locator: Locator, expectedChecksum: string | null, {loader, ...opts}: FectchAndCacheOptions): Promise<[FakeFS<PortablePath>, () => void, string | null]> {
     const baseFs = new NodeFS();
 
     const loadWorkspaceThroughMutex = async () => {

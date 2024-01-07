@@ -5,28 +5,27 @@
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
   "dependencies": {
-    "@yarnpkg/cli": "^3.6.1",
-    "@yarnpkg/core": "^3.5.2",
-    "@yarnpkg/fslib": "^2.10.3",
-    "@yarnpkg/plugin-pnp": "^3.2.11",
+    "@yarnpkg/cli": "^4.0.2",
+    "@yarnpkg/core": "^4.0.2",
+    "@yarnpkg/fslib": "^3.0.1",
+    "@yarnpkg/plugin-pnp": "^4.0.2",
     "calver": "22.8.4",
-    "clipanion": "^3.2.1",
-    "conventional-changelog-core": "^5.0.2",
-    "conventional-changelog-preset-loader": "^3.0.0",
-    "conventional-recommended-bump": "^7.0.1",
-    "git-semver-tags": "^5.0.1",
+    "clipanion": "^4.0.0-rc.2",
+    "conventional-changelog-core": "^7.0.0",
+    "conventional-changelog-preset-loader": "^4.1.0",
+    "conventional-recommended-bump": "^9.0.0",
+    "git-semver-tags": "^7.0.1",
     "multistream": "^4.1.0",
     "semver": "^7.5.4",
-    "tslib": "^2.6.1"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/conventional-changelog-core": "^4.2.2",
-    "@types/conventional-changelog-preset-loader": "^2.3.2",
-    "@types/conventional-recommended-bump": "^6.1.0",
-    "@types/git-semver-tags": "^4.1.1",
-    "@types/semver": "^7.5.0",
-    "@yarnpkg/builder": "^3.3.0",
-    "typescript": "~5.0.4"
+    "@types/conventional-changelog-core": "^4.2.7",
+    "@types/conventional-recommended-bump": "^9.0.3",
+    "@types/git-semver-tags": "^7.0.0",
+    "@types/semver": "^7.5.6",
+    "@yarnpkg/builder": "^4.0.0",
+    "typescript": "~5.2.2"
   },
   "peerDependencies": {
     "conventional-changelog-conventionalcommits": "*"
@@ -56,6 +55,6 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=18.12.0"
   }
 }

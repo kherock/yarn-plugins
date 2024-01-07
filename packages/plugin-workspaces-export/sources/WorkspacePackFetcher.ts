@@ -1,7 +1,6 @@
-import {WorkspaceFetcher} from '@yarnpkg/core/lib/WorkspaceFetcher';
-import {PortablePath}     from '@yarnpkg/fslib';
+import {PortablePath} from '@yarnpkg/fslib';
 
-import {genPackZip}       from './exportUtils';
+import {genPackZip}   from './exportUtils';
 
 import {
   Locator,
@@ -10,6 +9,7 @@ import {
   FetchResult,
   MinimalFetchOptions,
   WorkspaceResolver,
+  WorkspaceFetcher,
 } from '@yarnpkg/core';
 
 /**

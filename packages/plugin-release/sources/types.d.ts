@@ -10,6 +10,32 @@ declare module "calver" {
   export = calver;
 }
 
+declare module 'conventional-changelog-preset-loader' {
+  export type ModuleLoader<T> = (
+    (moduleName: string) => UnknownModule<T>)
+  | ((moduleName: string) => Promise<UnknownModule<T>>
+  );
+
+  export type UnknownPresetCreatorParams = Record<string, unknown>;
+
+  export type UnknownPreset = Record<string, unknown>;
+
+  export type PresetCreator<
+    Preset extends UnknownPreset = UnknownPreset,
+    Params extends UnknownPresetCreatorParams = UnknownPresetCreatorParams,
+  > = ((params?: Params) => Preset) | ((params?: Params) => Promise<Preset>);
+
+  export type PresetModuleLoader<
+    Preset extends UnknownPreset = UnknownPreset,
+    Params extends UnknownPresetCreatorParams = UnknownPresetCreatorParams,
+  > = ModuleLoader<PresetCreator<Params, Preset>>;
+
+  export function createPresetLoader(moduleLoader: PresetModuleLoader): <
+    Preset extends UnknownPreset = UnknownPreset,
+    PresetCreatorParams extends UnknownPresetCreatorParams = UnknownPresetCreatorParams,
+  >(presetOrParams: PresetParams<PresetCreatorParams>) => PresetCreator<Preset, PresetCreatorParams> | Preset;
+}
+
 declare module "multistream" {
   interface MultiStream extends NodeJS.ReadableStream {}
   class MultiStream {

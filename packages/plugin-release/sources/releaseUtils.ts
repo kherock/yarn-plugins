@@ -3,25 +3,23 @@ import {PortablePath, xfs}                                                      
 import {getPnpPath}                                                                                       from '@yarnpkg/plugin-pnp';
 import calver                                                                                             from 'calver';
 import conventionalChangelog                                                                              from 'conventional-changelog-core';
-import {presetLoader}                                                                                     from 'conventional-changelog-preset-loader';
+import {createPresetLoader, type PresetModuleLoader}                                                      from 'conventional-changelog-preset-loader';
 import conventionalRecommendedBump                                                                        from 'conventional-recommended-bump';
 import gitSemverTags                                                                                      from 'git-semver-tags';
 import {createRequire}                                                                                    from 'module';
 import semver, {SemVer}                                                                                   from 'semver';
-import {promisify}                                                                                        from 'util';
+
 
 const releaseTypes: Record<
-  conventionalRecommendedBump.Callback.Recommendation.ReleaseType,
+  conventionalRecommendedBump.Recommendation.ReleaseType,
   number
 > = {patch: 1, minor: 2, major: 3};
-
-const gitSemverTagsPromise = promisify<gitSemverTags.Options, Array<string>>(gitSemverTags);
 
 export async function changelogStream(
   workspace: Workspace,
   ...args: Parameters<typeof conventionalChangelog>
 ): Promise<NodeJS.ReadableStream> {
-  const {cwd, locator, manifest, project} = workspace;
+  const {cwd, manifest, project} = workspace;
   const [options = {}, context, gitRawCommitsOpts, parserOpts, writerOpts] = args;
   const require = absoluteRequire(project.cwd);
   const isReleaseable = !manifest.private || Boolean(workspace === project.topLevelWorkspace && project.configuration.get(`releaseCalverFormat`));
@@ -29,19 +27,19 @@ export async function changelogStream(
   return conventionalChangelog(
     {
       config: await loadConventionalChangelogPreset(require, project.configuration.get(`conventionalChangelogPreset`)),
-      pkg: {transform: () => manifest.exportTo({version: locator.reference})},
+      pkg: {transform: () => manifest.exportTo({version: manifest.version ?? `0.0.0`})},
       lernaPackage: workspace === project.topLevelWorkspace
         ? undefined
-        : structUtils.stringifyIdent(workspace.locator),
+        : structUtils.stringifyIdent(workspace.anchoredLocator),
       tagPrefix: workspace === project.topLevelWorkspace
         ? undefined
-        : `${structUtils.stringifyIdent(workspace.locator)}@`,
+        : `${structUtils.stringifyIdent(workspace.anchoredLocator)}@`,
       outputUnreleased: true,
       ...options,
     },
     {
       isPatch: false, // prevent patch release headers from rendering smaller
-      version: isReleaseable ? undefined : `Unreleased`,
+      version: isReleaseable ? manifest.version ?? `0.0.0` : `Unreleased`,
       ...context,
       date: isReleaseable
         ? context?.date ?? new Date().toISOString().split(`T`)[0]
@@ -66,22 +64,17 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
   const releaseCalverFormat = project.configuration.get(`releaseCalverFormat`);
   const releaseCodeChangeTypes = new Set(project.configuration.get(`releaseCodeChangeTypes`));
 
-  const conventionalRecommendedBumpPromise = promisify<
-    conventionalRecommendedBump.Options,
-    conventionalRecommendedBump.Callback.Recommendation
-  >(conventionalRecommendedBump);
-
   if (workspace === project.topLevelWorkspace) {
     return releaseCalverFormat
       ? incrementCalendarPatch(releaseCalverFormat, manifest.version ?? ``, {prerelease, preid})
       : undefined;
   } else {
     const config = await loadConventionalChangelogPreset(absoluteRequire(project.cwd), conventionalChangelogPreset);
-    const bump = await conventionalRecommendedBumpPromise({
+    const bump = await conventionalRecommendedBump({
       config,
       path: cwd,
       skipUnstable: !prerelease,
-      lernaPackage: structUtils.stringifyIdent(workspace.locator),
+      lernaPackage: structUtils.stringifyIdent(workspace.anchoredLocator),
       whatBump: commits => {
         const shouldBump = commits.some(commit => releaseCodeChangeTypes.has(commit.type!));
         return shouldBump && config.recommendedBumpOpts?.whatBump
@@ -92,13 +85,13 @@ export async function recommendedBump(workspace: Workspace, {prerelease, preid}:
     if (!prerelease || !bump.releaseType)
       return bump.releaseType;
 
-    const [latestTag] = await gitSemverTagsPromise({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
+    const [latestTag] = await gitSemverTags({skipUnstable: false, lernaTags: true, package: structUtils.stringifyIdent(workspace.anchoredLocator)});
     if (!latestTag) return `pre${bump.releaseType}`;
-    const [stableTag = `${structUtils.stringifyIdent(workspace.locator)}@0.0.0`] = await gitSemverTagsPromise({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.locator)});
+    const [stableTag = `${structUtils.stringifyIdent(workspace.anchoredLocator)}@0.0.0`] = await gitSemverTags({skipUnstable: true, lernaTags: true, package: structUtils.stringifyIdent(workspace.anchoredLocator)});
 
     const stableVersion = structUtils.parseLocator(stableTag).reference;
     const latestVersion = structUtils.parseLocator(latestTag).reference;
-    const unstableDiff = semver.diff(stableVersion, workspace.locator.reference) ?? semver.diff(stableVersion, latestVersion);
+    const unstableDiff = semver.diff(stableVersion, workspace.manifest.version ?? `0.0.0`) ?? semver.diff(stableVersion, latestVersion);
     if (!unstableDiff) return `pre${bump.releaseType}`;
     // this should only happen when a workspace's version was manually incremented to a prerelease
     if (unstableDiff === `prerelease`) return `prerelease`;
@@ -129,16 +122,18 @@ function incrementCalendarPatch(format: string, version: string, {prerelease, pr
   return newVersion.format();
 }
 
-async function loadConventionalChangelogPreset(require: presetLoader.RequireMethod, request: string) {
+async function loadConventionalChangelogPreset(require: PresetModuleLoader, request: string) {
+  const loadPreset = createPresetLoader(require);
   try {
-    const config = await presetLoader(require)(request);
-    return typeof config === `function` ? await promisify(config)() : config;
+    const config = await loadPreset<{ recommendedBumpOpts?: conventionalRecommendedBump.Options }>(request);
+    return typeof config === `function` ? await config() : config;
   } catch (err) {
+    console.error(err);
     throw new ReportError(MessageName.UNNAMED, `Failed to load the conventional-changelog preset '${request}'. Does your top-level workspace list it as a dependency?`);
   }
 }
 
-let lastGitTask: Promise<unknown> | undefined;
+let lastGitTask: ReturnType<typeof execUtils.execvp> | undefined;
 
 /** lifted from gitUtils in @yarnpkg/plugin-git */
 export async function git(message: string, args: Array<string>, opts: Omit<execUtils.ExecvpOptions, 'strict'>, {configuration}: { configuration: Configuration }) {

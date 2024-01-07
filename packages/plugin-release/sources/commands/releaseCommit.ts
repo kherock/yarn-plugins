@@ -1,11 +1,11 @@
-import {BaseCommand}                                                               from '@yarnpkg/cli';
-import {Configuration, execUtils, MessageName, Project, StreamReport, structUtils} from '@yarnpkg/core';
-import {Command, Option, UsageError}                                               from 'clipanion';
-import semver                                                                      from 'semver';
-import {pipeline, Transform}                                                       from 'stream';
-import {promisify}                                                                 from 'util';
+import {BaseCommand}                                                    from '@yarnpkg/cli';
+import {Configuration, MessageName, Project, StreamReport, structUtils} from '@yarnpkg/core';
+import {Command, Option, UsageError}                                    from 'clipanion';
+import semver                                                           from 'semver';
+import {pipeline, Transform}                                            from 'stream';
+import {promisify}                                                      from 'util';
 
-import {changelogStream, git}                                                      from '../releaseUtils';
+import {changelogStream, git}                                           from '../releaseUtils';
 
 const cliEscape = (str: string): string => {
   const specialChars = ` \t\n$|&><\`"'`;
@@ -52,7 +52,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
     if (projectTagName && tagList.has(projectTagName))
       throw new UsageError(`${projectTagName} has already been released`);
 
-    const prerelease = semver.prerelease(project.topLevelWorkspace.locator.reference);
+    const prerelease = semver.prerelease(project.topLevelWorkspace.manifest.version ?? `0.0.0`);
 
     const report = await StreamReport.start({
       configuration,
@@ -60,7 +60,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
       json: this.json,
     }, async report => {
       const taggableWorkspaces = project.topLevelWorkspace.getRecursiveWorkspaceChildren()
-        .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.locator)));
+        .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.anchoredLocator)));
 
       if (!taggableWorkspaces.length) {
         report.reportWarning(MessageName.UNNAMED, `There are no workspaces to tag`);
@@ -68,7 +68,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
       }
 
       const newWorkspaceVersions = taggableWorkspaces
-        .map(({locator, manifest}) => `${structUtils.stringifyIdent(locator)}: v${manifest.version}`)
+        .map(({anchoredLocator, manifest}) => `${structUtils.stringifyIdent(anchoredLocator)}: v${manifest.version}`)
         .join(`\n`);
 
       const commitMessage = `chore: release ${projectTagName ?? `${taggableWorkspaces.length} workspace(s)`}\n\n${newWorkspaceVersions}`;
@@ -85,8 +85,8 @@ export default class ReleaseCommitCommand extends BaseCommand {
         await git(`committing release`, commitArgs, {cwd: project.cwd}, {configuration});
 
 
-      for (const {locator} of taggableWorkspaces) {
-        const tagName = structUtils.stringifyLocator(locator);
+      for (const {anchoredLocator, manifest} of taggableWorkspaces) {
+        const tagName = `${structUtils.stringifyIdent(anchoredLocator)}/${manifest.version}`;
         const tagArgs = [`tag`, tagName, this.tagHead];
         report.reportJson({
           gitOp: `tag`,

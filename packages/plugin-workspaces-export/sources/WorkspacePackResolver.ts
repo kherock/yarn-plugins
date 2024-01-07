@@ -33,8 +33,8 @@ export class WorkspacePackResolver extends WorkspaceResolver implements Resolver
 
       conditions: null,
 
-      dependencies: workspace.manifest.dependencies,
-      peerDependencies: workspace.manifest.peerDependencies,
+      dependencies: opts.project.configuration.normalizeDependencyMap(new Map([...workspace.manifest.dependencies])),
+      peerDependencies: new Map([...workspace.manifest.peerDependencies]),
 
       dependenciesMeta: workspace.manifest.dependenciesMeta,
       peerDependenciesMeta: workspace.manifest.peerDependenciesMeta,

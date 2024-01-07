@@ -5,16 +5,16 @@
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
   "dependencies": {
-    "@yarnpkg/cli": "^3.6.1",
-    "@yarnpkg/core": "^3.5.2",
-    "@yarnpkg/fslib": "^2.10.3",
-    "@yarnpkg/plugin-pnp": "^3.2.11",
-    "tslib": "^2.6.1"
+    "@yarnpkg/cli": "^4.0.2",
+    "@yarnpkg/core": "^4.0.2",
+    "@yarnpkg/fslib": "^3.0.1",
+    "@yarnpkg/plugin-pnp": "^4.0.2",
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@kherock/pnp-esm-loader-typescript": "workspace:*",
-    "@yarnpkg/builder": "^3.3.0",
-    "typescript": "~5.0.4"
+    "@yarnpkg/builder": "^4.0.0",
+    "typescript": "~5.2.2"
   },
   "peerDependencies": {
     "esbuild": "*"
@@ -38,6 +38,6 @@
     "lib/"
   ],
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=18.12.0"
   }
 }

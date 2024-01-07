@@ -1,16 +1,12 @@
-import {MultiFetcher}                                                                                from '@yarnpkg/core/lib/MultiFetcher';
-import {MultiResolver}                                                                               from '@yarnpkg/core/lib/MultiResolver';
-import {ProtocolResolver}                                                                            from '@yarnpkg/core/lib/ProtocolResolver';
-import {VirtualResolver}                                                                             from '@yarnpkg/core/lib/VirtualResolver';
-import {MessageName, Project, Report, ReportError, structUtils, tgzUtils, VirtualFetcher, Workspace} from '@yarnpkg/core';
-import {CwdFS, Filename, PortablePath, ppath, xfs, ZipCompression, ZipFS}                            from '@yarnpkg/fslib';
-import {getLibzipPromise}                                                                            from '@yarnpkg/libzip';
-import {packUtils}                                                                                   from '@yarnpkg/plugin-pack';
-import tar                                                                                           from 'tar-stream';
-import {createGzip}                                                                                  from 'zlib';
+import {MessageName, MultiFetcher, Project, Report, ReportError, Resolver, structUtils, tgzUtils, VirtualFetcher, Workspace, WorkspaceResolver} from '@yarnpkg/core';
+import {CwdFS, Filename, PortablePath, ppath, xfs}                                                                                              from '@yarnpkg/fslib';
+import {ZipCompression, ZipFS}                                                                                                                  from '@yarnpkg/libzip';
+import {packUtils}                                                                                                                              from '@yarnpkg/plugin-pack';
+import tar                                                                                                                                      from 'tar-stream';
+import {createGzip}                                                                                                                             from 'zlib';
 
-import {WorkspacePackFetcher}                                                                        from './WorkspacePackFetcher';
-import {WorkspacePackResolver}                                                                       from './WorkspacePackResolver';
+import {WorkspacePackFetcher}                                                                                                                   from './WorkspacePackFetcher';
+import {WorkspacePackResolver}                                                                                                                  from './WorkspacePackResolver';
 
 /**
  * Make a MultiFetcher that resolves workspaces using WorkspacePackFetcher
@@ -37,20 +33,13 @@ export const makeFetcher = (project: Project) => {
  *
  * @param project The project this resolver should resolve workspace dependencies from
  */
-export const makeResolver = (project: Project) => {
-  const pluginResolvers = [];
+export const makeResolver = (project: Project): Resolver => {
+  const resolver = project.configuration.makeResolver();
+  const {resolvers} = resolver as unknown as { resolvers: Array<Resolver> };
 
-  for (const plugin of project.configuration.plugins.values())
-    for (const resolver of plugin.resolvers || [])
-      pluginResolvers.push(new resolver());
-
-  return new MultiResolver([
-    new VirtualResolver(),
-    new WorkspacePackResolver(),
-    new ProtocolResolver(),
-
-    ...pluginResolvers,
-  ]);
+  const workspaceResolverIdx = resolvers.findIndex(resolver => resolver instanceof WorkspaceResolver);
+  resolvers.splice(workspaceResolverIdx, 1, new WorkspacePackResolver());
+  return resolver;
 };
 
 export const makeExportFs = async (workspace: Workspace, {format, noCache, report, target}: { format: string, noCache: boolean, report: Report, target: PortablePath }) => {
@@ -65,7 +54,7 @@ export const makeExportFs = async (workspace: Workspace, {format, noCache, repor
     return {baseFs: new CwdFS(target), finalize: () => { }};
   }
   const exportCacheFolder = workspace.project.configuration.get(`exportCacheFolder`);
-  const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(workspace.locator) as PortablePath);
+  const exportDir = ppath.resolve(exportCacheFolder, structUtils.slugifyIdent(workspace.anchoredLocator) as PortablePath);
   await xfs.mkdirPromise(exportDir, {recursive: true});
   const baseFs = new CwdFS(exportDir);
   switch (format) {
@@ -74,8 +63,7 @@ export const makeExportFs = async (workspace: Workspace, {format, noCache, repor
         baseFs,
         async finalize() {
           report.reportInfo(MessageName.UNNAMED, `Zipping archive`);
-          const libzip = await getLibzipPromise();
-          const zipFs = new ZipFS(target, {create: true, libzip});
+          const zipFs = new ZipFS(target, {create: true});
 
           await zipFs.copyPromise(PortablePath.root, PortablePath.dot, {baseFs, stableTime: true, stableSort: true});
           await zipFs.saveAndClose();

@@ -1,7 +1,7 @@
 import {npath, VirtualFS}               from '@yarnpkg/fslib';
-import {load as loadHook}               from '@yarnpkg/pnp/lib/esm-loader/hooks/load';
-import {WATCH_MODE_MESSAGE_USES_ARRAYS} from '@yarnpkg/pnp/lib/esm-loader/loaderFlags';
-import * as loaderUtils                 from '@yarnpkg/pnp/lib/esm-loader/loaderUtils';
+import {load as loadHook}               from '@yarnpkg/pnp/lib/esm-loader/hooks/load.js';
+import {WATCH_MODE_MESSAGE_USES_ARRAYS} from '@yarnpkg/pnp/lib/esm-loader/loaderFlags.js';
+import * as loaderUtils                 from '@yarnpkg/pnp/lib/esm-loader/loaderUtils.js';
 import fs                               from 'fs';
 import {fileURLToPath, pathToFileURL}   from 'url';
 
@@ -11,7 +11,7 @@ export async function load(
   urlString: string,
   context: { format: string | null | undefined },
   nextLoad: typeof load,
-): Promise<{ format: string, source: string, shortCircuit: boolean }> {
+): Promise<{ format: string, source?: string, shortCircuit: boolean }> {
   return await loadHook(urlString, context, async (urlString, context) => {
     const url = loaderUtils.tryParseURL(urlString);
     if (url?.protocol !== `file:`)

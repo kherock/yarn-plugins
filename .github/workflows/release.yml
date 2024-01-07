@@ -16,17 +16,17 @@ jobs:
         run: |
           git config --local user.name github-actions[bot]
           git config --local user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - name: Use Node.js 14.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@master
         with:
-          node-version: 14.x
+          node-version: 18.x
       - name: Create release
         run: |
-          yarn workspaces foreach -pv -R --from '@kherock/yarn-plugin-*' --topological-dev run update-local
-          yarn workspaces foreach -pv --exclude '@example/*' --topological-dev release
+          corepack yarn workspaces foreach -pv -R --from '@kherock/yarn-plugin-*' --topological-dev run update-local
+          corepack yarn workspaces foreach -pv -A --exclude '@example/*' --topological-dev release
       - name: Push release
         run: |
-          yarn release-commit
+          corepack yarn release-commit
           git push
           git push --tags
       - name: Create GitHub release

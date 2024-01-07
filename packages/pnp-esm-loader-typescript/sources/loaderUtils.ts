@@ -1,4 +1,4 @@
-import * as nodeUtils  from '@yarnpkg/pnp/lib/loader/nodeUtils';
+import * as nodeUtils  from '@yarnpkg/pnp/lib/loader/nodeUtils.js';
 import {createRequire} from 'module';
 import path            from 'path';
 

@@ -1,4 +1,4 @@
-import {resolve as resolveHook} from '@yarnpkg/pnp/lib/esm-loader/hooks/resolve';
+import {resolve as resolveHook} from '@yarnpkg/pnp/lib/esm-loader/hooks/resolve.js';
 
 export async function resolve(
   originalSpecifier: string,

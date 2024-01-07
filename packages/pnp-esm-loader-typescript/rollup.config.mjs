@@ -2,8 +2,8 @@ import cjs                  from '@rollup/plugin-commonjs';
 import resolve              from '@rollup/plugin-node-resolve';
 import esbuild              from 'rollup-plugin-esbuild';
 import {defineConfig}       from 'rollup';
+import {fileURLToPath}      from 'url';
 import {brotliCompressSync} from 'zlib';
-import { fileURLToPath }    from 'url';
 
 function wrapOutput() {
   return {

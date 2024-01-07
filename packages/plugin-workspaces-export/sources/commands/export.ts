@@ -1,6 +1,5 @@
 /// <reference types="@yarnpkg/plugin-pnp" />
 import {BaseCommand, WorkspaceRequiredError}                 from '@yarnpkg/cli';
-import type {SupportedArchitectures}                         from '@yarnpkg/core/lib/Configuration';
 import {Hooks as PackHooks}                                  from '@yarnpkg/plugin-pack';
 import {Command, Usage, Option}                              from 'clipanion';
 import micromatch                                            from 'micromatch';
@@ -9,7 +8,6 @@ import {ExportCache}                                         from '../ExportCach
 import {genPackTgz, makeExportFs, makeFetcher, makeResolver} from '../exportUtils';
 
 import {
-  DEFAULT_LOCK_FILENAME,
   Cache,
   Configuration,
   MessageName,
@@ -166,7 +164,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
             throw new ReportError(MessageName.EXCEPTION, `Unexpected output format '${extname}'`);
         }
         const exportCandidates = [workspace, ...(this.from.length > 0 ? workspace.getRecursiveWorkspaceChildren() : [])];
-        const fromPredicate = (workspace: Workspace) => micromatch.isMatch(structUtils.stringifyIdent(workspace.locator), this.from);
+        const fromPredicate = (workspace: Workspace) => micromatch.isMatch(structUtils.stringifyIdent(workspace.anchoredLocator), this.from);
         const exportContext: ExportContext = {
           phase: `main`,
           format,
@@ -175,7 +173,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           exportWorkspaces: new Set(this.from.length > 0 ? exportCandidates.filter(fromPredicate) : exportCandidates),
         };
 
-        const foreachCommand = [`workspaces`, `foreach`, `--parallel`];
+        const foreachCommand = [`workspaces`, `foreach`, `--worktree`, `--parallel`];
         const exportCommand = [`workspaces`, `export`];
 
         if (this.json) exportCommand.push(`--json`);
@@ -249,11 +247,11 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           const tgz = await genPackTgz(workspace);
           await tgzUtils.extractArchiveTo(tgz, baseFs, {stripComponents: 1});
-          const lockfilePath = ppath.join(project.cwd, project.configuration.get(`lockfileFilename`));
-          await baseFs.copyPromise(DEFAULT_LOCK_FILENAME, lockfilePath);
+          const lockfilePath = ppath.join(project.cwd, Filename.lockfile);
+          await baseFs.copyPromise(Filename.lockfile, lockfilePath);
           const supportedArchitectures = miscUtils.convertMapsToIndexableObjects(project.configuration.get(`supportedArchitectures`));
           const exportedArchitectures = project.configuration.get(`exportedArchitectures`);
-          for (const key of (Object.keys(supportedArchitectures) as Array<keyof SupportedArchitectures>)) {
+          for (const key of (Object.keys(supportedArchitectures) as Array<keyof typeof supportedArchitectures>)) {
             const value = exportedArchitectures.get(key);
             if (value) {
               supportedArchitectures[key] = value;
@@ -280,8 +278,6 @@ export default class WorkspacesExportCommand extends BaseCommand {
             supportedArchitectures,
           });
 
-          await tmpConfiguration.refreshPackageExtensions();
-
           const {project: tmpProject, workspace: tmpWorkspace} = await Project.find(tmpConfiguration, stagingDir);
 
           if (!tmpWorkspace)
@@ -299,15 +295,15 @@ export default class WorkspacesExportCommand extends BaseCommand {
             // project. The absolute cwd is preserved so that the fetcher is
             // still able to pack the workspace.
             const relativeCwd = `.yarn/bundled/${structUtils.slugifyLocator(dependency.anchoredLocator)}` as PortablePath;
-            const anchoredDescriptor = structUtils.makeDescriptor(dependency.locator, `${WorkspaceResolver.protocol}${relativeCwd}`);
-            const anchoredLocator = structUtils.makeLocator(dependency.locator, `${WorkspaceResolver.protocol}${relativeCwd}`);
+            const anchoredDescriptor = structUtils.makeDescriptor(dependency.anchoredLocator, `${WorkspaceResolver.protocol}${relativeCwd}`);
+            const anchoredLocator = structUtils.makeLocator(dependency.anchoredLocator, `${WorkspaceResolver.protocol}${relativeCwd}`);
             const properties: Partial<Workspace> = {relativeCwd, anchoredDescriptor, anchoredLocator};
             const proxy = new Proxy(dependency, {
               get: (target, prop: keyof Workspace) => properties[prop] ?? target[prop],
             });
             tmpProject.workspaces.push(proxy);
             tmpProject.workspacesByCwd.set(ppath.resolve(tmpProject.cwd, proxy.relativeCwd), proxy);
-            tmpProject.workspacesByIdent.set(proxy.locator.identHash, proxy);
+            tmpProject.workspacesByIdent.set(proxy.anchoredLocator.identHash, proxy);
           }
 
           report.reportInfo(MessageName.UNNAMED, `Linking the exported workspace`);

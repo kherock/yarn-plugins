@@ -1,11 +1,10 @@
 /* global child_process,execEnv,fs,path */
 const {execFileSync} = child_process;
-const {writeFileSync} = fs;
+const {readFileSync, writeFileSync} = fs;
 const {buildDir, tempDir} = execEnv;
 
-const [ident] = process.argv.slice(2);
-
-const pnpVersion = `3.3.4`;
+const ident = `@yarnpkg/pnp`;
+const pnpVersion = `4.0.1`;
 
 const repoDir = path.join(tempDir, `berry`);
 
@@ -52,6 +51,10 @@ execFileSync(`git`, [`clone`, `--depth`, `1`, `git@github.com:yarnpkg/berry`, `-
 const workspaceDir = execFileSync(`yarn`, [`workspace`, ident, `exec`, `pwd`], {cwd: repoDir})
   .slice(0, -1)
   .toString();
+
+const pkgJson = JSON.parse(readFileSync(path.join(workspaceDir, `package.json`), `utf8`));
+pkgJson.publishConfig.exports[`./lib/*`] = `./lib/*`;
+writeFileSync(path.join(workspaceDir, `package.json`), JSON.stringify(pkgJson, null, 2));
 
 writeFileSync(path.join(workspaceDir, `rollup.config.js`), rollupConfig);
 const pkgArchive = path.join(tempDir, `archive.tgz`);

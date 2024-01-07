@@ -51,8 +51,8 @@ gen_enforced_field(WorkspaceCwd, 'license', 'BSD-2-Clause') :-
   % Private packages aren't covered
   \+ workspace_field_test(WorkspaceCwd, 'private', 'true').
 
-% This rule will enforce that all packages must have a engines.node field of >=12.13.0
-gen_enforced_field(WorkspaceCwd, 'engines.node', '>=12.13.0').
+% This rule will enforce that all packages must have a engines.node field of >=18.12.0
+gen_enforced_field(WorkspaceCwd, 'engines.node', '>=18.12.0').
 
 % Required to make the package work with the GitHub Package Registry
 gen_enforced_field(WorkspaceCwd, 'repository.type', 'git') :-

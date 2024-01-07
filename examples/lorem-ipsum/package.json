@@ -1,6 +1,8 @@
 {
   "name": "@example/lorem-ipsum",
   "main": "lib/index.js",
+  "type": "module",
+  "typings": "src/index.ts",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
@@ -13,14 +15,14 @@
   ],
   "dependencies": {
     "@example/phrase-lorem-ipsum": "workspace:*",
-    "tslib": "^2.6.1"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.4.5",
-    "typescript": "~5.0.4"
+    "@types/node": "^20.10.6",
+    "typescript": "~5.2.2"
   },
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=18.12.0"
   },
   "publishConfig": {
     "main": "lib/index.js"

@@ -1,6 +1,8 @@
 {
   "name": "@example/phrase-in-hac",
   "main": "lib/index.js",
+  "type": "module",
+  "typings": "src/index.ts",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
@@ -14,12 +16,12 @@
   "dependencies": {
     "@example/consectetur": "workspace:*",
     "@example/elit": "workspace:*",
-    "tslib": "^2.6.1"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "typescript": "~5.0.4"
+    "typescript": "~5.2.2"
   },
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=18.12.0"
   }
 }
