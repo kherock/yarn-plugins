@@ -1,3 +1,10 @@
+## [24.3.0](https://github.com/kherock/yarn-plugins/compare/v24.1.0...v24.3.0) (2024-03-31)
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** preserve project `compressionLevel` and `enableGlobalCache` settings in exported workspaces ([42b5b1d](https://github.com/kherock/yarn-plugins/commit/42b5b1d268648de3b79a81a12deeddccb9569126))
+
 ## [24.1.0](https://github.com/kherock/yarn-plugins/compare/v23.7.1...v24.1.0) (2024-01-07)
 
 

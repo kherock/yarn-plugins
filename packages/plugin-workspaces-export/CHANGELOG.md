@@ -1,3 +1,19 @@
+## [5.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.2.2...@kherock/yarn-plugin-workspaces-export@5.0.0) (2024-03-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* support for Yarn 4 and Conventional Changelog 7
+
+### Features
+
+* support for Yarn 4 and Conventional Changelog 7 ([f74ee7d](https://github.com/kherock/yarn-plugins/commit/f74ee7dbdc8d6cab16b562fb56ab3af73923b74f))
+
+
+### Bug Fixes
+
+* **plugin-workspaces-export:** preserve project `compressionLevel` and `enableGlobalCache` settings in exported workspaces ([42b5b1d](https://github.com/kherock/yarn-plugins/commit/42b5b1d268648de3b79a81a12deeddccb9569126))
+
 ## [4.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-workspaces-export@3.2.2...@kherock/yarn-plugin-workspaces-export@4.0.0) (2024-01-07)
 
 
