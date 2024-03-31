@@ -260,6 +260,7 @@ export default class WorkspacesExportCommand extends BaseCommand {
           const tmpConfiguration = Configuration.create(stagingDir, stagingDir, project.configuration.plugins);
 
           tmpConfiguration.values.set(`compressionLevel`, project.configuration.get(`compressionLevel`));
+          tmpConfiguration.values.set(`enableGlobalCache`, false);
           tmpConfiguration.values.set(`enableNetwork`, false);
           tmpConfiguration.values.set(`enableMirror`, false);
           tmpConfiguration.values.set(`globalFolder`, project.configuration.get(`globalFolder`));
@@ -271,6 +272,8 @@ export default class WorkspacesExportCommand extends BaseCommand {
 
           await Configuration.updateConfiguration(stagingDir, {
             cacheFolder: `.yarn/packages` as PortablePath,
+            compressionLevel: tmpConfiguration.get(`compressionLevel`),
+            enableGlobalCache: tmpConfiguration.get(`enableGlobalCache`),
             enableNetwork: tmpConfiguration.get(`enableNetwork`),
             enableMirror: tmpConfiguration.get(`enableMirror`),
             nodeLinker,
