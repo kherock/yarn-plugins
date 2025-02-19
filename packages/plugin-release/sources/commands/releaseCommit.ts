@@ -86,7 +86,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
 
 
       for (const {anchoredLocator, manifest} of taggableWorkspaces) {
-        const tagName = `${structUtils.stringifyIdent(anchoredLocator)}/${manifest.version}`;
+        const tagName = `${structUtils.stringifyIdent(anchoredLocator)}@${manifest.version}`;
         const tagArgs = [`tag`, tagName, this.tagHead];
         report.reportJson({
           gitOp: `tag`,
