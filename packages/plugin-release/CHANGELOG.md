@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@4.0.0...@kherock/yarn-plugin-release@4.0.1) (2025-02-19)
+
+
+### Bug Fixes
+
+* **plugin-release:** use correct format for Lerna tags ([db76d19](https://github.com/kherock/yarn-plugins/commit/db76d19798146026be023dde9c2f93aee11949e2))
+
 ## [4.0.0](https://github.com/kherock/yarn-plugins/compare/@kherock/yarn-plugin-release@2.0.2...@kherock/yarn-plugin-release@4.0.0) (2024-03-31)
 
 
