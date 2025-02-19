@@ -60,7 +60,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
       json: this.json,
     }, async report => {
       const taggableWorkspaces = project.topLevelWorkspace.getRecursiveWorkspaceChildren()
-        .filter(workspace => !workspace.manifest.private && !tagList.has(structUtils.stringifyLocator(workspace.anchoredLocator)));
+        .filter(({anchoredLocator, manifest}) => !manifest.private && !tagList.has(`${structUtils.stringifyIdent(anchoredLocator)}@${manifest.version}`));
 
       if (!taggableWorkspaces.length) {
         report.reportWarning(MessageName.UNNAMED, `There are no workspaces to tag`);
@@ -86,7 +86,7 @@ export default class ReleaseCommitCommand extends BaseCommand {
 
 
       for (const {anchoredLocator, manifest} of taggableWorkspaces) {
-        const tagName = `${structUtils.stringifyIdent(anchoredLocator)}/${manifest.version}`;
+        const tagName = `${structUtils.stringifyIdent(anchoredLocator)}@${manifest.version}`;
         const tagArgs = [`tag`, tagName, this.tagHead];
         report.reportJson({
           gitOp: `tag`,
