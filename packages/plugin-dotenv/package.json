@@ -5,9 +5,9 @@
   "main": "./sources/index.ts",
   "author": "Kyle Herock <kherock@gmail.com>",
   "dependencies": {
-    "@yarnpkg/cli": "^4.0.2",
-    "@yarnpkg/core": "^4.0.2",
-    "@yarnpkg/fslib": "^3.0.1",
+    "@yarnpkg/cli": "^4.1.1",
+    "@yarnpkg/core": "^4.0.3",
+    "@yarnpkg/fslib": "^3.0.2",
     "dotenv-flow": "^4.1.0",
     "tslib": "^2.6.2"
   },
